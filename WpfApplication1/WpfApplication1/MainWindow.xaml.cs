@@ -28,9 +28,10 @@ namespace WpfApplication1
         }
 
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Windws_Loaded(object sender, RoutedEventArgs e)
         {
             kinectSensorChooser.KinectSensorChanged += new DependencyPropertyChangedEventHandler(kinectSensorChooser_KinectSensorChanged);
+
         }
 
 
@@ -43,7 +44,7 @@ namespace WpfApplication1
             KinectSensor newSensor = (KinectSensor)e.NewValue;
 
             newSensor.ColorStream.Enable();
-            newSensor.SkeletonStream.Enable();
+            newSensor.ColorStream.Enable();
            
             try
             {
@@ -70,5 +71,7 @@ namespace WpfApplication1
 
             }
         }
+
+     
     }
 }
