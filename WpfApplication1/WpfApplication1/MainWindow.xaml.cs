@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Microsoft.Kinect;
 
 namespace WpfApplication1
 {
@@ -24,6 +25,50 @@ namespace WpfApplication1
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            kinectSensorChooser.KinectSensorChanged += new DependencyPropertyChangedEventHandler(kinectSensorChooser_KinectSensorChanged);
+        }
+
+
+        //För att ladda in kinectkameran och starta de streams man vill ha
+        void kinectSensorChooser_KinectSensorChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            KinectSensor oldSensor = (KinectSensor)e.OldValue;
+            StopKinect(oldSensor);
+           
+            KinectSensor newSensor = (KinectSensor)e.NewValue;
+
+            newSensor.ColorStream.Enable();
+            newSensor.SkeletonStream.Enable();
+           
+            try
+            {
+                newSensor.Start();
+            }
+            catch (System.IO.IOException)
+            {
+                kinectSensorChooser.AppConflictOccurred();
+            }
+        }
+
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            StopKinect(kinectSensorChooser.Kinect);
+        }
+
+        void StopKinect(KinectSensor sensor)
+        {
+            if (sensor != null)
+            {
+                sensor.Stop();
+                sensor.AudioSource.Stop();
+
+            }
         }
     }
 }
