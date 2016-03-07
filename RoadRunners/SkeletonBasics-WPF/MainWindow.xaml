@@ -74,6 +74,6 @@
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="91,355.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="41" Width="541"/>
         <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="300" Margin="381,0.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="350" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}"/>
         <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="421,44.333,-0.333,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Button x:Name="button" Content="TestGIT" HorizontalAlignment="Left" Margin="237,350.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="button" Content="BRANCH" HorizontalAlignment="Left" Margin="237,350.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Window>
