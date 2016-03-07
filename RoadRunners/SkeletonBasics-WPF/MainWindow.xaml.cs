@@ -10,6 +10,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Windows;
     using System.Windows.Media;
     using Microsoft.Kinect;
+    using System;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -262,7 +263,36 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
             Joint hipLeft = skeleton.Joints[JointType.HipLeft];
 
-            textBlock.Text = "vänster fot X " + footLeft.Position.X.ToString() + "    vänster knä X " + kneeLeft.Position.X.ToString() + "    vändster höft X " + hipLeft.Position.X;
+
+            //Vinkel
+            float XFootleft;
+            float YFootleft;
+            float XKneeleft;
+            float YKneeleft;
+            float XHipleft;
+            float YHipleft;
+            double HKF_angle;
+
+            XFootleft = footLeft.Position.X;
+            YFootleft = footLeft.Position.Y;
+            XKneeleft = kneeLeft.Position.X;
+            YKneeleft = kneeLeft.Position.Y;
+            XHipleft = hipLeft.Position.X;
+            YHipleft = hipLeft.Position.Y;       
+            
+            //vektorlängder
+            double HipKnee_Length = Math.Sqrt(Math.Pow(XHipleft - XKneeleft, 2) + Math.Pow(YHipleft - YKneeleft, 2));
+            double HipFoot_Length = Math.Sqrt(Math.Pow(XHipleft - XFootleft, 2) + Math.Pow(YHipleft - YFootleft, 2));
+            double KneeFoot_Length = Math.Sqrt(Math.Pow(XKneeleft - XFootleft, 2) + Math.Pow(YKneeleft - YFootleft, 2));
+
+            //cosinussatsen
+            double angle = (Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2) - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI);
+
+            //Tar bort onödiga decimaler
+            HKF_angle = Math.Ceiling(angle);
+
+            textBlock.Text = HKF_angle.ToString() + (char)176;
+            
 
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);

@@ -71,9 +71,8 @@
         <Button x:Name="Kinect_angle" Content="Change kinect angle" HorizontalAlignment="Left" Margin="30,483.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="142" Height="26" Click="Kinect_angle_Click"/>
         <Slider x:Name="slider" HorizontalAlignment="Left" Margin="177,487.333,0,0" Grid.Row="1" VerticalAlignment="Top" Height="27" Width="146" Maximum="26" Minimum="-26" ValueChanged="slider_ValueChanged"/>
         <Label x:Name="Degree" Content="Degrees" HorizontalAlignment="Left" Margin="328,483.333,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="91,355.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="41" Width="541"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="91,355.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="32" Width="81"/>
         <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="300" Margin="381,0.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="350" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}"/>
         <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="421,44.333,-0.333,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Button x:Name="button" Content="TestGIT" HorizontalAlignment="Left" Margin="237,350.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Window>
