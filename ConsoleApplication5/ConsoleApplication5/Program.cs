@@ -20,7 +20,7 @@ namespace ConsoleApplication4
 
             //  int[] arr_time = null;
 
-            using (BinaryReader b = new BinaryReader(File.Open(@"C:\Users\Per\Source\Repos\RR\ConsoleApplication5\Testfiler\20simon60puls.bin", FileMode.Open)))
+            using (BinaryReader b = new BinaryReader(File.Open(@"C:\Users\Kuken\Source\Repos\RR\ConsoleApplication5\Testfiler\20simon60puls.bin", FileMode.Open)))
             {
                 // 2.
                 // Position and length variables.
