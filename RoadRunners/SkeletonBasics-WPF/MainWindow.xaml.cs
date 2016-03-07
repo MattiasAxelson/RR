@@ -11,6 +11,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Windows.Media;
     using Microsoft.Kinect;
     using System;
+    
+    
+    
+   
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
