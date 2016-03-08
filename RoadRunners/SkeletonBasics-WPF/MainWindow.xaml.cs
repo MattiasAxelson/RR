@@ -12,6 +12,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using Microsoft.Kinect;
     using System;
     using System.Collections.Generic;
+    using System.Text;
+    using MLApp;
+
+    
     
     
     
@@ -94,6 +98,27 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public MainWindow()
         {
             InitializeComponent();
+        
+                // Create the MATLAB instance 
+                MLApp matlab = new MLApp();
+
+                // Change to the directory where the function is located 
+                matlab.Execute(@"cd C:\Users\Mattias\Source\Repos\RR");
+
+                // Define the output 
+                object result = null;
+
+
+                // Call the MATLAB function myfunc
+                matlab.Feval("myfunc", 2, out result, 3.14, 42.0, "world");
+
+            // Display result 
+             object[] res = result as object[];
+            matlabresult.Text = result.ToString();;
+                Console.WriteLine(res[0]);
+                Console.WriteLine(res[1]);
+                Console.ReadLine();
+            
         }
 
         /// <summary>
@@ -297,13 +322,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
        
             textBlock.Text = HKF_angle.ToString() + (char)176;
 
-            double[] vinkel_data = new double[] { HKF_angle };
+            //  double[] vinkel_data = new double[] { HKF_angle };
 
-            chart.DataContext = vinkel_data;
+            // chart.DataContext = vinkel_data;
+
             
-            
-            
-            
+
+
+
+
 
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
@@ -438,8 +465,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 sensor.ElevationAngle = (int)slider.Value;
             }
         }
-        
 
+        
 
     }
 }

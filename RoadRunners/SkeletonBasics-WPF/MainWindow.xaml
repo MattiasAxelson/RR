@@ -79,7 +79,8 @@
             <chartingToolkit:Chart.DataContext>
                 <PointCollection></PointCollection>
             </chartingToolkit:Chart.DataContext>
-            <chartingToolkit:LineSeries DependentValuePath="X" IndependentValuePath="Y" ItemsSource="{Binding}" DependentValueBinding="{Binding Y}"/>
+            <chartingToolkit:LineSeries  DependentValuePath="X" IndependentValuePath="Y" ItemsSource="{Binding X}" DependentValueBinding="{Binding Y}"/>
         </chartingToolkit:Chart>
+        <TextBlock x:Name="matlabresult" HorizontalAlignment="Left" Margin="332,442.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
     </Grid>
 </Window>
