@@ -13,7 +13,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System;
     using System.Collections.Generic;
     using System.Text;
-    using MLApp;
+    //using MLApp;
 
     
     
@@ -99,25 +99,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             InitializeComponent();
         
-                // Create the MATLAB instance 
-                MLApp matlab = new MLApp();
 
-                // Change to the directory where the function is located 
-                matlab.Execute(@"cd C:\Users\Mattias\Source\Repos\RR");
-
-                // Define the output 
-                object result = null;
-
-
-                // Call the MATLAB function myfunc
-                matlab.Feval("myfunc", 2, out result, 3.14, 42.0, "world");
-
-            // Display result 
-             object[] res = result as object[];
-            matlabresult.Text = result.ToString();;
-                Console.WriteLine(res[0]);
-                Console.WriteLine(res[1]);
-                Console.ReadLine();
             
         }
 
@@ -286,6 +268,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary>
         /// <param name="skeleton">skeleton to draw</param>
         /// <param name="drawingContext">drawing context to draw to</param>
+        /// 
+
+        List<double> vinklar = new List<double>();
+        // Create the MATLAB instance 
+        MLApp.MLApp matlab = new MLApp.MLApp();
+
+        
+ 
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
 
@@ -302,7 +292,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             float YKneeleft;
             float XHipleft;
             float YHipleft;
-            //double HKF_angle;
 
             XFootleft = footLeft.Position.X;
             YFootleft = footLeft.Position.Y;
@@ -322,11 +311,37 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
        
             textBlock.Text = HKF_angle.ToString() + (char)176;
 
-            //  double[] vinkel_data = new double[] { HKF_angle };
+      
+            vinklar.Add(HKF_angle);
 
-            // chart.DataContext = vinkel_data;
+            matlabresult.Text = vinklar.Count.ToString();
 
-            
+            var path = Path.Combine(Directory.GetCurrentDirectory());
+
+
+            // Change to the directory where the function is located 
+            matlab.Execute(@"cd " + path + @"\..\..");
+
+            // Define the output 
+            object result = null;
+
+            // Call the MATLAB function myfunc
+            try
+            {
+            matlab.Feval("myfunc", 1, out result, vinklar.ToArray());
+            }
+            catch (System.Runtime.InteropServices.COMException)
+            {
+            }
+
+            // Display result 
+             object[] res = result as object[];
+            // matlabresult.Text = res.ToString();;
+          //   matlabresult.Text =  res[0].ToString();
+             // Console.WriteLine(res[1]);
+            // Console.ReadLine();
+
+
 
 
 
