@@ -20,7 +20,7 @@ namespace ConsoleApplication4
 
             //  int[] arr_time = null;
 
-            using (BinaryReader b = new BinaryReader(File.Open(@"C:\Users\PERRA\Source\Repos\RR\ConsoleApplication5\Testfiler\20simon60puls.bin", FileMode.Open)))
+            using (BinaryReader b = new BinaryReader(File.Open(@"C:\Users\Jesper\Desktop\Github\RR\ConsoleApplication5\Testfiler\20simon60puls.bin", FileMode.Open)))
             {
                 // 2.
                 // Position and length variables.
@@ -32,7 +32,7 @@ namespace ConsoleApplication4
                 {
                     // 3.
                     // Read integer.
-                    int v = b.ReadInt16();
+                    int v = b.ReadUInt16();
                     Console.WriteLine(v);
                     //   arr_time = new int[v];
 
