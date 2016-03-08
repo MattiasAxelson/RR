@@ -270,11 +270,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         /// 
 
+            //Skapar lista till vinklarna
         List<double> vinklar = new List<double>();
         // Create the MATLAB instance 
         MLApp.MLApp matlab = new MLApp.MLApp();
-
-        
+  
  
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
@@ -308,16 +308,17 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //cosinussatsen, avrundar till heltal
             double HKF_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2) - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
 
-       
+            //Visar vinkeln
             textBlock.Text = HKF_angle.ToString() + (char)176;
 
-      
+            //Adderar vinkel till listan
             vinklar.Add(HKF_angle);
 
+
+            //Visar hur många värden som finns i listan
             matlabresult.Text = vinklar.Count.ToString();
 
             var path = Path.Combine(Directory.GetCurrentDirectory());
-
 
             // Change to the directory where the function is located 
             matlab.Execute(@"cd " + path + @"\..\..");
@@ -338,12 +339,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
              object[] res = result as object[];
             // matlabresult.Text = res.ToString();;
           //   matlabresult.Text =  res[0].ToString();
-             // Console.WriteLine(res[1]);
-            // Console.ReadLine();
-
-
-
-
+  
 
 
 
