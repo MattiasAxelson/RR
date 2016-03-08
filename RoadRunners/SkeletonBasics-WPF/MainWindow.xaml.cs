@@ -11,6 +11,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Windows.Media;
     using Microsoft.Kinect;
     using System;
+    using System.Collections.Generic;
     
     
     
@@ -21,6 +22,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     /// </summary>
     public partial class MainWindow : Window
     {
+       
         /// <summary>
         /// Width of output drawing
         /// </summary>
@@ -275,7 +277,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             float YKneeleft;
             float XHipleft;
             float YHipleft;
-            double HKF_angle;
+            //double HKF_angle;
 
             XFootleft = footLeft.Position.X;
             YFootleft = footLeft.Position.Y;
@@ -289,13 +291,18 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             double HipFoot_Length = Math.Sqrt(Math.Pow(XHipleft - XFootleft, 2) + Math.Pow(YHipleft - YFootleft, 2));
             double KneeFoot_Length = Math.Sqrt(Math.Pow(XKneeleft - XFootleft, 2) + Math.Pow(YKneeleft - YFootleft, 2));
 
-            //cosinussatsen
-            double angle = (Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2) - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI);
+            //cosinussatsen, avrundar till heltal
+            double HKF_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2) - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
 
-            //Tar bort onödiga decimaler
-            HKF_angle = Math.Ceiling(angle);
-
+       
             textBlock.Text = HKF_angle.ToString() + (char)176;
+
+            double[] vinkel_data = new double[] { HKF_angle };
+
+            chart.DataContext = vinkel_data;
+            
+            
+            
             
 
             // Render Torso
@@ -431,5 +438,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 sensor.ElevationAngle = (int)slider.Value;
             }
         }
+        
+
+
     }
 }
