@@ -13,13 +13,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System;
     using System.Collections.Generic;
     using System.Text;
-    //using MLApp;
-
-    
-    
-    
-    
-   
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -97,9 +90,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary>
         public MainWindow()
         {
-            InitializeComponent();
-        
-
+            InitializeComponent();       
             
         }
 
@@ -275,15 +266,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // Create the MATLAB instance 
         MLApp.MLApp matlab = new MLApp.MLApp();
   
- 
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
-
             //joints
             Joint footLeft = skeleton.Joints[JointType.FootLeft];
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
             Joint hipLeft = skeleton.Joints[JointType.HipLeft];
-
 
             //Vinkel
             float XFootleft;
@@ -305,8 +293,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             double HipFoot_Length = Math.Sqrt(Math.Pow(XHipleft - XFootleft, 2) + Math.Pow(YHipleft - YFootleft, 2));
             double KneeFoot_Length = Math.Sqrt(Math.Pow(XKneeleft - XFootleft, 2) + Math.Pow(YKneeleft - YFootleft, 2));
 
-            //cosinussatsen, avrundar till heltal
-            double HKF_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2) - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
+            //cosinussatsen för vinkel Höft-knä-fot, avrundar till heltal
+            double HKF_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2)
+                - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
 
             //Visar vinkeln
             textBlock.Text = HKF_angle.ToString() + (char)176;
@@ -314,19 +303,17 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //Adderar vinkel till listan
             vinklar.Add(HKF_angle);
 
-
             //Visar hur många värden som finns i listan
             matlabresult.Text = vinklar.Count.ToString();
 
-            var path = Path.Combine(Directory.GetCurrentDirectory());
-
             // Change to the directory where the function is located 
+            var path = Path.Combine(Directory.GetCurrentDirectory());
             matlab.Execute(@"cd " + path + @"\..\..");
 
             // Define the output 
             object result = null;
 
-            // Call the MATLAB function myfunc
+            // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
             try
             {
             matlab.Feval("myfunc", 1, out result, vinklar.ToArray());
@@ -339,9 +326,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
              object[] res = result as object[];
             // matlabresult.Text = res.ToString();;
           //   matlabresult.Text =  res[0].ToString();
-  
-
-
 
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
@@ -475,9 +459,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 sensor.ElevationAngle = (int)slider.Value;
             }
-        }
-
-        
-
+        }        
     }
 }

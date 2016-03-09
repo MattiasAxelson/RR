@@ -75,12 +75,6 @@
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="91,355.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="32" Width="81"/>
         <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="300" Margin="381,0.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="350" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}"/>
         <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="421,44.333,-0.333,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <chartingToolkit:Chart x:Name="chart" HorizontalAlignment="Left" Margin="437,324.333,0,0" Grid.Row="1" Grid.RowSpan="1" Title="Vinkel över tid" VerticalAlignment="Top" Height="234" Width="311">
-            <chartingToolkit:Chart.DataContext>
-                <PointCollection></PointCollection>
-            </chartingToolkit:Chart.DataContext>
-            <chartingToolkit:LineSeries  DependentValuePath="X" IndependentValuePath="Y" ItemsSource="{Binding X}" DependentValueBinding="{Binding Y}"/>
-        </chartingToolkit:Chart>
         <TextBlock x:Name="matlabresult" HorizontalAlignment="Left" Margin="332,442.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
     </Grid>
 </Window>
