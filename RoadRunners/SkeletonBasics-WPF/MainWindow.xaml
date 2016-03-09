@@ -76,11 +76,8 @@
         <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="300" Margin="381,0.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="350" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}"/>
         <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="421,44.333,-0.333,0" Grid.Row="1" VerticalAlignment="Top"/>
         <TextBlock x:Name="matlabresult" HorizontalAlignment="Left" Margin="332,442.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-        <chartingToolkit:Chart x:Name="chart" HorizontalAlignment="Left" Margin="421,355.333,0,0" Grid.Row="1" Title="Chart Title" VerticalAlignment="Top" Height="165" Width="264">
-            <chartingToolkit:Chart.DataContext>
-                <PointCollection>1,10 2,20 3,30 4,40</PointCollection>
-            </chartingToolkit:Chart.DataContext>
-            <chartingToolkit:LineSeries DependentValuePath="X" IndependentValuePath="Y" ItemsSource="{Binding}"/>
-        </chartingToolkit:Chart>
+
+
+
     </Grid>
 </Window>

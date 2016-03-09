@@ -12,7 +12,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using Microsoft.Kinect;
     using System;
     using System.Collections.Generic;
-    using System.Text;
+    using System.Windows.Controls.DataVisualization.Charting;
+    
+    
+   
+  
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -90,8 +94,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary>
         public MainWindow()
         {
-            InitializeComponent();       
-            
+            InitializeComponent();
+  
         }
 
         /// <summary>
@@ -262,17 +266,21 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// 
 
             //Skapar lista till vinklarna
-        List<double> vinklar = new List<double>();
+      public  List<double> vinklar = new List<double>();
+     //   List<double> valueList = new List<double>();
+
         // Create the MATLAB instance 
         MLApp.MLApp matlab = new MLApp.MLApp();
+
   
+
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
             //joints
             Joint footLeft = skeleton.Joints[JointType.FootLeft];
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
             Joint hipLeft = skeleton.Joints[JointType.HipLeft];
-
+            
             //Vinkel
             float XFootleft;
             float YFootleft;
@@ -322,10 +330,35 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
             }
 
+        
+            
+
+            
+
+
+
+
+
+
+
+
+
+            try
+            {
+
+            }
+            catch(System.InvalidOperationException)
+            { }
             // Display result 
-             object[] res = result as object[];
-            // matlabresult.Text = res.ToString();;
-          //   matlabresult.Text =  res[0].ToString();
+            
+ 
+            
+     
+     
+          
+            
+           
+            
 
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
@@ -389,6 +422,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             DepthImagePoint depthPoint = this.sensor.CoordinateMapper.MapSkeletonPointToDepthPoint(skelpoint, DepthImageFormat.Resolution640x480Fps30);
             return new Point(depthPoint.X, depthPoint.Y);
         }
+
 
         /// <summary>
         /// Draws a bone line between two joints
