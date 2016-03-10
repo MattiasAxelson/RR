@@ -12,6 +12,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using Microsoft.Kinect;
     using System;
     using System.Collections.Generic;
+    using MLApp;
     
     
     
@@ -294,16 +295,26 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //cosinussatsen, avrundar till heltal
             double HKF_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2) - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
 
-       
-            textBlock.Text = HKF_angle.ToString() + (char)176;
+            // Create the MATLAB instance 
+            MLApp matlab = new MLApp();
 
-            double[] vinkel_data = new double[] { HKF_angle };
+            // Change to the directory where the function is located 
+            matlab.Execute(@"cd C:\Users\Jesper\Documents\MATLAB");
 
-            chart.DataContext = vinkel_data;
-            
-            
-            
-            
+            // Define the output 
+            object result = null;
+
+            // Call the MATLAB function myfunc
+            matlab.Feval("myfunc", 1, out result, HKF_angle);
+
+            // Display result 
+            object[] res = result as object[];
+
+            //textBlock1.Text = res[0].ToString();
+            //Console.WriteLine(res[1]);
+          //  Console.ReadLine();
+
+
 
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
