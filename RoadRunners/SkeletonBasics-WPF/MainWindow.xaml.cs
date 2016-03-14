@@ -12,18 +12,23 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using Microsoft.Kinect;
     using System;
     using System.Collections.Generic;
-    using System.Windows.Controls.DataVisualization.Charting;
-    
-    
-   
-  
+    //using System.Windows.Controls.DataVisualization.Charting;
+    using System.Windows.Threading;
+
+
+
+
+
+
+
+
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-       
+
         /// <summary>
         /// Width of output drawing
         /// </summary>
@@ -95,8 +100,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public MainWindow()
         {
             InitializeComponent();
-  
+            
+
         }
+
+
+
+
 
         /// <summary>
         /// Draws indicators to show which edges are clipping skeleton data
@@ -138,6 +148,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+
+
+
         /// <summary>
         /// Execute startup tasks
         /// </summary>
@@ -172,8 +185,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 // Turn on the skeleton stream to receive skeleton frames
                 this.sensor.ColorStream.Enable();
                 this.sensor.SkeletonStream.Enable();
-              //  this.sensor.DepthStream.Enable();
-               
+                //  this.sensor.DepthStream.Enable();
+
 
                 // Add an event handler to be called whenever there is new color frame data
                 this.sensor.SkeletonFrameReady += this.SensorSkeletonFrameReady;
@@ -193,6 +206,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 this.statusBarText.Text = Properties.Resources.NoKinectReady;
             }
+
+
         }
 
         /// <summary>
@@ -265,14 +280,29 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         /// 
 
-            //Skapar lista till vinklarna
-      public  List<double> vinklar = new List<double>();
-     //   List<double> valueList = new List<double>();
+        //Skapar lista till vinklarna
+        public List<double> vinklar = new List<double>();
+        public List<KeyValuePair<double, double>> list = new List<KeyValuePair<double, double>>();
 
+        public double helprefresh = 30;
         // Create the MATLAB instance 
-        MLApp.MLApp matlab = new MLApp.MLApp();
+        //    MLApp.MLApp matlab = new MLApp.MLApp();
 
-  
+
+
+
+        private void showChart()
+        {
+            Lchart.Refresh();     
+            //  linechart.DataContext = list;
+            Lchart.ItemsSource = list;
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            showChart();
+        }
+    
 
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
@@ -280,7 +310,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             Joint footLeft = skeleton.Joints[JointType.FootLeft];
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
             Joint hipLeft = skeleton.Joints[JointType.HipLeft];
-            
+
             //Vinkel
             float XFootleft;
             float YFootleft;
@@ -294,8 +324,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             XKneeleft = kneeLeft.Position.X;
             YKneeleft = kneeLeft.Position.Y;
             XHipleft = hipLeft.Position.X;
-            YHipleft = hipLeft.Position.Y;       
-            
+            YHipleft = hipLeft.Position.Y;
+
             //vektorlängder
             double HipKnee_Length = Math.Sqrt(Math.Pow(XHipleft - XKneeleft, 2) + Math.Pow(YHipleft - YKneeleft, 2));
             double HipFoot_Length = Math.Sqrt(Math.Pow(XHipleft - XFootleft, 2) + Math.Pow(YHipleft - YFootleft, 2));
@@ -304,61 +334,52 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //cosinussatsen för vinkel Höft-knä-fot, avrundar till heltal
             double HKF_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2)
                 - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
-
+            
             //Visar vinkeln
             textBlock.Text = HKF_angle.ToString() + (char)176;
 
             //Adderar vinkel till listan
             vinklar.Add(HKF_angle);
 
-            //Visar hur många värden som finns i listan
-            matlabresult.Text = vinklar.Count.ToString();
+            //  list.Add(new KeyValuePair<double, double>(HKF_angle, vinklar.Count));
+            //  list.Add(new KeyValuePair<double, double>(HKF_angle, DateTime.Now.Second));
 
-            // Change to the directory where the function is located 
-            var path = Path.Combine(Directory.GetCurrentDirectory());
-            matlab.Execute(@"cd " + path + @"\..\..");
-
-            // Define the output 
-            object result = null;
-
-            // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
-            try
+            if(list.Count > 10)
             {
-            matlab.Feval("myfunc", 1, out result, vinklar.ToArray());
+                list.RemoveAt(0);
+                list.Add(new KeyValuePair<double, double>(HKF_angle, vinklar.Count));
             }
-            catch (System.Runtime.InteropServices.COMException)
+            else
             {
+                list.Add(new KeyValuePair<double, double>(HKF_angle, vinklar.Count));
             }
 
-        
-            
 
-            
-
-
-
-
-
-
-
-
-
-            try
+            if (vinklar.Count > helprefresh)
             {
-
+                showChart();
+                helprefresh = helprefresh + 30;
             }
-            catch(System.InvalidOperationException)
-            { }
-            // Display result 
-            
- 
-            
-     
-     
-          
-            
-           
-            
+
+            //MATLABPLOT
+            /*
+                        // Change to the directory where the function is located 
+                        var path = Path.Combine(Directory.GetCurrentDirectory());
+                        matlab.Execute(@"cd " + path + @"\..\..");
+
+                        // Define the output 
+                        object result = null;
+
+                        // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
+                        try
+                        {
+                            matlab.Feval("myfunc", 1, out result, vinklar.ToArray());
+                        }
+                        catch (System.Runtime.InteropServices.COMException)
+                        {
+                        }
+                        */
+
 
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
@@ -493,6 +514,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 sensor.ElevationAngle = (int)slider.Value;
             }
-        }        
+        }
+
+    
     }
 }
