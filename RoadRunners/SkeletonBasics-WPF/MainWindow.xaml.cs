@@ -293,9 +293,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void showChart()
         {
-            Lchart.Refresh();     
+                 
             //  linechart.DataContext = list;
             Lchart.ItemsSource = list;
+            Lchart.Refresh();
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -344,7 +345,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //  list.Add(new KeyValuePair<double, double>(HKF_angle, vinklar.Count));
             //  list.Add(new KeyValuePair<double, double>(HKF_angle, DateTime.Now.Second));
 
-            if(list.Count > 30)
+            if(list.Count > 150)
             {
                 list.RemoveAt(0);
                 list.Add(new KeyValuePair<double, double>(HKF_angle, vinklar.Count));
