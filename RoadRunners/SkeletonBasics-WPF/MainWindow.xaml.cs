@@ -11,12 +11,24 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Windows.Media;
     using Microsoft.Kinect;
     using System;
+    using System.Collections.Generic;
+    //using System.Windows.Controls.DataVisualization.Charting;
+    using System.Windows.Threading;
+
+
+
+
+
+
+
+
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+
         /// <summary>
         /// Width of output drawing
         /// </summary>
@@ -88,7 +100,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public MainWindow()
         {
             InitializeComponent();
+            
+
         }
+
+
+
+
 
         /// <summary>
         /// Draws indicators to show which edges are clipping skeleton data
@@ -130,6 +148,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+
+
+
         /// <summary>
         /// Execute startup tasks
         /// </summary>
@@ -164,8 +185,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 // Turn on the skeleton stream to receive skeleton frames
                 this.sensor.ColorStream.Enable();
                 this.sensor.SkeletonStream.Enable();
-              //  this.sensor.DepthStream.Enable();
-               
+                //  this.sensor.DepthStream.Enable();
+
 
                 // Add an event handler to be called whenever there is new color frame data
                 this.sensor.SkeletonFrameReady += this.SensorSkeletonFrameReady;
@@ -185,6 +206,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 this.statusBarText.Text = Properties.Resources.NoKinectReady;
             }
+
+
         }
 
         /// <summary>
@@ -255,14 +278,38 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary>
         /// <param name="skeleton">skeleton to draw</param>
         /// <param name="drawingContext">drawing context to draw to</param>
+        /// 
+
+        //Skapar lista till vinklarna
+        public List<double> vinklar = new List<double>();
+        public List<KeyValuePair<double, double>> list = new List<KeyValuePair<double, double>>();
+
+        public double helprefresh = 30;
+        // Create the MATLAB instance 
+        //    MLApp.MLApp matlab = new MLApp.MLApp();
+
+
+
+
+        private void showChart()
+        {
+            Lchart.Refresh();     
+            //  linechart.DataContext = list;
+            Lchart.ItemsSource = list;
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            showChart();
+        }
+    
+
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
-
             //joints
             Joint footLeft = skeleton.Joints[JointType.FootLeft];
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
             Joint hipLeft = skeleton.Joints[JointType.HipLeft];
-
 
             //Vinkel
             float XFootleft;
@@ -271,28 +318,68 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             float YKneeleft;
             float XHipleft;
             float YHipleft;
-            double HKF_angle;
 
             XFootleft = footLeft.Position.X;
             YFootleft = footLeft.Position.Y;
             XKneeleft = kneeLeft.Position.X;
             YKneeleft = kneeLeft.Position.Y;
             XHipleft = hipLeft.Position.X;
-            YHipleft = hipLeft.Position.Y;       
-            
+            YHipleft = hipLeft.Position.Y;
+
             //vektorlängder
             double HipKnee_Length = Math.Sqrt(Math.Pow(XHipleft - XKneeleft, 2) + Math.Pow(YHipleft - YKneeleft, 2));
             double HipFoot_Length = Math.Sqrt(Math.Pow(XHipleft - XFootleft, 2) + Math.Pow(YHipleft - YFootleft, 2));
             double KneeFoot_Length = Math.Sqrt(Math.Pow(XKneeleft - XFootleft, 2) + Math.Pow(YKneeleft - YFootleft, 2));
 
-            //cosinussatsen
-            double angle = (Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2) - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI);
-
-            //Tar bort onödiga decimaler
-            HKF_angle = Math.Ceiling(angle);
-
-            textBlock.Text = HKF_angle.ToString() + (char)176;
+            //cosinussatsen för vinkel Höft-knä-fot, avrundar till heltal
+            double HKF_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2)
+                - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
             
+            //Visar vinkeln
+            textBlock.Text = HKF_angle.ToString() + (char)176;
+
+            //Adderar vinkel till listan
+            vinklar.Add(HKF_angle);
+
+            //  list.Add(new KeyValuePair<double, double>(HKF_angle, vinklar.Count));
+            //  list.Add(new KeyValuePair<double, double>(HKF_angle, DateTime.Now.Second));
+
+            if(list.Count > 30)
+            {
+                list.RemoveAt(0);
+                list.Add(new KeyValuePair<double, double>(HKF_angle, vinklar.Count));
+            }
+            else
+            {
+                list.Add(new KeyValuePair<double, double>(HKF_angle, vinklar.Count));
+            }
+
+
+            if (vinklar.Count > helprefresh)
+            {
+                showChart();
+                helprefresh = helprefresh + 30;
+            }
+
+            //MATLABPLOT
+            /*
+                        // Change to the directory where the function is located 
+                        var path = Path.Combine(Directory.GetCurrentDirectory());
+                        matlab.Execute(@"cd " + path + @"\..\..");
+
+                        // Define the output 
+                        object result = null;
+
+                        // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
+                        try
+                        {
+                            matlab.Feval("myfunc", 1, out result, vinklar.ToArray());
+                        }
+                        catch (System.Runtime.InteropServices.COMException)
+                        {
+                        }
+                        */
+
 
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
@@ -344,11 +431,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Maps a SkeletonPoint to lie within our render space and converts to Point
         /// </summary>
@@ -361,6 +443,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             DepthImagePoint depthPoint = this.sensor.CoordinateMapper.MapSkeletonPointToDepthPoint(skelpoint, DepthImageFormat.Resolution640x480Fps30);
             return new Point(depthPoint.X, depthPoint.Y);
         }
+
 
         /// <summary>
         /// Draws a bone line between two joints
@@ -418,6 +501,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+
+        // för att ändra tilten på kinecten
         private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             int n = (int)slider.Value;
@@ -433,11 +518,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-       
-
-        private void button_Click_1(object sender, RoutedEventArgs e)
-        {
-            //Vinkel_över_tid.Series["Vinkel"].points.addXY("Puls", 105);
-        }
+    
     }
 }
