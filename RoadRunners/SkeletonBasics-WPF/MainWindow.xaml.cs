@@ -344,6 +344,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Maps a SkeletonPoint to lie within our render space and converts to Point
         /// </summary>
@@ -426,6 +431,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 sensor.ElevationAngle = (int)slider.Value;
             }
+        }
+
+       
+
+        private void button_Click_1(object sender, RoutedEventArgs e)
+        {
+            //Vinkel_över_tid.Series["Vinkel"].points.addXY("Puls", 105);
         }
     }
 }
