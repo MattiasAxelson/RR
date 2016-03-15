@@ -82,7 +82,7 @@
 
             <chartingToolkit:LineSeries  x:Name="Lchart"  IndependentValueBinding="{Binding Path=Value}" DependentValueBinding="{Binding Path=Key}"  ItemsSource="{Binding}" IsSelectionEnabled="True" IsTabStop="False" Margin="0,0,2.333,-0.333" RenderTransformOrigin="0.5,0.5" Height="181" VerticalAlignment="Bottom" Title="HKF angle" >
                 <chartingToolkit:LineSeries.DependentRangeAxis>
-                    <chartingToolkit:LinearAxis Orientation="Y" Title="Vinkel"  MinHeight="0" MaxHeight="240" />
+                    <chartingToolkit:LinearAxis Orientation="Y" Title="Vinkel"  MinHeight="0" MaxHeight="240" Interval="20" />
                 </chartingToolkit:LineSeries.DependentRangeAxis>
                 <chartingToolkit:LineSeries.IndependentAxis>
                     <chartingToolkit:LinearAxis Orientation="X" Title="samples" />
