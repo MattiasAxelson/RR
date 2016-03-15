@@ -12,11 +12,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using Microsoft.Kinect;
     using System;
     using System.Collections.Generic;
-    using System.Windows.Controls.DataVisualization.Charting;
-    
-    
-   
-  
+    using OxyPlot;
+    using OxyPlot.Annotations;
+    using OxyPlot.Axes;
+
+
+
+
+
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -267,13 +270,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             //Skapar lista till vinklarna
       public  List<double> vinklar = new List<double>();
-     //   List<double> valueList = new List<double>();
+     //List<double> valueList = new List<double>();
 
         // Create the MATLAB instance 
-        MLApp.MLApp matlab = new MLApp.MLApp();
+      MLApp.MLApp matlab = new MLApp.MLApp();
 
   
-
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
             //joints
@@ -312,23 +314,23 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             vinklar.Add(HKF_angle);
 
             //Visar hur många värden som finns i listan
-            matlabresult.Text = vinklar.Count.ToString();
+             matlabresult.Text = vinklar.Count.ToString();
 
             // Change to the directory where the function is located 
             var path = Path.Combine(Directory.GetCurrentDirectory());
-            matlab.Execute(@"cd " + path + @"\..\..");
+           matlab.Execute(@"cd " + path + @"\..\..");
 
             // Define the output 
             object result = null;
 
             // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
-            try
+           try
+             {
+           matlab.Feval("myfunc", 1, out result, vinklar.ToArray());
+              }
+          catch (System.Runtime.InteropServices.COMException)
             {
-            matlab.Feval("myfunc", 1, out result, vinklar.ToArray());
-            }
-            catch (System.Runtime.InteropServices.COMException)
-            {
-            }
+           }
 
         
             
@@ -343,13 +345,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
 
 
-            try
+           try
             {
 
-            }
+              }
             catch(System.InvalidOperationException)
-            { }
-            // Display result 
+           { }
+      //      Display result
             
  
             
