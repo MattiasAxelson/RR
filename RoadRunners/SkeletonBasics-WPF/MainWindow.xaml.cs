@@ -248,29 +248,17 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         //    MLApp.MLApp matlab = new MLApp.MLApp();
 
 
-
-
-        private void showChart()
-        {
-
-            Lchart.ItemsSource = list;
-           // Lchart.Refresh();
-            Lchart.UpdateLayout();
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void stop_Button_Click(object sender, RoutedEventArgs e)
         {
             if (null != this.sensor)
             {
                 this.sensor.Stop();
                 Lchart.ItemsSource = totalList;
-                Lchart.Refresh();
-               // Lchart.UpdateLayout();
-               
-            }           
+                Lchart.Refresh();             
+            }
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void start_button_Click(object sender, RoutedEventArgs e)
         {
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
@@ -296,13 +284,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (null != this.sensor)
             {
                 // Turn on the skeleton stream to receive skeleton frames
-                
+
                 this.sensor.ColorStream.Enable();
                 this.sensor.SkeletonStream.Enable();
-                
-                //  this.sensor.DepthStream.Enable();
 
-                
                 // Add an event handler to be called whenever there is new color frame data
                 this.sensor.SkeletonFrameReady += this.SensorSkeletonFrameReady;
 
@@ -315,10 +300,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
                     this.sensor = null;
                 }
-                
-            }
 
+            }
         }
+  
 
 
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
@@ -360,10 +345,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             sampleToTime = vinklar.Count;
            
             totalList.Add(new KeyValuePair<double, double>(HKF_angle, sampleToTime/30));
-         
-         //   Lchart.Refresh();
 
-            if (list.Count > 210)
+            if (list.Count > 180)
             {
                 list.RemoveAt(0);
                 list.Add(new KeyValuePair<double, double>(HKF_angle, sampleToTime/30));
@@ -374,7 +357,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 list.Add(new KeyValuePair<double, double>(HKF_angle, sampleToTime/30));
             }
            
- 
+
             
             if (vinklar.Count > helprefresh)
             {
@@ -529,6 +512,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-  
+    
     }
 }
