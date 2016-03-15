@@ -344,7 +344,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //  list.Add(new KeyValuePair<double, double>(HKF_angle, vinklar.Count));
             //  list.Add(new KeyValuePair<double, double>(HKF_angle, DateTime.Now.Second));
 
-            if(list.Count > 10)
+            if(list.Count > 30)
             {
                 list.RemoveAt(0);
                 list.Add(new KeyValuePair<double, double>(HKF_angle, vinklar.Count));
@@ -501,6 +501,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+
+        // för att ändra tilten på kinecten
         private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             int n = (int)slider.Value;
