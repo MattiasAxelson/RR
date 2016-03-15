@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -70,7 +71,7 @@
     <Compile Include="KinectSettings.xaml.cs">
       <DependentUpon>KinectSettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="KinectSkeleton.cs"/>
+    <Compile Include="KinectSkeleton.cs" />
     <Compile Include="KinectSkeletonViewer.xaml.cs">
       <DependentUpon>KinectSkeletonViewer.xaml</DependentUpon>
     </Compile>
