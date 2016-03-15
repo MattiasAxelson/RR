@@ -1,8 +1,10 @@
-function [x] = myfunc(a) 
+function [b] = myfunc(a) 
 
-%figure (1)
-x = plot (a);
-%plot(a)
- %hold on
+b = plot (a);
 
+title('Data');
+xlabel('Tid');
+ylabel('Vinkel och puls');
+
+datetick(x,'HH');
 end
