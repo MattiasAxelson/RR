@@ -15,6 +15,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     //using System.Windows.Controls.DataVisualization.Charting;
     using System.Windows.Threading;
     using System.Linq;
+    using Xceed.Wpf.Toolkit;
+    using Xceed.Utils.Wpf.Markup;
+
+
     
 
 
