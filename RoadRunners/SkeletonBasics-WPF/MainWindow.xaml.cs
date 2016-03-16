@@ -235,12 +235,20 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         /// 
 
-        //Skapar lista till vinklarna
+
+
+        //Skapar listor till vinklarna
+
+            // lagrar vinklarna i en lista
         public List<double> vinklar = new List<double>();
+            //listan som används då en bit av grafen plottas
         public List<KeyValuePair<double, double>> list = new List<KeyValuePair<double, double>>();
+            // lagrar över alla värden till titallista som sedan plottas då streamen stoppas
         public List<KeyValuePair<double, double>> totalList = new List<KeyValuePair<double, double>>();
 
-        
+        public List<KeyValuePair<double, double>> lowAngleList = new List<KeyValuePair<double, double>>();
+
+
 
         public double helprefresh = 30;
         public double sampleToTime = 0;
@@ -255,6 +263,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 this.sensor.Stop();
                 Lchart.ItemsSource = totalList;
                 Lchart.Refresh();             
+                lowval.ItemsSource = lowAngleList;
+                          
             }
         }
 
@@ -303,7 +313,46 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             }
         }
-  
+
+        int j = 1;
+        int i = 0;
+
+        private void findLowAngles(List<KeyValuePair<double,double>> totlist)
+        {
+            foreach(KeyValuePair<double, double> pair in totalList)
+            {
+
+                if(pair.Key < 140)
+                {
+                    lowAngleList.Add(pair);
+                }
+
+               
+/*
+                   looptext.Text = (totlist[i].ToString());
+
+                if(totlist.Count < 2)
+                {
+                    return;
+                }
+
+                if (totlist[i].Key < totlist[j].Key)
+                {
+                    lowAngleList.Add(totlist[i]);
+                    ++i;
+                    ++j;
+                    
+                }
+                else
+                {
+                    ++j;
+                }
+               */
+                                           
+            }
+
+
+        }
 
 
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
@@ -346,6 +395,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
            
             totalList.Add(new KeyValuePair<double, double>(HKF_angle, sampleToTime/30));
 
+            findLowAngles(totalList);
+
             if (list.Count > 180)
             {
                 list.RemoveAt(0);
@@ -360,10 +411,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             
             if (vinklar.Count > helprefresh)
-            {
-          
+            {        
                 Lchart.ItemsSource = list;
                 Lchart.Refresh();
+               
+               
                 helprefresh = helprefresh + 90;
             }
             
