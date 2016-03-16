@@ -243,17 +243,21 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public List<double> vinklar = new List<double>();
             //listan som används då en bit av grafen plottas
         public List<KeyValuePair<double, double>> list = new List<KeyValuePair<double, double>>();
-            // lagrar över alla värden till titallista som sedan plottas då streamen stoppas
-        public List<KeyValuePair<double, double>> totalList = new List<KeyValuePair<double, double>>();
 
-        public List<KeyValuePair<double, double>> lowAngleList = new List<KeyValuePair<double, double>>();
+        public double sampleToTime = 30;
+
+        public List<Tuple<double, double>> listMatlab = new List<Tuple<double, double>>();
+        
 
 
+       
 
-        public double helprefresh = 30;
-        public double sampleToTime = 0;
-        // Create the MATLAB instance 
-        //    MLApp.MLApp matlab = new MLApp.MLApp();
+
+        
+       //  Create the MATLAB instance 
+            MLApp.MLApp matlab = new MLApp.MLApp();
+
+        int antalFel = 0;
 
 
         private void stop_Button_Click(object sender, RoutedEventArgs e)
@@ -261,9 +265,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (null != this.sensor)
             {
                 this.sensor.Stop();
-                Lchart.ItemsSource = totalList;
-                Lchart.Refresh();             
-                lowval.ItemsSource = lowAngleList;
+               
+            
                           
             }
         }
@@ -314,45 +317,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-        int j = 1;
-        int i = 0;
-
-        private void findLowAngles(List<KeyValuePair<double,double>> totlist)
-        {
-            foreach(KeyValuePair<double, double> pair in totalList)
-            {
-
-                if(pair.Key < 140)
-                {
-                    lowAngleList.Add(pair);
-                }
-
-               
-/*
-                   looptext.Text = (totlist[i].ToString());
-
-                if(totlist.Count < 2)
-                {
-                    return;
-                }
-
-                if (totlist[i].Key < totlist[j].Key)
-                {
-                    lowAngleList.Add(totlist[i]);
-                    ++i;
-                    ++j;
-                    
-                }
-                else
-                {
-                    ++j;
-                }
-               */
-                                           
-            }
-
-
-        }
+        
 
 
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
@@ -389,41 +354,30 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //Visar vinkeln
             textBlock.Text = HKF_angle.ToString() + (char)176;
 
+            //list.Add (new KeyValuePair<double, double>(HKF_angle, sampleToTime / 30));
+
             //Adderar vinkel till listan
             vinklar.Add(HKF_angle);
-            sampleToTime = vinklar.Count;
-           
-            totalList.Add(new KeyValuePair<double, double>(HKF_angle, sampleToTime/30));
+            //listMatlab.Add(new Tuple<double, double>(HKF_angle, sampleToTime / 30));
+           // listMatlab.Add(Tuple.Create(HKF_angle, sampleToTime / 30));
 
-            findLowAngles(totalList);
-
-            if (list.Count > 180)
+            /*
+            if(vinklar.Count > 300)
             {
-                list.RemoveAt(0);
-                list.Add(new KeyValuePair<double, double>(HKF_angle, sampleToTime/30));
-              
+                vinklar.RemoveAt(0);
+                vinklar.Add(HKF_angle);
             }
             else
             {
-                list.Add(new KeyValuePair<double, double>(HKF_angle, sampleToTime/30));
+                vinklar.Add(HKF_angle);
             }
-           
+           */
 
-            
-            if (vinklar.Count > helprefresh)
-            {        
-                Lchart.ItemsSource = list;
-                Lchart.Refresh();
-               
-               
-                helprefresh = helprefresh + 90;
-            }
-            
 
             //MATLABPLOT
-            /*
-                        // Change to the directory where the function is located 
-                        var path = Path.Combine(Directory.GetCurrentDirectory());
+
+            // Change to the directory where the function is located 
+            var path = Path.Combine(Directory.GetCurrentDirectory());
                         matlab.Execute(@"cd " + path + @"\..\..");
 
                         // Define the output 
@@ -436,8 +390,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         }
                         catch (System.Runtime.InteropServices.COMException)
                         {
+                           ++antalFel;
+                Console.WriteLine(antalFel.ToString());
                         }
-                        */
+                        
 
 
             // Render Torso

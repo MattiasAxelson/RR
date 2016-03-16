@@ -15,7 +15,7 @@
             <RowDefinition Height="642.666666666667"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Margin="0,0,0.333,642.667"/>
-        <Viewbox Stretch="Uniform" Margin="43,30,945.333,400.667">
+        <Viewbox Stretch="Uniform" Margin="43,30,876.333,338.667">
             <Image x:Name="Image" Width="682" Height="468"/>
         </Viewbox>
         <Button x:Name="Kinect_angle" Content="Change kinect angle" HorizontalAlignment="Left" Margin="867,30,0,0" VerticalAlignment="Top" Width="142" Height="26" Click="Kinect_angle_Click"/>
@@ -24,50 +24,6 @@
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="867,149,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="32" Width="81"/>
         <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="212" Margin="44,30,0,0" VerticalAlignment="Top" Width="262" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}" Opacity="0.6"/>
         <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="421,64,0,0" VerticalAlignment="Top"/>
-        <chartingToolkit:Chart x:Name="linechart" HorizontalAlignment="Left" Margin="10,242,0,0" Title="Vinkel" VerticalAlignment="Top" IsManipulationEnabled="True" Height="372" Width="1231">
-
-            <chartingToolkit:LineSeries  x:Name="Lchart" IndependentValueBinding="{Binding Path=Value}" 
-                                         DependentValueBinding="{Binding Path=Key}"  ItemsSource="{Binding [0]}"
-                                         IsSelectionEnabled="True" IsTabStop="False" Margin="0,0,1.667,-0.333" 
-                                         RenderTransformOrigin="0.5,0.5" Title="HKF angle" >
-                <chartingToolkit:LineSeries.DataPointStyle>
-                    <Style TargetType="chartingToolkit:LineDataPoint">
-                        <Setter Property="Opacity" Value="0" />
-                        <Setter Property="Background" Value="Olive" />
-                    </Style>
-                </chartingToolkit:LineSeries.DataPointStyle>
-                <chartingToolkit:LineSeries.DependentRangeAxis>
-                    <chartingToolkit:LinearAxis Orientation="Y" Title="Vinkel" Maximum="220" Minimum="0" Interval="20" />
-                </chartingToolkit:LineSeries.DependentRangeAxis>
-                <chartingToolkit:LineSeries.IndependentAxis>
-                    <chartingToolkit:LinearAxis Orientation="X" Title="Sekunder"  />
-                </chartingToolkit:LineSeries.IndependentAxis>
-
-     
-            </chartingToolkit:LineSeries>
-            
-           
-            <chartingToolkit:LineSeries Name="lowval" 
-                                                Title="minAngle"  
-                                                IndependentValueBinding="{Binding Path=Value}"
-                                                DependentValueBinding="{Binding Path=Key}"
-                                                ItemsSource="{Binding [1]}"
-                                                IsSelectionEnabled="True"
-                                                Margin="0,0,1.667,-0.333" >
-                <chartingToolkit:LineSeries.DataPointStyle>
-                    <Style TargetType="chartingToolkit:LineDataPoint">
-                        <Setter Property="Opacity" Value="0" />
-                        <Setter Property="Background" Value="Red" />
-                    </Style>
-                </chartingToolkit:LineSeries.DataPointStyle>
-                
-          
-
-
-            </chartingToolkit:LineSeries>
-
-
-        </chartingToolkit:Chart>
         <Button x:Name="stop_button" Content="Stop sensors" HorizontalAlignment="Left" Margin="867,102,0,0" VerticalAlignment="Top" Width="75" Click="stop_Button_Click"/>
         <Button x:Name="button1" Content="Start sensors" HorizontalAlignment="Left" Margin="867,77,0,0" VerticalAlignment="Top" Width="75" Click="start_button_Click"/>
         <TextBlock x:Name="looptext" HorizontalAlignment="Left" Margin="867,181,0,0" TextWrapping="Wrap" Text="Test för loop" VerticalAlignment="Top" Height="30" Width="100"/>
