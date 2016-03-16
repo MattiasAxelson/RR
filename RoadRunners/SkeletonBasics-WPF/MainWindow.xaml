@@ -100,7 +100,7 @@
 
 
         </chartingToolkit:Chart>
-        <Button x:Name="button" Content="Update chart" HorizontalAlignment="Left" Margin="30,392.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="30,319.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="18" Width="81"/>
 
 
 
