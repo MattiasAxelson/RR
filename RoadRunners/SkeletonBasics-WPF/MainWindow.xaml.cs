@@ -15,7 +15,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     //using System.Windows.Controls.DataVisualization.Charting;
     using System.Windows.Threading;
     using System.Linq;
-    
+    using MLApp;
 
 
 
@@ -237,15 +237,17 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         //Skapar lista till vinklarna
         public List<double> vinklar = new List<double>();
+        public List<double> antalVinklar = new List<double>();
+        public List<double> minlist = new List<double>();
+
         public List<KeyValuePair<double, double>> list = new List<KeyValuePair<double, double>>();
-        public List<KeyValuePair<double, double>> totalList = new List<KeyValuePair<double, double>>();
+//        public List<KeyValuePair<double, double>> totalList = new List<KeyValuePair<double, double>>();
 
         
 
-        public double helprefresh = 30;
-        public double sampleToTime = 0;
-        // Create the MATLAB instance 
-        //    MLApp.MLApp matlab = new MLApp.MLApp();
+       // public double helprefresh = 30;
+       // public double sampleToTime = 0;
+          MLApp matlab = new MLApp();
 
 
         private void stop_Button_Click(object sender, RoutedEventArgs e)
@@ -253,11 +255,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (null != this.sensor)
             {
                 this.sensor.Stop();
-                Lchart.ItemsSource = totalList;
-                Lchart.Refresh();             
+               // Lchart.ItemsSource = totalList;
+                //Lchart.Refresh();             
             }
         }
-
+        
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
             // Create the drawing group we'll use for drawing
@@ -303,7 +305,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             }
         }
-  
+
 
 
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
@@ -336,42 +338,64 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //cosinussatsen för vinkel Höft-knä-fot, avrundar till heltal
             double HKF_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2)
                 - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
-            
+
             //Visar vinkeln
             textBlock.Text = HKF_angle.ToString() + (char)176;
 
             //Adderar vinkel till listan
             vinklar.Add(HKF_angle);
-            sampleToTime = vinklar.Count;
-           
-            totalList.Add(new KeyValuePair<double, double>(HKF_angle, sampleToTime/30));
 
-            if (list.Count > 180)
-            {
-                list.RemoveAt(0);
-                list.Add(new KeyValuePair<double, double>(HKF_angle, sampleToTime/30));
-              
-            }
-            else
-            {
-                list.Add(new KeyValuePair<double, double>(HKF_angle, sampleToTime/30));
-            }
-           
 
-            
-            if (vinklar.Count > helprefresh)
-            {
-          
-                Lchart.ItemsSource = list;
-                Lchart.Refresh();
-                helprefresh = helprefresh + 90;
-            }
-            
+            //   double vinkeltid = vinklar.Count;
 
-            //MATLABPLOT
-            /*
-                        // Change to the directory where the function is located 
-                        var path = Path.Combine(Directory.GetCurrentDirectory());
+            //   antalVinklar.Add(vinkeltid/30);
+
+            //  double vinkeltid = 0;
+            //  double lowest_value = vinklar.Min();
+        //    if (list.Count > 90)
+                //     {
+                // minlist.RemoveAt(0);
+                //          minlist.Add(lowest_value);         
+                //}
+
+                //      textBlock.Text = lowest_value.ToString() + (char)176;
+
+                //sampleToTime = vinklar.Count;
+
+
+                //totalList.Add(new KeyValuePair<double, double>(HKF_angle, sampleToTime/30));
+
+                //     if (list.Count > 90)
+                //     {
+                //  list.RemoveAt(0);
+                //  list.Add(new KeyValuePair<double, double>(HKF_angle, sampleToTime/30));
+
+                //          minlist.Add(lowest_value);             
+
+                //       }
+
+
+                /*    else
+                    {
+                        list.Add(new KeyValuePair<double, double>(HKF_angle, sampleToTime/30));
+                    }
+
+
+
+                    if (vinklar.Count > helprefresh)
+                    {
+
+                        Lchart.ItemsSource = list;
+                        Lchart.Refresh();
+                        helprefresh = helprefresh + 90;
+                    }*/
+
+
+
+                //MATLABPLOT
+
+                // Change to the directory where the function is located 
+                var path = Path.Combine(Directory.GetCurrentDirectory());
                         matlab.Execute(@"cd " + path + @"\..\..");
 
                         // Define the output 
@@ -380,12 +404,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
                         try
                         {
-                            matlab.Feval("myfunc", 1, out result, vinklar.ToArray());
+                            matlab.Feval("myfunc", 1, out result, antalVinklar.ToArray(), vinklar.ToArray());
                         }
                         catch (System.Runtime.InteropServices.COMException)
                         {
                         }
-                        */
+                        
 
 
             // Render Torso
