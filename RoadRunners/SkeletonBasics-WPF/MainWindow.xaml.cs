@@ -18,10 +18,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
 
 
-
-
-
-
+    
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -202,11 +199,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
             }
 
-            if (null == this.sensor)
-            {
-                this.statusBarText.Text = Properties.Resources.NoKinectReady;
-            }
-
+        
 
         }
 
@@ -288,7 +281,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // Create the MATLAB instance 
         //    MLApp.MLApp matlab = new MLApp.MLApp();
 
-
+        public double sampTillTid = 0;
 
 
         private void showChart()
@@ -304,7 +297,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             showChart();
         }
     
-
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
             //joints
@@ -344,23 +336,26 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             //  list.Add(new KeyValuePair<double, double>(HKF_angle, vinklar.Count));
             //  list.Add(new KeyValuePair<double, double>(HKF_angle, DateTime.Now.Second));
+            sampTillTid = vinklar.Count;
 
-            if(list.Count > 150)
-            {
+           
+            
+             if (list.Count > 90)
+              {
                 list.RemoveAt(0);
-                list.Add(new KeyValuePair<double, double>(HKF_angle, vinklar.Count));
-            }
-            else
-            {
-                list.Add(new KeyValuePair<double, double>(HKF_angle, vinklar.Count));
-            }
+                list.Add(new KeyValuePair<double, double>(HKF_angle, sampTillTid/30));
 
-
-            if (vinklar.Count > helprefresh)
-            {
+            }
+             else
+              {
+                list.Add(new KeyValuePair<double, double>(HKF_angle, sampTillTid/30));
+             }     
+            
+                       if (vinklar.Count > helprefresh)
+                         {
                 showChart();
                 helprefresh = helprefresh + 30;
-            }
+                        };
 
             //MATLABPLOT
             /*
@@ -487,24 +482,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
-        private void CheckBoxSeatedModeChanged(object sender, RoutedEventArgs e)
-        {
-            if (null != this.sensor)
-            {
-                if (this.checkBoxSeatedMode.IsChecked.GetValueOrDefault())
-                {
-                    this.sensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Seated;
-                }
-                else
-                {
-                    this.sensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
-                }
-            }
-        }
 
 
         // för att ändra tilten på kinecten
-        private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+         private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             int n = (int)slider.Value;
 

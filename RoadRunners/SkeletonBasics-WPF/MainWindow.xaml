@@ -3,53 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:WpfViewers="clr-namespace:Microsoft.Samples.Kinect.WpfViewers;assembly=Microsoft.Samples.Kinect.WpfViewers" 
     xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-    x:Class="Microsoft.Samples.Kinect.SkeletonBasics.MainWindow"
-    xmlns:oxy="http://oxyplot.org/wpf"   
+    x:Class="Microsoft.Samples.Kinect.SkeletonBasics.MainWindow"  
     Title="Skeleton Basics" Height="672.333" Width="1278.333" Loaded="WindowLoaded" Closing="WindowClosing">
 
-
-    <Window.Resources>
-        <SolidColorBrush x:Key="MediumGreyBrush" Color="#ff6e6e6e"/>
-        <SolidColorBrush x:Key="KinectPurpleBrush" Color="#ff52318f"/>
-        <SolidColorBrush x:Key="KinectBlueBrush" Color="#ff00BCF2"/>
-        <Style TargetType="{x:Type Image}">
-            <Setter Property="SnapsToDevicePixels" Value="True"/>
-        </Style>
-        <Style TargetType="{x:Type CheckBox}" x:Key="SquareCheckBox" >
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type CheckBox}">
-                        <Grid>
-                            <StackPanel Orientation="Horizontal" Background="Transparent">
-                                <Grid x:Name="SquareCheckBoxChecked">
-                                    <Image x:Name="CheckedNormal" Source="Images\CheckedNormal.png" Stretch="None" HorizontalAlignment="Center"/>
-                                    <Image x:Name="CheckedHover" Source="Images\CheckedHover.png" Stretch="None" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                </Grid>
-                                <Grid x:Name="SquareCheckBoxUnchecked" Visibility="Collapsed">
-                                    <Image x:Name="UncheckedNormal" Source="Images\UncheckedNormal.png" Stretch="None" HorizontalAlignment="Center"/>
-                                    <Image x:Name="UncheckedHover" Source="Images\UncheckedHover.png" Stretch="None" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                </Grid>
-                                <TextBlock x:Name="SquareCheckBoxText" Text="{TemplateBinding Content}" TextAlignment="Left"  VerticalAlignment="Center" Foreground="{StaticResource KinectPurpleBrush}" FontSize="15"  Margin="9,0,0,0"/>
-                            </StackPanel>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="false">
-                                <Setter Property="Visibility" Value="Collapsed" TargetName="SquareCheckBoxChecked"/>
-                                <Setter Property="Visibility" Value="Visible" TargetName="SquareCheckBoxUnchecked"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Visibility" Value="Collapsed" TargetName="CheckedNormal"/>
-                                <Setter Property="Visibility" Value="Collapsed" TargetName="UncheckedNormal"/>
-                                <Setter Property="Visibility" Value="Visible" TargetName="CheckedHover"/>
-                                <Setter Property="Visibility" Value="Visible" TargetName="UncheckedHover"/>
-                                <Setter Property="Foreground" Value="{StaticResource KinectBlueBrush}" TargetName="SquareCheckBoxText"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
+    
 
     <Grid x:Name="layoutGrid" Margin="10 0 10 0">
         <Grid.RowDefinitions>
@@ -60,47 +17,44 @@
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Margin="0 0 0 20">
             <Image DockPanel.Dock="Left" Source="Images\Logo.png" Stretch="Fill" Height="32" Width="81" Margin="0 10 0 5"/>
-            <TextBlock DockPanel.Dock="Right" Margin="0 0 -1 0" VerticalAlignment="Bottom" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18"><Run Text="Skeleton Basics"/></TextBlock>
+            <TextBlock DockPanel.Dock="Right" Margin="0 0 -1 0" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontSize="18"><Run Text="Skeleton Basics"/></TextBlock>
             <Image Grid.Column="1" Source="Images\Status.png" Stretch="None" HorizontalAlignment="Center" Margin="0 0 0 5"/>
         </DockPanel>
-        <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center" Margin="74,0.333,909.333,288.667" Width="268">
-            <Image x:Name="Image" Width="557" Height="468"/>
+        <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Left"  Width="330" Margin="0,0.333,0,0" Height="260" VerticalAlignment="Top">
+            <Image x:Name="Image" Width="330" Height="260"/>
         </Viewbox>
-        <CheckBox Grid.Row="2" Style="{StaticResource SquareCheckBox}" Content="Seated Mode" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 10 10 10" x:Name="checkBoxSeatedMode" Checked="CheckBoxSeatedModeChanged" Unchecked="CheckBoxSeatedModeChanged"/>
-        <StatusBar Grid.Row="3" HorizontalAlignment="Stretch" x:Name="statusBar" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource MediumGreyBrush}">
-            <StatusBarItem Padding="0 0 0 10">
-                <TextBlock x:Name="statusBarText" Margin="-1 0 0 0"><Run Text="Click 'Seated' to change skeletal pipeline type!"/></TextBlock>
-            </StatusBarItem>
-        </StatusBar>
-        <Button x:Name="Kinect_angle" Content="Change kinect angle" HorizontalAlignment="Left" Margin="30,417.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="142" Height="26" Click="Kinect_angle_Click"/>
-        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="30,443.333,0,0" Grid.Row="1" VerticalAlignment="Top" Height="27" Width="146" Maximum="26" Minimum="-26" ValueChanged="slider_ValueChanged"/>
-        <Label x:Name="Degree" Content="Degrees" HorizontalAlignment="Left" Margin="181,443.333,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="30,355.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="32" Width="81"/>
-        <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="212" Margin="347,10.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="262" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}"/>
-        <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="421,44.333,-0.333,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <chartingToolkit:Chart x:Name="linechart" HorizontalAlignment="Left" Margin="239,222.333,0,0" Grid.Row="1" Title="Vinkel" VerticalAlignment="Top" IsManipulationEnabled="True" Height="274" Width="1012">
+        <Button x:Name="Kinect_angle" Content="Change kinect angle" HorizontalAlignment="Left" Margin="1090,155.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="142" Height="26" Click="Kinect_angle_Click"/>
+        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="1090,181.333,0,0" Grid.Row="1" VerticalAlignment="Top" Height="27" Width="146" Maximum="26" Minimum="-26" ValueChanged="slider_ValueChanged"/>
+        <Label x:Name="Degree" Content="Degrees" HorizontalAlignment="Left" Margin="1137,213.333,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="1090,93.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="32" Width="81"/>
+        <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Width="330" Height="260" Margin="0,0.333,0,0" Grid.Row="1" VerticalAlignment="Top" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}" Opacity="0.65"/>
+        <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="10,37.333,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <chartingToolkit:Chart x:Name="linechart" HorizontalAlignment="Left" Margin="0,280.333,0,0" Grid.Row="1" Title="Vinkel" VerticalAlignment="Top" IsManipulationEnabled="True" Height="286" Width="1251">
 
-            <chartingToolkit:LineSeries  x:Name="Lchart"  IndependentValueBinding="{Binding Path=Value}" DependentValueBinding="{Binding Path=Key}"  ItemsSource="{Binding}" IsSelectionEnabled="True" IsTabStop="False" Margin="0,0,2.333,-0.333" RenderTransformOrigin="0.5,0.5" Height="181" VerticalAlignment="Bottom" Title="HKF angle" >
+                <chartingToolkit:LineSeries  x:Name="Lchart"  IndependentValueBinding="{Binding Path=Value}" DependentValueBinding="{Binding Path=Key}"  ItemsSource="{Binding}" IsSelectionEnabled="True" IsTabStop="False" Margin="0,0,2.333,-0.333" RenderTransformOrigin="0.5,0.5" Title="HKF angle">
+                <chartingToolkit:LineSeries.DataPointStyle>
+                    <Style TargetType="{x:Type chartingToolkit:LineDataPoint}">
+                        <Setter Property="Background" Value="Black"/>
+                    </Style>
+                </chartingToolkit:LineSeries.DataPointStyle>
+                    <chartingToolkit:LineSeries.Background>
+                    <RadialGradientBrush Center="0.075,0.015" GradientOrigin="-0.1,-0.1" RadiusY="0.9" RadiusX="1.05">
+                        <GradientStop Color="#FFB9D6F7"/>
+                        <GradientStop Color="#FFC03733" Offset="1"/>
+                    </RadialGradientBrush>
+                </chartingToolkit:LineSeries.Background>
                 <chartingToolkit:LineSeries.DependentRangeAxis>
-                    <chartingToolkit:LinearAxis Orientation="Y" Title="Vinkel"  MinHeight="0" MaxHeight="240" Interval="20" />
+                    <chartingToolkit:LinearAxis Orientation="Y" Title="Vinkel" Minimum="0" Maximum="240" Interval="20" />
                 </chartingToolkit:LineSeries.DependentRangeAxis>
                 <chartingToolkit:LineSeries.IndependentAxis>
-                    <chartingToolkit:LinearAxis Orientation="X" Title="samples" />
+                    <chartingToolkit:LinearAxis Orientation="X" Title="Tid"/>
                 </chartingToolkit:LineSeries.IndependentAxis>
-
-
-
-
-
 
             </chartingToolkit:LineSeries>
 
 
-
-
-
         </chartingToolkit:Chart>
-        <Button x:Name="button" Content="Update chart" HorizontalAlignment="Left" Margin="30,392.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <Button x:Name="button" Content="Update chart" HorizontalAlignment="Left" Margin="1090,130.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="button_Click"/>
 
 
 
