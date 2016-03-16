@@ -242,21 +242,23 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             // lagrar vinklarna i en lista
         public List<double> vinklar = new List<double>();
         public List<double> tidsLista = new List<double>();
+        public List<double> minimumlista = new List<double>();
+
         //listan som används då en bit av grafen plottas
         double sampleToTime = 0;
-   
-        
+        double minimumvarde = 0;
 
 
-       
 
 
-        
-       //  Create the MATLAB instance 
-            MLApp.MLApp matlab = new MLApp.MLApp();
+
+
+
+        //  Create the MATLAB instance 
+        MLApp.MLApp matlab = new MLApp.MLApp();
 
         int antalFel = 0;
-
+        double lagsta_varde = 0;
 
         private void stop_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -352,6 +354,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //Visar vinkeln
             textBlock.Text = HKF_angle.ToString() + (char)176;
 
+            
+
             //list.Add (new KeyValuePair<double, double>(HKF_angle, sampleToTime / 30));
 
             //Adderar vinkel till listan
@@ -362,6 +366,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             tidsLista.Add(sampleToTime / 30);
             //listMatlab.Add(new Tuple<double, double>(HKF_angle, sampleToTime / 30));
             // listMatlab.Add(Tuple.Create(HKF_angle, sampleToTime / 30));
+
+             double lagsta_varde = vinklar.Min();
+                 if (tidsLista.Count > 90)
+                  {
+                     // minimumlista.RemoveAt(0);
+                      minimumlista.Add(lagsta_varde);         
+                  }
+
+            textBlock1.Text = lagsta_varde.ToString() + (char)176;
 
             /*
             if(vinklar.Count > 300)
