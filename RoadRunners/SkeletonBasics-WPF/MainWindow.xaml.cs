@@ -238,7 +238,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         //Skapar lista till vinklarna
         public List<double> vinklar = new List<double>();
         public List<double> antalVinklar = new List<double>();
-        public List<double> minlist = new List<double>();
+       // public List<double> minlist = new List<double>();
 
         public List<KeyValuePair<double, double>> list = new List<KeyValuePair<double, double>>();
 //        public List<KeyValuePair<double, double>> totalList = new List<KeyValuePair<double, double>>();
@@ -306,8 +306,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-
-
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
             //joints
@@ -346,11 +344,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             vinklar.Add(HKF_angle);
 
 
-            //   double vinkeltid = vinklar.Count;
+               double vinkeltid = vinklar.Count;
 
-            //   antalVinklar.Add(vinkeltid/30);
+               antalVinklar.Add(vinkeltid/30);
 
-            //  double vinkeltid = 0;
+             
+
             //  double lowest_value = vinklar.Min();
         //    if (list.Count > 90)
                 //     {
