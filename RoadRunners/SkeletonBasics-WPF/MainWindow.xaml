@@ -3,64 +3,50 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:WpfViewers="clr-namespace:Microsoft.Samples.Kinect.WpfViewers;assembly=Microsoft.Samples.Kinect.WpfViewers" 
     xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-    x:Class="Microsoft.Samples.Kinect.SkeletonBasics.MainWindow"  
+    x:Class="Microsoft.Samples.Kinect.SkeletonBasics.MainWindow"
+     
     Title="Skeleton Basics" Height="672.333" Width="1278.333" Loaded="WindowLoaded" Closing="WindowClosing">
 
-    
+
+
 
     <Grid x:Name="layoutGrid" Margin="10 0 10 0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="642.666666666667"/>
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" Margin="0 0 0 20">
-            <Image DockPanel.Dock="Left" Source="Images\Logo.png" Stretch="Fill" Height="32" Width="81" Margin="0 10 0 5"/>
-            <TextBlock DockPanel.Dock="Right" Margin="0 0 -1 0" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontSize="18"><Run Text="Skeleton Basics"/></TextBlock>
-            <Image Grid.Column="1" Source="Images\Status.png" Stretch="None" HorizontalAlignment="Center" Margin="0 0 0 5"/>
-        </DockPanel>
-        <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Left"  Width="330" Margin="0,0.333,0,0" Height="260" VerticalAlignment="Top">
-            <Image x:Name="Image" Width="330" Height="260"/>
+        <DockPanel Grid.Row="0" Margin="0,0,0.333,642.667"/>
+        <Viewbox Stretch="Uniform" Margin="43,30,945.333,400.667">
+            <Image x:Name="Image" Width="682" Height="468"/>
         </Viewbox>
-        <Button x:Name="Kinect_angle" Content="Change kinect angle" HorizontalAlignment="Left" Margin="1090,155.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="142" Height="26" Click="Kinect_angle_Click"/>
-        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="1090,181.333,0,0" Grid.Row="1" VerticalAlignment="Top" Height="27" Width="146" Maximum="26" Minimum="-26" ValueChanged="slider_ValueChanged"/>
-        <Label x:Name="Degree" Content="Degrees" HorizontalAlignment="Left" Margin="1137,213.333,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="1090,93.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="32" Width="81"/>
-        <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Width="330" Height="260" Margin="0,0.333,0,0" Grid.Row="1" VerticalAlignment="Top" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}" Opacity="0.65"/>
-        <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="10,37.333,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <chartingToolkit:Chart x:Name="linechart" HorizontalAlignment="Left" Margin="0,280.333,0,0" Grid.Row="1" Title="Vinkel" VerticalAlignment="Top" IsManipulationEnabled="True" Height="286" Width="1251">
+        <Button x:Name="Kinect_angle" Content="Change kinect angle" HorizontalAlignment="Left" Margin="867,30,0,0" VerticalAlignment="Top" Width="142" Height="26" Click="Kinect_angle_Click"/>
+        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="1009,29,0,0" VerticalAlignment="Top" Height="27" Width="146" Maximum="26" Minimum="-26" ValueChanged="slider_ValueChanged"/>
+        <Label x:Name="Degree" Content="Degrees" HorizontalAlignment="Left" Margin="1160,29,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="867,149,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="32" Width="81"/>
+        <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="212" Margin="44,30,0,0" VerticalAlignment="Top" Width="262" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}" Opacity="0.6"/>
+        <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="421,64,0,0" VerticalAlignment="Top"/>
+        <chartingToolkit:Chart x:Name="linechart" HorizontalAlignment="Left" Margin="10,242,0,0" Title="Vinkel" VerticalAlignment="Top" IsManipulationEnabled="True" Height="372" Width="1231">
 
-                <chartingToolkit:LineSeries  x:Name="Lchart"  IndependentValueBinding="{Binding Path=Value}" DependentValueBinding="{Binding Path=Key}"  ItemsSource="{Binding}" IsSelectionEnabled="True" IsTabStop="False" Margin="0,0,2.333,-0.333" RenderTransformOrigin="0.5,0.5" Title="HKF angle">
+            <chartingToolkit:LineSeries  x:Name="Lchart" IndependentValueBinding="{Binding Path=Value}" DependentValueBinding="{Binding Path=Key}"  ItemsSource="{Binding}" IsSelectionEnabled="True" IsTabStop="False" Margin="0,10,2,-0.333" RenderTransformOrigin="0.5,0.5" Title="HKF angle" >
                 <chartingToolkit:LineSeries.DataPointStyle>
-                    <Style TargetType="{x:Type chartingToolkit:LineDataPoint}">
-                        <Setter Property="Background" Value="Black"/>
+                    <Style TargetType="chartingToolkit:LineDataPoint">
+                        <Setter Property="Opacity" Value="0" />
+                        <Setter Property="Background" Value="Olive" />
                     </Style>
                 </chartingToolkit:LineSeries.DataPointStyle>
-                    <chartingToolkit:LineSeries.Background>
-                    <RadialGradientBrush Center="0.075,0.015" GradientOrigin="-0.1,-0.1" RadiusY="0.9" RadiusX="1.05">
-                        <GradientStop Color="#FFB9D6F7"/>
-                        <GradientStop Color="#FFC03733" Offset="1"/>
-                    </RadialGradientBrush>
-                </chartingToolkit:LineSeries.Background>
                 <chartingToolkit:LineSeries.DependentRangeAxis>
-                    <chartingToolkit:LinearAxis Orientation="Y" Title="Vinkel" Minimum="0" Maximum="240" Interval="20" />
+                    <chartingToolkit:LinearAxis Orientation="Y" Title="Vinkel" Maximum="220" Minimum="0" Interval="20" />
                 </chartingToolkit:LineSeries.DependentRangeAxis>
                 <chartingToolkit:LineSeries.IndependentAxis>
-                    <chartingToolkit:LinearAxis Orientation="X" Title="Tid"/>
+                    <chartingToolkit:LinearAxis Orientation="X" Title="Sekunder"  />
                 </chartingToolkit:LineSeries.IndependentAxis>
+
 
             </chartingToolkit:LineSeries>
 
 
         </chartingToolkit:Chart>
-        <Button x:Name="button" Content="Update chart" HorizontalAlignment="Left" Margin="1090,130.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-
-
-
-
-
-
+        <Button x:Name="stop_button" Content="Stop sensors" HorizontalAlignment="Left" Margin="867,102,0,0" VerticalAlignment="Top" Width="75" Click="stop_Button_Click"/>
+        <Button x:Name="button1" Content="Start sensors" HorizontalAlignment="Left" Margin="867,77,0,0" VerticalAlignment="Top" Width="75" Click="start_button_Click"/>
 
     </Grid>
 </Window>
