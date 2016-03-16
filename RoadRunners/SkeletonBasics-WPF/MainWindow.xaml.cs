@@ -241,12 +241,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             // lagrar vinklarna i en lista
         public List<double> vinklar = new List<double>();
-            //listan som används då en bit av grafen plottas
-        public List<KeyValuePair<double, double>> list = new List<KeyValuePair<double, double>>();
-
-        public double sampleToTime = 30;
-
-        public List<Tuple<double, double>> listMatlab = new List<Tuple<double, double>>();
+        public List<double> tidsLista = new List<double>();
+        //listan som används då en bit av grafen plottas
+        double sampleToTime = 0;
+   
         
 
 
@@ -358,8 +356,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             //Adderar vinkel till listan
             vinklar.Add(HKF_angle);
+           
+
+            sampleToTime = vinklar.Count;
+            tidsLista.Add(sampleToTime / 30);
             //listMatlab.Add(new Tuple<double, double>(HKF_angle, sampleToTime / 30));
-           // listMatlab.Add(Tuple.Create(HKF_angle, sampleToTime / 30));
+            // listMatlab.Add(Tuple.Create(HKF_angle, sampleToTime / 30));
 
             /*
             if(vinklar.Count > 300)
@@ -386,7 +388,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
                         try
                         {
-                            matlab.Feval("myfunc", 1, out result, vinklar.ToArray());
+                            matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray());
                         }
                         catch (System.Runtime.InteropServices.COMException)
                         {

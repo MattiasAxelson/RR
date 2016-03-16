@@ -22,7 +22,7 @@
         <Slider x:Name="slider" HorizontalAlignment="Left" Margin="1009,29,0,0" VerticalAlignment="Top" Height="27" Width="146" Maximum="26" Minimum="-26" ValueChanged="slider_ValueChanged"/>
         <Label x:Name="Degree" Content="Degrees" HorizontalAlignment="Left" Margin="1160,29,0,0" VerticalAlignment="Top"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="867,149,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="32" Width="81"/>
-        <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="212" Margin="44,30,0,0" VerticalAlignment="Top" Width="262" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}" Opacity="0.6"/>
+        <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="274" Margin="44,30,0,0" VerticalAlignment="Top" Width="331" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}" Opacity="0.6"/>
         <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="421,64,0,0" VerticalAlignment="Top"/>
         <Button x:Name="stop_button" Content="Stop sensors" HorizontalAlignment="Left" Margin="867,102,0,0" VerticalAlignment="Top" Width="75" Click="stop_Button_Click"/>
         <Button x:Name="button1" Content="Start sensors" HorizontalAlignment="Left" Margin="867,77,0,0" VerticalAlignment="Top" Width="75" Click="start_button_Click"/>
