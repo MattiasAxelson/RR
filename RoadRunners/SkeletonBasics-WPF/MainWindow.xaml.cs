@@ -368,7 +368,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             // listMatlab.Add(Tuple.Create(HKF_angle, sampleToTime / 30));
 
              double lagsta_varde = vinklar.Min();
-                 if (tidsLista.Count > 90)
+                 if (tidsLista.Count > 10)
                   {
                      // minimumlista.RemoveAt(0);
                       minimumlista.Add(lagsta_varde);         
