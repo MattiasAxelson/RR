@@ -14,7 +14,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Collections.Generic;
     using System.Windows.Threading;
     using System.Linq;
-    
+    using System.Windows.Media.Imaging;
 
 
 
@@ -317,9 +317,26 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+        //Ställer dig i det directoryt du befinner dig
+        string path = Path.Combine(Directory.GetCurrentDirectory());
+       
         // double totlagst = 0;
 
+        //Används för att rita ut grafen
+        private void CompositionTargetRendering() //object sender, EventArgs e
+        {
+            BitmapImage _image = new BitmapImage();
+            _image.BeginInit();
+            _image.CacheOption = BitmapCacheOption.None;
+            _image.UriCachePolicy = new System.Net.Cache.RequestCachePolicy();
+            _image.CacheOption = BitmapCacheOption.OnLoad;
+            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            _image.UriSource = new Uri(path + @"\..\..\..\Images\Vinkelgraf.png", UriKind.RelativeOrAbsolute);
+            _image.EndInit();
+            image.Source = _image;
+        }
 
+       // C:\Users\Jesper\Desktop\Github\RR\RoadRunners\SkeletonBasics-WPF\Images
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
             //joints
