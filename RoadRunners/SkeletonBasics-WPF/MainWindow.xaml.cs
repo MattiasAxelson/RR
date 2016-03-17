@@ -353,18 +353,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //Visar vinkeln
             textBlock.Text = HKF_angle.ToString() + (char)176;
 
-            
-
-            //list.Add (new KeyValuePair<double, double>(HKF_angle, sampleToTime / 30));
-
             //Adderar vinkel till listan
             vinklar.Add(HKF_angle);
            
 
             sampleToTime = vinklar.Count;
             tidsLista.Add(sampleToTime / 30);
-            //listMatlab.Add(new Tuple<double, double>(HKF_angle, sampleToTime / 30));
-            // listMatlab.Add(Tuple.Create(HKF_angle, sampleToTime / 30));
 
              double lagsta_varde = vinklar.Min();
                  if (tidsLista.Count > 90)
@@ -373,19 +367,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                       minimumlista.Add(lagsta_varde);         
                   }
 
-            textBlockMinVinkel.Text = lagsta_varde.ToString() + (char)176;
-            
-            /*
-            if(vinklar.Count > 300)
-            {
-                vinklar.RemoveAt(0);
-                vinklar.Add(HKF_angle);
-            }
-            else
-            {
-                vinklar.Add(HKF_angle);
-            }
-           */
+              textBlockMinVinkel.Text = lagsta_varde.ToString() + (char)176;
 
 
             //MATLABPLOT
@@ -407,9 +389,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                            ++antalFel;
                 Console.WriteLine(antalFel.ToString());
                         }
-                        
-
-
+ 
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
             this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderLeft);
