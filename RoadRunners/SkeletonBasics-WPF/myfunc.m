@@ -1,8 +1,13 @@
-function [x] = myfunc(a) 
+function [x] = myfunc(a,b) 
 
-%figure (1)
-x = plot (a);
-%plot(a)
- %hold on
+figure(1)
+set(0,'defaultfigureposition',[100 250 700 250])
 
-end
+x = plot (a,b);
+
+xlabel 'Tid';
+ylabel 'Vinkel';
+
+hold;
+
+end;
