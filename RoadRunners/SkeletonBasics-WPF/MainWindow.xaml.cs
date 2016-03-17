@@ -243,14 +243,17 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public List<double> vinklar = new List<double>();
         public List<double> tidsLista = new List<double>();
         public List<double> minimumlista = new List<double>();
+        public List<double> minimumlistahelp = new List<double>();
 
 
 
 
         public double helprefresh = 30;
         public double sampleToTime = 0;
+        double lagsta_varde =180 ;
+
         // Create the MATLAB instance 
-        //    MLApp.MLApp matlab = new MLApp.MLApp();
+        MLApp.MLApp matlab = new MLApp.MLApp();
 
 
         private void stop_Button_Click(object sender, RoutedEventArgs e)
@@ -346,18 +349,38 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //Adderar vinkel till listan
             vinklar.Add(HKF_angle);
             sampleToTime = vinklar.Count;
-           
-
-
-   
-           
-
-    
+            tidsLista.Add(sampleToTime / 30);
+            minimumlistahelp.Add(HKF_angle);
             
+            
+            if (minimumlistahelp.Count > 120)
+            {
+         
+                lagsta_varde = minimumlistahelp.Min();
+                minimumlista.Add(lagsta_varde);
+                minimumlistahelp.RemoveAt(0);
+            }
+            else
+            {
+                minimumlista.Add(lagsta_varde);
+            }
 
+            minVinkel.Text = lagsta_varde.ToString() + (char)176;
+
+            /*
+            if(vinklar.Count > 300)
+            {
+                vinklar.RemoveAt(0);
+                vinklar.Add(HKF_angle);
+            }
+            else
+            {
+                vinklar.Add(HKF_angle);
+            }
+           */
 
             //MATLABPLOT
-            /*
+            
                         // Change to the directory where the function is located 
                         var path = Path.Combine(Directory.GetCurrentDirectory());
                         matlab.Execute(@"cd " + path + @"\..\..");
@@ -368,12 +391,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
                         try
                         {
-                            matlab.Feval("myfunc", 1, out result, vinklar.ToArray());
+                            matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray(), minimumlista.ToArray());
                         }
                         catch (System.Runtime.InteropServices.COMException)
                         {
+          
                         }
-                        */
+                        
 
 
             // Render Torso

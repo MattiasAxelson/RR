@@ -26,7 +26,7 @@
         <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="421,64,0,0" VerticalAlignment="Top"/>
         <Button x:Name="stop_button" Content="Stop sensors" HorizontalAlignment="Left" Margin="867,102,0,0" VerticalAlignment="Top" Width="75" Click="stop_Button_Click"/>
         <Button x:Name="button1" Content="Start sensors" HorizontalAlignment="Left" Margin="867,77,0,0" VerticalAlignment="Top" Width="75" Click="start_button_Click"/>
-        <TextBlock x:Name="looptext" HorizontalAlignment="Left" Margin="867,181,0,0" TextWrapping="Wrap" Text="Test för loop" VerticalAlignment="Top" Height="30" Width="100"/>
+        <TextBlock x:Name="minVinkel" HorizontalAlignment="Left" Margin="867,181,0,0" TextWrapping="Wrap" Text="Test för loop" VerticalAlignment="Top" Height="30" Width="100"/>
 
     </Grid>
 </Window>

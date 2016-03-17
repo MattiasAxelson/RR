@@ -1,8 +1,15 @@
-function [x] = myfunc(a) 
+function [x] = myfunc(a,b,c) 
 
-%figure (1)
-x = plot (a);
-%plot(a)
- %hold on
+figure(1)
+
+x = plot (a,b,a,c);
+title('SuperGrafen');
+xlabel('Tid');
+ylabel('Vinkel');
+
+%subplot(2,1,2);
+% plot(b,'r');
+
+
 
 end
