@@ -241,6 +241,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             // lagrar vinklarna i en lista
         public List<double> vinklar = new List<double>();
+        public List<double> tidsLista = new List<double>();
+        public List<double> minimumlista = new List<double>();
 
 
 
