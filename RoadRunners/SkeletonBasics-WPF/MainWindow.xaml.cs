@@ -12,24 +12,18 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using Microsoft.Kinect;
     using System;
     using System.Collections.Generic;
-    using System.Windows.Threading;
-    using System.Linq;
+    using System.Windows.Controls.DataVisualization.Charting;
     
-
-
-
-
-
-
-
-
+    
+   
+  
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-
+       
         /// <summary>
         /// Width of output drawing
         /// </summary>
@@ -101,13 +95,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public MainWindow()
         {
             InitializeComponent();
-            
-
+  
         }
-
-
-
-
 
         /// <summary>
         /// Draws indicators to show which edges are clipping skeleton data
@@ -149,9 +138,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-
-
-
         /// <summary>
         /// Execute startup tasks
         /// </summary>
@@ -159,9 +145,54 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="e">event arguments</param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
+            // Create the drawing group we'll use for drawing
+            this.drawingGroup = new DrawingGroup();
 
-            //kan ta bort denna senare om vi inte ska ha nått i
+            // Create an image source that we can use in our image control
+            this.imageSource = new DrawingImage(this.drawingGroup);
 
+            // Display the drawing using our image control
+            Image.Source = this.imageSource;
+
+            // Look through all sensors and start the first connected one.
+            // This requires that a Kinect is connected at the time of app startup.
+            // To make your app robust against plug/unplug, 
+            // it is recommended to use KinectSensorChooser provided in Microsoft.Kinect.Toolkit (See components in Toolkit Browser).
+            foreach (var potentialSensor in KinectSensor.KinectSensors)
+            {
+                if (potentialSensor.Status == KinectStatus.Connected)
+                {
+                    this.sensor = potentialSensor;
+                    break;
+                }
+            }
+
+            if (null != this.sensor)
+            {
+                // Turn on the skeleton stream to receive skeleton frames
+                this.sensor.ColorStream.Enable();
+                this.sensor.SkeletonStream.Enable();
+              //  this.sensor.DepthStream.Enable();
+               
+
+                // Add an event handler to be called whenever there is new color frame data
+                this.sensor.SkeletonFrameReady += this.SensorSkeletonFrameReady;
+
+                // Start the sensor!
+                try
+                {
+                    this.sensor.Start();
+                }
+                catch (IOException)
+                {
+                    this.sensor = null;
+                }
+            }
+
+            if (null == this.sensor)
+            {
+                this.statusBarText.Text = Properties.Resources.NoKinectReady;
+            }
         }
 
         /// <summary>
@@ -234,90 +265,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         /// 
 
+            //Skapar lista till vinklarna
+      public  List<double> vinklar = new List<double>();
+     //   List<double> valueList = new List<double>();
 
-
-        //Skapar listor till vinklarna
-
-            // lagrar vinklarna i en lista
-        public List<double> vinklar = new List<double>();
-        public List<double> tidsLista = new List<double>();
-        public List<double> minimumlista = new List<double>();
-
-        //listan som används då en bit av grafen plottas
-        double sampleToTime = 0;
-    
-
-
-
-
-
-
-
-        //  Create the MATLAB instance 
+        // Create the MATLAB instance 
         MLApp.MLApp matlab = new MLApp.MLApp();
 
-        int antalFel = 0;
-     
-
-        private void stop_Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (null != this.sensor)
-            {
-                this.sensor.Stop();
-               
-            
-                          
-            }
-        }
-
-        private void start_button_Click(object sender, RoutedEventArgs e)
-        {
-            // Create the drawing group we'll use for drawing
-            this.drawingGroup = new DrawingGroup();
-
-            // Create an image source that we can use in our image control
-            this.imageSource = new DrawingImage(this.drawingGroup);
-
-            // Display the drawing using our image control
-            Image.Source = this.imageSource;
-
-            // Look through all sensors and start the first connected one.
-            // This requires that a Kinect is connected at the time of app startup.
-            // To make your app robust against plug/unplug, 
-            // it is recommended to use KinectSensorChooser provided in Microsoft.Kinect.Toolkit (See components in Toolkit Browser).
-            foreach (var potentialSensor in KinectSensor.KinectSensors)
-            {
-                if (potentialSensor.Status == KinectStatus.Connected)
-                {
-                    this.sensor = potentialSensor;
-                    break;
-                }
-            }
-            if (null != this.sensor)
-            {
-                // Turn on the skeleton stream to receive skeleton frames
-
-                this.sensor.ColorStream.Enable();
-                this.sensor.SkeletonStream.Enable();
-
-                // Add an event handler to be called whenever there is new color frame data
-                this.sensor.SkeletonFrameReady += this.SensorSkeletonFrameReady;
-
-                // Start the sensor!
-                try
-                {
-                    this.sensor.Start();
-                }
-                catch (IOException)
-                {
-                    this.sensor = null;
-                }
-
-            }
-        }
-
-        
-
+  
 
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
@@ -325,7 +280,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             Joint footLeft = skeleton.Joints[JointType.FootLeft];
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
             Joint hipLeft = skeleton.Joints[JointType.HipLeft];
-
+            
             //Vinkel
             float XFootleft;
             float YFootleft;
@@ -339,8 +294,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             XKneeleft = kneeLeft.Position.X;
             YKneeleft = kneeLeft.Position.Y;
             XHipleft = hipLeft.Position.X;
-            YHipleft = hipLeft.Position.Y;
-
+            YHipleft = hipLeft.Position.Y;       
+            
             //vektorlängder
             double HipKnee_Length = Math.Sqrt(Math.Pow(XHipleft - XKneeleft, 2) + Math.Pow(YHipleft - YKneeleft, 2));
             double HipFoot_Length = Math.Sqrt(Math.Pow(XHipleft - XFootleft, 2) + Math.Pow(YHipleft - YFootleft, 2));
@@ -349,66 +304,61 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //cosinussatsen för vinkel Höft-knä-fot, avrundar till heltal
             double HKF_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2)
                 - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
-            
+
             //Visar vinkeln
             textBlock.Text = HKF_angle.ToString() + (char)176;
 
-            
-
-            //list.Add (new KeyValuePair<double, double>(HKF_angle, sampleToTime / 30));
-
             //Adderar vinkel till listan
             vinklar.Add(HKF_angle);
-           
 
-            sampleToTime = vinklar.Count;
-            tidsLista.Add(sampleToTime / 30);
-            //listMatlab.Add(new Tuple<double, double>(HKF_angle, sampleToTime / 30));
-            // listMatlab.Add(Tuple.Create(HKF_angle, sampleToTime / 30));
-
-             double lagsta_varde = vinklar.Min();
-                 if (tidsLista.Count > 90)
-                  {
-                     // minimumlista.RemoveAt(0);
-                      minimumlista.Add(lagsta_varde);         
-                  }
-
-            textBlockMinVinkel.Text = lagsta_varde.ToString() + (char)176;
-            
-            /*
-            if(vinklar.Count > 300)
-            {
-                vinklar.RemoveAt(0);
-                vinklar.Add(HKF_angle);
-            }
-            else
-            {
-                vinklar.Add(HKF_angle);
-            }
-           */
-
-
-            //MATLABPLOT
+            //Visar hur många värden som finns i listan
+            matlabresult.Text = vinklar.Count.ToString();
 
             // Change to the directory where the function is located 
             var path = Path.Combine(Directory.GetCurrentDirectory());
-                        matlab.Execute(@"cd " + path + @"\..\..");
+            matlab.Execute(@"cd " + path + @"\..\..");
 
-                        // Define the output 
-                        object result = null;
+            // Define the output 
+            object result = null;
 
-                        // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
-                        try
-                        {
-                            matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray());
-                        }
-                        catch (System.Runtime.InteropServices.COMException)
-                        {
-                           ++antalFel;
-                Console.WriteLine(antalFel.ToString());
-                        }
-                        
+            // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
+            try
+            {
+            matlab.Feval("myfunc", 1, out result, vinklar.ToArray());
+            }
+            catch (System.Runtime.InteropServices.COMException)
+            {
+            }
 
+        
+            
+
+            
+
+
+
+
+
+
+
+
+
+            try
+            {
+
+            }
+            catch(System.InvalidOperationException)
+            { }
+            // Display result 
+            
+ 
+            
+     
+     
+          
+            
+           
+            
 
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
@@ -515,10 +465,21 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
-       
+        private void CheckBoxSeatedModeChanged(object sender, RoutedEventArgs e)
+        {
+            if (null != this.sensor)
+            {
+                if (this.checkBoxSeatedMode.IsChecked.GetValueOrDefault())
+                {
+                    this.sensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Seated;
+                }
+                else
+                {
+                    this.sensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
+                }
+            }
+        }
 
-
-        // för att ändra tilten på kinecten
         private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             int n = (int)slider.Value;
@@ -532,8 +493,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 sensor.ElevationAngle = (int)slider.Value;
             }
-        }
-
-    
+        }        
     }
 }
