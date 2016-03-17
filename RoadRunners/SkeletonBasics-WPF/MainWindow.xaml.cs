@@ -18,12 +18,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
 
 
-
-
-
-
-
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
