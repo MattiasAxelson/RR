@@ -12,7 +12,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using Microsoft.Kinect;
     using System;
     using System.Collections.Generic;
-    //using System.Windows.Controls.DataVisualization.Charting;
     using System.Windows.Threading;
     using System.Linq;
     
@@ -246,7 +245,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         //listan som används då en bit av grafen plottas
         double sampleToTime = 0;
-        double minimumvarde = 0;
+     
 
 
 
@@ -258,7 +257,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         MLApp.MLApp matlab = new MLApp.MLApp();
 
         int antalFel = 0;
-        double lagsta_varde = 0;
+       
 
         private void stop_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -341,7 +340,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             YKneeleft = kneeLeft.Position.Y;
             XHipleft = hipLeft.Position.X;
             YHipleft = hipLeft.Position.Y;
-
+            
             //vektorlängder
             double HipKnee_Length = Math.Sqrt(Math.Pow(XHipleft - XKneeleft, 2) + Math.Pow(YHipleft - YKneeleft, 2));
             double HipFoot_Length = Math.Sqrt(Math.Pow(XHipleft - XFootleft, 2) + Math.Pow(YHipleft - YFootleft, 2));
@@ -353,19 +352,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             
             //Visar vinkeln
             textBlock.Text = HKF_angle.ToString() + (char)176;
-
             
-
-            //list.Add (new KeyValuePair<double, double>(HKF_angle, sampleToTime / 30));
-
             //Adderar vinkel till listan
             vinklar.Add(HKF_angle);
            
 
-            sampleToTime = vinklar.Count;
-            tidsLista.Add(sampleToTime / 30);
-            //listMatlab.Add(new Tuple<double, double>(HKF_angle, sampleToTime / 30));
-            // listMatlab.Add(Tuple.Create(HKF_angle, sampleToTime / 30));
+           sampleToTime = vinklar.Count;
+           tidsLista.Add(sampleToTime / 30);
+    
 
              double lagsta_varde = vinklar.Min();
                  if (tidsLista.Count > 90)
@@ -375,7 +369,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                   }
 
             textBlock1.Text = lagsta_varde.ToString() + (char)176;
-
+            
             /*
             if(vinklar.Count > 300)
             {
@@ -406,7 +400,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         catch (System.Runtime.InteropServices.COMException)
                         {
                            ++antalFel;
-                Console.WriteLine(antalFel.ToString());
+                            Console.WriteLine(antalFel.ToString());
                         }
                         
 
