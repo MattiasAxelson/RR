@@ -242,9 +242,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public List<double> vinklar = new List<double>();
         public List<double> tidsLista = new List<double>();
         public List<double> minimumlista = new List<double>();
-
+        public List<double> minimumlistahelp = new List<double>();
         //listan som används då en bit av grafen plottas
         double sampleToTime = 0;
+        double totalMean = 0;
     
 
 
@@ -316,7 +317,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-        
+        // double totlagst = 0;
 
 
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
@@ -361,14 +362,38 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             tidsLista.Add(sampleToTime / 30);
 
              double lagsta_varde = vinklar.Min();
-                 if (tidsLista.Count > 90)
-                  {
-                     // minimumlista.RemoveAt(0);
-                      minimumlista.Add(lagsta_varde);         
-                  }
+            /* minimumlistahelp = minimumlista;
+                 if (vinklar.Count > 60)
+                   {
+                       minimumlista.Add(lagsta_varde);
 
-              textBlockMinVinkel.Text = lagsta_varde.ToString() + (char)176;
+                // minimumlistahelp.RemoveAt(0);
 
+                   }
+                   */
+
+            minimumlistahelp.Add(HKF_angle);
+
+
+            if (minimumlistahelp.Count > 60)
+            {
+                lagsta_varde = minimumlistahelp.Min();
+                minimumlista.Add(lagsta_varde);
+                minimumlistahelp.RemoveAt(0);
+            }
+            else
+            {
+                minimumlista.Add(lagsta_varde);
+            }
+            //    double tot = totlagst + lagsta_varde;
+            //      textBlockMinVinkel.Text = (tot / minimumlista.Count).ToString() + (char)176;
+            // textBlockMinVinkel.Text = minimumlista.LastOrDefault().ToString() + (char)176;
+         //   textBlockMinVinkel.Text = (totalMean/minimumlista.Count).ToString() + (char)176;
+
+        //    foreach (double hej in minimumlista)
+          //  {
+//      totalMean = (hej + totalMean);
+        //    }
 
             //MATLABPLOT
 
@@ -382,7 +407,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
                         try
                         {
-                            matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray());
+                            matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray(), minimumlista.ToArray());
                         }
                         catch (System.Runtime.InteropServices.COMException)
                         {

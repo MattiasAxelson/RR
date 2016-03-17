@@ -1,13 +1,12 @@
-function [x] = myfunc(a,b) 
+function [x] = myfunc(a,b,c) 
 
 figure(1)
-set(0,'defaultfigureposition',[100 250 700 250])
+set(figure(1),'Position',[100 60 1000 200])
 
-x = plot (a,b);
+x = plot (a,b,a,c);
 
-xlabel 'Tid';
+
+xlabel 'TidJävel';
 ylabel 'Vinkel';
 
-hold;
-
-end;
+end
