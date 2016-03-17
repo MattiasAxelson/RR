@@ -12,7 +12,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using Microsoft.Kinect;
     using System;
     using System.Collections.Generic;
-    //using System.Windows.Controls.DataVisualization.Charting;
     using System.Windows.Threading;
     using System.Linq;
     
@@ -246,7 +245,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         //listan som används då en bit av grafen plottas
         double sampleToTime = 0;
-        double minimumvarde = 0;
+    
 
 
 
@@ -258,7 +257,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         MLApp.MLApp matlab = new MLApp.MLApp();
 
         int antalFel = 0;
-        double lagsta_varde = 0;
+     
 
         private void stop_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -374,8 +373,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                       minimumlista.Add(lagsta_varde);         
                   }
 
-            textBlock1.Text = lagsta_varde.ToString() + (char)176;
-
+            textBlockMinVinkel.Text = lagsta_varde.ToString() + (char)176;
+            
             /*
             if(vinklar.Count > 300)
             {
