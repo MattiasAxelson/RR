@@ -238,19 +238,23 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
 
         //Skapar listor till vinklarna
+        // kan nog sätta alla till private
 
             // lagrar vinklarna i en lista
         public List<double> vinklar = new List<double>();
         public List<double> tidsLista = new List<double>();
         public List<double> minimumlista = new List<double>();
         public List<double> minimumlistahelp = new List<double>();
+        //public List<double> meanAngleList = new List<double>();
 
 
 
 
         public double helprefresh = 30;
         public double sampleToTime = 0;
-        double lagsta_varde =180 ;
+        public double lagsta_varde;
+        public int updateMatlab = 0;
+        public double meanAngle = 0;
 
         // Create the MATLAB instance 
         MLApp.MLApp matlab = new MLApp.MLApp();
@@ -352,10 +356,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             tidsLista.Add(sampleToTime / 30);
             minimumlistahelp.Add(HKF_angle);
             
-            
-            if (minimumlistahelp.Count > 120)
-            {
-         
+            // tar ut lägsta vinkel
+            if (minimumlistahelp.Count > 60)
+            {  
                 lagsta_varde = minimumlistahelp.Min();
                 minimumlista.Add(lagsta_varde);
                 minimumlistahelp.RemoveAt(0);
@@ -367,37 +370,30 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             minVinkel.Text = lagsta_varde.ToString() + (char)176;
 
-            /*
-            if(vinklar.Count > 300)
-            {
-                vinklar.RemoveAt(0);
-                vinklar.Add(HKF_angle);
-            }
-            else
-            {
-                vinklar.Add(HKF_angle);
-            }
-           */
+ 
 
             //MATLABPLOT
-            
-                        // Change to the directory where the function is located 
-                        var path = Path.Combine(Directory.GetCurrentDirectory());
-                        matlab.Execute(@"cd " + path + @"\..\..");
+            //Skickar data till matlab i ett specifikt satt intervall
+            if (updateMatlab < vinklar.Count)
+            {
+                // Change to the directory where the function is located 
+                var path = Path.Combine(Directory.GetCurrentDirectory());
+                matlab.Execute(@"cd " + path + @"\..\..");
 
-                        // Define the output 
-                        object result = null;
+                // Define the output 
+                object result = null;
 
-                        // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
-                        try
-                        {
-                            matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray(), minimumlista.ToArray());
-                        }
-                        catch (System.Runtime.InteropServices.COMException)
-                        {
-          
-                        }
-                        
+                // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
+                try
+                {
+                    matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray(), minimumlista.ToArray());
+                }
+                catch (System.Runtime.InteropServices.COMException)
+                {
+
+                }
+                updateMatlab = updateMatlab + 30;
+            }
 
 
             // Render Torso
@@ -524,6 +520,30 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-    
+
+        // För att ta ut medelvinkel
+        private void Show_mean_angle_Click(object sender, RoutedEventArgs e)
+        {
+            minimumlista.Sort();
+            int listIndex = 0;
+            while(listIndex < minimumlista.Count - 1)
+            {
+                if(minimumlista[listIndex] == minimumlista[listIndex +1])
+                {
+                    minimumlista.RemoveAt(listIndex);
+                }
+                else
+                {
+                    ++listIndex;
+                }
+            }
+            foreach(var tal in minimumlista)
+            {
+                meanAngle = meanAngle + tal;
+            }
+            meanAngle = meanAngle / (minimumlista.Count);
+            Math.Ceiling(meanAngle);
+            MessageBox.Show(meanAngle.ToString());
+        }
     }
 }

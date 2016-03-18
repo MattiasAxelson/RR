@@ -1,5 +1,7 @@
 function [x] = myfunc(a,b,c) 
-
+% a = Tid 
+% B = vinklar
+% C = minsta vinkel
 figure(1)
 
 x = plot (a,b,a,c);
