@@ -132,6 +132,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Vinkelgraf.png" />
     <Resource Include="Images\Vinkelgraf.png" />
     <Content Include="myfunc.m" />
   </ItemGroup>

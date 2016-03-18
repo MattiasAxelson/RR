@@ -317,11 +317,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-        //Ställer dig i det directoryt du befinner dig
-        string path = Path.Combine(Directory.GetCurrentDirectory());
-       
-        // double totlagst = 0;
-
         //Används för att rita ut grafen
         private void CompositionTargetRendering() //object sender, EventArgs e
         {
@@ -331,10 +326,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             _image.UriCachePolicy = new System.Net.Cache.RequestCachePolicy();
             _image.CacheOption = BitmapCacheOption.OnLoad;
             _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-            _image.UriSource = new Uri(path + @"\..\..\..\Images\Vinkelgraf.png", UriKind.RelativeOrAbsolute);
+            _image.UriSource = new Uri(@"cd " + path + @"\..\..\Vinkelgraf.png", UriKind.RelativeOrAbsolute);
             _image.EndInit();
             image.Source = _image;
         }
+
+        //Ställer dig i det directoryt du befinner dig
+        string path = Path.Combine(Directory.GetCurrentDirectory());
+       
+        // double totlagst = 0;
+
 
        // C:\Users\Jesper\Desktop\Github\RR\RoadRunners\SkeletonBasics-WPF\Images
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
@@ -367,9 +368,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //cosinussatsen för vinkel Höft-knä-fot, avrundar till heltal
             double HKF_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2)
                 - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
-            
-            //Visar vinkeln
-            textBlock.Text = HKF_angle.ToString() + (char)176;
+
+        //Visar vinkeln
+        textBlock.Text = HKF_angle.ToString() + (char)176;
 
             //Adderar vinkel till listan
             vinklar.Add(HKF_angle);
@@ -388,6 +389,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                    }
                    */
+
 
             minimumlistahelp.Add(HKF_angle);
 
@@ -425,6 +427,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         try
                         {
                             matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray(), minimumlista.ToArray());
+
                         }
                         catch (System.Runtime.InteropServices.COMException)
                         {
