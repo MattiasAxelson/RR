@@ -132,9 +132,8 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Vinkelgraf.png" />
-    <Resource Include="Images\Vinkelgraf.png" />
     <Content Include="myfunc.m" />
+    <Resource Include="VinkelgrafJÄVEL.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

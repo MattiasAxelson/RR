@@ -102,7 +102,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             InitializeComponent();
             
-
         }
 
 
@@ -245,7 +244,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public List<double> minimumlistahelp = new List<double>();
         //listan som används då en bit av grafen plottas
         double sampleToTime = 0;
-        double totalMean = 0;
+        public int updateMatlab = 0;
     
 
 
@@ -320,21 +319,21 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         //Används för att rita ut grafen
         private void CompositionTargetRendering() //object sender, EventArgs e
         {
+            string path = Path.Combine(Directory.GetCurrentDirectory());
             BitmapImage _image = new BitmapImage();
             _image.BeginInit();
             _image.CacheOption = BitmapCacheOption.None;
             _image.UriCachePolicy = new System.Net.Cache.RequestCachePolicy();
             _image.CacheOption = BitmapCacheOption.OnLoad;
             _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-            _image.UriSource = new Uri(@"cd " + path + @"\..\..\Vinkelgraf.png", UriKind.RelativeOrAbsolute);
+            _image.UriSource = new Uri(path + @"\..\..\VinkelgrafJÄVEL.jpeg", UriKind.RelativeOrAbsolute);
             _image.EndInit();
             image.Source = _image;
         }
 
-        //Ställer dig i det directoryt du befinner dig
-        string path = Path.Combine(Directory.GetCurrentDirectory());
        
-        // double totlagst = 0;
+      
+       
 
 
        // C:\Users\Jesper\Desktop\Github\RR\RoadRunners\SkeletonBasics-WPF\Images
@@ -370,7 +369,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
 
         //Visar vinkeln
-        textBlock.Text = HKF_angle.ToString() + (char)176;
+        Vinkel.Text = HKF_angle.ToString() + (char)176;
 
             //Adderar vinkel till listan
             vinklar.Add(HKF_angle);
@@ -380,15 +379,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             tidsLista.Add(sampleToTime / 30);
 
              double lagsta_varde = vinklar.Min();
-            /* minimumlistahelp = minimumlista;
-                 if (vinklar.Count > 60)
-                   {
-                       minimumlista.Add(lagsta_varde);
-
-                // minimumlistahelp.RemoveAt(0);
-
-                   }
-                   */
+       
 
 
             minimumlistahelp.Add(HKF_angle);
@@ -404,37 +395,32 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 minimumlista.Add(lagsta_varde);
             }
-            //    double tot = totlagst + lagsta_varde;
-            //      textBlockMinVinkel.Text = (tot / minimumlista.Count).ToString() + (char)176;
-            // textBlockMinVinkel.Text = minimumlista.LastOrDefault().ToString() + (char)176;
-         //   textBlockMinVinkel.Text = (totalMean/minimumlista.Count).ToString() + (char)176;
-
-        //    foreach (double hej in minimumlista)
-          //  {
-//      totalMean = (hej + totalMean);
-        //    }
+       
 
             //MATLABPLOT
+           if (updateMatlab < vinklar.Count)
+            {
+                // Change to the directory where the function is located 
+                var path = Path.Combine(Directory.GetCurrentDirectory());
+                matlab.Execute(@"cd " + path + @"\..\..");
 
-            // Change to the directory where the function is located 
-            var path = Path.Combine(Directory.GetCurrentDirectory());
-                        matlab.Execute(@"cd " + path + @"\..\..");
+                // Define the output 
+                object result = null;
 
-                        // Define the output 
-                        object result = null;
-
-                        // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
-                        try
-                        {
-                            matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray(), minimumlista.ToArray());
-
-                        }
-                        catch (System.Runtime.InteropServices.COMException)
-                        {
-                           ++antalFel;
-                Console.WriteLine(antalFel.ToString());
-                        }
- 
+                // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
+                try
+                {
+                    CompositionTargetRendering();
+                    matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray(), minimumlista.ToArray());
+                    
+                }
+                catch (System.Runtime.InteropServices.COMException)
+                {
+                    ++antalFel;
+                    Console.WriteLine(antalFel.ToString());
+                }
+                updateMatlab = updateMatlab + 30;
+             }
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
             this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderLeft);
