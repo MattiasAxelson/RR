@@ -15,8 +15,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     //using System.Windows.Controls.DataVisualization.Charting;
     using System.Windows.Threading;
     using System.Linq;
-    
-
+    using System.Windows.Media.Imaging;
+    using System.Windows.Interop;
 
 
 
@@ -102,7 +102,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public MainWindow()
         {
             InitializeComponent();
-            
+          //  CompositionTargetRendering();
+
+
 
         }
 
@@ -160,8 +162,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="e">event arguments</param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-
-            //kan ta bort denna senare om vi inte ska ha nått i
+            vinkelImage.Source = null;
+          
 
         }
 
@@ -255,7 +257,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public double lagsta_varde;
         public int updateMatlab = 0;
         public double meanAngle = 0;
-
+     
+        
         // Create the MATLAB instance 
         MLApp.MLApp matlab = new MLApp.MLApp();
 
@@ -264,7 +267,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             if (null != this.sensor)
             {
-                this.sensor.Stop();                        
+                this.sensor.SkeletonStream.Disable();                        
             }
         }
 
@@ -314,10 +317,31 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+      
+        //Används för att rita ut grafen
+        private void CompositionTargetRendering() //object sender, EventArgs e
+        {
+       
+       
+            BitmapImage _image = new BitmapImage();
+            string pathImage = Path.Combine(Directory.GetCurrentDirectory());
+            //string pathImage = @"C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\Vinkelgraf.png";
+            _image.BeginInit();
+            _image.CacheOption = BitmapCacheOption.None;
+            _image.UriCachePolicy = new System.Net.Cache.RequestCachePolicy();
+            _image.CacheOption = BitmapCacheOption.OnLoad;
+            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            _image.UriSource = new Uri( pathImage + @"\..\..\Vinkelgraf.png", UriKind.RelativeOrAbsolute);          
+            _image.EndInit();
+        
+             vinkelImage.Source = _image;
+        }
+
 
 
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
+      
             //joints
             Joint footLeft = skeleton.Joints[JointType.FootLeft];
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
@@ -370,7 +394,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             minVinkel.Text = lagsta_varde.ToString() + (char)176;
 
- 
+
 
             //MATLABPLOT
             //Skickar data till matlab i ett specifikt satt intervall
@@ -386,7 +410,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
                 try
                 {
+                    CompositionTargetRendering();
                     matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray(), minimumlista.ToArray());
+
                 }
                 catch (System.Runtime.InteropServices.COMException)
                 {
@@ -394,7 +420,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
                 updateMatlab = updateMatlab + 30;
             }
-
+            
 
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
@@ -544,6 +570,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             meanAngle = meanAngle / (minimumlista.Count);
             Math.Ceiling(meanAngle);
             MessageBox.Show(meanAngle.ToString());
+            
         }
     }
 }
