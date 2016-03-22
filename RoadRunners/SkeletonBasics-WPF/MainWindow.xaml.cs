@@ -256,7 +256,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public double sampleToTime = 0;
         public double lagsta_varde;
         public int updateMatlab = 0;
-        public double meanAngle = 0;
+        public double meanAngle = 170;
      
         
         // Create the MATLAB instance 
@@ -265,10 +265,24 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void stop_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (null != this.sensor)
+            /*
+            if (this.sensor == null)
             {
-                this.sensor.SkeletonStream.Disable();                        
+                return;
             }
+                  
+            if (this.sensor.SkeletonStream.IsEnabled)
+            {
+                this.sensor.SkeletonStream.Disable();
+            }
+
+            if (this.sensor.ColorStream.IsEnabled)
+            {
+                this.sensor.ColorStream.Disable();
+            }
+            this.sensor.SkeletonFrameReady -= this.SensorSkeletonFrameReady;
+*/
+            this.sensor.Stop();
         }
 
         private void start_button_Click(object sender, RoutedEventArgs e)
@@ -318,11 +332,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
       
-        //Används för att rita ut grafen
+        //Hämtar bild som ritas i matlab
         private void CompositionTargetRendering() //object sender, EventArgs e
-        {
-       
-       
+        {     
             BitmapImage _image = new BitmapImage();
             string pathImage = Path.Combine(Directory.GetCurrentDirectory());
             //string pathImage = @"C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\Vinkelgraf.png";
@@ -331,7 +343,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             _image.UriCachePolicy = new System.Net.Cache.RequestCachePolicy();
             _image.CacheOption = BitmapCacheOption.OnLoad;
             _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-            _image.UriSource = new Uri( pathImage + @"\..\..\Vinkelgraf.png", UriKind.RelativeOrAbsolute);          
+            _image.UriSource = new Uri( pathImage + @"\..\..\Vinkelgraf.jpeg", UriKind.RelativeOrAbsolute);          
             _image.EndInit();
         
              vinkelImage.Source = _image;
@@ -371,8 +383,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             double HKF_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2)
                 - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
             
-            //Visar vinkeln
-            textBlock.Text = HKF_angle.ToString() + (char)176;
 
             //Adderar vinkel till listan
             vinklar.Add(HKF_angle);
@@ -391,10 +401,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 minimumlista.Add(lagsta_varde);
             }
-
-            minVinkel.Text = lagsta_varde.ToString() + (char)176;
-
-
 
             //MATLABPLOT
             //Skickar data till matlab i ett specifikt satt intervall
@@ -569,6 +575,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
             meanAngle = meanAngle / (minimumlista.Count);
             Math.Ceiling(meanAngle);
+
             MessageBox.Show(meanAngle.ToString());
             
         }

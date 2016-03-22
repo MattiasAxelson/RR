@@ -2,7 +2,7 @@ function [x] = myfunc(a,b,c)
 % a = Tid 
 % b = vinklar
 % c = minsta vinkel
-h = figure(1); set(gcf,'Visible','off');
+h = figure(1); set(gcf,'visible','off')
 
 h.PaperUnits = 'inches';
 h.PaperPosition = [0 0 14 4];
@@ -12,6 +12,6 @@ title('SuperGrafen');
 xlabel('Tid');
 ylabel('Vinkel');
 
-saveas(h, 'Vinkelgraf.png')
-
+saveas(h, 'Vinkelgraf.jpeg')
+close(h);
 end
