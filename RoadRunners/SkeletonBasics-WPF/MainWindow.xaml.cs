@@ -12,25 +12,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using Microsoft.Kinect;
     using System;
     using System.Collections.Generic;
-    //using System.Windows.Controls.DataVisualization.Charting;
-    using System.Windows.Threading;
     using System.Linq;
     using System.Windows.Media.Imaging;
-    using System.Windows.Interop;
-
-
-
-
-
-
-
+   
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        
         /// <summary>
         /// Width of output drawing
         /// </summary>
@@ -105,7 +96,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
           //  CompositionTargetRendering();
 
 
-
+            
         }
 
 
@@ -353,7 +344,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
-      
+
+           
             //joints
             Joint footLeft = skeleton.Joints[JointType.FootLeft];
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
@@ -401,31 +393,31 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 minimumlista.Add(lagsta_varde);
             }
-
-            //MATLABPLOT
-            //Skickar data till matlab i ett specifikt satt intervall
-            if (updateMatlab < vinklar.Count)
-            {
-                // Change to the directory where the function is located 
-                var path = Path.Combine(Directory.GetCurrentDirectory());
-                matlab.Execute(@"cd " + path + @"\..\..");
-
-                // Define the output 
-                object result = null;
-
-                // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
-                try
+          
+                //MATLABPLOT
+                //Skickar data till matlab i ett specifikt satt intervall
+                if (updateMatlab < vinklar.Count)
                 {
-                    CompositionTargetRendering();
-                    matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray(), minimumlista.ToArray());
+                    // Change to the directory where the function is located 
+                    var path = Path.Combine(Directory.GetCurrentDirectory());
+                    matlab.Execute(@"cd " + path + @"\..\..");
 
-                }
-                catch (System.Runtime.InteropServices.COMException)
-                {
+                    // Define the output 
+                    object result = null;
 
+                    // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
+                    try
+                    {
+                        CompositionTargetRendering();
+                        matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray(), minimumlista.ToArray());
+
+                    }
+                    catch (System.Runtime.InteropServices.COMException)
+                    {
+
+                    }
+                    updateMatlab = updateMatlab + 30;
                 }
-                updateMatlab = updateMatlab + 30;
-            }
             
 
             // Render Torso
@@ -576,7 +568,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             meanAngle = meanAngle / (minimumlista.Count);
             Math.Ceiling(meanAngle);
 
-            MessageBox.Show(meanAngle.ToString());
+            System.Windows.MessageBox.Show(meanAngle.ToString());
             
         }
     }
