@@ -14,6 +14,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Media.Imaging;
+    using System.Threading;
    
 
     /// <summary>
@@ -248,6 +249,43 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // Create the MATLAB instance 
         MLApp.MLApp matlab = new MLApp.MLApp();
 
+        /*
+        public void GUIdraw()
+        {
+            Thread initThread = new Thread(new ThreadStart(callMatlab));
+           
+            initThread.Start();
+        }
+        */
+        
+        public void callMatlab()
+        {
+          
+            if (updateMatlab < vinklar.Count)
+            {
+                // Change to the directory where the function is located 
+                var path = Path.Combine(Directory.GetCurrentDirectory());
+                matlab.Execute(@"cd " + path + @"\..\..");
+
+                // Define the output 
+                object result = null;
+
+                // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
+                try
+                {
+
+                    CompositionTargetRendering();
+                    matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray(), minimumlista.ToArray());
+
+                }
+                catch (System.Runtime.InteropServices.COMException)
+                {
+
+                }
+                updateMatlab = updateMatlab + 30;
+            }
+        }
+        
 
         private void stop_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -316,6 +354,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             }
         }
+
+
 
       
         //Hämtar bild som ritas i matlab
@@ -393,32 +433,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 minimumlista.Add(lagsta_varde);
             }
-          
-                //MATLABPLOT
-                //Skickar data till matlab i ett specifikt satt intervall
-                if (updateMatlab < vinklar.Count)
-                {
-                    // Change to the directory where the function is located 
-                    var path = Path.Combine(Directory.GetCurrentDirectory());
-                    matlab.Execute(@"cd " + path + @"\..\..");
 
-                    // Define the output 
-                    object result = null;
+            //MATLABPLOT
+            //Skickar data till matlab i ett specifikt satt intervall
 
-                    // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
-                    try
-                    {
-                        CompositionTargetRendering();
-                        matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray(), minimumlista.ToArray());
-
-                    }
-                    catch (System.Runtime.InteropServices.COMException)
-                    {
-
-                    }
-                    updateMatlab = updateMatlab + 30;
-                }
-            
+            callMatlab();
 
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
