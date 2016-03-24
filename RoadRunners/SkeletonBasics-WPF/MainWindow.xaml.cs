@@ -93,12 +93,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public MainWindow()
         {
             InitializeComponent();
-          //  CompositionTargetRendering();
+       
 
 
             
         }
-
+        
 
 
 
@@ -221,12 +221,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-        /// <summary>
-        /// Draws a skeleton's bones and joints
-        /// </summary>
-        /// <param name="skeleton">skeleton to draw</param>
-        /// <param name="drawingContext">drawing context to draw to</param>
-        /// 
+   
 
 
 
@@ -328,7 +323,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {     
             BitmapImage _image = new BitmapImage();
             string pathImage = Path.Combine(Directory.GetCurrentDirectory());
-            //string pathImage = @"C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\Vinkelgraf.png";
+        
             _image.BeginInit();
             _image.CacheOption = BitmapCacheOption.None;
             _image.UriCachePolicy = new System.Net.Cache.RequestCachePolicy();
@@ -340,7 +335,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
              vinkelImage.Source = _image;
         }
 
-
+        /// <summary>
+        /// Draws a skeleton's bones and joints
+        /// </summary>
+        /// <param name="skeleton">skeleton to draw</param>
+        /// <param name="drawingContext">drawing context to draw to</param>
+        /// 
 
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
