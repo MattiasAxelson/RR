@@ -390,6 +390,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             Joint footLeft = skeleton.Joints[JointType.FootLeft];
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
             Joint hipLeft = skeleton.Joints[JointType.HipLeft];
+            
 
             //Vinkel
             float XFootleft;
