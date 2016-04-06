@@ -200,9 +200,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     {
                         RenderClippedEdges(skel, dc);
 
+                        this.CalculateVelocity(skel);
+
                         if (skel.TrackingState == SkeletonTrackingState.Tracked)
                         {
                             this.DrawBonesAndJoints(skel, dc);
+                            Console.WriteLine("HEJ");
                         }
                         else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
                         {
@@ -234,9 +237,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public List<double> minimumlista = new List<double>();
         public List<double> minimumlistahelp = new List<double>();
         //public List<double> meanAngleList = new List<double>();
-
-
-
 
         public double helprefresh = 30;
         public double sampleToTime = 0;
@@ -342,14 +342,120 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         /// 
 
+        // Variabler
+        double stepTime = 0;
+        double sumStep = 0;
+        double stepVelocity = 0;
+        double meanVelocity = 0;
+        double meanHelpVelocity = 0;
+
+        // Listor för hastighet
+        List<double> velXList = new List<double>();
+        List<double> velTList = new List<double>();
+        List<double> velHelpList = new List<double>();
+        List<double> velocityList = new List<double>();
+
+        // Beräkna hastigheten 
+        // Håll listan till 600 värden
+        // När jag hittar vändpunkt så tömmer jag listan 
+        private void CalculateVelocity(Skeleton skeleton)
+        {
+            Console.WriteLine("HEAEJFOANVEA");
+
+            //Koordinater för fot
+            Joint footLeft = skeleton.Joints[JointType.FootLeft];
+            float XFootleft;
+            float YFootleft;
+            XFootleft = footLeft.Position.X;
+            YFootleft = footLeft.Position.Y;
+
+            Console.WriteLine(velXList.Count());
+
+            //Lägger till x-koordinater i listan
+            if (velXList.Count > 10)
+                {
+                   Console.WriteLine("HEAEJFOANVEA");
+                   if (velXList.Count < 399)
+                   {
+                       velXList.Add(XFootleft);
+
+                // Kollar om ett värde är en topp genom att jämföra ett värden före sig och ett värde efter sig
+                if (((velXList[velXList.Count - 5] < (velXList[velXList.Count - 4] + velXList[velXList.Count - 3] + velXList[velXList.Count - 2] + velXList[velXList.Count - 1] / 4))
+                    &&
+                    (velXList[velXList.Count - 5] < (velXList[velXList.Count - 6] + velXList[velXList.Count - 7] + velXList[velXList.Count - 8] + velXList[velXList.Count - 9] / 4)))
+                    ||
+                   ((velXList[velXList.Count - 5] > (velXList[velXList.Count - 4] + velXList[velXList.Count - 3] + velXList[velXList.Count - 2] + velXList[velXList.Count - 1] / 4))
+                    &&
+                    (velXList[velXList.Count - 5] > (velXList[velXList.Count - 6] + velXList[velXList.Count - 7] + velXList[velXList.Count - 8] + velXList[velXList.Count - 9] / 4))))
+                {
+                    // Deltatid
+                    stepTime = velHelpList.Count / 30;
+                    stepVelocity = sumStep / stepTime;
+                    Console.WriteLine("HEAEJFOANVEA");
+
+                    // Hastighetslista
+                    velocityList.Add(stepVelocity);
+                    meanHelpVelocity = meanHelpVelocity + stepVelocity;
+                    meanVelocity = velocityList.Count / meanHelpVelocity;
+
+                    // Skriver ut hastigheten i fönstret
+                    velocityText.Text = meanVelocity.ToString();
+
+                    // Rensar listan
+                    velXList.Clear();
+                    velHelpList.Clear();
+                }
+                else
+                {
+                    velHelpList.Add(velXList.Count - 5);
+                    sumStep = sumStep + velXList[velXList.Count - 5];
+                }
+
+            }
+            else
+            {
+                velXList.RemoveAt(0);
+                velXList.Add(XFootleft);
+                Console.WriteLine("HEAEJFOANVEA");
+            }
+
+            if (velocityList.Count > 100)
+                {
+                    velocityList.RemoveAt(0); 
+                }
+            }
+        }
+
+
+
+        /*
+    (( hastXLista[hastXLista.Count - 1] < hastXLista[hastXLista.Count - 2] && 
+      hastXLista[hastXLista.Count - 2] < hastXLista[hastXLista.Count - 3] &&
+      hastXLista[hastXLista.Count - 3] < hastXLista[hastXLista.Count - 4] &&
+      hastXLista[hastXLista.Count - 4] < hastXLista[hastXLista.Count - 5])
+      ||
+    ( hastXLista[hastXLista.Count - 1] > hastXLista[hastXLista.Count - 2] &&
+      hastXLista[hastXLista.Count - 2] > hastXLista[hastXLista.Count - 3] &&
+      hastXLista[hastXLista.Count - 3] > hastXLista[hastXLista.Count - 4] &&
+      hastXLista[hastXLista.Count - 4] > hastXLista[hastXLista.Count - 5]))
+    */
+
+        double angleChoice = 0;
+
+        private void Shoulder_Hip_Knee_Checked(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
 
-           
             //joints
             Joint footLeft = skeleton.Joints[JointType.FootLeft];
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
             Joint hipLeft = skeleton.Joints[JointType.HipLeft];
+
+            Joint shoulderLeft = skeleton.Joints[JointType.ShoulderLeft];
 
             //Vinkel
             float XFootleft;
@@ -359,6 +465,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             float XHipleft;
             float YHipleft;
 
+            // SHK
+            float XShoulderleft;
+            float YShoulderleft;
+
             XFootleft = footLeft.Position.X;
             YFootleft = footLeft.Position.Y;
             XKneeleft = kneeLeft.Position.X;
@@ -366,22 +476,34 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             XHipleft = hipLeft.Position.X;
             YHipleft = hipLeft.Position.Y;
 
+            // SHK
+            XShoulderleft = shoulderLeft.Position.X;
+            YShoulderleft = shoulderLeft.Position.Y; 
+            
             //vektorlängder
             double HipKnee_Length = Math.Sqrt(Math.Pow(XHipleft - XKneeleft, 2) + Math.Pow(YHipleft - YKneeleft, 2));
             double HipFoot_Length = Math.Sqrt(Math.Pow(XHipleft - XFootleft, 2) + Math.Pow(YHipleft - YFootleft, 2));
             double KneeFoot_Length = Math.Sqrt(Math.Pow(XKneeleft - XFootleft, 2) + Math.Pow(YKneeleft - YFootleft, 2));
 
-            //cosinussatsen för vinkel Höft-knä-fot, avrundar till heltal
+            //Vektorlängder till knä-höft-axel
+            double HipShoulder_Length = Math.Sqrt(Math.Pow(XHipleft - XShoulderleft, 2) + Math.Pow(YHipleft - YShoulderleft, 2));
+            double KneeShoulder_Length = Math.Sqrt(Math.Pow(XKneeleft - XShoulderleft, 2) + Math.Pow(YKneeleft - YShoulderleft, 2));
+
+            //FHK - cosinussatsen för vinkel Höft-knä-fot, avrundar till heltal
             double HKF_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2)
                 - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
-            
+
+            //SHK - Cosinussatsen för vinkel Höft-knä-fot, avrundar till heltal
+            double SHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(HipShoulder_Length, 2)
+                - Math.Pow(KneeShoulder_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
 
             //Adderar vinkel till listan
-            vinklar.Add(HKF_angle);
+            vinklar.Add(SHK_angle);
             sampleToTime = vinklar.Count;
             tidsLista.Add(sampleToTime / 30);
-            minimumlistahelp.Add(HKF_angle);
+            minimumlistahelp.Add(SHK_angle);
             
+
             // tar ut lägsta vinkel
             if (minimumlistahelp.Count > 60)
             {  
@@ -418,7 +540,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     }
                     updateMatlab = updateMatlab + 30;
                 }
-            
 
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
@@ -571,5 +692,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             System.Windows.MessageBox.Show(meanAngle.ToString());
             
         }
+
+        
     }
 }
