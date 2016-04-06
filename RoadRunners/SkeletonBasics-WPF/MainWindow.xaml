@@ -27,6 +27,8 @@
         <Button x:Name="button1" Content="Start sensors" HorizontalAlignment="Left" Margin="867,77,0,0" VerticalAlignment="Top" Width="75" Click="start_button_Click"/>
         <Button x:Name="Show_mean_angle" Content="Show mean angle" HorizontalAlignment="Left" Margin="1009,77,0,0" VerticalAlignment="Top" Width="111" Click="Show_mean_angle_Click"/>
         <Image x:Name="vinkelImage" HorizontalAlignment="Left" Height="319" Margin="44,297,0,0" VerticalAlignment="Top" Width="1169" Source="Vinkelgraf.jpeg" />
+        <CheckBox x:Name="checkBox1" Content="Shoulder-Hip-Knee" HorizontalAlignment="Left" Margin="895,164,0,0" VerticalAlignment="Top" Checked="checkBox1_Checked"/>
+        <CheckBox x:Name="checkBox2" Content="Hip-Knee-Foot" HorizontalAlignment="Left" Margin="895,185,0,0" VerticalAlignment="Top" Checked="checkBox2_Checked"/>
 
     </Grid>
 </Window>

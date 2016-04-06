@@ -221,8 +221,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-   
-
 
 
         //Skapar listor till vinklarna
@@ -251,23 +249,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void stop_Button_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            if (this.sensor == null)
-            {
-                return;
-            }
-                  
-            if (this.sensor.SkeletonStream.IsEnabled)
-            {
-                this.sensor.SkeletonStream.Disable();
-            }
-
-            if (this.sensor.ColorStream.IsEnabled)
-            {
-                this.sensor.ColorStream.Disable();
-            }
-            this.sensor.SkeletonFrameReady -= this.SensorSkeletonFrameReady;
-*/
             this.sensor.Stop();
         }
 
@@ -342,6 +323,106 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         /// 
 
+
+        //VÅR VARIANT
+
+        void checkBox1_Checked(object sender, RoutedEventArgs e)
+        {
+            /*if (checkBox1.IsChecked.Equals(true))
+            {
+                my_angle(skel, XShoulder, YShoulder, XHip, YHip, XFoot, YFoot);
+            }*/
+        }
+
+        void checkBox2_Checked(object sender, RoutedEventArgs e)
+        {
+            /*if (checkBox2.IsChecked.Equals(true))
+            {
+                my_angle(skel, XHip, YHip, XKnee, YKnee, XFoot, YFoot);
+            }*/
+        }
+
+        void my_angle(Skeleton skeleton, double bodypart1X, double bodypart1Y, double bodypart2X, double bodypart2Y, double bodypart3X, double bodypart3Y)
+        {
+            double bodypart12_Length = Math.Sqrt(Math.Pow(bodypart1X - bodypart2X, 2) + Math.Pow(bodypart1Y - bodypart2Y, 2));
+            double bodypart13_Length = Math.Sqrt(Math.Pow(bodypart1X - bodypart3X, 2) + Math.Pow(bodypart1Y - bodypart3Y, 2));
+            double bodypart23_Length = Math.Sqrt(Math.Pow(bodypart2X - bodypart3X, 2) + Math.Pow(bodypart2Y - bodypart3Y, 2));
+
+            //cosinussatsen för vinkel, avrundar till heltal
+            double the_angle = Math.Ceiling((Math.Acos((Math.Pow(bodypart12_Length, 2) + Math.Pow(bodypart23_Length, 2)
+                - Math.Pow(bodypart13_Length, 2)) / (2 * bodypart12_Length * bodypart23_Length))) * (180 / Math.PI));
+
+            return the_angle;
+        
+        }
+
+
+        void calculate_angle(Skeleton skeleton)
+        {
+
+            //joints
+            Joint footLeft = skeleton.Joints[JointType.FootLeft];
+            Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
+            Joint hipLeft = skeleton.Joints[JointType.HipLeft];
+            Joint shoulderLeft = skeleton.Joints[JointType.ShoulderLeft];
+
+            //Vinkel
+            float XFoot;
+            float YFoot;
+            float XKnee;
+            float YKnee;
+            float XHip;
+            float YHip;
+            float XShoulder;
+            float YShoulder;
+
+
+            XFoot = footLeft.Position.X;
+            YFoot = footLeft.Position.Y;
+            XKnee = kneeLeft.Position.X;
+            YKnee = kneeLeft.Position.Y;
+            XHip = hipLeft.Position.X;
+            YHip = hipLeft.Position.Y;
+            XShoulder = shoulderLeft.Position.X;
+            YShoulder = shoulderLeft.Position.Y;
+
+            if (checkBox1.IsChecked.Equals(true))
+            {
+                my_angle(skeleton, XShoulder, YShoulder, XHip, YHip, XFoot, YFoot);
+            }
+
+            if (checkBox2.IsChecked.Equals(true))
+            {
+                my_angle(skeleton, XHip, YHip, XKnee, YKnee, XFoot, YFoot);
+            }
+
+
+            //Adderar vinkel till listan
+            vinklar.Add(the_angle);
+            sampleToTime = vinklar.Count;
+            tidsLista.Add(sampleToTime / 30);
+            minimumlistahelp.Add(the_angle);
+
+            // tar ut lägsta vinkel
+            if (minimumlistahelp.Count > 60)
+            {
+                lagsta_varde = minimumlistahelp.Min();
+                minimumlista.Add(lagsta_varde);
+                minimumlistahelp.RemoveAt(0);
+            }
+            else
+            {
+                minimumlista.Add(lagsta_varde);
+            }
+
+
+        }
+
+
+
+
+        //DERAS VARIANT
+
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
 
@@ -350,6 +431,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             Joint footLeft = skeleton.Joints[JointType.FootLeft];
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
             Joint hipLeft = skeleton.Joints[JointType.HipLeft];
+            Joint shoulderLeft = skeleton.Joints[JointType.ShoulderLeft];
 
             //Vinkel
             float XFootleft;
@@ -358,6 +440,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             float YKneeleft;
             float XHipleft;
             float YHipleft;
+            float XShoulderleft;
+            float YShoulderleft;
+           
 
             XFootleft = footLeft.Position.X;
             YFootleft = footLeft.Position.Y;
@@ -365,6 +450,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             YKneeleft = kneeLeft.Position.Y;
             XHipleft = hipLeft.Position.X;
             YHipleft = hipLeft.Position.Y;
+            XShoulderleft = shoulderLeft.Position.X;
+            YShoulderleft = shoulderLeft.Position.Y;
+
+
 
             //vektorlängder
             double HipKnee_Length = Math.Sqrt(Math.Pow(XHipleft - XKneeleft, 2) + Math.Pow(YHipleft - YKneeleft, 2));
@@ -376,23 +465,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
             
 
-            //Adderar vinkel till listan
-            vinklar.Add(HKF_angle);
-            sampleToTime = vinklar.Count;
-            tidsLista.Add(sampleToTime / 30);
-            minimumlistahelp.Add(HKF_angle);
-            
-            // tar ut lägsta vinkel
-            if (minimumlistahelp.Count > 60)
-            {  
-                lagsta_varde = minimumlistahelp.Min();
-                minimumlista.Add(lagsta_varde);
-                minimumlistahelp.RemoveAt(0);
-            }
-            else
-            {
-                minimumlista.Add(lagsta_varde);
-            }
+
           
                 //MATLABPLOT
                 //Skickar data till matlab i ett specifikt satt intervall
@@ -469,6 +542,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
             }
         }
+
+
 
         /// <summary>
         /// Maps a SkeletonPoint to lie within our render space and converts to Point
@@ -571,5 +646,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             System.Windows.MessageBox.Show(meanAngle.ToString());
             
         }
+
+
     }
 }
