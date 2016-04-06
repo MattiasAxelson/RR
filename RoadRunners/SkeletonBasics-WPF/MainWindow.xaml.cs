@@ -200,8 +200,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     {
                         RenderClippedEdges(skel, dc);
 
-                        this.CalculateVelocity(skel);
-
                         if (skel.TrackingState == SkeletonTrackingState.Tracked)
                         {
                             this.DrawBonesAndJoints(skel, dc);
@@ -439,13 +437,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
       hastXLista[hastXLista.Count - 3] > hastXLista[hastXLista.Count - 4] &&
       hastXLista[hastXLista.Count - 4] > hastXLista[hastXLista.Count - 5]))
     */
-
-        double angleChoice = 0;
-
-        private void Shoulder_Hip_Knee_Checked(object sender, RoutedEventArgs e)
-        {
-            
-        }
+    
 
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
@@ -540,6 +532,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     }
                     updateMatlab = updateMatlab + 30;
                 }
+
+         
 
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);

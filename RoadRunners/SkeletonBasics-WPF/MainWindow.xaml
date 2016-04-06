@@ -28,9 +28,6 @@
         <Button x:Name="Show_mean_angle" Content="Show mean angle" HorizontalAlignment="Left" Margin="1009,77,0,0" VerticalAlignment="Top" Width="111" Click="Show_mean_angle_Click"/>
         <Image x:Name="vinkelImage" HorizontalAlignment="Left" Height="319" Margin="44,297,0,0" VerticalAlignment="Top" Width="1169" Source="Vinkelgraf.jpeg" />
         <TextBlock x:Name="velocityText" HorizontalAlignment="Left" Margin="942,195,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="47" Width="100"/>
-        <CheckBox x:Name="ShoulderHipKnee" Content="Shoulder-Hip-Knee Angle" HorizontalAlignment="Left" Margin="1023,155,0,0" VerticalAlignment="Top" Checked="Shoulder_Hip_Knee_Checked"/>
-        <CheckBox x:Name="Feet_Knee_Hip" Content="Feet-Knee-Hip Angle" HorizontalAlignment="Left" Margin="1023,140,0,0" VerticalAlignment="Top" Checked="Feet_Knee_Hip_Checked"/>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="21" Margin="1065,175,0,0" VerticalAlignment="Top" Width="103" Click="button_Click"/>
 
     </Grid>
 </Window>
