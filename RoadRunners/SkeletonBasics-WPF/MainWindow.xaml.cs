@@ -204,7 +204,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         {
                             //this.DrawBonesAndJoints(skel, dc);
                             Console.WriteLine("Innan calcvelocity");
-                            this.CalculateVelocity(skel, dc);
+                            //this.CalculateVelocity(skel, dc);
+                            //this.CalculateAngles(skel, dc);
                             Console.WriteLine("HEJ");
                         }
                         else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
@@ -469,107 +470,123 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     */
         int count = 0;
 
-        private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
+        void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
         {
-            ++count;
-            if (count == 600)
-            {
-                count = 0;
-            }
-
-            velocityText.Text = Convert.ToString(count);
-
-            //joints
-            Joint footLeft = skeleton.Joints[JointType.FootLeft];
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
             Joint hipLeft = skeleton.Joints[JointType.HipLeft];
-
             Joint shoulderLeft = skeleton.Joints[JointType.ShoulderLeft];
+            Joint footLeft = skeleton.Joints[JointType.FootLeft];
 
-            //Vinkel
             float XFootleft;
             float YFootleft;
             float XKneeleft;
             float YKneeleft;
             float XHipleft;
             float YHipleft;
-
-            // SHK
             float XShoulderleft;
             float YShoulderleft;
 
+            //Koordinater för knä, höft, axel
             XFootleft = footLeft.Position.X;
             YFootleft = footLeft.Position.Y;
             XKneeleft = kneeLeft.Position.X;
             YKneeleft = kneeLeft.Position.Y;
             XHipleft = hipLeft.Position.X;
             YHipleft = hipLeft.Position.Y;
-
-            // SHK
             XShoulderleft = shoulderLeft.Position.X;
             YShoulderleft = shoulderLeft.Position.Y;
 
-            //vektorlängder
-                   double HipKnee_Length = Math.Sqrt(Math.Pow(XHipleft - XKneeleft, 2) + Math.Pow(YHipleft - YKneeleft, 2));
-                   double HipFoot_Length = Math.Sqrt(Math.Pow(XHipleft - XFootleft, 2) + Math.Pow(YHipleft - YFootleft, 2));
-                   double KneeFoot_Length = Math.Sqrt(Math.Pow(XKneeleft - XFootleft, 2) + Math.Pow(YKneeleft - YFootleft, 2));
+            ++count1;
+            if (count1 == 600)
+            {
+                count1 = 0;
+            }
 
-                   //Vektorlängder till knä-höft-axel
-                   double HipShoulder_Length = Math.Sqrt(Math.Pow(XHipleft - XShoulderleft, 2) + Math.Pow(YHipleft - YShoulderleft, 2));
-                   double KneeShoulder_Length = Math.Sqrt(Math.Pow(XKneeleft - XShoulderleft, 2) + Math.Pow(YKneeleft - YShoulderleft, 2));
+            if ((bool)SHKbox.IsChecked && (bool)FHKbox.IsChecked)
+            {
+                felmeddelande.Text = "Det går endast att mäta en vinkel åt gången!";
+                SHKbox.IsChecked = false;
+                FHKbox.IsChecked = false;
+            }
 
-                   //FHK - cosinussatsen för vinkel Höft-knä-fot, avrundar till heltal
-                   double HKF_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2)
-                       - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
+            if ((bool)SHKbox.IsChecked)
+            {
+                felmeddelande.Text = "";
 
-                   //SHK - Cosinussatsen för vinkel Höft-knä-fot, avrundar till heltal
-                   double SHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(HipShoulder_Length, 2)
-                       - Math.Pow(KneeShoulder_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
+                double HipKnee_Length = Math.Sqrt(Math.Pow(XHipleft - XKneeleft, 2) + Math.Pow(YHipleft - YKneeleft, 2));
+                double HipShoulder_Length = Math.Sqrt(Math.Pow(XHipleft - XShoulderleft, 2) + Math.Pow(YHipleft - YShoulderleft, 2));
+                double KneeShoulder_Length = Math.Sqrt(Math.Pow(XKneeleft - XShoulderleft, 2) + Math.Pow(YKneeleft - YShoulderleft, 2));
 
-                   //Adderar vinkel till listan
-                   vinklar.Add(HKF_angle);
-                   sampleToTime = vinklar.Count;
-                   tidsLista.Add(sampleToTime / 30);
-                   minimumlistahelp.Add(HKF_angle);
+                //SHK - Cosinussatsen för vinkel Höft-knä-fot, avrundar till heltal
+                double SHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(HipShoulder_Length, 2)
+                    - Math.Pow(KneeShoulder_Length, 2)) / (2 * HipKnee_Length * KneeShoulder_Length))) * (180 / Math.PI));
 
+                vinklar.Add(SHK_angle);
+                minimumlistahelp.Add(SHK_angle);
+            }
 
-                   // tar ut lägsta vinkel
-                   if (minimumlistahelp.Count > 60)
-                   {  
-                       lagsta_varde = minimumlistahelp.Min();
-                       minimumlista.Add(lagsta_varde);
-                       minimumlistahelp.RemoveAt(0);
-                   }
-                   else
-                   {
-                       minimumlista.Add(lagsta_varde);
-                   }
+            if ((bool)FHKbox.IsChecked)
+            {
+                felmeddelande.Text = "";
 
-                       //MATLABPLOT
-                       //Skickar data till matlab i ett specifikt satt intervall
-                       if (updateMatlab < vinklar.Count)
-                       {
-                           // Change to the directory where the function is located 
-                           var path = Path.Combine(Directory.GetCurrentDirectory());
-                           matlab.Execute(@"cd " + path + @"\..\..");
+                //vektorlängder
+                double HipKnee_Length = Math.Sqrt(Math.Pow(XHipleft - XKneeleft, 2) + Math.Pow(YHipleft - YKneeleft, 2));
+                double HipFoot_Length = Math.Sqrt(Math.Pow(XHipleft - XFootleft, 2) + Math.Pow(YHipleft - YFootleft, 2));
+                double KneeFoot_Length = Math.Sqrt(Math.Pow(XKneeleft - XFootleft, 2) + Math.Pow(YKneeleft - YFootleft, 2));
 
-                           // Define the output 
-                           object result = null;
+                //FHK - cosinussatsen för vinkel Höft-knä-fot, avrundar till heltal
+                double FHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2)
+                    - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
 
-                           // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
-                           try
-                           {
-                               CompositionTargetRendering();
-                               matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray(), minimumlista.ToArray());
+                vinklar.Add(FHK_angle);
+                minimumlistahelp.Add(FHK_angle);
+            }
 
-                           }
-                           catch (System.Runtime.InteropServices.COMException)
-                           {
+            sampleToTime = vinklar.Count;
+            tidsLista.Add(sampleToTime / 30);
 
-                           }
-                           updateMatlab = updateMatlab + 30;
-                       }
+            // tar ut lägsta vinkel
+            if (minimumlistahelp.Count > 60)
+            {
+                lagsta_varde = minimumlistahelp.Min();
+                minimumlista.Add(lagsta_varde);
+                minimumlistahelp.RemoveAt(0);
+            }
+            else
+            {
+                minimumlista.Add(lagsta_varde);
+            }
 
+            //MATLABPLOT
+            //Skickar data till matlab i ett specifikt satt intervall
+            if (updateMatlab < vinklar.Count)
+            {
+                // Change to the directory where the function is located 
+                var path = Path.Combine(Directory.GetCurrentDirectory());
+                matlab.Execute(@"cd " + path + @"\..\..");
+
+                // Define the output 
+                object result = null;
+
+                // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
+                try
+                {
+                    CompositionTargetRendering();
+                    matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray(), minimumlista.ToArray());
+
+                }
+                catch (System.Runtime.InteropServices.COMException)
+                {
+
+                }
+                updateMatlab = updateMatlab + 30;
+            }
+
+        }
+
+        private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
+        {
+         
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
             this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderLeft);
@@ -722,6 +739,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             
         }
 
-        
+        private void FKHbox_Checked(object sender, RoutedEventArgs e)
+        {
+          
+        }
+
+        private void SHKbox_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+       
     }
 }
