@@ -22,7 +22,7 @@
         <Slider x:Name="slider" HorizontalAlignment="Left" Margin="1009,29,0,0" VerticalAlignment="Top" Height="27" Width="146" Maximum="26" Minimum="-26" ValueChanged="slider_ValueChanged"/>
         <Label x:Name="Degree" Content="Degrees" HorizontalAlignment="Left" Margin="1160,29,0,0" VerticalAlignment="Top"/>
         <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="212" Margin="44,30,0,0" VerticalAlignment="Top" Width="262" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}" Opacity="0.6"/>
-        <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="421,64,0,0" VerticalAlignment="Top"/>
+        <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="55,37,0,0" VerticalAlignment="Top"/>
         <Button x:Name="stop_button" Content="Stop sensors" HorizontalAlignment="Left" Margin="867,102,0,0" VerticalAlignment="Top" Width="75" Click="stop_Button_Click"/>
         <Button x:Name="button1" Content="Start sensors" HorizontalAlignment="Left" Margin="867,77,0,0" VerticalAlignment="Top" Width="75" Click="start_button_Click"/>
         <Button x:Name="Show_mean_angle" Content="Show mean angle" HorizontalAlignment="Left" Margin="1009,77,0,0" VerticalAlignment="Top" Width="111" Click="Show_mean_angle_Click"/>
@@ -46,6 +46,10 @@
         <CheckBox x:Name="SHKbox" Content="Höftvinkel" HorizontalAlignment="Left" Margin="1120,433,0,0" VerticalAlignment="Top" Checked="SHKbox_Checked"/>
         <TextBlock x:Name="väljvinkel" HorizontalAlignment="Left" Margin="1120,397,0,0" TextWrapping="Wrap" Text="Välj vinkel:" VerticalAlignment="Top"/>
         <TextBlock x:Name="felmeddelande" HorizontalAlignment="Left" Margin="1120,448,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <Button x:Name="restartbutton" Content="Restart" HorizontalAlignment="Left" Margin="1160,568,0,0" VerticalAlignment="Top" Width="75" Click="restartbutton_Click"/>
+        <Button x:Name="quitbutton" Content="Quit" HorizontalAlignment="Left" Margin="1160,599,0,0" VerticalAlignment="Top" Width="75" Click="quitbutton_Click"/>
+        <TextBlock x:Name="testdirektiv" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Margin="626,24,0,0" TextWrapping="Wrap" Text="Testdirektiv" VerticalAlignment="Top" Width="120" Height="32"/>
+        <TextBlock x:Name="textTestdirektiv" FontSize="18" TextAlignment="Center" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Margin="536,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="68"><Run Text="....................."/><Run Text=".."/><LineBreak/><Run/></TextBlock>
 
     </Grid>
 </Window>

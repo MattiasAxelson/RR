@@ -14,6 +14,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Media.Imaging;
+    using System.Media;
    
 
     /// <summary>
@@ -143,8 +144,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+        private void quitbutton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.Close();
+        }
 
-
+        private void restartbutton_Click(object sender, RoutedEventArgs e)
+        {
+            this.sensor.Stop();
+            this.sensor.Start();
+        }
 
         /// <summary>
         /// Execute startup tasks
@@ -203,9 +212,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         if (skel.TrackingState == SkeletonTrackingState.Tracked)
                         {
                             //this.DrawBonesAndJoints(skel, dc);
-                            Console.WriteLine("Innan calcvelocity");
+                            //Console.WriteLine("Innan calcvelocity");
                             //this.CalculateVelocity(skel, dc);
-                            //this.CalculateAngles(skel, dc);
+                            this.CalculateAngles(skel, dc);
                             Console.WriteLine("HEJ");
                         }
                         else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
@@ -225,26 +234,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-   
-
-
-
-        //Skapar listor till vinklarna
-        // kan nog sätta alla till private
-
-            // lagrar vinklarna i en lista
-        public List<double> vinklar = new List<double>();
-        public List<double> tidsLista = new List<double>();
-        public List<double> minimumlista = new List<double>();
-        public List<double> minimumlistahelp = new List<double>();
-        //public List<double> meanAngleList = new List<double>();
-
-        public double helprefresh = 30;
-        public double sampleToTime = 0;
-        public double lagsta_varde;
-        public int updateMatlab = 0;
-        public double meanAngle = 170;
-     
         
         // Create the MATLAB instance 
         MLApp.MLApp matlab = new MLApp.MLApp();
@@ -343,7 +332,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         /// 
 
-        // Variabler
+ //------------------------------- Hastighetsberäkning -----------------------------------// 
+        // Variabler för hastighet
         double stepTime = 0;
         double sumStep = 0;
         double stepVelocity = 0;
@@ -435,7 +425,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         sumStep = sumStep + Math.Abs(Math.Abs(velXList[velXList.Count - 5]) - Math.Abs(velXList[velXList.Count - 6]));
                     }
                 }
-
                 else
                 {
                     // Tar bort första sista talet i velXlist, samt adderar en ny x-koordinat
@@ -454,24 +443,28 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-
-
-
-        /*
-    (( hastXLista[hastXLista.Count - 1] < hastXLista[hastXLista.Count - 2] && 
-      hastXLista[hastXLista.Count - 2] < hastXLista[hastXLista.Count - 3] &&
-      hastXLista[hastXLista.Count - 3] < hastXLista[hastXLista.Count - 4] &&
-      hastXLista[hastXLista.Count - 4] < hastXLista[hastXLista.Count - 5])
-      ||
-    ( hastXLista[hastXLista.Count - 1] > hastXLista[hastXLista.Count - 2] &&
-      hastXLista[hastXLista.Count - 2] > hastXLista[hastXLista.Count - 3] &&
-      hastXLista[hastXLista.Count - 3] > hastXLista[hastXLista.Count - 4] &&
-      hastXLista[hastXLista.Count - 4] > hastXLista[hastXLista.Count - 5]))
-    */
         int count = 0;
 
+//------------------------------- Vinkelberäkning ----------------------------------------------------//
+
+        // Skapar listorna som behövs
+        public List<double> vinklar = new List<double>();
+        public List<double> tidsLista = new List<double>();
+        public List<double> minimumlista = new List<double>();
+        public List<double> minimumlistahelp = new List<double>();
+        //public List<double> meanAngleList = new List<double>();
+
+       // Skapar variablerna som behövs
+        public double helprefresh = 30;
+        public double sampleToTime = 0;
+        public double lagsta_varde;
+        public int updateMatlab = 0;
+        public double meanAngle = 170;
+ 
+        // Beräknar vinklar beroende på checkboxar
         void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
         {
+            // Definerar jointar
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
             Joint hipLeft = skeleton.Joints[JointType.HipLeft];
             Joint shoulderLeft = skeleton.Joints[JointType.ShoulderLeft];
@@ -496,12 +489,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             XShoulderleft = shoulderLeft.Position.X;
             YShoulderleft = shoulderLeft.Position.Y;
 
+            //-------Endast för kontroll om den anropas------//
             ++count1;
             if (count1 == 600)
             {
                 count1 = 0;
             }
+            //-----------------------------------------------// 
 
+            // Om båda checkboxarna är ifyllda så slängs ett felmeddelande och boxarna töms
             if ((bool)SHKbox.IsChecked && (bool)FHKbox.IsChecked)
             {
                 felmeddelande.Text = "Det går endast att mäta en vinkel åt gången!";
@@ -509,6 +505,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 FHKbox.IsChecked = false;
             }
 
+            // Kollar om checkbox är ifylld
             if ((bool)SHKbox.IsChecked)
             {
                 felmeddelande.Text = "";
@@ -519,12 +516,19 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 //SHK - Cosinussatsen för vinkel Höft-knä-fot, avrundar till heltal
                 double SHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(HipShoulder_Length, 2)
-                    - Math.Pow(KneeShoulder_Length, 2)) / (2 * HipKnee_Length * KneeShoulder_Length))) * (180 / Math.PI));
+                    - Math.Pow(KneeShoulder_Length, 2)) / (2 * HipKnee_Length * HipShoulder_Length))) * (180 / Math.PI));
 
                 vinklar.Add(SHK_angle);
                 minimumlistahelp.Add(SHK_angle);
+
+                if (SHK_angle < 140)
+                {
+                    textTestdirektiv.Text = "Sträck på dig!!!";
+                    SystemSounds.Asterisk.Play();
+                }
             }
 
+            // Kollar om checkbox är ifylld
             if ((bool)FHKbox.IsChecked)
             {
                 felmeddelande.Text = "";
@@ -540,6 +544,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 vinklar.Add(FHK_angle);
                 minimumlistahelp.Add(FHK_angle);
+
+                if (FHK_angle < 90)
+                {
+                    textTestdirektiv.Text = "Sträck ut i knäna!!!";
+                    SystemSounds.Asterisk.Play();
+                }
             }
 
             sampleToTime = vinklar.Count;
@@ -556,7 +566,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 minimumlista.Add(lagsta_varde);
             }
+            printMatLab(tidsLista, vinklar, minimumlista);
+        }
 
+        // Skickar allting till matlab och plottas sedan
+        void printMatLab(List<double> list1, List<double> list2, List<double> list3)
+        {
             //MATLABPLOT
             //Skickar data till matlab i ett specifikt satt intervall
             if (updateMatlab < vinklar.Count)
@@ -572,7 +587,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 try
                 {
                     CompositionTargetRendering();
-                    matlab.Feval("myfunc", 1, out result, tidsLista.ToArray(), vinklar.ToArray(), minimumlista.ToArray());
+                    matlab.Feval("myfunc", 1, out result, list1.ToArray(), list2.ToArray(), list3.ToArray());
 
                 }
                 catch (System.Runtime.InteropServices.COMException)
@@ -581,9 +596,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
                 updateMatlab = updateMatlab + 30;
             }
-
         }
 
+        // Ritar ut skelettmodellen på bilden
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
          
@@ -748,7 +763,5 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
 
         }
-
-       
     }
 }
