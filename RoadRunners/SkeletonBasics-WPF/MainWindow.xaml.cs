@@ -211,7 +211,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                         if (skel.TrackingState == SkeletonTrackingState.Tracked)
                         {
-                            //this.DrawBonesAndJoints(skel, dc);
+                            this.DrawBonesAndJoints(skel, dc);
                             //Console.WriteLine("Innan calcvelocity");
                             //this.CalculateVelocity(skel, dc);
                             this.CalculateAngles(skel, dc);
@@ -258,6 +258,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
             this.sensor.SkeletonFrameReady -= this.SensorSkeletonFrameReady;
 */
+         //   printMatLab(tidsLista, vinklar, minimumlista);
             this.sensor.Stop();
         }
 
@@ -566,7 +567,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 minimumlista.Add(lagsta_varde);
             }
-            printMatLab(tidsLista, vinklar, minimumlista);
+           // printMatLab(tidsLista, vinklar, minimumlista);
         }
 
         // Skickar allting till matlab och plottas sedan
@@ -595,13 +596,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
 
                 }
-                updateMatlab = updateMatlab + 30;
-            }
+               updateMatlab = updateMatlab + 30;
+           }
         }
 
         // Ritar ut skelettmodellen på bilden
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
+
          
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
@@ -763,6 +765,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void SHKbox_Checked(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void display_graph_Click(object sender, RoutedEventArgs e)
+        {
+            printMatLab(tidsLista, vinklar, minimumlista);
         }
     }
 }
