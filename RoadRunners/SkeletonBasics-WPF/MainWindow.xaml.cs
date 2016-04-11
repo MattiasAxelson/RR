@@ -588,6 +588,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
                     CompositionTargetRendering();
                     matlab.Feval("myfunc", 1, out result, list1.ToArray(), list2.ToArray(), list3.ToArray());
+                  
 
                 }
                 catch (System.Runtime.InteropServices.COMException)

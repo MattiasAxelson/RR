@@ -13,5 +13,7 @@ xlabel('Tid');
 ylabel('Vinkel');
 
 saveas(h, 'Vinkelgraf.jpeg')
+%heartRateCalc('19',10,'test.dat')
+
 close(h);
 end
