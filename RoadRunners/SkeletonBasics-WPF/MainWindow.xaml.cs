@@ -15,8 +15,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Windows.Threading;
     using System.Linq;
     using System.Windows.Media.Imaging;
-
-
+    using System.Windows.Forms;
+    using System.Threading;
 
 
 
@@ -316,6 +316,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+        Thread t = new Thread(CompositionTargetRendering);
+
         //Används för att rita ut grafen
         private void CompositionTargetRendering() //object sender, EventArgs e
         {
@@ -331,12 +333,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             image.Source = _image;
         }
 
-       
-      
-       
+
+        
 
 
-       // C:\Users\Jesper\Desktop\Github\RR\RoadRunners\SkeletonBasics-WPF\Images
+
+
+        // C:\Users\Jesper\Desktop\Github\RR\RoadRunners\SkeletonBasics-WPF\Images
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
             //joints
