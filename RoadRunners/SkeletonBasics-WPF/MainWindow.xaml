@@ -50,7 +50,13 @@
         <Button x:Name="quitbutton" Content="Quit" HorizontalAlignment="Left" Margin="1160,599,0,0" VerticalAlignment="Top" Width="75" Click="quitbutton_Click"/>
         <TextBlock x:Name="testdirektiv" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Margin="626,24,0,0" TextWrapping="Wrap" Text="Testdirektiv" VerticalAlignment="Top" Width="120" Height="32"/>
         <TextBlock x:Name="textTestdirektiv" FontSize="18" TextAlignment="Center" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Margin="536,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="68"><Run Text="....................."/><Run Text=".."/><LineBreak/><Run/></TextBlock>
-        <Button x:Name="display_graph" Content="Display graph" HorizontalAlignment="Left" Margin="588,127,0,0" VerticalAlignment="Top" Width="115" Height="18" Click="display_graph_Click"/>
+        <Button x:Name="display_graph" Background="OldLace" Content="Display graph" HorizontalAlignment="Left" Margin="456,259,0,0" VerticalAlignment="Top" Width="115" Height="25" Click="display_graph_Click"/>
+        <Button x:Name="startHeartRate" Background="OldLace" Content="Start Heartrate" HorizontalAlignment="Left" Margin="456,229,0,0" VerticalAlignment="Top" Width="115" Height="25" Click="startHeartRate_Click"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="90" Margin="456,84,0,0" Stroke="Black" VerticalAlignment="Top" Width="225"/>
+        <Label x:Name="comportLabel" Content="10" HorizontalAlignment="Left" Margin="477,122,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="tidLabel" Content="tid" HorizontalAlignment="Left" Margin="533,122,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="filnamnLabel" Content="filnamn" HorizontalAlignment="Left" Margin="575,121,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="heartratetext" HorizontalAlignment="Left" Height="23" Margin="477,97,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>

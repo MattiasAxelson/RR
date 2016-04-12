@@ -15,8 +15,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Linq;
     using System.Windows.Media.Imaging;
     using System.Media;
+    
    
-
+    
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -99,8 +100,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             
         }
-        
 
+        // Create the MATLAB instance 
+        MLApp.MLApp matlab = new MLApp.MLApp();
 
 
 
@@ -163,7 +165,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             vinkelImage.Source = null;
-          
+
 
         }
 
@@ -235,8 +237,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
         
-        // Create the MATLAB instance 
-        MLApp.MLApp matlab = new MLApp.MLApp();
+
 
 
         private void stop_Button_Click(object sender, RoutedEventArgs e)
@@ -770,6 +771,53 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void display_graph_Click(object sender, RoutedEventArgs e)
         {
             printMatLab(tidsLista, vinklar, minimumlista);
+        }
+
+    
+
+        void printMatLab2(string comport, int tid, string filnamn)
+        {
+            //MATLABPLOT
+            //Skickar data till matlab i ett specifikt satt intervall
+         
+                // Change to the directory where the function is located 
+                var path = Path.Combine(Directory.GetCurrentDirectory());
+                matlab.Execute(@"cd " + path + @"\..\..");
+
+                // Define the output 
+                object result = null;
+
+                // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
+                try
+                {
+                  
+                    matlab.Feval("heartRateCalc", 1, out result, comport, tid, filnamn);
+
+                }
+                catch (System.Runtime.InteropServices.COMException)
+                {
+
+                }        
+        }
+        
+        public string comport = null;
+        public int tid = 0;
+        public string filnamn = null;
+
+        private void startHeartRate_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if(comport == null)
+            {
+                MessageBox.Show("Vänligen definera comport");
+
+                comportLabel.Content = heartratetext.Text ;
+                    
+
+            }
+
+            printMatLab2(comport, tid, filnamn);
+
         }
     }
 }
