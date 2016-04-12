@@ -95,11 +95,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public MainWindow()
         {
             InitializeComponent();
-       
 
+            settingsButton.Click += new RoutedEventHandler(delegate (object sender, RoutedEventArgs e)
+            {
+                ChildWindow chldWindow = new ChildWindow();
+                chldWindow.ShowInTaskbar = false;
+                chldWindow.Owner = Application.Current.MainWindow;
+                chldWindow.ShowDialog();
+            });
 
-            
-        }
+        } 
 
         // Create the MATLAB instance 
         MLApp.MLApp matlab = new MLApp.MLApp();
@@ -604,7 +609,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // Ritar ut skelettmodellen på bilden
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
-
+           
          
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
@@ -800,23 +805,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }        
         }
         
-        public string comport = null;
-        public int tid = 0;
-        public string filnamn = null;
 
-        private void startHeartRate_Click(object sender, RoutedEventArgs e)
+
+
+
+        private void settingsButton_Click(object sender, RoutedEventArgs e)
         {
-            
-            if(comport == null)
-            {
-                MessageBox.Show("Vänligen definera comport");
-
-                comportLabel.Content = heartratetext.Text ;
-                    
-
-            }
-
-            printMatLab2("23", 30, "testtest");
 
         }
     }

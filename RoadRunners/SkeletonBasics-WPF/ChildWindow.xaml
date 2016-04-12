@@ -1,0 +1,19 @@
+﻿<Window x:Class="Microsoft.Samples.Kinect.SkeletonBasics.ChildWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Microsoft.Samples.Kinect.SkeletonBasics"
+        mc:Ignorable="d"
+        Title="ChildWindow" Height="368.813" Width="464.185">
+    <Grid>
+        <TextBox x:Name="comportTextbox" HorizontalAlignment="Left" Height="23" Margin="111,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68"/>
+        <Label x:Name="comportLabel" Content="comport" HorizontalAlignment="Left" Margin="24,47,0,0" VerticalAlignment="Top" Width="68"/>
+        <Label x:Name="tidLabel" Content="testtid" HorizontalAlignment="Left" Margin="24,91,0,0" VerticalAlignment="Top" Width="61"/>
+        <Label x:Name="filnamnLabel" Content="filnamn" HorizontalAlignment="Left" Margin="24,134,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="heartRateButton" Content="Start heartrate" HorizontalAlignment="Left" Margin="179,284,0,0" VerticalAlignment="Top" Width="104" Click="heartRateButton_Click"/>
+        <TextBox x:Name="testtimeTextBox" HorizontalAlignment="Left" Height="23" Margin="111,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68"/>
+        <TextBox x:Name="fileNametextBox" HorizontalAlignment="Left" Height="23" Margin="111,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68"/>
+
+    </Grid>
+</Window>
