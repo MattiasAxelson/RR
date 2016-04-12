@@ -816,7 +816,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             }
 
-            printMatLab2(comport, tid, filnamn);
+            printMatLab2("23", 30, "testtest");
 
         }
     }
