@@ -107,14 +107,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 comportCont.Text = Convert.ToString(comport);
                 durationtimeCont.Text = Convert.ToString(durationtime);
                 filenameCont.Text = Convert.ToString(filename);
-            });
-
-            
+            });  
         }
-        
 
-
-
+        public string comport = null;
+        public int durationtime = 0;
+        public string filename = null;
 
         /// <summary>
         /// Draws indicators to show which edges are clipping skeleton data
@@ -224,11 +222,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                         if (skel.TrackingState == SkeletonTrackingState.Tracked)
                         {
-                            //this.DrawBonesAndJoints(skel, dc);
-                            //Console.WriteLine("Innan calcvelocity");
+                            this.DrawBonesAndJoints(skel, dc);
                             this.CalculateVelocity(skel, dc);
                             //this.CalculateAngles(skel, dc);
-                            Console.WriteLine("HEJ");
                         }
                         else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
                         {
@@ -241,7 +237,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         }
                     }
                 }
-
                 // prevent drawing outside of our render area
                 this.drawingGroup.ClipGeometry = new RectangleGeometry(new Rect(0.0, 0.0, RenderWidth, RenderHeight));
             }
@@ -360,6 +355,73 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         /// 
 
+    /*    //------------------------------- Hastighetsberäkning -----------------------------------// 
+        // Variabler för hastighet
+        double deltaT = 0;
+        double deltaX = 0; 
+        double sumStep = 0;
+        double stepVelocity = 0;
+        double meanVelocity = 0;
+        double meanHelpVelocity = 0;
+
+        // Listor för hastighet
+        List<double> velXList = new List<double>();
+        List<double> velTList = new List<double>();
+        List<double> velHelpList = new List<double>();
+        List<double> velocityList = new List<double>();
+
+        int count2 = 0;
+
+        // Beräkna hastigheten 
+        // Håll listan till 600 värden
+        // När jag hittar vändpunkt så tömmer jag listan 
+        private void CalculateVelocity(Skeleton skeleton, DrawingContext drawingContext)
+        {
+            //Koordinater för fot
+            Joint footLeft = skeleton.Joints[JointType.FootLeft];
+            float XFootleft;
+            float YFootleft;
+            XFootleft = footLeft.Position.X;
+            YFootleft = footLeft.Position.Y;
+
+            ++count2;
+            if (count2 == 600)
+            {
+                count2 = 0;
+            }
+
+            velXList.Add(XFootleft);
+
+            //Lägger till x-koordinater i listan
+            if (velXList.Count > 10)
+            {
+                deltaX = Math.Abs((velXList[velXList.Count- 1]) - (velXList[velXList.Count - 4]));
+                velhelptext.Text = Convert.ToString(deltaX);
+
+                deltaT = (4 / 30);
+                stepVelocity = deltaX / deltaT;
+
+                velocityText.Text = Convert.ToString(Math.Ceiling(stepVelocity));
+
+                velocityList.Add(stepVelocity);
+                countertext.Text = Convert.ToString(velocityList.Count);
+            }
+
+            if (velocityList.Count > 10)
+            {
+                //meanVelocity = ((velocityList[velocityList.Count -1]) + (velocityList[velocityList.Count - 2]) + (velocityList[velocityList.Count - 3]) + (velocityList[velXList.Count - 4])) / 4;
+            }
+
+            // Skriver ut hastigheten i fönstret
+            //velocityText.Text = Convert.ToString(meanVelocity);
+
+            if (velXList.Count > 600)
+            {
+                velXList.RemoveAt(0);
+            }
+        }*/
+         
+
         //------------------------------- Hastighetsberäkning -----------------------------------// 
         // Variabler för hastighet
         double stepTime = 0;
@@ -374,7 +436,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         List<double> velHelpList = new List<double>();
         List<double> velocityList = new List<double>();
 
-        int count1 = 0;
+        int count = 0;
 
         // Beräkna hastigheten 
         // Håll listan till 600 värden
@@ -388,10 +450,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             XFootleft = footLeft.Position.X;
             YFootleft = footLeft.Position.Y;
 
-            ++count1;
-            if (count1 == 600)
+            ++count;
+            if (count == 600)
             {
-                count1 = 0;
+                count = 0;
             }
 
             //Lägger till x-koordinater i listan
@@ -412,7 +474,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         (velXList[velXList.Count - 5] > ((velXList[velXList.Count - 6] + velXList[velXList.Count - 7] + velXList[velXList.Count - 8] + velXList[velXList.Count - 9]) / 4))))
                     {
                         //Counterräknare
-                        countertext.Text = Convert.ToString(count1);
+                        countertext.Text = Convert.ToString(count);
 
                         velHelpList.Add(velXList[velXList.Count - 5]);
 
@@ -422,7 +484,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         velhelptext.Text = Convert.ToString(velHelpList.Count);
 
                         //Beräknar delta-x
-                        sumStep = sumStep + Math.Abs(Math.Abs(velXList[velXList.Count - 5]) - Math.Abs(velXList[velXList.Count - 6]));
+                        sumStep = sumStep + (Math.Abs(velXList[velXList.Count - 5]) - Math.Abs(velXList[velXList.Count - 6]));
 
                         // Delta-tid
                         stepTime = velHelpList.Count / 30;
@@ -442,7 +504,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         velocityText.Text = Convert.ToString(meanVelocity);
 
                         // Rensar listorna
-                        //velXList.Clear();
+                        velXList.Clear();
                         velHelpList.Clear();
                     }
                     else
@@ -470,8 +532,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 velocityList.RemoveAt(0);
             }
         }
-
-        int count = 0;
+ 
+        int count1 = 0;
 
         // -------------------------------------------------------------------------------------//
         //------------------------------- Vinkelberäkning --------------------------------------//
@@ -830,16 +892,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void SHKbox_Checked(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        
-        public string comport = null; 
-        public int durationtime = 0;
-        public string filename = null; 
+        } 
 
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
-            //printMatLab1("ecgtoheartrate", comport, durationtime, filnamn);
+            printMatLab1("ecgtoheartrate", comport, durationtime, filename);
         }
 
         private void display_angle_Click(object sender, RoutedEventArgs e)
