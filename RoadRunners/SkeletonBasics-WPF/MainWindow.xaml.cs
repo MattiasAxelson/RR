@@ -95,15 +95,20 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public MainWindow()
         {
             InitializeComponent();
+
+
+
             setting.Click += new RoutedEventHandler(delegate (object sender, RoutedEventArgs e)
             {
                 ChildWindow chldWindow = new ChildWindow();
                 chldWindow.ShowInTaskbar = false;
                 chldWindow.Owner = Application.Current.MainWindow;
                 chldWindow.ShowDialog();
+
                 comport = chldWindow.comport;
                 durationtime = chldWindow.durationtime;
                 filename = chldWindow.fileName + ".dat";
+
                 comportCont.Text = Convert.ToString(comport);
                 durationtimeCont.Text = Convert.ToString(durationtime);
                 filenameCont.Text = Convert.ToString(filename);
@@ -111,8 +116,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             
         }
-        
 
+        public string comport = null;
+        public int durationtime = 0;
+        public string filename = null;
 
 
 
@@ -471,7 +478,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-        int count = 0;
+        
 
         // -------------------------------------------------------------------------------------//
         //------------------------------- Vinkelberäkning --------------------------------------//
@@ -833,13 +840,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
         
-        public string comport = null; 
-        public int durationtime = 0;
-        public string filename = null; 
+   
 
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
-            //printMatLab1("ecgtoheartrate", comport, durationtime, filnamn);
+            printMatLab1("ecgtoheartrate", comport, durationtime, filename);
         }
 
         private void display_angle_Click(object sender, RoutedEventArgs e)

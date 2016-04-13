@@ -32,7 +32,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             fileName = filenameContent.Text;
             durationtime = int.Parse(convdurationtime);
 
-            if (comport == "0" || durationtime == 0 || fileName == "" || durationContent.Text == "")
+            if (comport == "0" || durationtime == 0  || fileName == "" || durationContent.Text == "")
             {
                 errorText.Text = "Du måste fylla i alla fälten korrekt.";
             }
