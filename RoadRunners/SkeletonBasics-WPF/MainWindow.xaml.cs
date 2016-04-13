@@ -104,6 +104,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 comport = chldWindow.comport;
                 durationtime = chldWindow.durationtime;
                 filename = chldWindow.fileName + ".dat";
+
                 comportCont.Text = Convert.ToString(comport);
                 durationtimeCont.Text = Convert.ToString(durationtime);
                 filenameCont.Text = Convert.ToString(filename);
@@ -834,13 +835,22 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
-        
-      
+
+
 
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
-            printMatLab1("ecgtoheartrate", comport, durationtime, filename);
+
+            if (comport == "..." || durationtime == 0 || filename == "...")
+            {
+                MessageBox.Show("Fyll i settings");
+            }
+            else
+            {
+                printMatLab1("heartRateCalc", comport, durationtime, filename);
+            }
         }
+                
 
         private void display_angle_Click(object sender, RoutedEventArgs e)
         {
