@@ -95,12 +95,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public MainWindow()
         {
             InitializeComponent();
+
             setting.Click += new RoutedEventHandler(delegate (object sender, RoutedEventArgs e)
             {
                 ChildWindow chldWindow = new ChildWindow();
                 chldWindow.ShowInTaskbar = false;
                 chldWindow.Owner = Application.Current.MainWindow;
                 chldWindow.ShowDialog();
+
                 comport = chldWindow.comport;
                 durationtime = chldWindow.durationtime;
                 filename = chldWindow.fileName + ".dat";
@@ -641,7 +643,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 updateMatlab = updateMatlab + 30;
             }
         }
-
+        public object resultatis;
         // Skickar allting till matlab och plottas sedan
         void printMatLab1(string funktionsnamn, string comport, int durationtime, string fileName)
         {
@@ -660,11 +662,20 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
                     matlab.Feval(funktionsnamn, 1, out result, comport.ToString(), durationtime, fileName);
 
+
                 }
                 catch (System.Runtime.InteropServices.COMException)
                 {
 
                 }
+           // object[] res = result as object[];
+            object[] res = result as object[];
+
+          //  resultatis = res[0];
+          //  Console.WriteLine(resultatis);
+         //   pulstest.Text = resultatis.ToString();
+            MessageBox.Show(res[0].ToString());
+
         }
 
         // Ritar ut skelettmodellen på bilden

@@ -46,6 +46,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             else
             {
+           
                 durationtime = int.Parse(convdurationtime);
                 this.Close();
             }

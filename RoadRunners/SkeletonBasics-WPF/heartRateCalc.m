@@ -1,4 +1,4 @@
-function void = heartRateCalc(comPort, captureDuration, fileName) 
+function [x] = heartRateCalc(comPort, captureDuration, fileName) 
 %ECGTOHEARTRATEEXAMPLE - Heart Rate from electrocardiogram signal
 %
 %  ECGTOHEARTRATEEXAMPLE(COMPORT, CAPTUREDURATION, FILENAME)
@@ -182,8 +182,14 @@ if (shimmer.connect)                                                       % TRU
                 ylim([1 220]);   
                 
                 
-                
-       
+                %test
+               
+                value = heartRate;
+             %   heartRatevector = [];
+              %  heartRatevector = [value, heartRatevector];
+          
+            x = value
+
                 
                 
             end
@@ -201,6 +207,7 @@ if (shimmer.connect)                                                       % TRU
     
     shimmer.disconnect;                                                    % disconnect from shimmer
         
+    
 end
 
 
