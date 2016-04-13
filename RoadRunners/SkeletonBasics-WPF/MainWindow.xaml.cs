@@ -17,7 +17,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Linq;
     using System.Windows.Media.Imaging;
     using System.Media;
-   
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -98,17 +97,19 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             InitializeComponent();
             setting.Click += new RoutedEventHandler(delegate (object sender, RoutedEventArgs e)
             {
-                //ChildWindowchldWindow = newChildWindow();
-                //MessageBox.Show(chldWindow.Getmessage());
-                //chldWindow.ShowDialog();
-
                 ChildWindow chldWindow = new ChildWindow();
                 chldWindow.ShowInTaskbar = false;
                 chldWindow.Owner = Application.Current.MainWindow;
-                chldWindow.ShowDialog(); 
+                chldWindow.ShowDialog();
+                comport = chldWindow.comport;
+                durationtime = chldWindow.durationtime;
+                filename = chldWindow.fileName + ".dat";
+                comportCont.Text = Convert.ToString(comport);
+                durationtimeCont.Text = Convert.ToString(durationtime);
+                filenameCont.Text = Convert.ToString(filename);
             });
 
-
+            
         }
         
 
@@ -552,8 +553,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 if (SHK_angle < 140)
                 {
-                    //textTestdirektiv.Text = "Sträck på dig!!!";
-                    //SystemSounds.Asterisk.Play();
+                    textTestdirektiv.Text = "Sträck på dig!!!";
+                    SystemSounds.Asterisk.Play();
+                }
+                else
+                {
+                    textTestdirektiv.Text = "";
                 }
             }
 
@@ -576,8 +581,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 if (FHK_angle < 90)
                 {
-                    //textTestdirektiv.Text = "Sträck ut i knäna!!!";
-                    //SystemSounds.Asterisk.Play();
+                    textTestdirektiv.Text = "Sträck ut i knäna!!!";
+                    SystemSounds.Asterisk.Play();
+                }
+                else
+                { 
+                    textTestdirektiv.Text = "";
                 }
             }
 
@@ -823,14 +832,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
-        public string funktionsnamn = null;
+        
         public string comport = null; 
-        //public int durationtime = 0;
-        public string filnamn = null; 
+        public int durationtime = 0;
+        public string filename = null; 
 
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
-            printMatLab1("ecgtoheartrate", comport, durationtime, filnamn);
+            //printMatLab1("ecgtoheartrate", comport, durationtime, filnamn);
         }
 
         private void display_angle_Click(object sender, RoutedEventArgs e)

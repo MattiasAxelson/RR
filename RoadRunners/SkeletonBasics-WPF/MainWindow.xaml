@@ -53,6 +53,9 @@
         <Button x:Name="display_heartrate" Content="Display Heartrate" HorizontalAlignment="Left" Margin="451,122,0,0" VerticalAlignment="Top" Width="100" Click="display_heartrate_Click"/>
         <Button x:Name="display_angle" Content="Display Angle" HorizontalAlignment="Left" Margin="451,158,0,0" VerticalAlignment="Top" Width="100" Click="display_angle_Click"/>
         <Button x:Name="setting" Content="Settings" HorizontalAlignment="Left" Margin="451,87,0,0" VerticalAlignment="Top" Width="100" Click="setting_Click"/>
+        <TextBlock x:Name="comportCont" HorizontalAlignment="Left" Margin="433,10,0,0" TextWrapping="Wrap" Text="Comport" VerticalAlignment="Top"/>
+        <TextBlock x:Name="durationtimeCont" HorizontalAlignment="Left" Margin="433,31,0,0" TextWrapping="Wrap" Text="Durationtime" VerticalAlignment="Top"/>
+        <TextBlock x:Name="filenameCont" HorizontalAlignment="Left" Margin="433,52,0,0" TextWrapping="Wrap" Text="Filename" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

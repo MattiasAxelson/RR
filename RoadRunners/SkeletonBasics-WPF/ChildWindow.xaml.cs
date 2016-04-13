@@ -13,10 +13,7 @@ using System.Windows.Shapes;
 
 namespace Microsoft.Samples.Kinect.SkeletonBasics
 {
-    /// <summary>
-    /// Interaction logic for ChildWindow.xaml
-    /// </summary>
-    public partial class ChildWindow : Window
+     public partial class ChildWindow : Window
     {
         public ChildWindow()
         {
@@ -25,14 +22,34 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         public string comport;
         public string convdurationtime;
-        public string filname;
-
-        private void startHeartRateCalc_Click(object sender, RoutedEventArgs e)
+        public string fileName;
+        public int durationtime;
+        
+        void startHeartRateCalc_Click(object sender, RoutedEventArgs e)
         {
             comport = comportContent.Text;
             convdurationtime = durationContent.Text;
-            filname = filenameContent.Text;
-            int durationtime = int.Parse(convdurationtime);
+            fileName = filenameContent.Text;
+            durationtime = int.Parse(convdurationtime);
+
+            if (comport == "0" || durationtime == 0 || fileName == "" || durationContent.Text == "")
+            {
+                errorText.Text = "Du måste fylla i alla fälten korrekt.";
+            }
+            else
+            {
+                this.Close();
+            }
+        }
+
+        private void helpButton_Click(object sender, RoutedEventArgs e)
+        {
+            string error_message = "1. Fyll i comport genom att ange numret på den \n" +
+                                   "comport som pulssensorn är ansluten till.\n" +
+                                   "2. Ange under hur lång tid (i sekunder) du vill mäta din puls.\n" +
+                                   "3. Fyll i ett filnamn endast innehållande bokstäver \n" +
+                                   "som du vill spara filerna till.";
+            System.Windows.MessageBox.Show(error_message);
         }
     }
 }
