@@ -7,23 +7,23 @@
 namespace Microsoft.Samples.Kinect.SkeletonBasics
 {
     using System.IO;
+    using Microsoft.Kinect;
     using System.Windows;
     using System.Windows.Media;
-    using Microsoft.Kinect;
+    using System.Windows.Controls;
+    using System.Text;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Media.Imaging;
     using System.Media;
-    
-   
-    
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+
         /// <summary>
         /// Width of output drawing
         /// </summary>
@@ -95,14 +95,24 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public MainWindow()
         {
             InitializeComponent();
-       
-
+            setting.Click += new RoutedEventHandler(delegate (object sender, RoutedEventArgs e)
+            {
+                ChildWindow chldWindow = new ChildWindow();
+                chldWindow.ShowInTaskbar = false;
+                chldWindow.Owner = Application.Current.MainWindow;
+                chldWindow.ShowDialog();
+                comport = chldWindow.comport;
+                durationtime = chldWindow.durationtime;
+                filename = chldWindow.fileName + ".dat";
+                comportCont.Text = Convert.ToString(comport);
+                durationtimeCont.Text = Convert.ToString(durationtime);
+                filenameCont.Text = Convert.ToString(filename);
+            });
 
             
         }
+        
 
-        // Create the MATLAB instance 
-        MLApp.MLApp matlab = new MLApp.MLApp();
 
 
 
@@ -153,8 +163,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void restartbutton_Click(object sender, RoutedEventArgs e)
         {
-            this.sensor.Stop();
-            this.sensor.Start();
+            
+            //this.sensor.Stop();
+            //this.sensor.Start();
         }
 
         /// <summary>
@@ -165,7 +176,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             vinkelImage.Source = null;
-
+          
 
         }
 
@@ -213,10 +224,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                         if (skel.TrackingState == SkeletonTrackingState.Tracked)
                         {
-                            this.DrawBonesAndJoints(skel, dc);
+                            //this.DrawBonesAndJoints(skel, dc);
                             //Console.WriteLine("Innan calcvelocity");
-                            //this.CalculateVelocity(skel, dc);
-                            this.CalculateAngles(skel, dc);
+                            this.CalculateVelocity(skel, dc);
+                            //this.CalculateAngles(skel, dc);
                             Console.WriteLine("HEJ");
                         }
                         else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
@@ -237,7 +248,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
         
-
+        // Create the MATLAB instance 
+        MLApp.MLApp matlab = new MLApp.MLApp();
 
 
         private void stop_Button_Click(object sender, RoutedEventArgs e)
@@ -259,7 +271,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
             this.sensor.SkeletonFrameReady -= this.SensorSkeletonFrameReady;
 */
-         //   printMatLab(tidsLista, vinklar, minimumlista);
             this.sensor.Stop();
         }
 
@@ -308,7 +319,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             }
         }
-
       
         //Hämtar bild som ritas i matlab
         private void CompositionTargetRendering() //object sender, EventArgs e
@@ -326,6 +336,22 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         
              vinkelImage.Source = _image;
         }
+        /*
+        private void CompositionTargetRendering1() //object sender, EventArgs e
+        {
+            BitmapImage image = new BitmapImage();
+            string pathImage = Path.Combine(Directory.GetCurrentDirectory());
+
+            image.BeginInit();
+            image.CacheOption = BitmapCacheOption.None;
+            image.UriCachePolicy = new System.Net.Cache.RequestCachePolicy();
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            image.UriSource = new Uri(pathImage + @"\..\..\Vinkelgraf.jpeg", UriKind.RelativeOrAbsolute);
+            image.EndInit();
+
+            vinkelImage.Source = image;
+        }*/
 
         /// <summary>
         /// Draws a skeleton's bones and joints
@@ -334,7 +360,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         /// 
 
- //------------------------------- Hastighetsberäkning -----------------------------------// 
+        //------------------------------- Hastighetsberäkning -----------------------------------// 
         // Variabler för hastighet
         double stepTime = 0;
         double sumStep = 0;
@@ -447,7 +473,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         int count = 0;
 
-//------------------------------- Vinkelberäkning ----------------------------------------------------//
+        // -------------------------------------------------------------------------------------//
+        //------------------------------- Vinkelberäkning --------------------------------------//
+        // -------------------------------------------------------------------------------------//
 
         // Skapar listorna som behövs
         public List<double> vinklar = new List<double>();
@@ -528,6 +556,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     textTestdirektiv.Text = "Sträck på dig!!!";
                     SystemSounds.Asterisk.Play();
                 }
+                else
+                {
+                    textTestdirektiv.Text = "";
+                }
             }
 
             // Kollar om checkbox är ifylld
@@ -552,6 +584,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     textTestdirektiv.Text = "Sträck ut i knäna!!!";
                     SystemSounds.Asterisk.Play();
                 }
+                else
+                { 
+                    textTestdirektiv.Text = "";
+                }
             }
 
             sampleToTime = vinklar.Count;
@@ -568,8 +604,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 minimumlista.Add(lagsta_varde);
             }
-           // printMatLab(tidsLista, vinklar, minimumlista);
+            //printMatLab(tidsLista, vinklar, minimumlista);
         }
+
+ // -------------------------------------------------------------------------------------//
+ // -------------------------- Saker som ritar ------------------------------------------//
+ // -------------------------------------------------------------------------------------//
 
         // Skickar allting till matlab och plottas sedan
         void printMatLab(List<double> list1, List<double> list2, List<double> list3)
@@ -590,21 +630,43 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
                     CompositionTargetRendering();
                     matlab.Feval("myfunc", 1, out result, list1.ToArray(), list2.ToArray(), list3.ToArray());
-                  
+                }
+                catch (System.Runtime.InteropServices.COMException)
+                {
+
+                }
+                updateMatlab = updateMatlab + 30;
+            }
+        }
+
+        // Skickar allting till matlab och plottas sedan
+        void printMatLab1(string funktionsnamn, string comport, int durationtime, string fileName)
+        {
+            //MATLABPLOT
+            //Skickar data till matlab i ett specifikt satt intervall
+            
+                // Change to the directory where the function is located 
+                var path = Path.Combine(Directory.GetCurrentDirectory());
+                matlab.Execute(@"cd " + path + @"\..\..");
+
+                // Define the output 
+                object result = null;
+
+                // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
+                try
+                {
+                    matlab.Feval(funktionsnamn, 1, out result, comport.ToString(), durationtime, fileName);
 
                 }
                 catch (System.Runtime.InteropServices.COMException)
                 {
 
                 }
-               updateMatlab = updateMatlab + 30;
-           }
         }
 
         // Ritar ut skelettmodellen på bilden
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
-
          
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
@@ -711,10 +773,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
-       
 
 
-        // för att ändra tilten på kinecten
+        // -------------------------------------------------------------------------------------//
+        // --------------------------------- Vinkel på kinecten --------------------------------// 
+        // -------------------------------------------------------------------------------------//
+
         private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             int n = (int)slider.Value;
@@ -760,7 +824,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void FKHbox_Checked(object sender, RoutedEventArgs e)
         {
-          
+
         }
 
         private void SHKbox_Checked(object sender, RoutedEventArgs e)
@@ -768,56 +832,25 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
-        private void display_graph_Click(object sender, RoutedEventArgs e)
+        
+        public string comport = null; 
+        public int durationtime = 0;
+        public string filename = null; 
+
+        private void display_heartrate_Click(object sender, RoutedEventArgs e)
+        {
+            //printMatLab1("ecgtoheartrate", comport, durationtime, filnamn);
+        }
+
+        private void display_angle_Click(object sender, RoutedEventArgs e)
         {
             printMatLab(tidsLista, vinklar, minimumlista);
         }
-
-    
-
-        void printMatLab2(string comport, int tid, string filnamn)
-        {
-            //MATLABPLOT
-            //Skickar data till matlab i ett specifikt satt intervall
-         
-                // Change to the directory where the function is located 
-                var path = Path.Combine(Directory.GetCurrentDirectory());
-                matlab.Execute(@"cd " + path + @"\..\..");
-
-                // Define the output 
-                object result = null;
-
-                // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
-                try
-                {
-                  
-                    matlab.Feval("heartRateCalc", 1, out result, comport, tid, filnamn);
-
-                }
-                catch (System.Runtime.InteropServices.COMException)
-                {
-
-                }        
-        }
         
-        public string comport = null;
-        public int tid = 0;
-        public string filnamn = null;
-
-        private void startHeartRate_Click(object sender, RoutedEventArgs e)
+        private void setting_Click(object sender, RoutedEventArgs e)
         {
-            
-            if(comport == null)
-            {
-                MessageBox.Show("Vänligen definera comport");
-
-                comportLabel.Content = heartratetext.Text ;
-                    
-
-            }
-
-            printMatLab2("23", 30, "testtest");
 
         }
+
     }
 }
