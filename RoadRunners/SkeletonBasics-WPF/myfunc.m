@@ -1,14 +1,10 @@
-function [x] = myfunc(a) 
+function [b] = myfunc(a) 
 
-%figure (1)
-%x = plot (a);
-%plot(a)
- %hold on
+b = plot (a);
 
+title('Data');
+xlabel('Tid');
+ylabel('Vinkel och puls');
 
-[Maxima,MaxIdx] = findpeaks(a);
-aInv = 1.01*max(a) - a;
-[Minima,MinIdx] = findpeaks(aInv);
-Minima = a(MinIdx);
-x = plot(Minima);
+datetick(x,'HH');
 end
