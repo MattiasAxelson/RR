@@ -647,7 +647,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
         // Skickar allting till matlab och plottas sedan
-        void printMatLab1(string funktionsnamn, string comport, int durationtime, string fileName)
+        void printMatLab1( string comport, int durationtime, string fileName)
         {
             //MATLABPLOT
             //Skickar data till matlab i ett specifikt satt intervall
@@ -662,7 +662,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
                 try
                 {
-                    matlab.Feval(funktionsnamn, 1, out result, comport.ToString(), durationtime, fileName);
+                    matlab.Feval("ecgtoheartrate", 1, out result, comport.ToString(), durationtime, fileName);
 
                 }
                 catch (System.Runtime.InteropServices.COMException)
@@ -839,12 +839,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
-        
-   
+
 
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
-            printMatLab1("ecgtoheartrate", comport, durationtime, filename);
+            printMatLab1( comport, durationtime, filename);
         }
 
         private void display_angle_Click(object sender, RoutedEventArgs e)

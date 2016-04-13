@@ -31,7 +31,7 @@ function void = ecgtoheartrate(comPort, captureDuration, fileName)
 % add the location of the ShimmerBiophysicalProcessingLibrary_Rev_X_Y.jar file
 % to the JAVA dynamic class path:
 %
-javaclasspath('C:\Users\Ekbom\Documents\MATLAB\Toolboxes\Shimmer MATLAB Instrument Driver\ShimmerBiophysicalProcessingLibrary_Rev_0_10.jar')
+javaclasspath('C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\ShimmerBiophysicalProcessingLibrary_Rev_0_10.jar')
 %
 % NOTE: In this example the ECG data is pre-filtered using a second order
 % Chebyshev HPF with corner freq 0.5Hz by using FilterClass.m
@@ -43,7 +43,7 @@ javaclasspath('C:\Users\Ekbom\Documents\MATLAB\Toolboxes\Shimmer MATLAB Instrume
 shimmer = ShimmerHandleClass(comPort);                                     % Define shimmer as a ShimmerHandle Class instance with comPort1
 SensorMacros = SetEnabledSensorsMacrosClass;                               % assign user friendly macros for setenabledsensors
 
-fs = 512;                                                                  % Samplingsfrekvensen [Hz]     
+fs = 120;                                                                  % Samplingsfrekvensen [Hz]     
 firsttime = true;
 
 % Note: these constants are only relevant to this examplescript and are not used
@@ -172,7 +172,7 @@ if (shimmer.connect)                                                       % TRU
                 
 
                 % plotting the data
-                subplot(3,1,3)
+              %  subplot(3,1,3)
                 plot((sampleNumber/fs), heartRate);                             % plot the Heart Rate data
                 legend('Heart Rate (BPM', 'Location', 'West');   
                 xlim([sampleNumber(1)/fs sampleNumber(end)/fs]);
