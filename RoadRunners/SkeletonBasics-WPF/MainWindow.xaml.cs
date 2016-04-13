@@ -839,7 +839,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
-            //printMatLab1("ecgtoheartrate", comport, durationtime, filnamn);
+            printMatLab1("ecgtoheartrate", comport, durationtime, filename);
         }
 
         private void display_angle_Click(object sender, RoutedEventArgs e)
