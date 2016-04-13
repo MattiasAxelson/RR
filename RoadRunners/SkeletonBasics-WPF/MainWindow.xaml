@@ -50,12 +50,8 @@
         <Button x:Name="quitbutton" Content="Quit" HorizontalAlignment="Left" Margin="1160,599,0,0" VerticalAlignment="Top" Width="75" Click="quitbutton_Click"/>
         <TextBlock x:Name="testdirektiv" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Margin="626,24,0,0" TextWrapping="Wrap" Text="Testdirektiv" VerticalAlignment="Top" Width="120" Height="32"/>
         <TextBlock x:Name="textTestdirektiv" FontSize="18" TextAlignment="Center" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Margin="536,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="68"><Run Text="....................."/><Run Text=".."/><LineBreak/><Run/></TextBlock>
-        <Button x:Name="display_heartrate" Content="Display Heartrate" HorizontalAlignment="Left" Margin="451,122,0,0" VerticalAlignment="Top" Width="100" Click="display_heartrate_Click"/>
-        <Button x:Name="display_angle" Content="Display Angle" HorizontalAlignment="Left" Margin="451,158,0,0" VerticalAlignment="Top" Width="100" Click="display_angle_Click"/>
-        <Button x:Name="setting" Content="Settings" HorizontalAlignment="Left" Margin="451,87,0,0" VerticalAlignment="Top" Width="100" Click="setting_Click"/>
-        <TextBlock x:Name="comportCont" HorizontalAlignment="Left" Margin="433,10,0,0" TextWrapping="Wrap" Text="Comport" VerticalAlignment="Top"/>
-        <TextBlock x:Name="durationtimeCont" HorizontalAlignment="Left" Margin="433,31,0,0" TextWrapping="Wrap" Text="Durationtime" VerticalAlignment="Top"/>
-        <TextBlock x:Name="filenameCont" HorizontalAlignment="Left" Margin="433,52,0,0" TextWrapping="Wrap" Text="Filename" VerticalAlignment="Top"/>
+        <Button x:Name="display_graph" Background="OldLace" Content="Display graph" HorizontalAlignment="Left" Margin="456,259,0,0" VerticalAlignment="Top" Width="115" Height="25" Click="display_graph_Click"/>
+        <Button x:Name="settingsButton" Content="Settings" HorizontalAlignment="Left" Margin="456,194,0,0" VerticalAlignment="Top" Width="115" Height="24" Click="settingsButton_Click"/>
 
     </Grid>
 </Window>

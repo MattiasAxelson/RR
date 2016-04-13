@@ -5,18 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Microsoft.Samples.Kinect.SkeletonBasics"
         mc:Ignorable="d"
-        Title="ChildWindow" Height="300" Width="300">
-    <Grid Margin="0,0,2,0">
-        <TextBlock x:Name="comportText" HorizontalAlignment="Left" Margin="27,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Comport"/><LineBreak/><Run/></TextBlock>
-        <TextBlock x:Name="durationtimeText" HorizontalAlignment="Left" Margin="108,59,0,0" TextWrapping="Wrap" Text="Durationtime" VerticalAlignment="Top"/>
-        <TextBlock x:Name="filenameText" HorizontalAlignment="Left" Margin="213,59,0,0" TextWrapping="Wrap" Text="Filename" VerticalAlignment="Top"/>
-        <TextBox x:Name="comportContent" HorizontalAlignment="Left" TextAlignment="Center" Height="23" Margin="13,91,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="70"/>
-        <TextBlock x:Name="titel" HorizontalAlignment="Left" Margin="108,20,0,0" TextWrapping="Wrap" Text="Set values" VerticalAlignment="Top"/>
-        <TextBox x:Name="durationContent" HorizontalAlignment="Left" TextAlignment="Center" Margin="108,91,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="70" Height="23"/>
-        <TextBox x:Name="filenameContent" HorizontalAlignment="Left" TextAlignment="Center" Height="23" Margin="204,91,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="72"/>
-        <Button x:Name="startHeartRateCalc" Content="Done" HorizontalAlignment="Left" Margin="108,191,0,0" VerticalAlignment="Top" Width="75" Click="startHeartRateCalc_Click"/>
-        <Button x:Name="helpButton" Content="Help" HorizontalAlignment="Left" Margin="108,166,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.04,0.45" Click="helpButton_Click"/>
-        <TextBlock x:Name="errorText" HorizontalAlignment="Left" TextAlignment="Center" Margin="47,129,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="191"/>
+        Title="ChildWindow" Height="368.813" Width="464.185">
+    <Grid>
+        <TextBox x:Name="comportTextbox" HorizontalAlignment="Left" Height="23" Margin="111,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68"/>
+        <Label x:Name="comportLabel" Content="comport" HorizontalAlignment="Left" Margin="24,47,0,0" VerticalAlignment="Top" Width="68"/>
+        <Label x:Name="tidLabel" Content="testtid" HorizontalAlignment="Left" Margin="24,91,0,0" VerticalAlignment="Top" Width="61"/>
+        <Label x:Name="filnamnLabel" Content="filnamn" HorizontalAlignment="Left" Margin="24,134,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="heartRateButton" Content="Start heartrate" HorizontalAlignment="Left" Margin="179,284,0,0" VerticalAlignment="Top" Width="104" Click="heartRateButton_Click"/>
+        <TextBox x:Name="testtimeTextBox" HorizontalAlignment="Left" Height="23" Margin="111,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68"/>
+        <TextBox x:Name="fileNametextBox" HorizontalAlignment="Left" Height="23" Margin="111,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68"/>
 
     </Grid>
 </Window>

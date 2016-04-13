@@ -1,4 +1,4 @@
-function void = ecgtoheartrate(comPort, captureDuration, fileName) 
+function void = heartRateCalc(comPort, captureDuration, fileName) 
 %ECGTOHEARTRATEEXAMPLE - Heart Rate from electrocardiogram signal
 %
 %  ECGTOHEARTRATEEXAMPLE(COMPORT, CAPTUREDURATION, FILENAME)
@@ -31,7 +31,8 @@ function void = ecgtoheartrate(comPort, captureDuration, fileName)
 % add the location of the ShimmerBiophysicalProcessingLibrary_Rev_X_Y.jar file
 % to the JAVA dynamic class path:
 %
-javaclasspath('C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\ShimmerBiophysicalProcessingLibrary_Rev_0_10.jar')
+% javaclasspath('C:\Program Files\MATLAB\R2013b\java\jar\ShimmerBiophysicalProcessingLibrary_Rev_X_Y.jar')
+ javaclasspath('C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\ShimmerBiophysicalProcessingLibrary_Rev_0_10.jar')
 %
 % NOTE: In this example the ECG data is pre-filtered using a second order
 % Chebyshev HPF with corner freq 0.5Hz by using FilterClass.m
@@ -43,12 +44,13 @@ javaclasspath('C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\S
 shimmer = ShimmerHandleClass(comPort);                                     % Define shimmer as a ShimmerHandle Class instance with comPort1
 SensorMacros = SetEnabledSensorsMacrosClass;                               % assign user friendly macros for setenabledsensors
 
-fs = 120;                                                                  % Samplingsfrekvensen [Hz]     
+fs = 120;                                                                  % sample rate in [Hz]     
+
 firsttime = true;
 
 % Note: these constants are only relevant to this examplescript and are not used
 % by the ShimmerHandle Class
-NO_SAMPLES_IN_PLOT = 2500;                                                 % Antal samplingar som kommer att visas
+NO_SAMPLES_IN_PLOT = 3000;                                                 % Number of samples that will be displayed in the plot at any one time
 DELAY_PERIOD = 0.2;                                                        % A delay period of time in seconds between data read operations
 numSamples = 0;
 
@@ -88,7 +90,7 @@ numSamples = 0;
 
 
 %% ECG2HR settings
-ECG2HR = com.shimmerresearch.biophysicalprocessing.ECGtoHRAdaptive(fs);  % create ECG to Heart Rate object
+ ECG2HR = com.shimmerresearch.biophysicalprocessing.ECGtoHRAdaptive(fs);  % create ECG to Heart Rate object
 
 %%
 
@@ -107,9 +109,10 @@ if (shimmer.connect)                                                       % TRU
         filteredplotData = [];
         heartRate = [];
         storeData = [];
+       
                
         h.figure1=figure('Name','Shimmer ECG and Heart Rate signals');     % create a handle to figure for plotting data from shimmer
-        set(h.figure1, 'Position', [100, 500, 800, 400]);
+     %   set(h.figure1, 'Position', [100, 500, 800, 400]);
         
         elapsedTime = 0;                                                   % reset to 0    
         tic;                                                               % start timer
@@ -118,7 +121,7 @@ if (shimmer.connect)                                                       % TRU
                       
             pause(DELAY_PERIOD);                                           % pause for this period of time on each iteration to allow data to arrive in the buffer
             
-            [newData,signalNameArray,signalFormatArray,signalUnitArray] = shimmer.getdata('c');   % Read the latest data from shimmer data buffer, signalFormatArray defines the format of the data and signalUnitArray the unit
+            [newData,signalNameArray] = shimmer.getdata('c');   % Read the latest data from shimmer data buffer, signalFormatArray defines the format of the data and signalUnitArray the unit
                         
             if (firsttime==true && isempty(newData)~=1) 
 
@@ -154,7 +157,8 @@ if (shimmer.connect)                                                       % TRU
                 numPlotSamples = size(plotData,1);                          
                 numSamples = numSamples + size(newData,1);
                 timeStampNew = newData(:,chIndex(1));                                       % get timestamps
-                timeStamp = [timeStamp; timeStampNew]; 
+                timeStamp = [timeStamp; timeStampNew];
+                
                 newstoreData = [timeStampNew ECGData ECGDataFiltered newheartRate];
                 storeData = [storeData; newstoreData];
                                  
@@ -169,15 +173,17 @@ if (shimmer.connect)                                                       % TRU
                         
                  end
                  sampleNumber = max(numSamples-NO_SAMPLES_IN_PLOT+1,1):numSamples;
-                
-
+           
                 % plotting the data
-              %  subplot(3,1,3)
-                plot((sampleNumber/fs), heartRate);                             % plot the Heart Rate data
+  
+                plot(sampleNumber/fs, heartRate);                             % plot the Heart Rate data
                 legend('Heart Rate (BPM', 'Location', 'West');   
-                xlim([sampleNumber(1)/fs sampleNumber(end)/fs]);
-                ylim([1 220]);
+                xlim([sampleNumber(1)/fs sampleNumber(end)/fs]);  
+                ylim([1 220]);   
                 
+                
+                
+             
                 
             end
             
@@ -192,10 +198,10 @@ if (shimmer.connect)                                                       % TRU
        
     end 
     
-    length(sampleNumber)
-    sampleNumber(end)
-    sampleNumber(end)/fs
-    
     shimmer.disconnect;                                                    % disconnect from shimmer
         
 end
+
+
+
+
