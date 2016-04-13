@@ -111,7 +111,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             
         }
-        
+        public string comport = null;
+        public int durationtime = 0;
+        public string filename = null;
 
 
 
@@ -833,9 +835,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
         
-        public string comport = null; 
-        public int durationtime = 0;
-        public string filename = null; 
+      
 
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
