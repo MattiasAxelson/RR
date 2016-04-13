@@ -30,8 +30,30 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             comport = comportContent.Text;
             convdurationtime = durationContent.Text;
             fileName = filenameContent.Text;
-            durationtime = int.Parse(convdurationtime);
+            
 
+
+            if (comport == "...")
+            {
+                errorText.Text = "Vänligen ange en comport";
+            }
+            
+            else if (durationContent.Text == "...")
+            {
+                errorText.Text = "Vänligen ange en körtid";
+            }
+            else if (fileName == "...")
+            {
+                errorText.Text = "Vänligen ange ett filnamn";
+            }
+            else
+            {
+                durationtime = int.Parse(convdurationtime);
+                this.Close();
+            }
+            
+
+            /*
             if (comport == "0" || durationtime == 0 || fileName == "" || durationContent.Text == "")
             {
                 errorText.Text = "Du måste fylla i alla fälten korrekt.";
@@ -40,6 +62,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 this.Close();
             }
+            */
         }
 
         private void helpButton_Click(object sender, RoutedEventArgs e)

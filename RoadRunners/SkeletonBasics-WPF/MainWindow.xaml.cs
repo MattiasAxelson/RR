@@ -111,9 +111,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             
         }
-        
 
 
+
+        public string comport = null;
+        public int durationtime = 0;
+        public string filename = null;
 
 
         /// <summary>
@@ -832,14 +835,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
-        
-        public string comport = null; 
-        public int durationtime = 0;
-        public string filename = null; 
+  
 
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
-            //printMatLab1("ecgtoheartrate", comport, durationtime, filnamn);
+            printMatLab1("heartRateCalc", comport, durationtime, filename);
         }
 
         private void display_angle_Click(object sender, RoutedEventArgs e)
