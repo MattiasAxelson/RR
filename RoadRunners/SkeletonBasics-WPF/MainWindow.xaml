@@ -25,7 +25,7 @@
         <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top"/>
         <Button x:Name="stop_button" Content="Stop sensors" HorizontalAlignment="Left" Margin="867,102,0,0" VerticalAlignment="Top" Width="75" Click="stop_Button_Click"/>
         <Button x:Name="button1" Content="Start sensors" HorizontalAlignment="Left" Margin="867,77,0,0" VerticalAlignment="Top" Width="75" Click="start_button_Click"/>
-        <Button x:Name="Show_mean_angle" Content="Show mean angle" HorizontalAlignment="Left" Margin="1009,77,0,0" VerticalAlignment="Top" Width="111" Click="Show_mean_angle_Click"/>
+        <Button x:Name="Show_mean_angle" Content="Show mean angle" HorizontalAlignment="Left" Margin="1009,77,0,0" VerticalAlignment="Top" Width="111"/>
         <Image x:Name="vinkelImage" HorizontalAlignment="Left" Height="319" Margin="45,300,0,0" VerticalAlignment="Top" Width="1169" Source="Vinkelgraf.jpeg" />
         <TextBlock x:Name="velocityText" HorizontalAlignment="Left" Margin="942,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="87"><Run Text="Hastighet"/><InlineUIContainer>
         		<TextBlock x:Name="textBlock" TextWrapping="Wrap"/>
