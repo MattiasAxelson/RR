@@ -25,6 +25,7 @@
                 </TransformGroup>
             </Ellipse.RenderTransform>
         </Ellipse>
+        <Button x:Name="button2" Background="Black" Content="Button" HorizontalAlignment="Left" Margin="374,114,0,0" VerticalAlignment="Top" Width="75" Height="78"/>
 
     </Grid>
 </Window>
