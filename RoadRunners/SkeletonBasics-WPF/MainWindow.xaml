@@ -42,8 +42,8 @@
         <TextBlock x:Name="velhelptext" HorizontalAlignment="Left" Margin="942,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="21"><Run Text="VelHelp"/><LineBreak/><Run/></TextBlock>
         <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="942,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text=""/><LineBreak/><Run/></TextBlock>
         <TextBlock x:Name="hastighetslista" HorizontalAlignment="Left" Margin="942,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="21"><Run Text="Hastighetslista"/><LineBreak/><Run/></TextBlock>
-        <CheckBox x:Name="FHKbox" Content="Knävinkel" HorizontalAlignment="Left" Margin="1120,413,0,0" VerticalAlignment="Top" Checked="FKHbox_Checked"/>
-        <CheckBox x:Name="SHKbox" Content="Höftvinkel" HorizontalAlignment="Left" Margin="1120,433,0,0" VerticalAlignment="Top" Checked="SHKbox_Checked"/>
+        <CheckBox x:Name="FHKbox" Content="Knävinkel" HorizontalAlignment="Left" Margin="1102,413,0,0" VerticalAlignment="Top" Checked="FKHbox_Checked"/>
+        <CheckBox x:Name="SHKbox" Content="Höftvinkel" HorizontalAlignment="Left" Margin="1102,494,0,0" VerticalAlignment="Top" Checked="SHKbox_Checked"/>
         <TextBlock x:Name="väljvinkel" HorizontalAlignment="Left" Margin="1120,397,0,0" TextWrapping="Wrap" Text="Välj vinkel:" VerticalAlignment="Top"/>
         <TextBlock x:Name="felmeddelande" HorizontalAlignment="Left" Margin="1120,448,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
         <Button x:Name="restartbutton" Content="Restart" HorizontalAlignment="Left" Margin="1160,568,0,0" VerticalAlignment="Top" Width="75" Click="restartbutton_Click"/>
@@ -57,6 +57,13 @@
         <TextBlock x:Name="durationtimeCont" HorizontalAlignment="Left" Margin="433,31,0,0" TextWrapping="Wrap" Text="Durationtime" VerticalAlignment="Top"/>
         <TextBlock x:Name="filenameCont" HorizontalAlignment="Left" Margin="433,52,0,0" TextWrapping="Wrap" Text="Filename" VerticalAlignment="Top"/>
         <TextBlock x:Name="pulstest" HorizontalAlignment="Left" Margin="638,135,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <TextBlock x:Name="contAngle_FHK" HorizontalAlignment="Left" Margin="1160,451,0,0" TextWrapping="Wrap" Text="Kont. vinkel" VerticalAlignment="Top" Width="91"/>
+        <TextBlock x:Name="smallestAngle_FHK" HorizontalAlignment="Left" Margin="1087,451,0,0" TextWrapping="Wrap" Text="Lägsta vinkel" VerticalAlignment="Top"/>
+        <TextBlock x:Name="meanAngleBlock_FHK" HorizontalAlignment="Left" Margin="1087,435,0,0" TextWrapping="Wrap" Text="Medelvinkel" VerticalAlignment="Top"/>
+        <TextBlock x:Name="contAngle_SHK" HorizontalAlignment="Left" Margin="1164,530,-3.667,0" TextWrapping="Wrap" Text="Kont. vinkel" VerticalAlignment="Top" Width="91"/>
+        <TextBlock x:Name="smallestAngle_SHK" HorizontalAlignment="Left" Margin="1091,530,0,0" TextWrapping="Wrap" Text="Lägsta vinkel" VerticalAlignment="Top"/>
+        <TextBlock x:Name="meanAngleBlock_SHK" HorizontalAlignment="Left" Margin="1091,514,0,0" TextWrapping="Wrap" Text="Medelvinkel" VerticalAlignment="Top"/>
+
         <ComboBox x:Name="heartRateScroll" HorizontalAlignment="Left" Margin="1106,77,0,0" VerticalAlignment="Top" Width="129" >
             <ComboBoxItem>1 sekund</ComboBoxItem>
             <ComboBoxItem>10 sekunder</ComboBoxItem>
