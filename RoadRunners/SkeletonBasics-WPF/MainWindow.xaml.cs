@@ -17,6 +17,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Linq;
     using System.Windows.Media.Imaging;
     using System.Media;
+    using System.Collections;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -643,7 +644,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 updateMatlab = updateMatlab + 30;
             }
         }
-        public object resultatis;
+
+        public List<double> hejPuls = new List<double>();
+        public string resultatis;
         // Skickar allting till matlab och plottas sedan
         void printMatLab1(string funktionsnamn, string comport, int durationtime, string fileName)
         {
@@ -657,24 +660,41 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 // Define the output 
                 object result = null;
 
-                // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
-                try
-                {
-                    matlab.Feval(funktionsnamn, 1, out result, comport.ToString(), durationtime, fileName);
+            // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
+            try
+            {
 
 
-                }
-                catch (System.Runtime.InteropServices.COMException)
-                {
 
-                }
-           // object[] res = result as object[];
-            object[] res = result as object[];
+                // double[] heartRate = res[0] as double[];
 
-          //  resultatis = res[0];
-          //  Console.WriteLine(resultatis);
-         //   pulstest.Text = resultatis.ToString();
-            MessageBox.Show(res[0].ToString());
+                matlab.Feval(funktionsnamn, 3, out result, comport.ToString(), durationtime, fileName);
+                object[] res = result as object[];
+
+         
+
+                if (res == null)
+            {
+                MessageBox.Show("Tjena");
+            }
+            else
+            {
+
+                pulstest.Text = res[0].ToString();
+
+            }
+
+        }
+        
+            catch (System.Runtime.InteropServices.COMException)
+            {
+
+            }
+             
+         
+
+            resultatis = Convert.ToString(result);
+     
 
         }
 
@@ -865,7 +885,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void display_angle_Click(object sender, RoutedEventArgs e)
         {
-            printMatLab(tidsLista, vinklar, minimumlista);
+            // printMatLab(tidsLista, vinklar, minimumlista);
+
+            // printMatLab1("testfunc", "1",2,"3" );
+            readPulseData();
         }
         
         private void setting_Click(object sender, RoutedEventArgs e)
@@ -873,5 +896,37 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
+
+
+        private  void readPulseData()
+        {
+       
+           
+                try
+                {
+            
+                    using (StreamReader sr = new StreamReader(@"C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt"))
+                    {
+                        String line;
+                   
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                        pulstest.Text = line;
+                        }
+                        
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error: " + e.Message);
+
+                }
+                
+        }
+
+
+
+
     }
-}
+
+    }

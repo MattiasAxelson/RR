@@ -189,7 +189,11 @@ if (shimmer.connect)                                                       % TRU
               %  heartRatevector = [value, heartRatevector];
           
             x = value
+%save('pulsdata.txt', 'heartRate')
+fid=fopen('pulsdata.txt','w');
 
+fprintf(fid, '%f %f \n', heartRate');
+fclose(fid);
                 
                 
             end
