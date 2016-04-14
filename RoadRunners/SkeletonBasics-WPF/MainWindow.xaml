@@ -55,12 +55,12 @@
         <TextBlock x:Name="durationtimeCont" HorizontalAlignment="Left" Margin="433,31,0,0" TextWrapping="Wrap" Text="Durationtime" VerticalAlignment="Top"/>
         <TextBlock x:Name="filenameCont" HorizontalAlignment="Left" Margin="433,52,0,0" TextWrapping="Wrap" Text="Filename" VerticalAlignment="Top"/>
         <TextBlock x:Name="pulstest" HorizontalAlignment="Left" Margin="638,135,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-        <TextBlock x:Name="contAngle_FHK" HorizontalAlignment="Left" Margin="1160,451,0,0" TextWrapping="Wrap" Text="Kont. vinkel" VerticalAlignment="Top" Width="91"/>
-        <TextBlock x:Name="smallestAngle_FHK" HorizontalAlignment="Left" Margin="1087,451,0,0" TextWrapping="Wrap" Text="Lägsta vinkel" VerticalAlignment="Top"/>
-        <TextBlock x:Name="meanAngleBlock_FHK" HorizontalAlignment="Left" Margin="1087,435,0,0" TextWrapping="Wrap" Text="Medelvinkel" VerticalAlignment="Top"/>
+        <TextBlock x:Name="contAngle_FHK" HorizontalAlignment="Left" Margin="1164,451,-3.667,0" TextWrapping="Wrap" Text="Kont. vinkel" VerticalAlignment="Top" Width="91"/>
+        <TextBlock x:Name="smallestAngle_FHK" HorizontalAlignment="Left" Margin="1075,451,0,0" TextWrapping="Wrap" Text="Lägsta vinkel" VerticalAlignment="Top"/>
+        <TextBlock x:Name="meanAngleBlock_FHK" HorizontalAlignment="Left" Margin="1075,435,0,0" TextWrapping="Wrap" Text="Medelvinkel" VerticalAlignment="Top"/>
         <TextBlock x:Name="contAngle_SHK" HorizontalAlignment="Left" Margin="1164,530,-3.667,0" TextWrapping="Wrap" Text="Kont. vinkel" VerticalAlignment="Top" Width="91"/>
-        <TextBlock x:Name="smallestAngle_SHK" HorizontalAlignment="Left" Margin="1091,530,0,0" TextWrapping="Wrap" Text="Lägsta vinkel" VerticalAlignment="Top"/>
-        <TextBlock x:Name="meanAngleBlock_SHK" HorizontalAlignment="Left" Margin="1091,514,0,0" TextWrapping="Wrap" Text="Medelvinkel" VerticalAlignment="Top"/>
+        <TextBlock x:Name="smallestAngle_SHK" HorizontalAlignment="Left" Margin="1079,530,0,0" TextWrapping="Wrap" Text="Lägsta vinkel" VerticalAlignment="Top"/>
+        <TextBlock x:Name="meanAngleBlock_SHK" HorizontalAlignment="Left" Margin="1079,514,0,0" TextWrapping="Wrap" Text="Medelvinkel" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
