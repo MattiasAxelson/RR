@@ -9,6 +9,7 @@
     <Grid Margin="0,0,-0.333,-0.333">
         <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="224,159,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="78" Margin="10,40,0,0" TextWrapping="Wrap" Text="HEJ MATTE!!!" VerticalAlignment="Top" Width="119" Foreground="#FFFC0000" Grid.Column="5"/>
+        <Button x:Name="button1" Content="liten knapp" Background="Aqua" HorizontalAlignment="Left" Margin="41,204,0,0" VerticalAlignment="Top" Width="448" Height="89"/>
 
     </Grid>
 </Window>
