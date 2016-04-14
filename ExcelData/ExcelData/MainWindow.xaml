@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ExcelData"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
+    <Grid Margin="0,0,-0.333,-0.333">
         <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="224,159,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
 
     </Grid>
