@@ -12,7 +12,7 @@
         <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="77" Margin="337,26,0,0" Stroke="Black" VerticalAlignment="Top" Width="112"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="87" Margin="47,91,0,0" Stroke="Black" VerticalAlignment="Top" Width="127"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="27" Margin="224,105,0,0" Stroke="Black" VerticalAlignment="Top" Width="24"/>
-        <Button x:Name="button1" Background="AliceBlue" Content="Button" HorizontalAlignment="Left" Margin="47,208,0,0" VerticalAlignment="Top" Width="440" Height="113"/>
+        <Button x:Name="button1" Background="AliceBlue" Content="Button" HorizontalAlignment="Left" Margin="47,208,0,0" VerticalAlignment="Top" Width="440" Height="113" Click="button1_Click"/>
         <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="28" Margin="174,40,0,0" Stroke="Black" VerticalAlignment="Top" Width="55"/>
         <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="28" Margin="244,40,0,0" Stroke="Black" VerticalAlignment="Top" Width="55"/>
         <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="13" Margin="213,75,0,0" Stroke="Black" VerticalAlignment="Top" Width="36" RenderTransformOrigin="0.5,0.5">
