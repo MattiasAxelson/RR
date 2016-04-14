@@ -83,8 +83,10 @@ namespace ExcelData
                 wb.SaveAs(saveFileDialog.FileName);
         }
 
-
-
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("HEJ");
+        }
     } }
         
         
