@@ -39,7 +39,7 @@ namespace ExcelData
             app.Visible = true;
             app.WindowState = XlWindowState.xlMaximized;
 
-            APMONGO
+            SÅHÄRGÖRMAN
 
             Workbook wb = app.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
             Worksheet ws = wb.Worksheets[1];
