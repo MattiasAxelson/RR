@@ -10,6 +10,7 @@
         <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="224,159,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="78" Margin="10,40,0,0" TextWrapping="Wrap" Text="HEJ MATTE!!!" VerticalAlignment="Top" Width="119" Foreground="#FFFC0000" Grid.Column="5"/>
         <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="77" Margin="337,26,0,0" Stroke="Black" VerticalAlignment="Top" Width="112"/>
+        <Button x:Name="button1" Content="Button" Background="ForestGreen" HorizontalAlignment="Left" Margin="48,205,0,0" VerticalAlignment="Top" Width="401" Height="68"/>
 
     </Grid>
 </Window>
