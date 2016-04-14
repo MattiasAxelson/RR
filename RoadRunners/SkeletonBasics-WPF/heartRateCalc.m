@@ -188,12 +188,18 @@ if (shimmer.connect)                                                       % TRU
              %   heartRatevector = [];
               %  heartRatevector = [value, heartRatevector];
           
-            x = value
-%save('pulsdata.txt', 'heartRate')
-fid=fopen('pulsdata.txt','w');
+            
+                valuelength = 0;
 
-fprintf(fid, '%f %f \n', heartRate');
-fclose(fid);
+                if value.length > valuelength
+                fid=fopen('C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt','w');
+
+                fprintf(fid, '%d \n', A');
+                fclose(fid)
+
+                valuelength = valuelength + fs;
+                end
+
                 
                 
             end

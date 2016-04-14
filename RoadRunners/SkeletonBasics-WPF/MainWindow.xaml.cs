@@ -113,6 +113,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 filenameCont.Text = Convert.ToString(filename);
             });
 
+        
+
             
         }
         public string comport = null;
@@ -230,7 +232,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                         if (skel.TrackingState == SkeletonTrackingState.Tracked)
                         {
-                            //this.DrawBonesAndJoints(skel, dc);
+                            this.DrawBonesAndJoints(skel, dc);
                             //Console.WriteLine("Innan calcvelocity");
                             this.CalculateVelocity(skel, dc);
                             //this.CalculateAngles(skel, dc);
@@ -896,7 +898,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
+      
 
+        List<double> pulseList = new List<double>();
 
         private  void readPulseData()
         {
@@ -904,18 +908,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
            
                 try
                 {
-            
-                    using (StreamReader sr = new StreamReader(@"C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt"))
-                    {
-                        String line;
-                   
-                        while ((line = sr.ReadLine()) != null)
-                        {
-                        pulstest.Text = line;
-                        }
-                        
-                    }
-                }
+
+                String line = File.ReadLines(@"C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt").Last();
+                pulstest.Text = line;
+                pulseList.Add(Convert.ToDouble(line));
+  
+            }
+
                 catch (Exception e)
                 {
                     Console.WriteLine("Error: " + e.Message);
@@ -924,9 +923,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 
         }
 
-
-
-
+  
     }
 
     }
