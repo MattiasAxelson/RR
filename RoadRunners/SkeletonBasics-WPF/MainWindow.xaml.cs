@@ -488,13 +488,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // -------------------------------------------------------------------------------------//
 
         // Skapar listorna som behövs
-        public List<double> vinklar_FHK = new List<double>();
+        public List<double> vinklar = new List<double>();
         public List<double> tidsLista = new List<double>();
         public List<double> minimumlista_FHK = new List<double>();
         public List<double> minimumlistahelp_FHK = new List<double>();
         public List<double> minimumlista_SHK = new List<double>();
         public List<double> minimumlistahelp_SHK = new List<double>();
         public List<double> meanAngleList_FHK = new List<double>();
+        public List<double> meanAngleList_SHK = new List<double>();
+        public List<double> meanList_FHK = new List<double>();
+        public List<double> meanList_SHK = new List<double>();
 
         // Skapar variablerna som behövs
         public double helprefresh = 30;
@@ -502,26 +505,32 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public double lagsta_varde_FHK = 0;
         public double lagsta_varde_SHK = 0;
         public int updateMatlab = 0;
-        public double meanAngle_FHK = 170;
+        public double meanAngle_FHK;
+        public double meanAngle_SHK;
         int i = 0;
 
-        private void meanAngleFunchelp()
+        private void meanAngleFunchelp(List<double> minList1, List<double> minList2)
         {
-            if (i == 10)
-                meanAngle_FHK = minimumlista_FHK.Sum() / (minimumlista_FHK.Count);
-            meanAngleList_FHK.Add(meanAngle_FHK);
-            meanAngleFunc();
-            meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanAngleList_FHK.LastOrDefault()));
-            
-           if (i == 10)
+            if (i == 3)
+            meanAngle_FHK = minList1.Sum() / (minList1.Count);
+            meanList_FHK.Add(meanAngle_FHK);
+            meanAngleFunc(minList1);
+            meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault()));
+
+            if (i == 3)
+            meanAngle_SHK = minList2.Sum() / (minList2.Count);
+            meanList_SHK.Add(meanAngle_SHK);
+            meanAngleFunc(minList2);
+            meanAngleBlock_SHK.Text = Convert.ToString(Math.Ceiling(meanList_SHK.LastOrDefault()));
+
+            if (i == 3)
             {
                 i = 0;
-                }
-            
+            }
         }
 
 
-        // Beräknar vinklar_FHK beroende på checkboxar
+        // Beräknar vinklar beroende på checkboxar
         void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
         {
             // Definerar jointar
@@ -578,11 +587,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 double SHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(HipShoulder_Length, 2)
                     - Math.Pow(KneeShoulder_Length, 2)) / (2 * HipKnee_Length * HipShoulder_Length))) * (180 / Math.PI));
 
-                vinklar_FHK.Add(SHK_angle);
+                vinklar.Add(SHK_angle);
                 minimumlistahelp_SHK.Add(SHK_angle);
 
-                // contAngle_FHK.Text = Convert.ToString(tidsLista.Count);
-                
+                contAngle_SHK.Text = Convert.ToString(SHK_angle);
+
 
                 if (SHK_angle < 140)
                 {
@@ -609,10 +618,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 double FHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2)
                     - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
 
-                vinklar_FHK.Add(FHK_angle);
+                vinklar.Add(FHK_angle);
                 minimumlistahelp_FHK.Add(FHK_angle);
 
-                contAngle_FHK.Text = Convert.ToString(FHK_angle);
+                contAngle_FHK.Text = Convert.ToString(i);
 
                 if (FHK_angle < 90)
                 {
@@ -625,10 +634,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
             }
 
-            sampleToTime = vinklar_FHK.Count;
+            sampleToTime = vinklar.Count;
             tidsLista.Add(sampleToTime / 30);
 
-            contAngle_SHK.Text = Convert.ToString(i);
+              
+            
             // tar ut lägsta vinkel
             if (minimumlista_FHK.Count > 60)
             {
@@ -638,34 +648,32 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 smallestAngle_FHK.Text = Convert.ToString(lagsta_varde_FHK);
                 minimumlistahelp_FHK.Clear();
                 //Höftvinkel
-                //     lagsta_varde_SHK = minimumlistahelp_SHK.Min();
-                //   minimumlista_SHK.Add(lagsta_varde_SHK);
-                // minimumlistahelp_SHK.RemoveAt(0);
-
-
-                //   smallestAngle_SHK.Text = Convert.ToString(lagsta_varde_SHK);
-                meanAngleFunchelp();
+                lagsta_varde_SHK = minimumlistahelp_SHK.Min();
+                minimumlista_SHK.Add(lagsta_varde_SHK);
+                minimumlistahelp_SHK.Clear();
+                smallestAngle_SHK.Text = Convert.ToString(lagsta_varde_SHK);
+                meanAngleFunchelp(minimumlista_FHK, minimumlista_SHK);
+             //   meanAngleFunchelp(minimumlista_SHK, meanAngle_SHK);
                 ++i;
 
             }
             else
             {
                 minimumlista_FHK.Add(lagsta_varde_FHK);
-              //  minimumlista_SHK.Add(lagsta_varde_SHK);
+                minimumlista_SHK.Add(lagsta_varde_SHK);
             }
-            //printMatLab(tidsLista, vinklar_FHK, minimumlista);
         }
 
         // För att ta ut medelvinkel
-        private void meanAngleFunc()
+        private void meanAngleFunc(List<double> minList)
         {
-            minimumlista_FHK.Sort();
+            minList.Sort();
             int listIndex = 0;
-            while (listIndex < minimumlista_FHK.Count - 1)
+            while (listIndex < minList.Count - 1)
             {
-                if (minimumlista_FHK[listIndex] == minimumlista_FHK[listIndex + 1])
+                if (minList[listIndex] == minList[listIndex + 1])
                 {
-                    minimumlista_FHK.RemoveAt(listIndex);
+                    minList.RemoveAt(listIndex);
                 }
                 else
                 {
@@ -683,7 +691,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             //MATLABPLOT
             //Skickar data till matlab i ett specifikt satt intervall
-            if (updateMatlab < vinklar_FHK.Count)
+            if (updateMatlab < vinklar.Count)
             {
                 // Change to the directory where the function is located 
                 var path = Path.Combine(Directory.GetCurrentDirectory());
