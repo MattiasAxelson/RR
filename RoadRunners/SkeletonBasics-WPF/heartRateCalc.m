@@ -54,6 +54,8 @@ NO_SAMPLES_IN_PLOT = 3000;                                                 % Num
 DELAY_PERIOD = 0.2;                                                        % A delay period of time in seconds between data read operations
 numSamples = 0;
 
+valuelength = 0;
+
 
 %% filter settings
     fm = 50;                                                               % mains frequency [Hz]
@@ -109,6 +111,8 @@ if (shimmer.connect)                                                       % TRU
         filteredplotData = [];
         heartRate = [];
         storeData = [];
+        
+        value = [];
        
                
         h.figure1=figure('Name','Shimmer ECG and Heart Rate signals');     % create a handle to figure for plotting data from shimmer
@@ -184,18 +188,20 @@ if (shimmer.connect)                                                       % TRU
                 
                 %test
                
-                value = heartRate;
+                
              %   heartRatevector = [];
               %  heartRatevector = [value, heartRatevector];
           
             
-                valuelength = 0;
+                
 
-                if value.length > valuelength
+                if length(heartRate) > valuelength
+                    
+                value = [value ; heartRate(end)];
                 fid=fopen('C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt','w');
 
-                fprintf(fid, '%d \n', A');
-                fclose(fid)
+                fprintf(fid, '%d \n', value');
+                fclose(fid);
 
                 valuelength = valuelength + fs;
                 end

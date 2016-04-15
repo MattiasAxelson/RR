@@ -726,26 +726,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
 
 
-
-                // double[] heartRate = res[0] as double[];
-
-                matlab.Feval(funktionsnamn, 3, out result, comport.ToString(), durationtime, fileName);
+                matlab.Feval(funktionsnamn, 1, out result, comport.ToString(), durationtime, fileName);
                 object[] res = result as object[];
 
-         
-
-                if (res == null)
-            {
-                MessageBox.Show("Tjena");
-            }
-            else
-            {
-
-                pulstest.Text = res[0].ToString();
 
             }
-
-        }
         
             catch (System.Runtime.InteropServices.COMException)
             {
@@ -762,7 +747,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // Ritar ut skelettmodellen på bilden
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
-         
+            readPulseData();
+
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
             this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderLeft);
@@ -929,15 +915,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
-      
-
         List<double> pulseList = new List<double>();
 
         private  void readPulseData()
         {
-       
-           
-                try
+           try
                 {
 
                 String line = File.ReadLines(@"C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt").Last();
