@@ -32,12 +32,21 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             fileName = filenameContent.Text;
             durationtime = int.Parse(convdurationtime);
 
-            if (comport == "0" || durationtime == 0 || fileName == "" || durationContent.Text == "")
+            if (comport == "...")
             {
-                errorText.Text = "Du måste fylla i alla fälten korrekt.";
+                errorText.Text = "Vänligen fyll i comport";
+            }
+            else if (convdurationtime == "...")
+            {
+                errorText.Text = "Vänligen fyll i körtid.";
+            }
+            else if (fileName == "...")
+            {
+                errorText.Text = "Vänligen fyll i filnamn";
             }
             else
             {
+                durationtime = int.Parse(convdurationtime);
                 this.Close();
             }
         }

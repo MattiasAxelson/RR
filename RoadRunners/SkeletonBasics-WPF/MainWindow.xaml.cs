@@ -222,7 +222,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                         if (skel.TrackingState == SkeletonTrackingState.Tracked)
                         {
-                            this.DrawBonesAndJoints(skel, dc);
+                            //this.DrawBonesAndJoints(skel, dc);
                             this.CalculateVelocity(skel, dc);
                             //this.CalculateAngles(skel, dc);
                         }
@@ -355,7 +355,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         /// 
 
-    /*    //------------------------------- Hastighetsberäkning -----------------------------------// 
+        //------------------------------- Hastighetsberäkning -----------------------------------// 
         // Variabler för hastighet
         double deltaT = 0;
         double deltaX = 0; 
@@ -393,24 +393,28 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             velXList.Add(XFootleft);
 
             //Lägger till x-koordinater i listan
-            if (velXList.Count > 10)
+            if (velXList.Count > 30)
             {
                 deltaX = Math.Abs((velXList[velXList.Count- 1]) - (velXList[velXList.Count - 4]));
                 velhelptext.Text = Convert.ToString(deltaX);
-
-                deltaT = (4 / 30);
+            }
+                deltaT = 0.1; // Motsvarar 3/30 som är tidskillnaden mellan 4 på varandra följande värden. 
                 stepVelocity = deltaX / deltaT;
 
-                velocityText.Text = Convert.ToString(Math.Ceiling(stepVelocity));
+                velocityText.Text = Convert.ToString(stepVelocity);
 
                 velocityList.Add(stepVelocity);
                 countertext.Text = Convert.ToString(velocityList.Count);
-            }
 
-            if (velocityList.Count > 10)
+            if (velocityList.Count == 120)
             {
-                //meanVelocity = ((velocityList[velocityList.Count -1]) + (velocityList[velocityList.Count - 2]) + (velocityList[velocityList.Count - 3]) + (velocityList[velXList.Count - 4])) / 4;
+                double maxValue = velocityList.Max();
+                initX.Text = Convert.ToString(Math.Floor(maxValue * 3.6));
+                velocityList.Clear();
             }
+            
+
+            
 
             // Skriver ut hastigheten i fönstret
             //velocityText.Text = Convert.ToString(meanVelocity);
@@ -419,9 +423,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 velXList.RemoveAt(0);
             }
-        }*/
+        }
          
-
+/*
         //------------------------------- Hastighetsberäkning -----------------------------------// 
         // Variabler för hastighet
         double stepTime = 0;
@@ -532,7 +536,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 velocityList.RemoveAt(0);
             }
         }
- 
+ */
         int count1 = 0;
 
         // -------------------------------------------------------------------------------------//
