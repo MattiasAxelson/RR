@@ -6,16 +6,34 @@
         xmlns:local="clr-namespace:Microsoft.Samples.Kinect.SkeletonBasics"
         mc:Ignorable="d"
         Title="ChildWindow" Height="300" Width="300">
-    <Grid Margin="0,0,2,0">
+    <Grid Margin="0,0,2,0" Background="#FFB2C5F7">
         <TextBlock x:Name="comportText" HorizontalAlignment="Left" Margin="13,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Comport"/><LineBreak/><Run/></TextBlock>
         <TextBlock x:Name="durationtimeText" HorizontalAlignment="Left" Margin="108,59,0,0" TextWrapping="Wrap" Text="Durationtime" VerticalAlignment="Top"/>
         <TextBlock x:Name="filenameText" HorizontalAlignment="Left" Margin="204,59,0,0" TextWrapping="Wrap" Text="Filename" VerticalAlignment="Top"/>
-        <TextBox x:Name="comportContent" HorizontalAlignment="Left" TextAlignment="Center" Height="23" Margin="13,91,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="70"/>
+        <TextBox x:Name="comportContent" HorizontalAlignment="Left" TextAlignment="Center" Height="23" Margin="13,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
         <TextBlock x:Name="titel" HorizontalAlignment="Left" Margin="108,20,0,0" TextWrapping="Wrap" Text="Set values" VerticalAlignment="Top"/>
-        <TextBox x:Name="durationContent" HorizontalAlignment="Left" TextAlignment="Center" Margin="108,91,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="70" Height="23"/>
-        <TextBox x:Name="filenameContent" HorizontalAlignment="Left" TextAlignment="Center" Height="23" Margin="204,91,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="72"/>
-        <Button x:Name="startHeartRateCalc" Content="Done" HorizontalAlignment="Left" Margin="108,191,0,0" VerticalAlignment="Top" Width="75" Click="startHeartRateCalc_Click"/>
-        <Button x:Name="helpButton" Content="Help" HorizontalAlignment="Left" Margin="108,166,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.04,0.45" Click="helpButton_Click"/>
+        <TextBox x:Name="durationContent" HorizontalAlignment="Left" TextAlignment="Center" Margin="108,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="23"/>
+        <TextBox x:Name="filenameContent" HorizontalAlignment="Left" TextAlignment="Center" Height="23" Margin="204,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="72"/>
+        <Button x:Name="startHeartRateCalc" Content="Done" HorizontalAlignment="Left" Margin="108,191,0,0" VerticalAlignment="Top" Width="75" Click="startHeartRateCalc_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFBDB3EE" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="helpButton" Content="Help" HorizontalAlignment="Left" Margin="108,166,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.04,0.45" Click="helpButton_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFBDB3EE" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
         <TextBlock x:Name="errorText" HorizontalAlignment="Left" TextAlignment="Center" Margin="47,129,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="191"/>
 
     </Grid>

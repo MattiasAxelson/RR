@@ -81,6 +81,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -159,6 +160,8 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\RoadRunners3.png" />
+    <Resource Include="Images\kallur_yeah.jpg" />
     <Content Include="myfunc.m" />
     <Resource Include="Vinkelgraf.png" />
   </ItemGroup>
