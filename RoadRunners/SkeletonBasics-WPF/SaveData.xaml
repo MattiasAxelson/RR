@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="SaveData" Height="326.667" Width="325.333">
     <Grid>
-        <Button x:Name="button" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Width="102" Margin="186,241,0,0" Click="button_Click"/>
+        <Button x:Name="SaveButtonExcel" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Width="102" Margin="186,241,0,0" Click="button_Click"/>
         <TextBox x:Name="NameInput" HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Margin="131,41,0,0" TextChanged="textBox_TextChanged"/>
         <TextBlock x:Name="Name_textBlock" HorizontalAlignment="Left" Margin="10,41,0,202.667" TextWrapping="Wrap" Width="108"><Run Text="Name of"/><Run Text=" "/><Run Text="t"/><Run Text="estperson: "/></TextBlock>
         <TextBlock x:Name="Comments_text" HorizontalAlignment="Left" Margin="10,83,0,157.667" TextWrapping="Wrap" Text="Comments of test:" Width="108"/>

@@ -931,18 +931,28 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
       
 
-        List<double> pulseList = new List<double>();
+       public List<double> pulseList2 = new List<double>();
+
+       public int[] HB10secTRY = new int[] { 1, 2, 31, 6, 5, 3213, 7, 666};
+
+
 
         private  void readPulseData()
         {
-       
-           
-                try
+            //TEST FÖR ATT LÄSA IN LISTA
+            //List<double> pulseList2 = new List<double>();
+            pulseList2.Add(32);
+            pulseList2.Add(65);
+            pulseList2.Add(3213);
+            pulseList2.Add(3323);
+            
+
+            try
                 {
 
                 String line = File.ReadLines(@"C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt").Last();
                 pulstest.Text = line;
-                pulseList.Add(Convert.ToDouble(line));
+                // TEMPORÄRT FÖR ATT FÅ DET ATT FUNGERA pulseList.Add(Convert.ToDouble(line));
   
             }
 

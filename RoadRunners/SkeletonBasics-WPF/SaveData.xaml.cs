@@ -27,7 +27,20 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     {
         public SaveData()
         {
+          //  List<double> pulseList2 = new List<double>();
+
             InitializeComponent();
+
+            // Skapar objektet mWindow med samma egenskaper som MainWindow men bara under den tiden som Save knappen trycks. 
+            SaveButtonExcel.Click += new RoutedEventHandler(delegate (object sender, RoutedEventArgs e)
+            {
+                MainWindow mWindow = new MainWindow();
+                //mWindow.ShowInTaskbar = false;
+                //mWindow.Owner = Application.Current.SaveData;
+                //mWindow.ShowDialog();
+                int [] PulseTRY = mWindow.HB10secTRY;
+                
+            });
         }
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -56,16 +69,18 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             // Set the range to fill.
             aRange = ws.get_Range("A1", "M100");
 
-
+            
 
             int[] HB10sec = new int[] { 1, 2, 31, 6, 5, 3213, 7, 8 };
             int[] Knee10sec = new int[] { 1, 2, 31, 666, 5, 3213, 7, 8 };
             int[] Hip10sec = new int[] { 1, 2, 31, 3213123, 5, 3213, 7, 8 };
 
+            
             for (int i = 1; i <= HB10sec.Length; i++)
             {
                 ws.Range["A0" + (i + 2)].Value = "'" + (i * 10) + "-" + (i + 1) * 10;
-                ws.Range["B0" + (i + 2)].Value = HB10sec[i - 1];
+                ws.Range["B0" + (i + 2)].Value = PulseTRY[i - 1];
+                // ws.Range["B0" + (i + 2)].Value = HB10sec[i - 1];
                 ws.Range["C0" + (i + 2)].Value = Knee10sec[i - 1];
                 ws.Range["D0" + (i + 2)].Value = Hip10sec[i - 1];
             }
