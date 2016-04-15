@@ -1,4 +1,4 @@
-function void = heartRateCalc(comPort, captureDuration, fileName) 
+function [x] = heartRateCalc(comPort, captureDuration, fileName) 
 %ECGTOHEARTRATEEXAMPLE - Heart Rate from electrocardiogram signal
 %
 %  ECGTOHEARTRATEEXAMPLE(COMPORT, CAPTUREDURATION, FILENAME)
@@ -44,7 +44,7 @@ function void = heartRateCalc(comPort, captureDuration, fileName)
 shimmer = ShimmerHandleClass(comPort);                                     % Define shimmer as a ShimmerHandle Class instance with comPort1
 SensorMacros = SetEnabledSensorsMacrosClass;                               % assign user friendly macros for setenabledsensors
 
-fs = 120;                                                                  % sample rate in [Hz]     
+fs = 110;                                                                  % sample rate in [Hz]     
 
 firsttime = true;
 
@@ -182,8 +182,25 @@ if (shimmer.connect)                                                       % TRU
                 ylim([1 220]);   
                 
                 
+                %test
+               
+                value = heartRate;
+             %   heartRatevector = [];
+              %  heartRatevector = [value, heartRatevector];
+          
+            
+                valuelength = 0;
+
+                if value.length > valuelength
+                fid=fopen('C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt','w');
+
+                fprintf(fid, '%d \n', A');
+                fclose(fid)
+
+                valuelength = valuelength + fs;
+                end
+
                 
-             
                 
             end
             
@@ -200,6 +217,7 @@ if (shimmer.connect)                                                       % TRU
     
     shimmer.disconnect;                                                    % disconnect from shimmer
         
+    
 end
 
 
