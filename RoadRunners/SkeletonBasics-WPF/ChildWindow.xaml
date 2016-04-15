@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="ChildWindow" Height="300" Width="300">
     <Grid Margin="0,0,2,0">
-        <TextBlock x:Name="comportText" HorizontalAlignment="Left" Margin="27,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Comport"/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="comportText" HorizontalAlignment="Left" Margin="13,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Comport"/><LineBreak/><Run/></TextBlock>
         <TextBlock x:Name="durationtimeText" HorizontalAlignment="Left" Margin="108,59,0,0" TextWrapping="Wrap" Text="Durationtime" VerticalAlignment="Top"/>
-        <TextBlock x:Name="filenameText" HorizontalAlignment="Left" Margin="213,59,0,0" TextWrapping="Wrap" Text="Filename" VerticalAlignment="Top"/>
+        <TextBlock x:Name="filenameText" HorizontalAlignment="Left" Margin="204,59,0,0" TextWrapping="Wrap" Text="Filename" VerticalAlignment="Top"/>
         <TextBox x:Name="comportContent" HorizontalAlignment="Left" TextAlignment="Center" Height="23" Margin="13,91,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="70"/>
         <TextBlock x:Name="titel" HorizontalAlignment="Left" Margin="108,20,0,0" TextWrapping="Wrap" Text="Set values" VerticalAlignment="Top"/>
         <TextBox x:Name="durationContent" HorizontalAlignment="Left" TextAlignment="Center" Margin="108,91,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="70" Height="23"/>
