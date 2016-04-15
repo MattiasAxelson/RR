@@ -109,7 +109,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 filenameCont.Text = Convert.ToString(filename);
             });
 
-            
+            databaseWindowButton.Click += new RoutedEventHandler(delegate (object sender, RoutedEventArgs e)
+            {
+                DatabaseWindow dWindow = new DatabaseWindow();
+                dWindow.ShowInTaskbar = false;
+                dWindow.Owner = Application.Current.MainWindow;
+                dWindow.ShowDialog();
+
+            });
+
+
         }
         
 
@@ -839,7 +848,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
-            //printMatLab1("ecgtoheartrate", comport, durationtime, filnamn);
+            //printMatLab1("ecgtoheartrate", comport, durationtime, filename);
         }
 
         private void display_angle_Click(object sender, RoutedEventArgs e)
@@ -852,5 +861,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
+        private void button4_Click(object sender, RoutedEventArgs e)
+        {
+           
+        }
     }
 }
