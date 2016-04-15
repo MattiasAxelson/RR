@@ -954,7 +954,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 
         }
 
-  
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            SaveData win2 = new SaveData();
+            win2.Show();
+         
+        }
     }
 
     }
