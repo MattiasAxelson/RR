@@ -191,10 +191,10 @@ if (shimmer.connect)                                                       % TRU
             
                 valuelength = 0;
 
-                if size(value) > valuelength
+                if value.length > valuelength
                 fid=fopen('C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt','w');
 
-                fprintf(fid, '%d \n', heartRate');
+                fprintf(fid, '%d \n', A');
                 fclose(fid)
 
                 valuelength = valuelength + fs;
