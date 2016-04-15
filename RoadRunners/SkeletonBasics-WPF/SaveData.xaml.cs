@@ -39,7 +39,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 //mWindow.Owner = Application.Current.SaveData;
                 //mWindow.ShowDialog();
                 int [] PulseTRY = mWindow.HB10secTRY;
-                
+               
             });
         }
 
@@ -53,8 +53,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void Save_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow mWindow = new MainWindow();
+            int[] PulseTRY = mWindow.mean
             Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
             app.Visible = true;
             app.WindowState = XlWindowState.xlMaximized;
@@ -69,7 +71,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             // Set the range to fill.
             aRange = ws.get_Range("A1", "M100");
 
-            
+
+
+           
 
             int[] HB10sec = new int[] { 1, 2, 31, 6, 5, 3213, 7, 8 };
             int[] Knee10sec = new int[] { 1, 2, 31, 666, 5, 3213, 7, 8 };
