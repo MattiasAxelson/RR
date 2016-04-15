@@ -63,7 +63,7 @@
         <TextBlock x:Name="contAngle_SHK" HorizontalAlignment="Left" Margin="1164,530,-3.667,0" TextWrapping="Wrap" Text="Kont. vinkel" VerticalAlignment="Top" Width="91"/>
         <TextBlock x:Name="smallestAngle_SHK" HorizontalAlignment="Left" Margin="1079,530,0,0" TextWrapping="Wrap" Text="Lägsta vinkel" VerticalAlignment="Top"/>
         <TextBlock x:Name="meanAngleBlock_SHK" HorizontalAlignment="Left" Margin="1079,514,0,0" TextWrapping="Wrap" Text="Medelvinkel" VerticalAlignment="Top"/>
-        <Button x:Name="button" Content="Save Current Data" HorizontalAlignment="Left" Height="21" Margin="451,194,0,0" VerticalAlignment="Top" Width="100" Click="button_Click"/>
+        <Button x:Name="SaveButton" Content="Save Current Data" HorizontalAlignment="Left" Height="21" Margin="451,194,0,0" VerticalAlignment="Top" Width="100" Click="button_Click"/>
 
     </Grid>
 </Window>

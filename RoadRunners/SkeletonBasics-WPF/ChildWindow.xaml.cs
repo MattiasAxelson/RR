@@ -24,7 +24,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public string convdurationtime;
         public string fileName;
         public int durationtime;
-        
+
         void startHeartRateCalc_Click(object sender, RoutedEventArgs e)
         {
             comport = comportContent.Text;
