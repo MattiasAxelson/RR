@@ -52,18 +52,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
             
 
-
-
-            /*
-            if (comport == "0" || durationtime == 0 || fileName == "" || durationContent.Text == "")
-            {
-                errorText.Text = "Du måste fylla i alla fälten korrekt.";
-            }
-            else
-            {
-                this.Close();
-            }
-            */
         }
 
         private void helpButton_Click(object sender, RoutedEventArgs e)
