@@ -18,6 +18,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Windows.Media.Imaging;
     using System.Media;
     using System.Collections;
+    using System.Threading;
+    using System.Globalization;
+    
     
    
 
@@ -129,6 +132,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public int durationtime = 0;
         public string filename = null;
 
+      
+       
 
 
 
@@ -487,11 +492,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-        int count = 0;
+
 
         // -------------------------------------------------------------------------------------//
         //------------------------------- Vinkelberäkning --------------------------------------//
         // -------------------------------------------------------------------------------------//
+
+        Thread heartrateThread;
 
         // Skapar listorna som behövs
         public List<double> vinklar = new List<double>();
@@ -504,6 +511,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public List<double> meanAngleList_SHK = new List<double>();
         public List<double> meanList_FHK = new List<double>();
         public List<double> meanList_SHK = new List<double>();
+        public List<double> pulseList = new List<double>();
 
         // Skapar variablerna som behövs
         public double helprefresh = 30;
@@ -558,6 +566,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // Beräknar vinklar beroende på checkboxar
         public void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
         {
+
             // Definerar jointar
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
             Joint hipLeft = skeleton.Joints[JointType.HipLeft];
@@ -686,6 +695,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 meanAngleFunc(meanList_SHK);
                 ++i;
 
+                readPulseData();
+
             }
             else
             {
@@ -747,16 +758,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-        public List<double> hejPuls = new List<double>();
-        public string resultatis;
+
         // Skickar allting till matlab och plottas sedan
-        void printMatLab1(string funktionsnamn, string comport, int durationtime, string fileName)
+       public void printMatLab1(string funktionsnamn, string comport, int durationtime, string fileName)
         {
             //MATLABPLOT
             //Skickar data till matlab i ett specifikt satt intervall
-            
-                // Change to the directory where the function is located 
-                var path = Path.Combine(Directory.GetCurrentDirectory());
+           
+            // Change to the directory where the function is located 
+            var path = Path.Combine(Directory.GetCurrentDirectory());
                 matlab.Execute(@"cd " + path + @"\..\..");
 
                 // Define the output 
@@ -765,31 +775,20 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
             try
             {
-
-
                 matlab.Feval(funktionsnamn, 0, out result, comport.ToString(), durationtime, fileName);
-               
-               // object[] res = result as object[];
-
-
-        }
+            }
         
             catch (System.Runtime.InteropServices.COMException)
             {
 
             }
-             
-         
-
-            resultatis = Convert.ToString(result);
-     
 
         }
 
         // Ritar ut skelettmodellen på bilden
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
-           // readPulseData();
+            
          
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
@@ -928,10 +927,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
 
-
-
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
+            
 
             if (comport == "..." || durationtime == 0 || filename == "...")
             {
@@ -939,18 +937,19 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
             else
             {
-                printMatLab1("heartRateCalc", comport, durationtime, filename);
-              
+                
+                heartrateThread = new Thread(() => printMatLab1("heartRateCalc", comport, durationtime, filename));
+                heartrateThread.Start();
+          
             }
         }
-                
+        
+              
 
         private void display_angle_Click(object sender, RoutedEventArgs e)
         {
-            // printMatLab(tidsLista, vinklar_FHK, minimumlista);
-
+            // printMatLab(tidsLista, vinklar, minimumlista);         
             // printMatLab1("testfunc", "1",2,"3" );
-            readPulseData();
         }
         
         private void setting_Click(object sender, RoutedEventArgs e)
@@ -958,28 +957,21 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
-        List<double> pulseList = new List<double>();
-      
-
-       public List<double> pulseList2 = new List<double>();
-
-       
-
 
 
         private  void readPulseData()
         {
                 try
                 {
-
                 String line = File.ReadLines(@"C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt").Last();
-                pulstest.Text = line;
-  
-            }
+                decimal pulsTodec = Decimal.Parse(line, NumberStyles.Float,CultureInfo.InvariantCulture);
+                pulstest.Text = Convert.ToString(Math.Ceiling(pulsTodec));  
+
+                }
 
                 catch (Exception e)
                 {
-                    Console.WriteLine("Error: " + e.Message);
+                 //   Console.WriteLine("Error: " + e.Message);
 
                 }
                 
