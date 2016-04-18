@@ -69,7 +69,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             MainWindow mWindow = new MainWindow();
             double[] MeanAngleFHK = mWindow.meanArray_FHK;
 
-           List <double> ExcelMeanListFHK = ExcelMeanListFHKhelp;
+            List <double> ExcelMeanListFHK = ExcelMeanListFHKhelp;
             List<double> ExcelMeanListSHK = ExcelMeanListSHKhelp;
 
             Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
