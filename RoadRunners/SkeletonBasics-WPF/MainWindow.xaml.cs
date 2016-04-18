@@ -132,7 +132,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public int durationtime = 0;
         public string filename = null;
 
-        Thread heartrateThread;
+      
        
 
 
@@ -498,6 +498,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         //------------------------------- Vinkelberäkning --------------------------------------//
         // -------------------------------------------------------------------------------------//
 
+        Thread heartrateThread;
+
         // Skapar listorna som behövs
         public List<double> vinklar = new List<double>();
         public List<double> tidsLista = new List<double>();
@@ -509,6 +511,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public List<double> meanAngleList_SHK = new List<double>();
         public List<double> meanList_FHK = new List<double>();
         public List<double> meanList_SHK = new List<double>();
+        public List<double> pulseList = new List<double>();
 
         // Skapar variablerna som behövs
         public double helprefresh = 30;
@@ -948,10 +951,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void display_angle_Click(object sender, RoutedEventArgs e)
         {
-            // printMatLab(tidsLista, vinklar_FHK, minimumlista);
-          
+            // printMatLab(tidsLista, vinklar, minimumlista);         
             // printMatLab1("testfunc", "1",2,"3" );
-            readPulseData();
         }
         
         private void setting_Click(object sender, RoutedEventArgs e)
@@ -959,26 +960,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
-        List<double> pulseList = new List<double>();
-      
 
-       public List<double> pulseList2 = new List<double>();
-
-
-
-        //int pulsTodec;
 
         private  void readPulseData()
         {
                 try
                 {
                 String line = File.ReadLines(@"C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt").Last();
-
-               decimal pulsTodec = Decimal.Parse(line, NumberStyles.Float,CultureInfo.InvariantCulture);
-
-          
-
+                decimal pulsTodec = Decimal.Parse(line, NumberStyles.Float,CultureInfo.InvariantCulture);
                 pulstest.Text = Convert.ToString(Math.Ceiling(pulsTodec));  
+
                 }
 
                 catch (Exception e)
