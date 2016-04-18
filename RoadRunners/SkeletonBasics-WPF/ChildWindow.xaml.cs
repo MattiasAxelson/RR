@@ -25,23 +25,50 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public string fileName;
         public int durationtime;
 
+        //kollar om det INTE bara är siffror
+        bool onlyDigits(string s)
+        {
+            foreach (char c in s)
+            {
+                if (!char.IsDigit(c))
+                    return true;
+
+            }
+            return false;
+        }
+
+        //kollar om det INTE bara är bokstäver
+        bool onlyLetters(string s)
+        {
+            foreach (char c in s)
+            {
+                if (!char.IsLetter(c))
+                    return true;
+            }
+            return false;
+        }
+
+
         void startHeartRateCalc_Click(object sender, RoutedEventArgs e)
         {
             comport = comportContent.Text;
             convdurationtime = durationContent.Text;
             fileName = filenameContent.Text;
 
-            if(comport == "...")
+            if(onlyDigits(comport) || comport == "")
             {
-                errorText.Text = "Vänligen fyll i comport";
+                errorText.Text = "Add your comport, \n" +
+                    "only digits allowed";
             }
-            else if(convdurationtime == "...")
+            else if(onlyDigits(convdurationtime) || convdurationtime == "")
             {
-                errorText.Text = "Vänligen fyll i körtid.";
+                errorText.Text = "Add your durationtime, \n" +
+                    "only digits allowed";
             }
-            else if (fileName == "...")
+            else if (onlyLetters(fileName) || fileName == "")
             {
-                errorText.Text = "Vänligen fyll i filnamn";
+                errorText.Text = "Add a filename, \n" +
+                    "only letters allowed";
             }
 
             else
@@ -53,26 +80,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             
 
 
-
-            /*
-            if (comport == "0" || durationtime == 0 || fileName == "" || durationContent.Text == "")
-            {
-                errorText.Text = "Du måste fylla i alla fälten korrekt.";
-            }
-            else
-            {
-                this.Close();
-            }
-            */
         }
 
         private void helpButton_Click(object sender, RoutedEventArgs e)
         {
-            string error_message = "1. Fyll i comport genom att ange numret på den \n" +
-                                   "comport som pulssensorn är ansluten till.\n" +
-                                   "2. Ange under hur lång tid (i sekunder) du vill mäta din puls.\n" +
-                                   "3. Fyll i ett filnamn endast innehållande bokstäver \n" +
-                                   "som du vill spara filerna till.";
+            string error_message = "1. Add the number of your comport \n" +
+                                   "2. Add the durationtime in seconds \n" +
+                                   "3. Add a filename \n";
             System.Windows.MessageBox.Show(error_message);
         }
     }

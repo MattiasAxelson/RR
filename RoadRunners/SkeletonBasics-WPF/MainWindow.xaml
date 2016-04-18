@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:WpfViewers="clr-namespace:Microsoft.Samples.Kinect.WpfViewers;assembly=Microsoft.Samples.Kinect.WpfViewers" 
-    xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+   
     x:Class="Microsoft.Samples.Kinect.SkeletonBasics.MainWindow"
     
     Title="Skeleton Basics" Height="672.333" Width="1278.333" Loaded="WindowLoaded" Closing="WindowClosing">
@@ -50,9 +50,9 @@
         <Button x:Name="quitbutton" Content="Quit" HorizontalAlignment="Left" Margin="1160,599,0,0" VerticalAlignment="Top" Width="75" Click="quitbutton_Click"/>
         <TextBlock x:Name="testdirektiv" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Margin="626,24,0,0" TextWrapping="Wrap" Text="Testdirektiv" VerticalAlignment="Top" Width="120" Height="32"/>
         <TextBlock x:Name="textTestdirektiv" FontSize="18" TextAlignment="Center" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Margin="536,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="68"><Run Text="....................."/><Run Text=".."/><LineBreak/><Run/></TextBlock>
-        <Button x:Name="display_heartrate" Content="Display Heartrate" HorizontalAlignment="Left" Margin="451,122,0,0" VerticalAlignment="Top" Width="100" Click="display_heartrate_Click"/>
-        <Button x:Name="display_angle" Content="Display Angle" HorizontalAlignment="Left" Margin="451,158,0,0" VerticalAlignment="Top" Width="100" Click="display_angle_Click"/>
-        <Button x:Name="setting" Content="Heartrate settings" HorizontalAlignment="Left" Margin="451,87,0,0" VerticalAlignment="Top" Width="100" Click="setting_Click"/>
+        <Button x:Name="display_heartrate" Content="Display Heartrate" HorizontalAlignment="Left" Margin="451,122,0,0" VerticalAlignment="Top" Width="109" Click="display_heartrate_Click"/>
+        <Button x:Name="display_angle" Content="Display Angle" HorizontalAlignment="Left" Margin="451,158,0,0" VerticalAlignment="Top" Width="109" Click="display_angle_Click"/>
+        <Button x:Name="setting" Content="Heartrate settings" HorizontalAlignment="Left" Margin="451,87,0,0" VerticalAlignment="Top" Width="109" Click="setting_Click"/>
         <TextBlock x:Name="comportCont" HorizontalAlignment="Left" Margin="433,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Co"/><Run Text="mport"/></TextBlock>
         <TextBlock x:Name="durationtimeCont" HorizontalAlignment="Left" Margin="433,31,0,0" TextWrapping="Wrap" Text="Durationtime" VerticalAlignment="Top"/>
         <TextBlock x:Name="filenameCont" HorizontalAlignment="Left" Margin="433,52,0,0" TextWrapping="Wrap" Text="Filename" VerticalAlignment="Top"/>
@@ -63,7 +63,8 @@
         <TextBlock x:Name="contAngle_SHK" HorizontalAlignment="Left" Margin="1164,530,-3.667,0" TextWrapping="Wrap" Text="Kont. vinkel" VerticalAlignment="Top" Width="91"/>
         <TextBlock x:Name="smallestAngle_SHK" HorizontalAlignment="Left" Margin="1079,530,0,0" TextWrapping="Wrap" Text="Lägsta vinkel" VerticalAlignment="Top"/>
         <TextBlock x:Name="meanAngleBlock_SHK" HorizontalAlignment="Left" Margin="1079,514,0,0" TextWrapping="Wrap" Text="Medelvinkel" VerticalAlignment="Top"/>
-        <Button x:Name="SaveButton" Content="Save Current Data" HorizontalAlignment="Left" Height="21" Margin="451,194,0,0" VerticalAlignment="Top" Width="100" Click="button_Click"/>
+        <Button x:Name="SaveButton" Content="Save Current Data" HorizontalAlignment="Left" Height="27" Margin="451,194,0,0" VerticalAlignment="Top" Width="109" Click="button_Click"/>
+        <Button x:Name="settingsangle" Content="Settings angle" HorizontalAlignment="Left" Height="23" Margin="451,226,0,0" VerticalAlignment="Top" Width="109"/>
 
     </Grid>
 </Window>

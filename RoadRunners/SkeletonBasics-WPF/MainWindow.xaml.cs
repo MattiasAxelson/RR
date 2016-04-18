@@ -123,7 +123,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             });
 
-        
+            settingsangle.Click += new RoutedEventHandler(delegate (object sender, RoutedEventArgs e)
+            {
+                SettingsAngle childwindow2 = new SettingsAngle();
+                childwindow2.ShowInTaskbar = false;
+                childwindow2.Owner = Application.Current.MainWindow;
+                childwindow2.ShowDialog();
+            });
+
             this.saveData = new SaveData();
 
             
@@ -608,6 +615,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 FHKbox.IsChecked = false;
             }
             */
+
             // Kollar om checkbox är ifylld
             if ((bool)SHKbox.IsChecked)
             {
@@ -629,7 +637,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 if (SHK_angle < 140)
                 {
-                    textTestdirektiv.Text = "Sträck på dig!!!";
+                    textTestdirektiv.Text = "Stand up straight!";
                     SystemSounds.Asterisk.Play();
                 }
                 else
@@ -662,7 +670,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 if (FHK_angle < 90)
                 {
-                    textTestdirektiv.Text = "Sträck ut i knäna!!!";
+                    textTestdirektiv.Text = "pull out your knees!";
                     SystemSounds.Asterisk.Play();
                 }
                 else
@@ -931,9 +939,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             
 
-            if (comport == "..." || durationtime == 0 || filename == "...")
+            if (comport == "" || durationtime == 0 || filename == "")
             {
-                MessageBox.Show("Fyll i settings");
+                MessageBox.Show("Add heartrate settings");
             }
             else
             {
