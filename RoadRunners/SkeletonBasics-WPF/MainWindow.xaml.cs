@@ -18,9 +18,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Windows.Media.Imaging;
     using System.Media;
     using System.Collections;
-
-
     
+   
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -120,7 +120,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             });
 
-
+        
             this.saveData = new SaveData();
 
             
@@ -556,7 +556,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             return output2;
         }
-        
+
 
         // Beräknar vinklar beroende på checkboxar
         public void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
@@ -631,7 +631,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     textTestdirektiv.Text = "";
                 }
             }
-            
+
             // Kollar om checkbox är ifylld
             if ((bool)FHKbox.IsChecked)
             {
@@ -652,7 +652,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
                     contAngle_FHK.Text = Convert.ToString(meanArray_FHK.Length);
                 }
-                
+
 
                 if (FHK_angle < 90)
                 {
@@ -668,8 +668,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             sampleToTime = vinklar.Count;
             tidsLista.Add(sampleToTime / 30);
 
-
-
+              
+            
             // tar ut lägsta vinkel
             if (minimumlista_FHK.Count > 60)
             {
@@ -684,7 +684,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 minimumlistahelp_SHK.Clear();
                 smallestAngle_SHK.Text = Convert.ToString(lagsta_varde_SHK);
                 meanAngleFunchelp(minimumlista_FHK, minimumlista_SHK);
-                //   meanAngleFunchelp(minimumlista_SHK, meanAngle_SHK);
+             //   meanAngleFunchelp(minimumlista_SHK, meanAngle_SHK);
                 meanAngleFunc(meanList_FHK);
                 meanAngleFunc(meanList_SHK);
                 ++i;
@@ -714,7 +714,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
             }
         }
-
+        
 
 
         
@@ -770,8 +770,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
 
 
-                matlab.Feval(funktionsnamn, 1, out result, comport.ToString(), durationtime, fileName);
-                object[] res = result as object[];
+                matlab.Feval(funktionsnamn, 0, out result, comport.ToString(), durationtime, fileName);
+               
+               // object[] res = result as object[];
 
 
         }
@@ -934,7 +935,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
-            
+
             if (comport == "..." || durationtime == 0 || filename == "...")
             {
                 MessageBox.Show("Fyll i settings");
@@ -942,6 +943,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             else
             {
                 printMatLab1("heartRateCalc", comport, durationtime, filename);
+              
             }
         }
                 
@@ -974,7 +976,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
 
                 String line = File.ReadLines(@"C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt").Last();
-                pulstest.Text = line;           
+                pulstest.Text = line;
   
             }
 
@@ -983,7 +985,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     Console.WriteLine("Error: " + e.Message);
 
                 }
-
+                
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -992,6 +994,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             saveData.Show();
   
     }
-        }
-    
+    }
+
     }

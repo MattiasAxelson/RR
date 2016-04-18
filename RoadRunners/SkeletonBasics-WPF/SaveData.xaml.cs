@@ -64,6 +64,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             ExcelMeanListSHKhelp = templistSHK;
         }
 
+
+
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mWindow = new MainWindow();
@@ -82,7 +84,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             // Set the range to fill.
             aRange = ws.get_Range("A1", "M100");
-            
+
 
             for (int i = 1; i < ExcelMeanListFHK.Count; i++)
             {
@@ -92,15 +94,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //    {
                    // ws.Range["B0" + (i + 2)].Value = HB10sec[i - 1];
            //     }
+           
 
-                
                 if (ExcelMeanListFHK != null)
                  {
                    ws.Range["C0" + (i + 2)].Value = ExcelMeanListFHK[i - 1];
                  }
-
+            
                 if (ExcelMeanListSHK != null)
-                {
+            {
                     ws.Range["D0" + (i + 2)].Value = ExcelMeanListSHK[i - 1];
                 }
             }
@@ -129,5 +131,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             this.Close();
         }
+
+    
     }
 }
