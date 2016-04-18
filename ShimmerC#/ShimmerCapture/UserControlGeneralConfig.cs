@@ -2704,16 +2704,16 @@ namespace ShimmerAPI
                 }
             }
         }
-        
+
         private void checkBoxEnableECGtoHR_CheckedChanged(object sender, EventArgs e)
         {
-            
+            /*
             if (!PConfiguration.PControlForm.ShimmerDevice.IsDefaultECGConfigurationEnabled())
             {
                 MessageBox.Show("Please set exg configuration to ECG", Control.ApplicationName,
                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            
+            */
         }
 
         private void checkBoxIntExpPower_CheckedChanged(object sender, EventArgs e)

@@ -156,7 +156,14 @@ namespace ShimmerAPI
         Color.MediumBlue};
         int count = 0;
 
-
+        public static bool usingLinux
+        {
+            get
+            {
+                int p = (int)Environment.OSVersion.Platform;
+                return (p == 4) || (p == 6) || (p == 128);
+            }
+        }
 
         public Control()
         {
@@ -174,7 +181,10 @@ namespace ShimmerAPI
             buttonReadDirectory.Visible = false;
             button1.Visible = false;
             labelPRR.Visible = false;
-      
+            if (!usingLinux)
+            {
+                this.ShowInTaskbar = true;
+            }
             this.Text = ApplicationName + " v" + versionNumber;
             tsStatusLabel.Text = "";
             ComPort = comboBoxComPorts.Text;
@@ -192,7 +202,16 @@ namespace ShimmerAPI
 
             this.Resize += new System.EventHandler(this.FormResize);
 
-     
+            if (usingLinux)
+            {
+                ZedGraphControl1.Size = new System.Drawing.Size(this.Size.Width - 1150, ZedGraphControl1.Size.Height);
+                label1.Visible = false;
+                buttonAddGraph.Visible = false;
+                label2.Visible = false;
+                buttonRemoveGraph.Visible = false;
+                //ZedGraphControl2.Size = new System.Drawing.Size(this.Size.Width - 1000, ZedGraphControl2.Size.Height);
+                //ZedGraphControl3.Size = new System.Drawing.Size(this.Size.Width - 1000, ZedGraphControl3.Size.Height);
+            }
 
             CheckBoxArrayGroup1 = new CheckBox[30] { checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6, 
             checkBox7, checkBox8, checkBox9, checkBox10, checkBox11, checkBox12, checkBox13, checkBox14, 
@@ -265,7 +284,40 @@ namespace ShimmerAPI
 
         private void InitializeGraphs()
         {
-           
+            if (!usingLinux)
+            {
+                this.ZedGraphControl2.BackColor = System.Drawing.SystemColors.AppWorkspace;
+                this.ZedGraphControl2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+                this.ZedGraphControl2.Location = new System.Drawing.Point(31, 443);
+                this.ZedGraphControl2.Name = "ZedGraphControl2";
+                this.ZedGraphControl2.ScrollGrace = 0D;
+                this.ZedGraphControl2.ScrollMaxX = 0D;
+                this.ZedGraphControl2.ScrollMaxY = 0D;
+                this.ZedGraphControl2.ScrollMaxY2 = 0D;
+                this.ZedGraphControl2.ScrollMinX = 0D;
+                this.ZedGraphControl2.ScrollMinY = 0D;
+                this.ZedGraphControl2.ScrollMinY2 = 0D;
+                this.ZedGraphControl2.Size = new System.Drawing.Size(490, 297);
+                this.ZedGraphControl2.TabIndex = 45;
+                this.ZedGraphControl2.Visible = false;
+                this.Controls.Add(this.ZedGraphControl2);
+
+                this.ZedGraphControl3.BackColor = System.Drawing.SystemColors.AppWorkspace;
+                this.ZedGraphControl3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+                this.ZedGraphControl3.Location = new System.Drawing.Point(31, 756);
+                this.ZedGraphControl3.Name = "ZedGraphControl3";
+                this.ZedGraphControl3.ScrollGrace = 0D;
+                this.ZedGraphControl3.ScrollMaxX = 0D;
+                this.ZedGraphControl3.ScrollMaxY = 0D;
+                this.ZedGraphControl3.ScrollMaxY2 = 0D;
+                this.ZedGraphControl3.ScrollMinX = 0D;
+                this.ZedGraphControl3.ScrollMinY = 0D;
+                this.ZedGraphControl3.ScrollMinY2 = 0D;
+                this.ZedGraphControl3.Size = new System.Drawing.Size(490, 297);
+                this.ZedGraphControl3.TabIndex = 80;
+                this.ZedGraphControl3.Visible = false;
+                this.Controls.Add(this.ZedGraphControl3);
+            }
             ZedGraphControl1.GraphPane.CurveList.Clear();
             MyPaneGraph1 = ZedGraphControl1.GraphPane;
             ZedGraphControl1.IsShowPointValues = false;
@@ -308,7 +360,14 @@ namespace ShimmerAPI
             int scale1 = 350;
             int scale2 = 145;
             int scale3 = 400;
-  
+            if (usingLinux)
+            {
+                System.Console.WriteLine("Using Linux");
+                scale1 = 400;
+                scale2 = 195;
+                scale3 = 450;
+            }
+
             System.Console.WriteLine("FORM RESIZE");
             /*
             for (int i = 0; i < 30; i++)
@@ -959,7 +1018,11 @@ namespace ShimmerAPI
                     factor = 80;
                 }
 
-         
+                if (usingLinux)
+                {
+                    System.Console.WriteLine("Using Linux");
+                    factor = 500;
+                }
 
                 if (CountXAxisDataPoints % factor == 0)
                 {
@@ -987,7 +1050,11 @@ namespace ShimmerAPI
                 {
                     factor = 200;
                 }
-      
+                if (usingLinux)
+                {
+                    System.Console.WriteLine("Using Linux");
+                    factor = 250;
+                }
                 if (CountXAxisDataPoints % factor == 0)
                 {
                     ZedGraphControl1.AxisChange();
@@ -1014,7 +1081,11 @@ namespace ShimmerAPI
                 {
                     factor = 80;
                 }
-     
+                if (usingLinux)
+                {
+                    System.Console.WriteLine("Using Linux");
+                    factor = 100;
+                }
                 if (CountXAxisDataPoints % factor == 0)
                 {
                     ZedGraphControl1.AxisChange();
@@ -1041,7 +1112,11 @@ namespace ShimmerAPI
                 {
                     factor = 20;
                 }
-     
+                if (usingLinux)
+                {
+                    System.Console.WriteLine("Using Linux");
+                    factor = 50;
+                }
                 if (CountXAxisDataPoints % factor == 0)
                 {
                     ZedGraphControl1.AxisChange();
@@ -1088,7 +1163,14 @@ namespace ShimmerAPI
                 ZedGraphControl3.Visible = true;
                 SetupCheckboxesGroup3(ShimmerDevice.GetDeviceName(), StreamingSignalNamesRaw.ToArray(), StreamingSignalNamesCal.ToArray());
 
-    
+                if (!usingLinux)
+                {
+                    int w = this.Size.Width;
+                    if (this.Size.Height < 1200)
+                    {
+                        this.Size = new System.Drawing.Size(w, 1200);
+                    }
+                }
             }
             else if (!IsGraph2Visible)
             {
@@ -1096,7 +1178,14 @@ namespace ShimmerAPI
                 ZedGraphControl2.Visible = true;
                 SetupCheckboxesGroup2(ShimmerDevice.GetDeviceName(), StreamingSignalNamesRaw.ToArray(), StreamingSignalNamesCal.ToArray());
 
-    
+                if (!usingLinux)
+                {
+                    int w = this.Size.Width;
+                    if (this.Size.Height < 797)
+                    {
+                        this.Size = new System.Drawing.Size(w, 797);
+                    }
+                }
             }
         }
 
@@ -2693,6 +2782,42 @@ namespace ShimmerAPI
             PPGtoHeartRateCalculation.resetParameters();
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            comboBoxComPorts.Items.Clear();
+            String[] names = SerialPort.GetPortNames();
+            foreach (String s in names)
+            {
+                comboBoxComPorts.Items.Add(s);
+            }
+
+            RemoveAllTextBox();
+            Connect();
+
+            FirstTime = true;
+            labelPRR.Visible = true;
+
+            SetupFilters();
+
+            //ECG-HR Conversion
+
+            ECGtoHR = new ECGToHR(ShimmerDevice.GetSamplingRate(), TrainingPeriodECG, NumberOfHeartBeatsToAverageECG);
+            
+            ExGLeadOffCounter = 0;
+            ExGLeadOffCounterSize = (int)ShimmerDevice.GetSamplingRate();
+            ShimmerIdSetup.Clear();
+            StreamingSignalNamesRaw.Clear();
+            StreamingSignalNamesCal.Clear();
+            NumberOfTracesCountGraph1 = 0;
+            NumberOfTracesCountGraph2 = 0;
+            NumberOfTracesCountGraph3 = 0;
+            CountXAxisDataPoints = 0;
+            CountXAxisDataPoints++;
+            ShimmerDevice.StartStreaming();
+
+
+        }
     }
 
 
