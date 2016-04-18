@@ -535,8 +535,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 velocityList.RemoveAt(0);
             }
-        }
- */
+        } */
+
         int count1 = 0;
 
         // -------------------------------------------------------------------------------------//
