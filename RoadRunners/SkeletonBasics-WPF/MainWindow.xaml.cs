@@ -93,7 +93,30 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
- 
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            setting.Click += new RoutedEventHandler(delegate (object sender, RoutedEventArgs e)
+            {
+                ChildWindow chldWindow = new ChildWindow();
+                chldWindow.ShowInTaskbar = false;
+                chldWindow.Owner = Application.Current.MainWindow;
+                chldWindow.ShowDialog();
+
+                comport = chldWindow.comport;
+                durationtime = chldWindow.durationtime;
+                filename = chldWindow.fileName + ".dat";
+
+                comportCont.Text = Convert.ToString(comport);
+                durationtimeCont.Text = Convert.ToString(durationtime);
+                filenameCont.Text = Convert.ToString(filename);
+            });
+
+        
+
+            
+        }
         public string comport = null;
         public int durationtime = 0;
         public string filename = null;
@@ -211,7 +234,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         {
                             this.DrawBonesAndJoints(skel, dc);
                             //Console.WriteLine("Innan calcvelocity");
-                           // this.CalculateVelocity(skel, dc);
+                            this.CalculateVelocity(skel, dc);
                             this.CalculateAngles(skel, dc);
                             Console.WriteLine("HEJ");
                         }
@@ -346,7 +369,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// 
 
         //------------------------------- Hastighetsberäkning -----------------------------------// 
-      /*  // Variabler för hastighet
+        // Variabler för hastighet
         double stepTime = 0;
         double sumStep = 0;
         double stepVelocity = 0;
@@ -457,7 +480,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
         int count = 0;
-        */
+
         // -------------------------------------------------------------------------------------//
         //------------------------------- Vinkelberäkning --------------------------------------//
         // -------------------------------------------------------------------------------------//
@@ -524,13 +547,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             XShoulderleft = shoulderLeft.Position.X;
             YShoulderleft = shoulderLeft.Position.Y;
 
-        /*    //-------Endast för kontroll om den anropas------//
+            //-------Endast för kontroll om den anropas------//
             ++count1;
             if (count1 == 600)
             {
                 count1 = 0;
             }
-            //-----------------------------------------------// */
+            //-----------------------------------------------// 
 
             // Om båda checkboxarna är ifyllda så slängs ett felmeddelande och boxarna töms
          /*   if ((bool)SHKbox.IsChecked && (bool)FHKbox.IsChecked)
@@ -587,7 +610,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 vinklar_FHK.Add(FHK_angle);
                 minimumlistahelp_FHK.Add(FHK_angle);
 
-                //contAngle_FHK.Text = Convert.ToString(FHK_angle);
+                contAngle_FHK.Text = Convert.ToString(FHK_angle);
 
                 if (FHK_angle < 90)
                 {
@@ -603,7 +626,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             sampleToTime = vinklar_FHK.Count;
             tidsLista.Add(sampleToTime / 30);
 
-            //contAngle_SHK.Text = Convert.ToString(i);
+            contAngle_SHK.Text = Convert.ToString(i);
             // tar ut lägsta vinkel
             if (minimumlista_FHK.Count > 60)
             {
@@ -880,9 +903,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
 
-            if (comport == "" || durationtime == 0 || filename == "")
+            if (comport == "..." || durationtime == 0 || filename == "...")
             {
-                MessageBox.Show("Please add settings");
+                MessageBox.Show("Fyll i settings");
             }
             else
             {
@@ -899,6 +922,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             readPulseData();
         }
         
+        private void setting_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
       
 
@@ -925,18 +952,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 
         }
 
-        private void Settingsangle_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void setting_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-        
+  
     }
 
     }
-
-
