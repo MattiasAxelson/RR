@@ -395,7 +395,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //Lägger till x-koordinater i listan
             if (velXList.Count > 30)
             {
-                deltaX = Math.Abs((velXList[velXList.Count- 1]) - (velXList[velXList.Count - 4]));
+                deltaX = Math.Abs(velXList[velXList.Count- 1]) - Math.Abs(velXList[velXList.Count - 4]);
+                deltaX = Math.Abs(deltaX);
                 velhelptext.Text = Convert.ToString(deltaX);
             }
                 deltaT = 0.1; // Motsvarar 3/30 som är tidskillnaden mellan 4 på varandra följande värden. 
@@ -408,7 +409,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             if (velocityList.Count == 120)
             {
-                double maxValue = velocityList.Max();
+                double maxValue = velocityList.Average();
                 initX.Text = Convert.ToString(Math.Floor(maxValue * 3.6));
                 velocityList.Clear();
             }
