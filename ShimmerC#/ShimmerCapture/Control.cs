@@ -120,7 +120,7 @@ namespace ShimmerAPI
         private int TrainingPeriodPPG = 10; //5 second buffer
         //ECG-HR
         private ECGToHR ECGtoHR;
-        private Boolean EnableECGtoHRConversion = false;
+        private Boolean EnableECGtoHRConversion = true;
         private int TrainingPeriodECG = 10; //5 second buffer
         //Filters
         Filter NQF_Exg1Ch1;
@@ -2715,6 +2715,7 @@ namespace ShimmerAPI
 
             ECGtoHR = new ECGToHR(ShimmerDevice.GetSamplingRate(), TrainingPeriodECG, NumberOfHeartBeatsToAverageECG);
             
+
             ExGLeadOffCounter = 0;
             ExGLeadOffCounterSize = (int)ShimmerDevice.GetSamplingRate();
             ShimmerIdSetup.Clear();

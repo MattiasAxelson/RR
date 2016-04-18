@@ -514,7 +514,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public double meanAngle_FHK;
         public double meanAngle_SHK;
         int i = 0;
-
+        int k = 0;
         //Skapar vektorer
         public double[] meanArray_SHK;
         public double[] meanArray_FHK;
@@ -524,22 +524,27 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private List<double> TEST = new List<double>();
 
+
+        
+
         public List<List<double>> meanAngleFunchelp(List<double> minList1, List<double> minList2)
         {
-            if (i == 5)
+
+        
+            if (i == k)
             meanAngle_FHK = minList1.Sum() / (minList1.Count);
             meanList_FHK.Add(meanAngle_FHK);
             meanAngleFunc(minList1);
             meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault()));
 
-            if (i == 5)
+            if (i == k)
             meanAngle_SHK = minList2.Sum() / (minList2.Count);
             meanList_SHK.Add(meanAngle_SHK);
             meanAngleFunc(minList2);
             meanAngleBlock_SHK.Text = Convert.ToString(Math.Ceiling(meanList_SHK.LastOrDefault()));
             //meanArray_SHK = meanList_SHK.ToArray();
 
-            if (i == 5)
+            if (i == k)
             {
                 i = 0;
             }
@@ -550,9 +555,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             saveData.ExcelFunkFHK(meanList_FHK);
             saveData.ExcelFunkSHK(meanList_SHK);
-
-
-
 
             return output2;
         }
@@ -618,7 +620,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 vinklar.Add(SHK_angle);
                 minimumlistahelp_SHK.Add(SHK_angle);
 
-                contAngle_SHK.Text = Convert.ToString(meanList_FHK.Count);
+                contAngle_SHK.Text = Convert.ToString(k);
 
 
                 if (SHK_angle < 140)
@@ -648,11 +650,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 vinklar.Add(FHK_angle);
                 minimumlistahelp_FHK.Add(FHK_angle);
-                if (meanArray_FHK != null)
-                {
-                    contAngle_FHK.Text = Convert.ToString(meanArray_FHK.Length);
-                }
-
+                /*     if (meanArray_FHK != null)
+                     {
+                         contAngle_FHK.Text = Convert.ToString(i);
+                     }
+                     */
+                contAngle_FHK.Text = Convert.ToString(i);
 
                 if (FHK_angle < 90)
                 {
@@ -994,6 +997,58 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             saveData.Show();
   
     }
+
+        public void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // ... Get the ComboBox.
+            var comboBox = sender as ComboBox;
+
+            // ... Set SelectedItem as Window Title.
+            string BoxValue = comboBox.SelectedItem as string;
+            saveData.ExcelFunkIntervall(comboBox.SelectedIndex);
+
+            if (comboBox.SelectedIndex == 0)
+            {
+                k = 5;
+            }
+            if (comboBox.SelectedIndex == 1)
+            {
+                k = 10;
+            }
+            if (comboBox.SelectedIndex == 2)
+            {
+                k = 30;
+            }
+            if (comboBox.SelectedIndex == 3)
+            {
+                k = 2;
+            }
+        }
+
+
+        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            // ... A List.
+            List<string> data = new List<string>();
+            data.Add("10 Sekunders Intervall");
+            data.Add("20 Sekunders intervall");
+            data.Add("60 Sekunders intervall");
+            data.Add("2 Sekunders intervall");
+
+            // ... Get the ComboBox reference.
+            var comboBox = sender as ComboBox;
+
+            // ... Assign the ItemsSource to the List.
+            comboBox.ItemsSource = data;
+
+            // ... Make the first item selected.
+            comboBox.SelectedIndex = 0;
+
+       
+
+        }
+
+
     }
 
     }
