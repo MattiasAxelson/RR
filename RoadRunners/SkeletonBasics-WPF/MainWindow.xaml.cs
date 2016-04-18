@@ -546,9 +546,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             saveData.ExcelFunkFHK(meanList_FHK);
             saveData.ExcelFunkSHK(meanList_SHK);
 
-
-
-
             return output2;
         }
 
