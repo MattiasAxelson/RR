@@ -166,6 +166,7 @@
             this.checkBoxTSACheck = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -243,7 +244,7 @@
             this.ZedGraphControl1.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.ZedGraphControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ZedGraphControl1.Location = new System.Drawing.Point(45, 202);
-            this.ZedGraphControl1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.ZedGraphControl1.Margin = new System.Windows.Forms.Padding(6);
             this.ZedGraphControl1.Name = "ZedGraphControl1";
             this.ZedGraphControl1.ScrollGrace = 0D;
             this.ZedGraphControl1.ScrollMaxX = 0D;
@@ -574,7 +575,7 @@
             this.toolStripSplitButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(2133, 32);
+            this.toolStrip1.Size = new System.Drawing.Size(2032, 32);
             this.toolStrip1.TabIndex = 38;
             this.toolStrip1.Text = "Check For Updates";
             this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
@@ -594,7 +595,7 @@
             this.ToolStripMenuItemQuit.Name = "ToolStripMenuItemQuit";
             this.ToolStripMenuItemQuit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
             this.ToolStripMenuItemQuit.ShowShortcutKeys = false;
-            this.ToolStripMenuItemQuit.Size = new System.Drawing.Size(106, 30);
+            this.ToolStripMenuItemQuit.Size = new System.Drawing.Size(211, 30);
             this.ToolStripMenuItemQuit.Text = "Quit";
             this.ToolStripMenuItemQuit.Click += new System.EventHandler(this.ToolStripMenuItemQuit_Click);
             // 
@@ -608,21 +609,21 @@
             this.toolStripItemTools.Image = ((System.Drawing.Image)(resources.GetObject("toolStripItemTools.Image")));
             this.toolStripItemTools.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripItemTools.Name = "toolStripItemTools";
-            this.toolStripItemTools.Size = new System.Drawing.Size(73, 29);
+            this.toolStripItemTools.Size = new System.Drawing.Size(71, 29);
             this.toolStripItemTools.Text = "Tools";
             // 
             // configureToolStripMenuItem
             // 
             this.configureToolStripMenuItem.Enabled = false;
             this.configureToolStripMenuItem.Name = "configureToolStripMenuItem";
-            this.configureToolStripMenuItem.Size = new System.Drawing.Size(250, 30);
+            this.configureToolStripMenuItem.Size = new System.Drawing.Size(263, 30);
             this.configureToolStripMenuItem.Text = "Configuration";
             this.configureToolStripMenuItem.Click += new System.EventHandler(this.configureToolStripMenuItem_Click);
             // 
             // ToolStripMenuItemSaveToCSV
             // 
             this.ToolStripMenuItemSaveToCSV.Name = "ToolStripMenuItemSaveToCSV";
-            this.ToolStripMenuItemSaveToCSV.Size = new System.Drawing.Size(250, 30);
+            this.ToolStripMenuItemSaveToCSV.Size = new System.Drawing.Size(263, 30);
             this.ToolStripMenuItemSaveToCSV.Text = "Save To CSV";
             this.ToolStripMenuItemSaveToCSV.Click += new System.EventHandler(this.ToolStripMenuItemSaveToCSV_Click);
             // 
@@ -630,7 +631,7 @@
             // 
             this.ToolStripMenuItemShow3DOrientation.Enabled = false;
             this.ToolStripMenuItemShow3DOrientation.Name = "ToolStripMenuItemShow3DOrientation";
-            this.ToolStripMenuItemShow3DOrientation.Size = new System.Drawing.Size(250, 30);
+            this.ToolStripMenuItemShow3DOrientation.Size = new System.Drawing.Size(263, 30);
             this.ToolStripMenuItemShow3DOrientation.Text = "Show 3D Orientation";
             this.ToolStripMenuItemShow3DOrientation.Click += new System.EventHandler(this.ToolStripMenuItemShow3DOrientation_Click);
             // 
@@ -649,14 +650,14 @@
             // checkForUpdatesToolStripMenuItem
             // 
             this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(230, 30);
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(243, 30);
             this.checkForUpdatesToolStripMenuItem.Text = "Check for Updates";
             this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(230, 30);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(243, 30);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -1508,14 +1509,14 @@
             this.statusStrip1.Location = new System.Drawing.Point(0, 1618);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 21, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(2133, 30);
+            this.statusStrip1.Size = new System.Drawing.Size(2032, 30);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // tsStatusLabel
             // 
             this.tsStatusLabel.Name = "tsStatusLabel";
-            this.tsStatusLabel.Size = new System.Drawing.Size(181, 25);
+            this.tsStatusLabel.Size = new System.Drawing.Size(179, 25);
             this.tsStatusLabel.Text = "toolStripStatusLabel1";
             // 
             // buttonStream
@@ -1710,12 +1711,23 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(1280, 178);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(190, 76);
+            this.button2.TabIndex = 151;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(2159, 918);
+            this.ClientSize = new System.Drawing.Size(1912, 918);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkBoxTSACheck);
             this.Controls.Add(this.buttonSetBlinkLED);
@@ -1991,7 +2003,7 @@
         private System.Windows.Forms.CheckBox checkBoxTSACheck;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button button1;
-
+        private System.Windows.Forms.Button button2;
     }
 }
 
