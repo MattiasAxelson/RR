@@ -57,6 +57,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         List<double> ExcelMeanListFHKhelp = new List<double>();
         List<double> ExcelMeanListSHKhelp = new List<double>();
         int Intervallhelp = new int();
+        List<double> ExcelPulseListhelp = new List<double>();
 
         public void ExcelFunkFHK(List<double> templistFHK)
         {
@@ -71,6 +72,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             Intervallhelp = tempIntervall;
         }
+        public void ExcelPulseFunk(List<double> tempPulseList)
+        {
+            ExcelPulseListhelp = tempPulseList;
+        }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
@@ -80,11 +85,17 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             int Intervall = 666;
 
 
+            string time = DateTime.Now.ToString(@"MM\/dd\/yyyy HH:mm tt");
+            string Namn = NameInput.Text;
+            string Comments = CommentsInput.Text;
+
+
 
             testArray.Text = Convert.ToString(Intervall);
 
             List<double> ExcelMeanListFHK = ExcelMeanListFHKhelp;
             List<double> ExcelMeanListSHK = ExcelMeanListSHKhelp;
+            List<double> ExcelPulseList = ExcelPulseListhelp;
 
             int ExcelIntervall = Intervallhelp;
 
@@ -96,8 +107,18 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             Excel.Range aRange;
             DateTime currentDate = DateTime.Now;
 
+        
             // Set the range to fill.
             aRange = ws.get_Range("A1", "M100");
+
+            ws.Range["A3"].Value = "'" + 0 + "-" + (Intervall);
+            ws.Range["E1"].Value = "Namn: " + Namn;
+            ws.Range["F1"].Value = "Comments: " + Comments;
+            ws.Range["G1"].Value = "Date and Time: " + time;
+            ws.Range["A2"].Value = "Intervall [sec]";
+            ws.Range["B2"].Value = "HeartBeat";
+            ws.Range["C2"].Value = "Angle Hip";
+            ws.Range["D2"].Value = "Angle Knee";
 
             if (ExcelIntervall == 0)
             {
@@ -116,40 +137,35 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 Intervall = 2;
             }
 
-            for (int i = 1; i < ExcelMeanListFHK.Count; i++)
+            
+
+
+
+            // for (int i = 1; i < ExcelMeanListFHK.Count; i++)
+
+            for (int i = 1; i < ExcelMeanListSHK.Count; i++) 
             {
 
                 ws.Range["A0" + (i + 3)].Value = "'" + (i * Intervall) + "-" + (i + 1) * Intervall;
 
-                // if (HB10sec != null)
-                //    {
-                // ws.Range["B0" + (i + 2)].Value = HB10sec[i - 1];
-                //     }
+                 if (ExcelPulseList != null)
+                    {
+                    ws.Range["B0" + (i + 2)].Value = ((ExcelPulseList.Skip(i * Intervall).Take(Intervall).Sum())/Intervall); 
+                    }
 
 
                 if (ExcelMeanListFHK != null)
                 {
-                    ws.Range["C0" + (i + 2)].Value = Math.Ceiling(ExcelMeanListFHK[i]);
+                    ws.Range["C0" + (i + 2)].Value = ExcelMeanListFHK[i];
                 }
 
                 if (ExcelMeanListSHK != null)
                 {
-                    ws.Range["D0" + (i + 2)].Value = Math.Ceiling(ExcelMeanListSHK[i]);
+                    ws.Range["D0" + (i + 2)].Value = ExcelMeanListSHK[i];
                 }
             }
 
-            string time = DateTime.Now.ToString(@"MM\/dd\/yyyy HH:mm tt");
-            string Namn = NameInput.Text;
-            string Comments = CommentsInput.Text;
 
-            ws.Range["A3"].Value = "'" + 0 + "-" + (Intervall);
-            ws.Range["E1"].Value = "Namn: " + Namn;
-            ws.Range["F1"].Value = "Comments: " + Comments;
-            ws.Range["G1"].Value = "Date and Time: " + time;
-            ws.Range["A2"].Value = "Intervall [sec]";
-            ws.Range["B2"].Value = "HeartBeat";
-            ws.Range["C2"].Value = "Angle Hip";
-            ws.Range["D2"].Value = "Angle Knee";
 
             aRange.Columns.AutoFit();
             aRange.EntireColumn.AutoFit();
