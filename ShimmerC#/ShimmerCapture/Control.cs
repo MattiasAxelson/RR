@@ -2782,6 +2782,42 @@ namespace ShimmerAPI
             PPGtoHeartRateCalculation.resetParameters();
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            comboBoxComPorts.Items.Clear();
+            String[] names = SerialPort.GetPortNames();
+            foreach (String s in names)
+            {
+                comboBoxComPorts.Items.Add(s);
+            }
+
+            RemoveAllTextBox();
+            Connect();
+
+            FirstTime = true;
+            labelPRR.Visible = true;
+
+            SetupFilters();
+
+            //ECG-HR Conversion
+
+            ECGtoHR = new ECGToHR(ShimmerDevice.GetSamplingRate(), TrainingPeriodECG, NumberOfHeartBeatsToAverageECG);
+            
+            ExGLeadOffCounter = 0;
+            ExGLeadOffCounterSize = (int)ShimmerDevice.GetSamplingRate();
+            ShimmerIdSetup.Clear();
+            StreamingSignalNamesRaw.Clear();
+            StreamingSignalNamesCal.Clear();
+            NumberOfTracesCountGraph1 = 0;
+            NumberOfTracesCountGraph2 = 0;
+            NumberOfTracesCountGraph3 = 0;
+            CountXAxisDataPoints = 0;
+            CountXAxisDataPoints++;
+            ShimmerDevice.StartStreaming();
+
+
+        }
     }
 
 
