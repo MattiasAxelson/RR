@@ -732,10 +732,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
             try
             {
+               
 
-
-                matlab.Feval(funktionsnamn, 1, out result, comport.ToString(), durationtime, fileName);
-                object[] res = result as object[];
+                matlab.Feval(funktionsnamn, 0, out result, comport.ToString(), durationtime, fileName);
+               
+               // object[] res = result as object[];
 
 
         }
@@ -906,6 +907,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             else
             {
                 printMatLab1("heartRateCalc", comport, durationtime, filename);
+              
             }
         }
                 
@@ -964,7 +966,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             SaveData win2 = new SaveData();
             win2.Show();
   
-    }
+        }
     }
 
-    }
+}
