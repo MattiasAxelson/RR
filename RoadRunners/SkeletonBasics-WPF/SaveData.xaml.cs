@@ -79,7 +79,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             for (int i = 1; i <= HB10sec.Length; i++)
             {
                 ws.Range["A0" + (i + 2)].Value = "'" + (i * 10) + "-" + (i + 1) * 10;
-                ws.Range["B0" + (i + 2)].Value = PulseTRY[i - 1];
+              //  ws.Range["B0" + (i + 2)].Value = PulseTRY[i - 1];
                 // ws.Range["B0" + (i + 2)].Value = HB10sec[i - 1];
                 ws.Range["C0" + (i + 2)].Value = Knee10sec[i - 1];
                 ws.Range["D0" + (i + 2)].Value = Hip10sec[i - 1];

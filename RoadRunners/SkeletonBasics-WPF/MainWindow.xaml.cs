@@ -509,7 +509,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public double meanAngle_SHK;
         int i = 0;
 
-        private void meanAngleFunchelp(List<double> minList1, List<double> minList2)
+        public double[] meanArray_FHK;
+
+        public void meanAngleFunchelp(List<double> minList1, List<double> minList2)
         {
             if (i == 3)
             meanAngle_FHK = minList1.Sum() / (minList1.Count);
@@ -528,7 +530,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 i = 0;
             }
         }
-
+        
+        
 
         // Beräknar vinklar beroende på checkboxar
         void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
