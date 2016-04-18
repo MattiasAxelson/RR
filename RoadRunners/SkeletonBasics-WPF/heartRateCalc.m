@@ -115,9 +115,9 @@ if (shimmer.connect)                                                       % TRU
         value = [];
        
                
-        h.figure1=figure('Name','Shimmer ECG and Heart Rate signals');     % create a handle to figure for plotting data from shimmer
+        h.figure1=figure('Name','Shimmer ECG and Heart Rate signals'); (h, 'visible', 'off')    % create a handle to figure for plotting data from shimmer
       
-          set(gcf, 'visible', 'off')
+          %set(h, 'visible', 'off')
         
         elapsedTime = 0;                                                   % reset to 0    
         tic;                                                               % start timer
