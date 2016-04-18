@@ -25,7 +25,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void anglehelp_Click(object sender, RoutedEventArgs e)
         {
-            string error_message = "Please select which angle you want to observe thank you very much";
+            string error_message = "Please select which angle you want to observe thank you very much yesss";
             System.Windows.MessageBox.Show(error_message);
         }
 
