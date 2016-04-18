@@ -21,8 +21,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Threading;
     using System.Globalization;
     
-    
    
+
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -132,8 +132,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public int durationtime = 0;
         public string filename = null;
 
-      
-       
+
+
 
 
 
@@ -509,7 +509,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public double meanAngle_FHK;
         public double meanAngle_SHK;
         int i = 0;
-
+        int k = 0;
         //Skapar vektorer
         public double[] meanArray_SHK;
         public double[] meanArray_FHK;
@@ -521,20 +521,22 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         public List<List<double>> meanAngleFunchelp(List<double> minList1, List<double> minList2)
         {
-            if (i == 5)
+
+        
+            if (i == k)
             meanAngle_FHK = minList1.Sum() / (minList1.Count);
             meanList_FHK.Add(meanAngle_FHK);
             meanAngleFunc(minList1);
             meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault()));
 
-            if (i == 5)
+            if (i == k)
             meanAngle_SHK = minList2.Sum() / (minList2.Count);
             meanList_SHK.Add(meanAngle_SHK);
             meanAngleFunc(minList2);
             meanAngleBlock_SHK.Text = Convert.ToString(Math.Ceiling(meanList_SHK.LastOrDefault()));
             //meanArray_SHK = meanList_SHK.ToArray();
 
-            if (i == 5)
+            if (i == k)
             {
                 i = 0;
             }
@@ -612,7 +614,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 vinklar_SHK.Add(SHK_angle);
                 minimumlistahelp_SHK.Add(SHK_angle);
 
-                contAngle_SHK.Text = Convert.ToString(meanList_FHK.Count);
+                contAngle_SHK.Text = Convert.ToString(k);
 
 
                 if (SHK_angle < 140)
@@ -642,11 +644,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 vinklar_FHK.Add(FHK_angle);
                 minimumlistahelp_FHK.Add(FHK_angle);
-                if (meanArray_FHK != null)
+                /*     if (meanArray_FHK != null)
                 {
-                    contAngle_FHK.Text = Convert.ToString(meanArray_FHK.Length);
+                         contAngle_FHK.Text = Convert.ToString(i);
                 }
-
+                     */
+                contAngle_FHK.Text = Convert.ToString(i);
 
                 if (FHK_angle < 90)
                 {
@@ -694,7 +697,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 minimumlista_SHK.Add(lagsta_varde_SHK);
             }
         }
-        
+
         // För att ta ut medelvinkel
         private void meanAngleFunc(List<double> minList)
         {
@@ -754,9 +757,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             //MATLABPLOT
             //Skickar data till matlab i ett specifikt satt intervall
-           
-            // Change to the directory where the function is located 
-            var path = Path.Combine(Directory.GetCurrentDirectory());
+            
+                // Change to the directory where the function is located 
+                var path = Path.Combine(Directory.GetCurrentDirectory());
                 matlab.Execute(@"cd " + path + @"\..\..");
 
                 // Define the output 
@@ -766,19 +769,19 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             try
             {
                 matlab.Feval(funktionsnamn, 0, out result, comport.ToString(), durationtime, fileName);
-            }
+        }
         
             catch (System.Runtime.InteropServices.COMException)
             {
 
             }
-
+             
         }
 
         // Ritar ut skelettmodellen på bilden
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
-
+         
 
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
@@ -919,7 +922,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
-            
+
 
             if (comport == "..." || durationtime == 0 || filename == "...")
             {
@@ -927,14 +930,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
             else
             {
-                
+              
                 heartrateThread = new Thread(() => printMatLab1("heartRateCalc", comport, durationtime, filename));
                 heartrateThread.Start();
           
             }
         }
-        
-              
+                
+
 
         private void display_angle_Click(object sender, RoutedEventArgs e)
         {
@@ -962,8 +965,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 pulseList.Add(Math.Ceiling(pulsTodec));
 
                 pulstest.Text = Convert.ToString(Math.Ceiling(pulsTodec));  
-
-                }
+  
+            }
 
                 catch (Exception e)
                 {
@@ -978,7 +981,21 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
            // SaveData win2 = new SaveData();
             saveData.Show();
   
-        }
+    }
+
+        public void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // ... Get the ComboBox.
+            var comboBox = sender as ComboBox;
+
+            // ... Set SelectedItem as Window Title.
+            string BoxValue = comboBox.SelectedItem as string;
+            saveData.ExcelFunkIntervall(comboBox.SelectedIndex);
+
+            if (comboBox.SelectedIndex == 0)
+            {
+                k = 5;
+    }
 
         public void plotAngles()
         {
@@ -991,6 +1008,44 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
       
         }
+            if (comboBox.SelectedIndex == 1)
+            {
+                k = 10;
+            }
+            if (comboBox.SelectedIndex == 2)
+            {
+                k = 30;
+            }
+            if (comboBox.SelectedIndex == 3)
+            {
+                k = 2;
+            }
+        }
+
+
+        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            // ... A List.
+            List<string> data = new List<string>();
+            data.Add("10 Sekunders Intervall");
+            data.Add("20 Sekunders intervall");
+            data.Add("60 Sekunders intervall");
+            data.Add("2 Sekunders intervall");
+
+            // ... Get the ComboBox reference.
+            var comboBox = sender as ComboBox;
+
+            // ... Assign the ItemsSource to the List.
+            comboBox.ItemsSource = data;
+
+            // ... Make the first item selected.
+            comboBox.SelectedIndex = 0;
+
+       
+
+        }
+
+
     }
 
     }
