@@ -95,6 +95,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
+        /// 
+
+        private SaveData saveData;
+      
         public MainWindow()
         {
             InitializeComponent();
@@ -113,9 +117,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 comportCont.Text = Convert.ToString(comport);
                 durationtimeCont.Text = Convert.ToString(durationtime);
                 filenameCont.Text = Convert.ToString(filename);
+
             });
 
         
+            this.saveData = new SaveData();
 
             
         }
@@ -509,32 +515,51 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public double meanAngle_SHK;
         int i = 0;
 
+        //Skapar vektorer
+        public double[] meanArray_SHK;
         public double[] meanArray_FHK;
+        public double[] TESTArray2;
+        public double[] TESTArray3 = new double[] {1,2,3};
+        
 
-        public void meanAngleFunchelp(List<double> minList1, List<double> minList2)
+        private List<double> TEST = new List<double>();
+
+        public List<List<double>> meanAngleFunchelp(List<double> minList1, List<double> minList2)
         {
-            if (i == 3)
+            if (i == 5)
             meanAngle_FHK = minList1.Sum() / (minList1.Count);
             meanList_FHK.Add(meanAngle_FHK);
             meanAngleFunc(minList1);
             meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault()));
 
-            if (i == 3)
+            if (i == 5)
             meanAngle_SHK = minList2.Sum() / (minList2.Count);
             meanList_SHK.Add(meanAngle_SHK);
             meanAngleFunc(minList2);
             meanAngleBlock_SHK.Text = Convert.ToString(Math.Ceiling(meanList_SHK.LastOrDefault()));
+            //meanArray_SHK = meanList_SHK.ToArray();
 
-            if (i == 3)
+            if (i == 5)
             {
                 i = 0;
             }
+
+            List<List<double>> output2 = new List<List<double>>();
+            output2.Add(meanList_FHK);
+            output2.Add(meanList_SHK);
+
+            saveData.ExcelFunkFHK(meanList_FHK);
+            saveData.ExcelFunkSHK(meanList_SHK);
+
+
+
+
+            return output2;
         }
-        
-        
+
 
         // Beräknar vinklar beroende på checkboxar
-        void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
+        public void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
         {
             // Definerar jointar
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
@@ -593,7 +618,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 vinklar.Add(SHK_angle);
                 minimumlistahelp_SHK.Add(SHK_angle);
 
-                contAngle_SHK.Text = Convert.ToString(SHK_angle);
+                contAngle_SHK.Text = Convert.ToString(meanList_FHK.Count);
 
 
                 if (SHK_angle < 140)
@@ -623,8 +648,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 vinklar.Add(FHK_angle);
                 minimumlistahelp_FHK.Add(FHK_angle);
+                if (meanArray_FHK != null)
+                {
+                    contAngle_FHK.Text = Convert.ToString(meanArray_FHK.Length);
+                }
 
-                contAngle_FHK.Text = Convert.ToString(i);
 
                 if (FHK_angle < 90)
                 {
@@ -657,6 +685,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 smallestAngle_SHK.Text = Convert.ToString(lagsta_varde_SHK);
                 meanAngleFunchelp(minimumlista_FHK, minimumlista_SHK);
              //   meanAngleFunchelp(minimumlista_SHK, meanAngle_SHK);
+                meanAngleFunc(meanList_FHK);
+                meanAngleFunc(meanList_SHK);
                 ++i;
 
             }
@@ -684,6 +714,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
             }
         }
+        
+
+
         
     // -------------------------------------------------------------------------------------//
     // -------------------------- Saker som ritar ------------------------------------------//
@@ -737,8 +770,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
 
 
-                matlab.Feval(funktionsnamn, 1, out result, comport.ToString(), durationtime, fileName);
-                object[] res = result as object[];
+                matlab.Feval(funktionsnamn, 0, out result, comport.ToString(), durationtime, fileName);
+               
+               // object[] res = result as object[];
 
 
         }
@@ -758,7 +792,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // Ritar ut skelettmodellen på bilden
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
-            readPulseData();
+           // readPulseData();
          
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
@@ -909,6 +943,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             else
             {
                 printMatLab1("heartRateCalc", comport, durationtime, filename);
+              
             }
         }
                 
@@ -931,26 +966,17 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
        public List<double> pulseList2 = new List<double>();
 
-       public int[] HB10secTRY = new int[] { 1, 2, 31, 6, 5, 3213, 7, 666};
+       
 
 
 
         private  void readPulseData()
         {
-            //TEST FÖR ATT LÄSA IN LISTA
-            //List<double> pulseList2 = new List<double>();
-            pulseList2.Add(32);
-            pulseList2.Add(65);
-            pulseList2.Add(3213);
-            pulseList2.Add(3323);
-            
-
                 try
                 {
 
                 String line = File.ReadLines(@"C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt").Last();
                 pulstest.Text = line;
-                // TEMPORÄRT FÖR ATT FÅ DET ATT FUNGERA pulseList.Add(Convert.ToDouble(line));
   
             }
 
@@ -964,8 +990,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            SaveData win2 = new SaveData();
-            win2.Show();
+           // SaveData win2 = new SaveData();
+            saveData.Show();
   
     }
     }
