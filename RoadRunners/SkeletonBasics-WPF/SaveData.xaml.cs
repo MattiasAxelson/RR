@@ -27,7 +27,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     {
         public SaveData()
         {
-          //  List<double> pulseList2 = new List<double>();
 
             InitializeComponent();
 
@@ -38,7 +37,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 //mWindow.ShowInTaskbar = false;
                 //mWindow.Owner = Application.Current.SaveData;
                 //mWindow.ShowDialog();
-                int [] PulseTRY = mWindow.HB10secTRY;
+               // int [] PulseTRY = mWindow.HB10secTRY;
                
             });
         }
@@ -53,18 +52,31 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
+        List<double> ExcelMeanListFHKhelp = new List<double>();
+        List<double> ExcelMeanListSHKhelp = new List<double>();
+
+        public void ExcelFunkFHK(List<double> templistFHK)
+        {
+            ExcelMeanListFHKhelp = templistFHK;
+        }
+        public void ExcelFunkSHK(List<double> templistSHK)
+        {
+            ExcelMeanListSHKhelp = templistSHK;
+        }
+
 
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mWindow = new MainWindow();
-          //  int[] PulseTRY = mWindow.mean
+            double[] MeanAngleFHK = mWindow.meanArray_FHK;
+
+           List <double> ExcelMeanListFHK = ExcelMeanListFHKhelp;
+            List<double> ExcelMeanListSHK = ExcelMeanListSHKhelp;
+
             Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
             app.Visible = true;
             app.WindowState = XlWindowState.xlMaximized;
-
-
-
             Workbook wb = app.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
             Worksheet ws = wb.Worksheets[1];
             Excel.Range aRange;
@@ -74,21 +86,25 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             aRange = ws.get_Range("A1", "M100");
 
 
-
-           
-
-            int[] HB10sec = new int[] { 1, 2, 31, 6, 5, 3213, 7, 8 };
-            int[] Knee10sec = new int[] { 1, 2, 31, 666, 5, 3213, 7, 8 };
-            int[] Hip10sec = new int[] { 1, 2, 31, 3213123, 5, 3213, 7, 8 };
-
-            
-            for (int i = 1; i <= HB10sec.Length; i++)
+            for (int i = 1; i < ExcelMeanListFHK.Count; i++)
             {
                 ws.Range["A0" + (i + 2)].Value = "'" + (i * 10) + "-" + (i + 1) * 10;
-               // ws.Range["B0" + (i + 2)].Value = PulseTRY[i - 1];
-                // ws.Range["B0" + (i + 2)].Value = HB10sec[i - 1];
-                ws.Range["C0" + (i + 2)].Value = Knee10sec[i - 1];
-                ws.Range["D0" + (i + 2)].Value = Hip10sec[i - 1];
+
+               // if (HB10sec != null)
+            //    {
+                   // ws.Range["B0" + (i + 2)].Value = HB10sec[i - 1];
+           //     }
+           
+
+                if (ExcelMeanListFHK != null)
+                 {
+                   ws.Range["C0" + (i + 2)].Value = ExcelMeanListFHK[i - 1];
+                 }
+            
+                if (ExcelMeanListSHK != null)
+            {
+                    ws.Range["D0" + (i + 2)].Value = ExcelMeanListSHK[i - 1];
+                }
             }
 
             string time = DateTime.Now.ToString(@"MM\/dd\/yyyy HH:mm tt");
