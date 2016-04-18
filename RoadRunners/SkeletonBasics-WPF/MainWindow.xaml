@@ -4,9 +4,10 @@
         xmlns:WpfViewers="clr-namespace:Microsoft.Samples.Kinect.WpfViewers;assembly=Microsoft.Samples.Kinect.WpfViewers" 
     xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
     x:Class="Microsoft.Samples.Kinect.SkeletonBasics.MainWindow"
-     
-    WindowState="Maximized"
-    Title="Skeleton Basics" Height="672.333" Width="1278.333" Loaded="WindowLoaded" Closing="WindowClosing" >
+    
+    Title="Skeleton Basics" Height="672.333" Width="1278.333" Loaded="WindowLoaded" Closing="WindowClosing">
+
+
 
 
     <Grid x:Name="layoutGrid" Margin="10 0 10 0">
@@ -14,20 +15,59 @@
             <RowDefinition Height="642.666666666667"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Margin="0,0,0.333,642.667"/>
-        <Viewbox Stretch="Uniform" Margin="43,30,876.333,338.667">
+        <Viewbox Stretch="Uniform" Margin="43,30,945.333,400.667">
             <Image x:Name="Image" Width="682" Height="468"/>
         </Viewbox>
-        <Button x:Name="Kinect_angle" Content="Change kinect angle" HorizontalAlignment="Left" Margin="867,30,0,0" VerticalAlignment="Top" Width="142" Height="26" Click="Kinect_angle_Click"/>
-        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="1009,29,0,0" VerticalAlignment="Top" Height="27" Width="146" Maximum="26" Minimum="-26" ValueChanged="slider_ValueChanged"/>
-        <Label x:Name="Degree" Content="Degrees" HorizontalAlignment="Left" Margin="1160,29,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="Vinkel" HorizontalAlignment="Left" Margin="867,149,0,0" TextWrapping="Wrap" Text="Vinkel" VerticalAlignment="Top" Height="32" Width="81"/>
-        <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="274" Margin="44,30,0,0" VerticalAlignment="Top" Width="331" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}" Opacity="0.6"/>
-        <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="421,64,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="Kinect_angle" Content="Change kinect angle" HorizontalAlignment="Left" Margin="864,13,0,0" VerticalAlignment="Top" Width="142" Height="26" Click="Kinect_angle_Click"/>
+        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="1006,13,0,0" VerticalAlignment="Top" Height="27" Width="146" Maximum="26" Minimum="-26" ValueChanged="slider_ValueChanged"/>
+        <Label x:Name="Degree" Content="Degrees" HorizontalAlignment="Left" Margin="1157,14,0,0" VerticalAlignment="Top"/>
+        <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="212" Margin="44,30,0,0" VerticalAlignment="Top" Width="262" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}" Opacity="0.6"/>
+        <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top"/>
         <Button x:Name="stop_button" Content="Stop sensors" HorizontalAlignment="Left" Margin="867,102,0,0" VerticalAlignment="Top" Width="75" Click="stop_Button_Click"/>
         <Button x:Name="button1" Content="Start sensors" HorizontalAlignment="Left" Margin="867,77,0,0" VerticalAlignment="Top" Width="75" Click="start_button_Click"/>
-        <TextBlock x:Name="looptext" HorizontalAlignment="Left" Margin="867,181,0,0" TextWrapping="Wrap" Text="Test för loop" VerticalAlignment="Top" Height="30" Width="100"/>
-        <TextBlock x:Name="textBlockMinVinkel" HorizontalAlignment="Left" Margin="867,245,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="292" Margin="-55,304,-72.667,0" VerticalAlignment="Top" Width="1379" Source="VinkelgrafJÄVEL.jpeg"/>
+        <Button x:Name="Show_mean_angle" Content="Show mean angle" HorizontalAlignment="Left" Margin="968,77,0,0" VerticalAlignment="Top" Width="111"/>
+        <Image x:Name="vinkelImage" HorizontalAlignment="Left" Height="319" Margin="45,300,0,0" VerticalAlignment="Top" Width="1169" Source="Vinkelgraf.jpeg" />
+        <TextBlock x:Name="velocityText" HorizontalAlignment="Left" Margin="942,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="87"><Run Text="Hastighet"/><InlineUIContainer>
+        		<TextBlock x:Name="textBlock" TextWrapping="Wrap"/>
+        	</InlineUIContainer><LineBreak/></TextBlock>
+        <TextBlock x:Name="countertext" HorizontalAlignment="Left" Margin="1091,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20"><Run Text="Counter"/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="velXListtext" HorizontalAlignment="Left" Margin="1091,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64" Height="19"><Run Text="velXList"/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="steptimetext" HorizontalAlignment="Left" Margin="1091,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="stepTime"/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="initX" HorizontalAlignment="Left" Margin="942,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="init"/><Run Text="X"/></TextBlock>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="942,179,0,0" TextWrapping="Wrap" Text="Hastigheten" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock1_Copy" HorizontalAlignment="Left" Margin="942,243,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Initiala x-koord"/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="textBlock1_Copy1" HorizontalAlignment="Left" Margin="1091,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Storlek x-koord. lista"/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="textBlock1_Copy2" HorizontalAlignment="Left" Margin="1091,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Counter"/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="textBlock1_Copy3" HorizontalAlignment="Left" Margin="1091,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Tiden för ett steg"/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="velhelptext" HorizontalAlignment="Left" Margin="942,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="21"><Run Text="VelHelp"/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="942,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text=""/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="hastighetslista" HorizontalAlignment="Left" Margin="942,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="21"><Run Text="Hastighetslista"/><LineBreak/><Run/></TextBlock>
+        <CheckBox x:Name="FHKbox" Content="Knävinkel" HorizontalAlignment="Left" Margin="1102,413,0,0" VerticalAlignment="Top" Checked="FKHbox_Checked"/>
+        <CheckBox x:Name="SHKbox" Content="Höftvinkel" HorizontalAlignment="Left" Margin="1102,494,0,0" VerticalAlignment="Top" Checked="SHKbox_Checked"/>
+        <TextBlock x:Name="väljvinkel" HorizontalAlignment="Left" Margin="1120,397,0,0" TextWrapping="Wrap" Text="Välj vinkel:" VerticalAlignment="Top"/>
+        <TextBlock x:Name="felmeddelande" HorizontalAlignment="Left" Margin="1120,448,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <Button x:Name="restartbutton" Content="Restart" HorizontalAlignment="Left" Margin="1160,568,0,0" VerticalAlignment="Top" Width="75" Click="restartbutton_Click"/>
+        <Button x:Name="quitbutton" Content="Quit" HorizontalAlignment="Left" Margin="1160,599,0,0" VerticalAlignment="Top" Width="75" Click="quitbutton_Click"/>
+        <TextBlock x:Name="testdirektiv" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Margin="626,24,0,0" TextWrapping="Wrap" Text="Testdirektiv" VerticalAlignment="Top" Width="120" Height="32"/>
+        <TextBlock x:Name="textTestdirektiv" FontSize="18" TextAlignment="Center" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Margin="536,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="68"><Run Text="....................."/><Run Text=".."/><LineBreak/><Run/></TextBlock>
+        <Button x:Name="display_heartrate" Content="Display Heartrate" HorizontalAlignment="Left" Margin="451,122,0,0" VerticalAlignment="Top" Width="100" Click="display_heartrate_Click"/>
+        <Button x:Name="display_angle" Content="Display Angle" HorizontalAlignment="Left" Margin="433,158,0,0" VerticalAlignment="Top" Width="100" Click="display_angle_Click"/>
+        <Button x:Name="setting" Content="Heartrate settings" HorizontalAlignment="Left" Margin="451,87,0,0" VerticalAlignment="Top" Width="100" Click="setting_Click"/>
+        <TextBlock x:Name="comportCont" HorizontalAlignment="Left" Margin="433,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Co"/><Run Text="mport"/></TextBlock>
+        <TextBlock x:Name="durationtimeCont" HorizontalAlignment="Left" Margin="433,31,0,0" TextWrapping="Wrap" Text="Durationtime" VerticalAlignment="Top"/>
+        <TextBlock x:Name="filenameCont" HorizontalAlignment="Left" Margin="433,52,0,0" TextWrapping="Wrap" Text="Filename" VerticalAlignment="Top"/>
+        <TextBlock x:Name="pulstest" HorizontalAlignment="Left" Margin="638,135,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <ComboBox x:Name="heartRateScroll" HorizontalAlignment="Left" Margin="1091,87,0,0" VerticalAlignment="Top" Width="129" >
+            <ComboBoxItem>1 sekund</ComboBoxItem>
+            <ComboBoxItem>10 sekunder</ComboBoxItem>
+            <ComboBoxItem>1 minut</ComboBoxItem>
+        </ComboBox>
+        <TextBlock x:Name="contAngle_FHK" HorizontalAlignment="Left" Margin="1160,451,0,0" TextWrapping="Wrap" Text="Kont. vinkel" VerticalAlignment="Top" Width="91"/>
+        <TextBlock x:Name="smallestAngle_FHK" HorizontalAlignment="Left" Margin="1087,451,0,0" TextWrapping="Wrap" Text="Lägsta vinkel" VerticalAlignment="Top"/>
+        <TextBlock x:Name="meanAngleBlock_FHK" HorizontalAlignment="Left" Margin="1087,435,0,0" TextWrapping="Wrap" Text="Medelvinkel" VerticalAlignment="Top"/>
+        <TextBlock x:Name="contAngle_SHK" HorizontalAlignment="Left" Margin="1164,530,-3.667,0" TextWrapping="Wrap" Text="Kont. vinkel" VerticalAlignment="Top" Width="91"/>
+        <TextBlock x:Name="smallestAngle_SHK" HorizontalAlignment="Left" Margin="1091,530,0,0" TextWrapping="Wrap" Text="Lägsta vinkel" VerticalAlignment="Top"/>
+        <TextBlock x:Name="meanAngleBlock_SHK" HorizontalAlignment="Left" Margin="1091,514,0,0" TextWrapping="Wrap" Text="Medelvinkel" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

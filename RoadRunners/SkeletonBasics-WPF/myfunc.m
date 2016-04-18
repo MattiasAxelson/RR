@@ -1,16 +1,17 @@
 function [x] = myfunc(a,b,c) 
+% a = Tid 
+% b = vinklar
+% c = minsta vinkel
+h = figure(1); set(gcf,'visible','off')
 
-h = figure(1);
-set(h, 'Visible', 'off');
 h.PaperUnits = 'inches';
-h.PaperPosition = [0 0 18 4];
+h.PaperPosition = [0 0 14 4];
 
-x = plot(a,b,a,c);
+x = plot (a,b,a,c);
+title('SuperGrafen');
+xlabel('Tid');
+ylabel('Vinkel');
 
-title 'Grafstjärtis';
-xlabel 'TidJävel';
-ylabel 'Vinkel';
-
-saveas(h, 'VinkelgrafJÄVEL.jpeg')
-
+saveas(h, 'Vinkelgraf.jpeg')
+close(h);
 end
