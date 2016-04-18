@@ -1,0 +1,19 @@
+﻿<Window x:Class="Microsoft.Samples.Kinect.SkeletonBasics.SettingsHeartrate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Microsoft.Samples.Kinect.SkeletonBasics"
+        mc:Ignorable="d"
+        Title="SettingsHeartrate" Height="300" Width="300">
+    <Grid Background="#FFB2C5F7">
+        <TextBox x:Name="comport" HorizontalAlignment="Left" Height="23" Margin="16,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="55"/>
+        <TextBox x:Name="durationtime" HorizontalAlignment="Left" Height="23" Margin="115,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" TextChanged="textBox1_TextChanged"/>
+        <TextBox x:Name="filename" HorizontalAlignment="Left" Height="23" Margin="206,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76"/>
+        <Button x:Name="helpButton" Content="Help" HorizontalAlignment="Left" Height="23" Margin="119,152,0,0" VerticalAlignment="Top" Width="75" Click="helpButton_Click"/>
+        <Button x:Name="startHeartRateCalc" Content="Done" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="119,189,0,0" Click="startHeartRateCalc_Click"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="16,41,0,0" TextWrapping="Wrap" Text="ComPort" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="115,41,0,0" TextWrapping="Wrap" Text="Duration time" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="223,41,0,0" TextWrapping="Wrap" Text="Filename" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

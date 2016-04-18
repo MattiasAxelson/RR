@@ -93,41 +93,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
-        public MainWindow()
-        {
-            InitializeComponent();
-
-            settingHeartrate.Click += new RoutedEventHandler(delegate (object sender, RoutedEventArgs e)
-            {
-                ChildWindow chldWindow = new ChildWindow();
-                chldWindow.ShowInTaskbar = false;
-                chldWindow.Owner = Application.Current.MainWindow;
-                chldWindow.ShowDialog();
-
-                comport = chldWindow.comport;
-                durationtime = chldWindow.durationtime;
-                filename = chldWindow.fileName + ".dat";
-
-                comportCont.Text = Convert.ToString(comport);
-                durationtimeCont.Text = Convert.ToString(durationtime);
-                filenameCont.Text = Convert.ToString(filename);
-            }
-            );
-
-            InitializeComponent();
-            Settingsangle.Click += new RoutedEventHandler(delegate (object sender, RoutedEventArgs e)
-            {
-                ChildWindow chldWindow = new ChildWindow();
-                chldWindow.ShowInTaskbar = false;
-                chldWindow.Owner = Application.Current.MainWindow;
-                chldWindow.ShowDialog();
-
-
-
-
-
-            });
-        }
+ 
         public string comport = null;
         public int durationtime = 0;
         public string filename = null;
@@ -968,6 +934,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
 
         }
+        
     }
 
     }
