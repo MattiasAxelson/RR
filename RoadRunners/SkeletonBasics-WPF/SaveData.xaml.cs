@@ -37,8 +37,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 //mWindow.ShowInTaskbar = false;
                 //mWindow.Owner = Application.Current.SaveData;
                 //mWindow.ShowDialog();
-               // int [] PulseTRY = mWindow.HB10secTRY;
-               
+                // int [] PulseTRY = mWindow.HB10secTRY;
+
             });
         }
 
@@ -64,14 +64,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             ExcelMeanListSHKhelp = templistSHK;
         }
 
-
-
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mWindow = new MainWindow();
             double[] MeanAngleFHK = mWindow.meanArray_FHK;
 
-            List <double> ExcelMeanListFHK = ExcelMeanListFHKhelp;
+            List<double> ExcelMeanListFHK = ExcelMeanListFHKhelp;
             List<double> ExcelMeanListSHK = ExcelMeanListSHKhelp;
 
             Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
@@ -90,19 +88,19 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 ws.Range["A0" + (i + 2)].Value = "'" + (i * 10) + "-" + (i + 1) * 10;
 
-               // if (HB10sec != null)
-            //    {
-                   // ws.Range["B0" + (i + 2)].Value = HB10sec[i - 1];
-           //     }
-           
+                // if (HB10sec != null)
+                //    {
+                // ws.Range["B0" + (i + 2)].Value = HB10sec[i - 1];
+                //     }
+
 
                 if (ExcelMeanListFHK != null)
-                 {
-                   ws.Range["C0" + (i + 2)].Value = ExcelMeanListFHK[i - 1];
-                 }
-            
+                {
+                    ws.Range["C0" + (i + 2)].Value = ExcelMeanListFHK[i - 1];
+                }
+
                 if (ExcelMeanListSHK != null)
-            {
+                {
                     ws.Range["D0" + (i + 2)].Value = ExcelMeanListSHK[i - 1];
                 }
             }
@@ -131,7 +129,5 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             this.Close();
         }
-
-    
     }
 }
