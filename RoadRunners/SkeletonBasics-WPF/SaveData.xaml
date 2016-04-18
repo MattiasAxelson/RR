@@ -1,0 +1,19 @@
+﻿<Window x:Class="Microsoft.Samples.Kinect.SkeletonBasics.SaveData"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Microsoft.Samples.Kinect.SkeletonBasics"
+        mc:Ignorable="d"
+        Title="SaveData" Height="326.667" Width="325.333">
+    <Grid>
+        <Button x:Name="SaveButtonExcel" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Width="102" Margin="186,241,0,0" Click="Save_Click"/>
+        <TextBox x:Name="NameInput" HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Margin="131,41,0,0" TextChanged="textBox_TextChanged"/>
+        <TextBlock x:Name="Name_textBlock" HorizontalAlignment="Left" Margin="10,41,0,202.667" TextWrapping="Wrap" Width="108"><Run Text="Name of"/><Run Text=" "/><Run Text="t"/><Run Text="estperson: "/></TextBlock>
+        <TextBlock x:Name="Comments_text" HorizontalAlignment="Left" Margin="10,83,0,157.667" TextWrapping="Wrap" Text="Comments of test:" Width="108"/>
+        <TextBox x:Name="CommentsInput" HorizontalAlignment="Left" Height="133" Margin="131,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" TextChanged="textBox_TextChanged_1"/>
+        <Button x:Name="button1" Content="Close Window" HorizontalAlignment="Left" Height="20" Margin="73,241,0,0" VerticalAlignment="Top" Width="86" Click="button1_Click"/>
+        <TextBlock x:Name="testArray" HorizontalAlignment="Left" Margin="10,145,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="71" Width="108"/>
+
+    </Grid>
+</Window>

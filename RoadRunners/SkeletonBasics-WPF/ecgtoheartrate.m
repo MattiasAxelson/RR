@@ -31,7 +31,7 @@ function void = ecgtoheartrate(comPort, captureDuration, fileName)
 % add the location of the ShimmerBiophysicalProcessingLibrary_Rev_X_Y.jar file
 % to the JAVA dynamic class path:
 %
-javaclasspath('C:\Users\Ekbom\Documents\MATLAB\Toolboxes\Shimmer MATLAB Instrument Driver\ShimmerBiophysicalProcessingLibrary_Rev_0_10.jar')
+javaclasspath('C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\ShimmerBiophysicalProcessingLibrary_Rev_0_10.jar')
 %
 % NOTE: In this example the ECG data is pre-filtered using a second order
 % Chebyshev HPF with corner freq 0.5Hz by using FilterClass.m
