@@ -32,13 +32,13 @@
         	</InlineUIContainer><LineBreak/></TextBlock>
         <TextBlock x:Name="countertext" HorizontalAlignment="Left" Margin="1091,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20"><Run Text="Counter"/><LineBreak/><Run/></TextBlock>
         <TextBlock x:Name="velXListtext" HorizontalAlignment="Left" Margin="1091,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64" Height="19"><Run Text="velXList"/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
-        <TextBlock x:Name="steptimetext" HorizontalAlignment="Left" Margin="1091,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="stepTime"/><LineBreak/><Run/></TextBlock>
-        <TextBlock x:Name="initX" HorizontalAlignment="Left" Margin="942,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="init"/><Run Text="X"/></TextBlock>
+        <TextBlock x:Name="hast2" HorizontalAlignment="Left" Margin="1120,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="-"/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="initX" HorizontalAlignment="Left" Margin="942,259,0,0" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="init"/><Run Text="X"/></TextBlock>
         <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="942,179,0,0" TextWrapping="Wrap" Text="Hastigheten" VerticalAlignment="Top"/>
         <TextBlock x:Name="textBlock1_Copy" HorizontalAlignment="Left" Margin="942,243,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Hastighet i km/"/><Run Text="h"/><LineBreak/><Run/></TextBlock>
         <TextBlock x:Name="textBlock1_Copy1" HorizontalAlignment="Left" Margin="1091,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Storlek x-koord. lista"/><LineBreak/><Run/></TextBlock>
         <TextBlock x:Name="textBlock1_Copy2" HorizontalAlignment="Left" Margin="1091,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Counter"/><LineBreak/><Run/></TextBlock>
-        <TextBlock x:Name="textBlock1_Copy3" HorizontalAlignment="Left" Margin="1091,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Tiden för ett steg"/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="textBlock1_Copy3" HorizontalAlignment="Left" Margin="1091,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="16"><Run Text="Hastigheter"/><LineBreak/><Run/></TextBlock>
         <TextBlock x:Name="velhelptext" HorizontalAlignment="Left" Margin="942,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="21"><Run Text="VelHelp"/><LineBreak/><Run/></TextBlock>
         <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="942,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text=""/><LineBreak/><Run/></TextBlock>
         <TextBlock x:Name="hastighetslista" HorizontalAlignment="Left" Margin="942,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="21"><Run Text="Hastighetslista"/><LineBreak/><Run/></TextBlock>
@@ -56,6 +56,8 @@
         <TextBlock x:Name="comportCont" HorizontalAlignment="Left" Margin="433,10,0,0" TextWrapping="Wrap" Text="Comport" VerticalAlignment="Top"/>
         <TextBlock x:Name="durationtimeCont" HorizontalAlignment="Left" Margin="433,31,0,0" TextWrapping="Wrap" Text="Durationtime" VerticalAlignment="Top"/>
         <TextBlock x:Name="filenameCont" HorizontalAlignment="Left" Margin="433,52,0,0" TextWrapping="Wrap" Text="Filename" VerticalAlignment="Top"/>
+        <TextBlock x:Name="hast1" HorizontalAlignment="Left" Margin="1100,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="-"/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="hast3" HorizontalAlignment="Left" Margin="1139,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="-"/><LineBreak/><Run/></TextBlock>
 
     </Grid>
 </Window>
