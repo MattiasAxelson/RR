@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Microsoft.Samples.Kinect.SkeletonBasics"
         mc:Ignorable="d"
-        Title="StartUpWindow" Height="300" Width="500">
-    <Grid Margin="0,0,2,0">
-        <Button x:Name="startButton" Content="Start Program" Margin="100,187,97,0" VerticalAlignment="Top" Click="startButton_Click"/>
+        Title="Startmenu" Height="300" Width="500">
 
+  
+
+    <Grid Margin="0,0,2,0">
+        <Button x:Name="startButton" Content="Start Program" Margin="100,187,97,0" VerticalAlignment="Top" Click="startButton_Click" 
+                Background="White" Foreground="Black" FontStyle="Normal" Height="33" FontSize="16"/>
+        <TextBlock x:Name="titleName" FontSize="25" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Margin="104,39,0,0" TextWrapping="Wrap" Text="Welcome to RunningLab" VerticalAlignment="Top"/>
     </Grid>
 </Window>

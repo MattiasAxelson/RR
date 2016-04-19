@@ -20,7 +20,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Collections;
     using System.Threading;
     using System.Globalization;
-    
+    using System.Diagnostics;
+    using System.Timers;
    
 
 
@@ -123,10 +124,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             });
 
-        
             this.saveData = new SaveData();
 
-            
+
         }
         public string comport = null;
         public int durationtime = 0;
@@ -246,8 +246,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         if (skel.TrackingState == SkeletonTrackingState.Tracked)
                         {
                             this.DrawBonesAndJoints(skel, dc);
-                            this.CalculateVelocity(skel, dc);
-                            //this.CalculateAngles(skel, dc);
+                            //this.CalculateVelocity(skel, dc);
+                            this.CalculateAngles(skel, dc);
                         }
                         else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
                         {
@@ -396,15 +396,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 // Räknar ut avståndsskillnaden mellan 4 sampelvärden
                 deltaX = Math.Abs(velXList[velXList.Count - 1]) - Math.Abs(velXList[velXList.Count - 4]);
                 deltaX = Math.Abs(deltaX);
-                velhelptext.Text = Convert.ToString(deltaX);
             }
 
             // Skillnaden i tid mellan sampelvärdena
             deltaT = 0.1;
             stepVelocity = deltaX / deltaT;
-            velocityText.Text = Convert.ToString(stepVelocity);
             velocityList.Add(stepVelocity);
-            countertext.Text = Convert.ToString(velocityList.Count);
 
             if (velocityList.Count == 15)
             {
@@ -413,10 +410,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 velocityList.Clear();
             }
 
-            if (velHelpList.Count == 8)
+            if (velHelpList.Count == 4)
             {
                 double maxValueHelp = velHelpList.Average();
-                initX.Text = Convert.ToString(Math.Floor(maxValueHelp * 3.6));
+                initVel.Text = Convert.ToString(Math.Floor(maxValueHelp * 3.6));
                 velocityListSave.Add(maxValueHelp);
                 velHelpList.Clear();
             }
@@ -425,7 +422,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 velXList.RemoveAt(0);
             }
-            saveData.ExcelVelocityFunk(velocityListSave);
+            //saveData.ExcelVelocityFunk(velocityListSave);
         }
 
 
@@ -933,10 +930,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-           // SaveData win2 = new SaveData();
+            // SaveData win2 = new SaveData();
             saveData.Show();
-  
-    }
+        }
 
         public void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -974,11 +970,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 plotAnglesThread.Start();
                 updateMatlab = updateMatlab + 60;
             }
-      
         }
-
-
-
 
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
@@ -1000,7 +992,87 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
        }
 
+        private System.Windows.Forms.Timer timer1;
+        private int counter; 
+        private void startLoggingButton_Click(object sender, EventArgs e)
+        {
+            meanList_SHK.Clear();
+            meanList_FHK.Clear();
+            pulseList.Clear();
+
+            if (comboBox1.SelectedIndex == 0)
+            {
+                counter = 10;
+            }
+            if (comboBox1.SelectedIndex == 1)
+            {
+                counter = 30;
+            }
+            if (comboBox1.SelectedIndex == 2)
+            {
+                counter = 60;
+            }
+            if (comboBox1.SelectedIndex == 3)
+            {
+                counter = 300;
+            }
+            if (comboBox1.SelectedIndex == 4)
+            {
+                counter = 600;
+            }
+          
+            timer1 = new System.Windows.Forms.Timer();
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Interval = 1000; // 1 second
+            timer1.Start();
+            timeBlock.Text = counter.ToString();
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            counter--;
+            if (counter == 0)
+                timer1.Stop();
+            timeBlock.Text = counter.ToString();
+        }
+
+
+        private void comboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // ... Get the ComboBox.
+            var comboBox1 = sender as ComboBox;
+
+            // ... Set SelectedItem as Window Title.
+            string BoxValue = comboBox1.SelectedItem as string;
+            
+        }
+
+        public int testLength;
+
+        public void ComboBox1_Loaded(object sender, RoutedEventArgs e)
+        {
+            // ... A List.
+            List<string> data = new List<string>();
+            data.Add("10 Seconds Test ");
+            data.Add("30 Seconds Test");
+            data.Add("60 Seconds Test");
+            data.Add("5 Minutes Test");
+            data.Add("10 Minutes Test");
+
+            // ... Get the ComboBox reference.
+            var comboBox1 = sender as ComboBox;
+
+            // ... Assign the ItemsSource to the List.
+            comboBox1.ItemsSource = data;
+
+            // ... Make the first item selected.
+            comboBox1.SelectedIndex = 0;
+
+
+
+            saveData.ExcelTestLength(comboBox1.SelectedIndex);
+        }
+    }
 
 
     }

@@ -25,7 +25,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     /// </summary>
     public partial class SaveData : System.Windows.Window
     {
-
+        
 
         public SaveData()
         {
@@ -56,7 +56,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         List<double> ExcelMeanListFHKhelp = new List<double>();
         List<double> ExcelMeanListSHKhelp = new List<double>();
-        int Intervallhelp = new int();
+        int Intervallhelp;
+        int TestLengthHelp;
+
         List<double> ExcelPulseListhelp = new List<double>();
         List<double> ExcelVelocityListHelp = new List<double>();
 
@@ -83,13 +85,22 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             ExcelVelocityListHelp = tempVelocityList;
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        public void ExcelTestLength(int tempTestLength)
+        {
+            TestLengthHelp = tempTestLength;
+        }
+
+
+
+
+
+        public void Save_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mWindow = new MainWindow();
             double[] MeanAngleFHK = mWindow.meanArray_FHK;
 
             int Intervall = 666;
-
+            int testLength = 0;
 
             string time = DateTime.Now.ToString(@"MM\/dd\/yyyy HH:mm tt");
             string Namn = NameInput.Text;
@@ -105,6 +116,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             List<double> ExcelVelocityList = ExcelVelocityListHelp; 
 
             int ExcelIntervall = Intervallhelp;
+            int DurationTime = TestLengthHelp;
 
             Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
             app.Visible = true;
@@ -145,37 +157,65 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 Intervall = 2;
             }
 
-            
+
+            // Kollar vilken testlängd som valts i combobox1 
+            if (DurationTime == 0)
+            {
+                testLength = 10;
+            }
+            if (DurationTime == 1)
+            {
+                testLength = 30;
+            }
+            if (DurationTime == 2)
+            {
+                testLength = 60;
+            }
+            if (DurationTime == 3)
+            {
+                testLength = 300;
+            }
+            if (DurationTime == 4)
+            {
+                testLength = 600;
+            }
 
 
+            int duration = ((testLength / Intervall) + 1);
 
-            // for (int i = 1; i < ExcelMeanListFHK.Count; i++)
+            testArray.Text = duration.ToString(); 
 
-            for (int i = 1; i < ExcelMeanListSHK.Count; i++) 
+            for (int i = 1; i < duration; i++) 
             {
 
                 ws.Range["A0" + (i + 3)].Value = "'" + (i * Intervall) + "-" + (i + 1) * Intervall;
 
-                 if (ExcelPulseList != null)
-                    {
-                    ws.Range["B0" + (i + 2)].Value = ((ExcelPulseList.Skip(i * Intervall).Take(Intervall).Sum())/Intervall); 
-                    }
+                if (ExcelPulseList != null)
+                {
+                   // ws.Range["B0" + (i + 2)].Value = ((ExcelPulseList.Skip(i * Intervall).Take(Intervall).Sum())/Intervall); 
+                }
 
-
-                if (ExcelMeanListFHK != null)
+                if (ExcelMeanListFHK != null && ExcelMeanListFHK[i] > 0 && ExcelMeanListFHK[i] < 200)
                 {
                     ws.Range["C0" + (i + 2)].Value = ExcelMeanListFHK[i];
                 }
-
-                if (ExcelMeanListSHK != null)
+                else
+                {
+                    ws.Range["C0" + (i + 2)].Value = "ERROR";
+                }
+                 if (ExcelMeanListSHK != null && ExcelMeanListSHK[i] > 0 && ExcelMeanListSHK[i] < 200)
                 {
                     ws.Range["D0" + (i + 2)].Value = ExcelMeanListSHK[i];
                 }
-
-                if (ExcelVelocityListHelp != null)
+                else
                 {
-                    ws.Range["E0" + (i + 2)].Value = ExcelVelocityListHelp[i];
+                    ws.Range["D0" + (i + 2)].Value = "ERROR";
                 }
+                /* 
+                 if (ExcelVelocityListHelp != null)
+                 {
+                     ws.Range["E0" + (i + 2)].Value = ExcelVelocityListHelp[i];
+                 }*/
             }
 
 
@@ -186,11 +226,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == true)
                 wb.SaveAs(saveFileDialog.FileName);
+
+            this.Hide();
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.Hide();
         }
     }
 }
