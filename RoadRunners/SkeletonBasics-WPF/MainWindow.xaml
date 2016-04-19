@@ -24,8 +24,8 @@
             <RowDefinition Height="642.666666666667"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Margin="0,0,0.333,642.667"/>
-        <Viewbox Stretch="Uniform" Margin="43,30,945.333,400.667">
-            <Image x:Name="Image" Width="569" Height="168"/>
+        <Viewbox Stretch="Uniform" Margin="962,17,27,415">
+            <Image x:Name="Image" Width="611" Height="477"/>
         </Viewbox>
         <Button x:Name="Kinect_angle" Content="Change kinect angle" HorizontalAlignment="Left" Margin="910,238,0,0" VerticalAlignment="Top" Width="142" Height="26" Click="Kinect_angle_Click">
             <Button.Background>
@@ -39,7 +39,7 @@
         </Button>
         <Slider x:Name="slider" HorizontalAlignment="Left" Margin="1057,239,0,0" VerticalAlignment="Top" Height="27" Width="146" Maximum="26" Minimum="-26" ValueChanged="slider_ValueChanged"/>
         <Label x:Name="Degree" Content="0" HorizontalAlignment="Left" Margin="1208,240,0,0" VerticalAlignment="Top"/>
-        <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="212" Margin="555,300,0,0" VerticalAlignment="Top" Width="262" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}" Opacity="0.6"/>
+        <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="212" Margin="962,17,0,0" VerticalAlignment="Top" Width="273" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}" Opacity="0.6"/>
         <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="896,17,0,0" VerticalAlignment="Top"/>
         <Button x:Name="stop_button" Content="Stop sensors" HorizontalAlignment="Left" Margin="305,240,0,0" VerticalAlignment="Top" Width="75" Click="stop_Button_Click">
             <Button.Background>

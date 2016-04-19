@@ -129,8 +129,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 childwindow2.ShowInTaskbar = false;
                 childwindow2.Owner = Application.Current.MainWindow;
                 childwindow2.ShowDialog();
+
+                FHKbox = childwindow2.checkHip;
+                SHKbox = childwindow2.checkKnee;
+                
             });
         
+           
+
             this.saveData = new SaveData();
 
             
