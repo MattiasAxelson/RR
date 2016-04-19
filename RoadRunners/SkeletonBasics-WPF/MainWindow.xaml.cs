@@ -276,7 +276,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void stop_Button_Click(object sender, RoutedEventArgs e)
         {
-            /*
+            
             if (this.sensor == null)
             {
                 return;
@@ -292,7 +292,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 this.sensor.ColorStream.Disable();
             }
             this.sensor.SkeletonFrameReady -= this.SensorSkeletonFrameReady;
-*/
+
             this.sensor.Stop();
         }
 
