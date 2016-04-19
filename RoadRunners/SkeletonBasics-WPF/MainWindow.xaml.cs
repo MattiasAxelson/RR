@@ -322,8 +322,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
                 if (null != this.sensor)
                 {
-                    // Turn on the skeleton stream to receive skeleton frames
+                // Turn on the skeleton stream to receive skeleton frames
 
+                if ((bool)FHKbox.IsChecked || (bool)SHKbox.IsChecked)
+                {
                     this.sensor.ColorStream.Enable();
                     this.sensor.SkeletonStream.Enable();
 
@@ -339,6 +341,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     {
                         this.sensor = null;
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Du måste välja en vinkel!");
+                }
 
                 }
             
@@ -656,10 +663,21 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 double SHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(HipShoulder_Length, 2)
                     - Math.Pow(KneeShoulder_Length, 2)) / (2 * HipKnee_Length * HipShoulder_Length))) * (180 / Math.PI));
 
-                vinklar_SHK.Add(SHK_angle);
-                minimumlistahelp_SHK.Add(SHK_angle);
+                if (Double.IsNaN(SHK_angle))
+                {
+                    double prevValSHKlist = vinklar_SHK[vinklar_SHK.Count - 1];
+                    minimumlistahelp_SHK.Add(prevValSHKlist);
+                    vinklar_SHK.Add(prevValSHKlist);
+                    contAngle_SHK.Text = "HEJ MY LITTLE PONY!!! SAILOR MOON";
 
-                contAngle_SHK.Text = Convert.ToString(k);
+                }
+                else
+                {
+                    vinklar_SHK.Add(SHK_angle);
+                    minimumlistahelp_SHK.Add(SHK_angle);
+                }
+
+               // contAngle_SHK.Text = Convert.ToString(k);
                 sampleToTime_SHK = vinklar_SHK.Count;
 
                 if (SHK_angle < 140)
@@ -687,10 +705,22 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 double FHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2)
                     - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
 
-                vinklar_FHK.Add(FHK_angle);
-                minimumlistahelp_FHK.Add(FHK_angle);
+      
 
-                contAngle_FHK.Text = Convert.ToString(i);
+                if (Double.IsNaN(FHK_angle))
+                {
+                    double prevValFHKlist = vinklar_FHK[vinklar_FHK.Count - 1];
+                    minimumlistahelp_FHK.Add(prevValFHKlist);
+                    vinklar_FHK.Add(prevValFHKlist);
+
+                }
+                else
+                {
+                    vinklar_FHK.Add(FHK_angle);
+                    minimumlistahelp_FHK.Add(FHK_angle);
+                }
+
+                //contAngle_FHK.Text = Convert.ToString(i);
                 sampleToTime_FHK = vinklar_FHK.Count;
 
                 if (FHK_angle < 90)
@@ -1043,7 +1073,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
 
         }
-
+        
 
 
         private  void readPulseData()
@@ -1058,7 +1088,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 pulstest.Text = Convert.ToString(Math.Ceiling(pulsTodec));  
   
-            }
+                }
 
                 catch (Exception e)
                 {
@@ -1089,7 +1119,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (comboBox.SelectedIndex == 0)
             {
                 k = 5;
-    }
+            }
             if (comboBox.SelectedIndex == 1)
             {
                 k = 10;
@@ -1137,11 +1167,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             // ... Make the first item selected.
             comboBox.SelectedIndex = 0;
 
-       }
-
         }
 
-
     }
+
+
+}
 
     
