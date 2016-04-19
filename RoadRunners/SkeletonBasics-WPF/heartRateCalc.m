@@ -32,7 +32,7 @@ function [x] = heartRateCalc(comPort, captureDuration, fileName)
 % to the JAVA dynamic class path:
 %
 % javaclasspath('C:\Program Files\MATLAB\R2013b\java\jar\ShimmerBiophysicalProcessingLibrary_Rev_X_Y.jar')
- javaclasspath('C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\ShimmerBiophysicalProcessingLibrary_Rev_0_10.jar')
+ javaclasspath(which('ShimmerBiophysicalProcessingLibrary_Rev_0_10.jar'))
 %
 % NOTE: In this example the ECG data is pre-filtered using a second order
 % Chebyshev HPF with corner freq 0.5Hz by using FilterClass.m
@@ -180,12 +180,12 @@ if (shimmer.connect)                                                       % TRU
                  sampleNumber = max(numSamples-NO_SAMPLES_IN_PLOT+1,1):numSamples;
            
                 % plotting the data
-  
-                plot(sampleNumber/fs, heartRate);                             % plot the Heart Rate data
-                legend('Heart Rate (BPM', 'Location', 'West');   
-                xlim([sampleNumber(1)/fs sampleNumber(end)/fs]);  
-                ylim([1 220]);   
-                
+%   
+%                 plot(sampleNumber/fs, heartRate);                             % plot the Heart Rate data
+%                 legend('Heart Rate (BPM', 'Location', 'West');   
+%                 xlim([sampleNumber(1)/fs sampleNumber(end)/fs]);  
+%                 ylim([1 220]);   
+%                 
                 
                 %test
                
@@ -199,7 +199,7 @@ if (shimmer.connect)                                                       % TRU
                 if length(heartRate) > valuelength
                     
                 value = [value ; heartRate(end)];
-                fid=fopen('C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt','w');
+                fid=fopen(which('C:\Users\Simon\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt'),'w');
 
                 fprintf(fid, '%d \n', value');
                 fclose(fid);
