@@ -25,6 +25,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     /// </summary>
     public partial class SaveData : System.Windows.Window
     {
+
+
         public SaveData()
         {
 
@@ -37,8 +39,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 //mWindow.ShowInTaskbar = false;
                 //mWindow.Owner = Application.Current.SaveData;
                 //mWindow.ShowDialog();
-               // int [] PulseTRY = mWindow.HB10secTRY;
-               
+                // int [] PulseTRY = mWindow.HB10secTRY;
+
             });
         }
 
@@ -54,6 +56,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         List<double> ExcelMeanListFHKhelp = new List<double>();
         List<double> ExcelMeanListSHKhelp = new List<double>();
+        int Intervallhelp = new int();
+        List<double> ExcelPulseListhelp = new List<double>();
 
         public void ExcelFunkFHK(List<double> templistFHK)
         {
@@ -64,15 +68,36 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             ExcelMeanListSHKhelp = templistSHK;
         }
 
-
+        public void ExcelFunkIntervall(int tempIntervall)
+        {
+            Intervallhelp = tempIntervall;
+        }
+        public void ExcelPulseFunk(List<double> tempPulseList)
+        {
+            ExcelPulseListhelp = tempPulseList;
+        }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mWindow = new MainWindow();
             double[] MeanAngleFHK = mWindow.meanArray_FHK;
 
-            List <double> ExcelMeanListFHK = ExcelMeanListFHKhelp;
+            int Intervall = 666;
+
+
+            string time = DateTime.Now.ToString(@"MM\/dd\/yyyy HH:mm tt");
+            string Namn = NameInput.Text;
+            string Comments = CommentsInput.Text;
+
+
+
+            testArray.Text = Convert.ToString(Intervall);
+
+            List<double> ExcelMeanListFHK = ExcelMeanListFHKhelp;
             List<double> ExcelMeanListSHK = ExcelMeanListSHKhelp;
+            List<double> ExcelPulseList = ExcelPulseListhelp;
+
+            int ExcelIntervall = Intervallhelp;
 
             Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
             app.Visible = true;
@@ -82,35 +107,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             Excel.Range aRange;
             DateTime currentDate = DateTime.Now;
 
+        
             // Set the range to fill.
             aRange = ws.get_Range("A1", "M100");
 
-
-            for (int i = 1; i < ExcelMeanListFHK.Count; i++)
-            {
-                ws.Range["A0" + (i + 2)].Value = "'" + (i * 10) + "-" + (i + 1) * 10;
-
-               // if (HB10sec != null)
-            //    {
-                   // ws.Range["B0" + (i + 2)].Value = HB10sec[i - 1];
-           //     }
-           
-
-                if (ExcelMeanListFHK != null)
-                 {
-                   ws.Range["C0" + (i + 2)].Value = ExcelMeanListFHK[i - 1];
-                 }
-            
-                if (ExcelMeanListSHK != null)
-            {
-                    ws.Range["D0" + (i + 2)].Value = ExcelMeanListSHK[i - 1];
-                }
-            }
-
-            string time = DateTime.Now.ToString(@"MM\/dd\/yyyy HH:mm tt");
-            string Namn = NameInput.Text;
-            string Comments = CommentsInput.Text;
-
+            ws.Range["A3"].Value = "'" + 0 + "-" + (Intervall);
             ws.Range["E1"].Value = "Namn: " + Namn;
             ws.Range["F1"].Value = "Comments: " + Comments;
             ws.Range["G1"].Value = "Date and Time: " + time;
@@ -118,6 +119,53 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             ws.Range["B2"].Value = "HeartBeat";
             ws.Range["C2"].Value = "Angle Hip";
             ws.Range["D2"].Value = "Angle Knee";
+
+            if (ExcelIntervall == 0)
+            {
+                Intervall = 10;
+            }
+            if (ExcelIntervall == 1)
+            {
+                Intervall = 20;
+            }
+            if (ExcelIntervall == 2)
+            {
+                Intervall = 60;
+            }
+            if (ExcelIntervall == 3)
+            {
+                Intervall = 2;
+            }
+
+            
+
+
+
+            // for (int i = 1; i < ExcelMeanListFHK.Count; i++)
+
+            for (int i = 1; i < ExcelMeanListSHK.Count; i++) 
+            {
+
+                ws.Range["A0" + (i + 3)].Value = "'" + (i * Intervall) + "-" + (i + 1) * Intervall;
+
+                 if (ExcelPulseList != null)
+                    {
+                    ws.Range["B0" + (i + 2)].Value = ((ExcelPulseList.Skip(i * Intervall).Take(Intervall).Sum())/Intervall); 
+                    }
+
+
+                if (ExcelMeanListFHK != null)
+                {
+                    ws.Range["C0" + (i + 2)].Value = ExcelMeanListFHK[i];
+                }
+
+                if (ExcelMeanListSHK != null)
+                {
+                    ws.Range["D0" + (i + 2)].Value = ExcelMeanListSHK[i];
+                }
+            }
+
+
 
             aRange.Columns.AutoFit();
             aRange.EntireColumn.AutoFit();
@@ -133,7 +181,5 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             this.Close();
         }
-
-    
     }
 }
