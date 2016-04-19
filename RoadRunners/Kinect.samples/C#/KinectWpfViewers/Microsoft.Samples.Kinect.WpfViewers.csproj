@@ -33,8 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ExcelLibrary">
+      <HintPath>..\..\..\..\..\..\..\Documents\Kandidatprojekt - datafiler\ExcelLibrary_20110730\ExcelLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Kinect">
       <HintPath>$(KINECTSDK10_DIR)\Assemblies\Microsoft.Kinect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Samples.Kinect.WpfViewers">
+      <HintPath>..\..\..\..\..\..\..\Documents\Kandidatprojekt - datafiler\Easy Kinect Mouse Controller for Windows\C#\KinectCursorController\bin\Debug\Microsoft.Samples.Kinect.WpfViewers.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

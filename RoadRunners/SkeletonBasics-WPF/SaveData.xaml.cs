@@ -125,6 +125,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == true)
                 wb.SaveAs(saveFileDialog.FileName);
+            this.Close();
+           
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)

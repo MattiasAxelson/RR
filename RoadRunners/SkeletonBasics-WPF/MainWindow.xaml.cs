@@ -243,7 +243,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                             this.DrawBonesAndJoints(skel, dc);
                             //Console.WriteLine("Innan calcvelocity");
                             this.CalculateVelocity(skel, dc);
-                            this.CalculateAngles(skel, dc);
+                            //this.CalculateAngles(skel, dc);
                             Console.WriteLine("HEJ");
                         }
                         else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
@@ -975,7 +975,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 try
                 {
 
-                String line = File.ReadLines(@"C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt").Last();
+                String line = File.ReadLines(@"C:\Users\ThereseA\Source\Repos\RR\RoadRunners\pulsdata2.txt").Last();
                 pulstest.Text = line;
   
             }
@@ -992,6 +992,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
            // SaveData win2 = new SaveData();
             saveData.Show();
+            
   
     }
     }
