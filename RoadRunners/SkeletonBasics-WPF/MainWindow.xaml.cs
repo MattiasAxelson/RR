@@ -995,7 +995,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (comboBox.SelectedIndex == 0)
             {
                 k = 5;
-    }
+            }
+        }
+         
 
         public void plotAngles()
         {
@@ -1007,7 +1009,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 updateMatlab = updateMatlab + 60;
             }
       
-        }
             if (comboBox.SelectedIndex == 1)
             {
                 k = 10;
