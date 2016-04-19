@@ -80,7 +80,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mWindow = new MainWindow();
-            double[] MeanAngleFHK = mWindow.meanArray_FHK;
+           // double[] MeanAngleFHK = mWindow.meanArray_FHK;
 
             int Intervall = 666;
 
