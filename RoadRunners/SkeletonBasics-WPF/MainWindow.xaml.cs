@@ -555,7 +555,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // Beräknar vinklar beroende på checkboxar
         public void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
         {
-            plotAngles();
+           // plotAngles();
 
             // Definerar jointar
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
@@ -944,7 +944,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             CompositionTargetRendering();
             plotAnglesThread = new Thread(() => printMatLab(tidsLista, minimumlista_FHK, minimumlista_SHK));
             plotAnglesThread.Start();
-
+            readPulseData();
            //  printMatLab(tidsLista, vinklar_FHK, vinklar_SHK);               
         }
         
@@ -970,7 +970,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 catch (Exception e)
                 {
-                 //   Console.WriteLine("Error: " + e.Message);
+                    Console.WriteLine("Error: " + e.Message);
 
                 }
                 
@@ -981,7 +981,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
            // SaveData win2 = new SaveData();
             saveData.Show();
   
-    }
+        }
 
         public void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -995,19 +995,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (comboBox.SelectedIndex == 0)
             {
                 k = 5;
-    }
-
-        public void plotAngles()
-        {
-            if (vinklar_SHK.Count() > updateMatlab || vinklar_FHK.Count() > updateMatlab)
-            {
-                CompositionTargetRendering();
-                plotAnglesThread = new Thread(() => printMatLab(tidsLista, vinklar_FHK, vinklar_SHK));
-                plotAnglesThread.Start();
-                updateMatlab = updateMatlab + 60;
             }
-      
-        }
             if (comboBox.SelectedIndex == 1)
             {
                 k = 10;
@@ -1020,6 +1008,18 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 k = 2;
             }
+        }
+
+        public void plotAngles()
+        {
+            if (vinklar_SHK.Count() > updateMatlab || vinklar_FHK.Count() > updateMatlab)
+            {
+                CompositionTargetRendering();
+                plotAnglesThread = new Thread(() => printMatLab(tidsLista, vinklar_FHK, vinklar_SHK));
+                plotAnglesThread.Start();
+                updateMatlab = updateMatlab + 60;
+            }
+
         }
 
 
