@@ -246,10 +246,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         if (skel.TrackingState == SkeletonTrackingState.Tracked)
                         {
                             this.DrawBonesAndJoints(skel, dc);
-                            //Console.WriteLine("Innan calcvelocity");
                             this.CalculateVelocity(skel, dc);
-                            this.CalculateAngles(skel, dc);
-                            Console.WriteLine("HEJ");
+                            //this.CalculateAngles(skel, dc);
                         }
                         else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
                         {
@@ -366,25 +364,22 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         /// 
 
-        //------------------------------- Hastighetsberäkning -----------------------------------// 
+
+        //------------------------------- Hastighetsberäkning -----------------------------------//
+
         // Variabler för hastighet
-        double stepTime = 0;
-        double sumStep = 0;
+        double deltaT = 0;
+        double deltaX = 0;
         double stepVelocity = 0;
-        double meanVelocity = 0;
-        double meanHelpVelocity = 0;
 
         // Listor för hastighet
         List<double> velXList = new List<double>();
-        List<double> velTList = new List<double>();
         List<double> velHelpList = new List<double>();
         List<double> velocityList = new List<double>();
+        List<double> velocityListSave = new List<double>();
 
-        int count1 = 0;
-
-        // Beräkna hastigheten 
-        // Håll listan till 600 värden
-        // När jag hittar vändpunkt så tömmer jag listan 
+        // Beräknar hastigheten genom att ta skillnaden mellan fyra på varandra följande värden och dividerar sedan
+        // det med tidsskillnaden. Hastigheten = deltaX / deltaT.
         private void CalculateVelocity(Skeleton skeleton, DrawingContext drawingContext)
         {
             //Koordinater för fot
@@ -393,89 +388,46 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             float YFootleft;
             XFootleft = footLeft.Position.X;
             YFootleft = footLeft.Position.Y;
-
-            ++count1;
-            if (count1 == 600)
-            {
-                count1 = 0;
-            }
+            velXList.Add(XFootleft);
 
             //Lägger till x-koordinater i listan
-            if (velXList.Count > 10)
+            if (velXList.Count > 30)
             {
-                velXList.Add(XFootleft);
-
-                if (velXList.Count < 399)
-                {
-
-                    // Kollar om ett värde är en topp genom att jämföra ett värden före sig och ett värde efter sig
-                    if (((velXList[velXList.Count - 5] < ((velXList[velXList.Count - 4] + velXList[velXList.Count - 3] + velXList[velXList.Count - 2] + velXList[velXList.Count - 1]) / 4))
-                        &&
-                        (velXList[velXList.Count - 5] < ((velXList[velXList.Count - 6] + velXList[velXList.Count - 7] + velXList[velXList.Count - 8] + velXList[velXList.Count - 9]) / 4)))
-                        ||
-                       ((velXList[velXList.Count - 5] > ((velXList[velXList.Count - 4] + velXList[velXList.Count - 3] + velXList[velXList.Count - 2] + velXList[velXList.Count - 1]) / 4))
-                        &&
-                        (velXList[velXList.Count - 5] > ((velXList[velXList.Count - 6] + velXList[velXList.Count - 7] + velXList[velXList.Count - 8] + velXList[velXList.Count - 9]) / 4))))
-                    {
-                        //Counterräknare
-                        countertext.Text = Convert.ToString(count1);
-
-                        velHelpList.Add(velXList[velXList.Count - 5]);
-
-                        //Vilken x-koordinat som sparas
-                        initX.Text = Convert.ToString(velXList[velXList.Count - 5]);
-
-                        velhelptext.Text = Convert.ToString(velHelpList.Count);
-
-                        //Beräknar delta-x
-                        sumStep = sumStep + Math.Abs(Math.Abs(velXList[velXList.Count - 5]) - Math.Abs(velXList[velXList.Count - 6]));
-
-                        // Delta-tid
-                        stepTime = velHelpList.Count / 30;
-
-                        steptimetext.Text = Convert.ToString(stepTime);
-
-                        // Steghastighet
-                        stepVelocity = sumStep / stepTime;
-
-                        // Hastighetslista
-                        velocityList.Add(stepVelocity);
-                        hastighetslista.Text = Convert.ToString(velocityList.Count);
-                        meanHelpVelocity = meanHelpVelocity + stepVelocity;
-                        meanVelocity = velocityList.Count / meanHelpVelocity;
-
-                        // Skriver ut hastigheten i fönstret
-                        velocityText.Text = Convert.ToString(meanVelocity);
-
-                        // Rensar listorna
-                        //velXList.Clear();
-                        velHelpList.Clear();
-                    }
-                    else
-                    {
-                        // Lägger till värdet i en lista för att senare kunna räkna ut tiden
-                        // Samt summerar längden av varje delta-x
-                        velHelpList.Add(velXList.Count - 5);
-                        sumStep = sumStep + Math.Abs(Math.Abs(velXList[velXList.Count - 5]) - Math.Abs(velXList[velXList.Count - 6]));
-                    }
-                }
-                else
-                {
-                    // Tar bort första sista talet i velXlist, samt adderar en ny x-koordinat
-                    velXList.RemoveAt(0);
-                }
-            }
-            else
-            {
-                velXListtext.Text = Convert.ToString(velXList.Count);
-                velXList.Add(XFootleft);
+                // Räknar ut avståndsskillnaden mellan 4 sampelvärden
+                deltaX = Math.Abs(velXList[velXList.Count - 1]) - Math.Abs(velXList[velXList.Count - 4]);
+                deltaX = Math.Abs(deltaX);
+                velhelptext.Text = Convert.ToString(deltaX);
             }
 
-            if (velocityList.Count > 100)
+            // Skillnaden i tid mellan sampelvärdena
+            deltaT = 0.1;
+            stepVelocity = deltaX / deltaT;
+            velocityText.Text = Convert.ToString(stepVelocity);
+            velocityList.Add(stepVelocity);
+            countertext.Text = Convert.ToString(velocityList.Count);
+
+            if (velocityList.Count == 15)
             {
-                velocityList.RemoveAt(0);
+                double maxValue = velocityList.Max();
+                velHelpList.Add(maxValue);
+                velocityList.Clear();
             }
+
+            if (velHelpList.Count == 8)
+            {
+                double maxValueHelp = velHelpList.Average();
+                initX.Text = Convert.ToString(Math.Floor(maxValueHelp * 3.6));
+                velocityListSave.Add(maxValueHelp);
+                velHelpList.Clear();
+            }
+
+            if (velXList.Count > 600)
+            {
+                velXList.RemoveAt(0);
+            }
+            saveData.ExcelVelocityFunk(velocityListSave);
         }
+
 
 
 
@@ -583,11 +535,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             YShoulderleft = shoulderLeft.Position.Y;
 
             //-------Endast för kontroll om den anropas------//
-            ++count1;
-            if (count1 == 600)
-            {
-                count1 = 0;
-            }
+            //++count1;
+            //if (count1 == 600)
+            //{
+            //    count1 = 0;
+            //}
             //-----------------------------------------------// 
 
             // Om båda checkboxarna är ifyllda så slängs ett felmeddelande och boxarna töms

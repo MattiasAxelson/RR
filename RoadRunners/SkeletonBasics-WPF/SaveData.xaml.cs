@@ -58,6 +58,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         List<double> ExcelMeanListSHKhelp = new List<double>();
         int Intervallhelp = new int();
         List<double> ExcelPulseListhelp = new List<double>();
+        List<double> ExcelVelocityListHelp = new List<double>();
 
         public void ExcelFunkFHK(List<double> templistFHK)
         {
@@ -75,6 +76,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public void ExcelPulseFunk(List<double> tempPulseList)
         {
             ExcelPulseListhelp = tempPulseList;
+        }
+
+        public void ExcelVelocityFunk(List<double> tempVelocityList)
+        {
+            ExcelVelocityListHelp = tempVelocityList;
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -96,6 +102,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             List<double> ExcelMeanListFHK = ExcelMeanListFHKhelp;
             List<double> ExcelMeanListSHK = ExcelMeanListSHKhelp;
             List<double> ExcelPulseList = ExcelPulseListhelp;
+            List<double> ExcelVelocityList = ExcelVelocityListHelp; 
 
             int ExcelIntervall = Intervallhelp;
 
@@ -112,13 +119,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             aRange = ws.get_Range("A1", "M100");
 
             ws.Range["A3"].Value = "'" + 0 + "-" + (Intervall);
-            ws.Range["E1"].Value = "Namn: " + Namn;
-            ws.Range["F1"].Value = "Comments: " + Comments;
-            ws.Range["G1"].Value = "Date and Time: " + time;
+            ws.Range["F1"].Value = "Namn: " + Namn;
+            ws.Range["G1"].Value = "Comments: " + Comments;
+            ws.Range["H1"].Value = "Date and Time: " + time;
             ws.Range["A2"].Value = "Intervall [sec]";
             ws.Range["B2"].Value = "HeartBeat";
             ws.Range["C2"].Value = "Angle Hip";
             ws.Range["D2"].Value = "Angle Knee";
+            ws.Range["E2"].Value = "Velocity";
 
             if (ExcelIntervall == 0)
             {
@@ -162,6 +170,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 if (ExcelMeanListSHK != null)
                 {
                     ws.Range["D0" + (i + 2)].Value = ExcelMeanListSHK[i];
+                }
+
+                if (ExcelVelocityListHelp != null)
+                {
+                    ws.Range["E0" + (i + 2)].Value = ExcelVelocityListHelp[i];
                 }
             }
 
