@@ -73,7 +73,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <summary>
         /// Pen used for drawing bones that are currently tracked
         /// </summary>
-        private readonly Pen trackedBonePen = new Pen(Brushes.Green, 6);
+        private readonly Pen trackedBonePen = new Pen(Brushes.Red, 6);
 
         /// <summary>
         /// Pen used for drawing bones that are currently inferred
