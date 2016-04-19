@@ -38,5 +38,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
 
         }
+
+        private void AngleDone_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

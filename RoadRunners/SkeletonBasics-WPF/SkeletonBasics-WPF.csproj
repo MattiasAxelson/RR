@@ -179,6 +179,8 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\back.png" />
+    <Resource Include="Images\RoadRunners.png" />
     <Content Include="myfunc.m" />
     <Resource Include="Vinkelgraf.png" />
   </ItemGroup>

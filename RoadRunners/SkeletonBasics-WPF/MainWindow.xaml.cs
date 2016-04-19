@@ -186,14 +186,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void quitbutton_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.MainWindow.Close();
+            Application.Current.Shutdown();
         }
 
         private void restartbutton_Click(object sender, RoutedEventArgs e)
         {
-            
-            //this.sensor.Stop();
-            //this.sensor.Start();
+
+//
         }
 
         /// <summary>
