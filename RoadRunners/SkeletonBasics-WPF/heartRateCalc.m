@@ -32,7 +32,7 @@ function [x] = heartRateCalc(comPort, captureDuration, fileName)
 % to the JAVA dynamic class path:
 %
 % javaclasspath('C:\Program Files\MATLAB\R2013b\java\jar\ShimmerBiophysicalProcessingLibrary_Rev_X_Y.jar')
- javaclasspath('C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\ShimmerBiophysicalProcessingLibrary_Rev_0_10.jar')
+ javaclasspath('C:\Users\Per\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\ShimmerBiophysicalProcessingLibrary_Rev_0_10.jar')
 %
 % NOTE: In this example the ECG data is pre-filtered using a second order
 % Chebyshev HPF with corner freq 0.5Hz by using FilterClass.m
@@ -117,7 +117,7 @@ if (shimmer.connect)                                                       % TRU
                
         h.figure1=figure('Name','Shimmer ECG and Heart Rate signals');     % create a handle to figure for plotting data from shimmer
       
-       % set(h, 'visible', 'off')
+         % set(gcf, 'visible', 'off')
         
         elapsedTime = 0;                                                   % reset to 0    
         tic;                                                               % start timer

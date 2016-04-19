@@ -944,7 +944,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             CompositionTargetRendering();
             plotAnglesThread = new Thread(() => printMatLab(tidsLista, minimumlista_FHK, minimumlista_SHK));
             plotAnglesThread.Start();
-            readPulseData();
+
            //  printMatLab(tidsLista, vinklar_FHK, vinklar_SHK);               
         }
         
@@ -959,7 +959,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
                 try
                 {
-                String line = File.ReadLines(@"C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt").Last();
+                var currentpath = Path.Combine(Directory.GetCurrentDirectory());
+                String line = File.ReadLines(currentpath + @"\..\..\pulsdata1.txt").Last();
                 double pulsTodec = Double.Parse(line, NumberStyles.Float,CultureInfo.InvariantCulture);
 
                 pulseList.Add(Math.Ceiling(pulsTodec));
@@ -970,10 +971,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 catch (Exception e)
                 {
-                    Console.WriteLine("Error: " + e.Message);
+                   Console.WriteLine("Error: " + e.Message);
 
                 }
                 
+            saveData.ExcelPulseFunk(pulseList);
+
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -981,7 +984,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
            // SaveData win2 = new SaveData();
             saveData.Show();
   
-        }
+    }
 
         public void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -995,7 +998,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (comboBox.SelectedIndex == 0)
             {
                 k = 5;
-            }
+    }
             if (comboBox.SelectedIndex == 1)
             {
                 k = 10;
@@ -1023,6 +1026,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
 
+
+
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             // ... A List.
@@ -1041,11 +1046,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             // ... Make the first item selected.
             comboBox.SelectedIndex = 0;
 
-       
+       }
 
         }
 
 
     }
 
-    }
+    
