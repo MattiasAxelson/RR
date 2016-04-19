@@ -598,6 +598,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 FHKbox.IsChecked = false;
             }
             */
+
             // Kollar om checkbox är ifylld
             if ((bool)SHKbox.IsChecked)
             {
@@ -611,9 +612,18 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 double SHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(HipShoulder_Length, 2)
                     - Math.Pow(KneeShoulder_Length, 2)) / (2 * HipKnee_Length * HipShoulder_Length))) * (180 / Math.PI));
 
-                vinklar_SHK.Add(SHK_angle);
-                minimumlistahelp_SHK.Add(SHK_angle);
 
+                if (Double.IsNaN(SHK_angle))
+                {
+                    minimumlistahelp_SHK.Add(34);
+                    vinklar_SHK.Add(32);
+
+                }
+                else
+                {
+                    vinklar_SHK.Add(SHK_angle);
+                    minimumlistahelp_SHK.Add(SHK_angle);
+                }
                 contAngle_SHK.Text = Convert.ToString(k);
 
 
@@ -644,12 +654,23 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 vinklar_FHK.Add(FHK_angle);
                 minimumlistahelp_FHK.Add(FHK_angle);
-                /*     if (meanArray_FHK != null)
+
+              /*  if (Double.IsNaN(minimumlista_FHK.Last()))
                 {
-                         contAngle_FHK.Text = Convert.ToString(i);
+                    minimumlistahelp_FHK.Add(0);
+                    smallestAngle_FHK.Text = Convert.ToString("KEBABNISSE");
+
+                }*/
+
+
+                if (Double.IsNaN(FHK_angle))
+                {
+                    minimumlistahelp_FHK.Clear();
+
                 }
-                     */
-                contAngle_FHK.Text = Convert.ToString(i);
+                contAngle_FHK.Text = Convert.ToString(minimumlista_FHK.Count());
+                //contAngle_FHK.Text = Convert.ToString("Jävel");
+               // contAngle_FHK.Text = Convert.ToString(i);
 
                 if (FHK_angle < 90)
                 {
@@ -668,7 +689,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
               // KOLLA PÅ TIDSLISTA, beror bara på fhk nu :)
             
             // tar ut lägsta vinkel
-            if (tidsLista.Count > 60)
+            if (minimumlista_FHK.Count > 60)
             {
                 //Knävinkel
                 lagsta_varde_FHK = minimumlistahelp_FHK.Min();
@@ -685,8 +706,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 meanAngleFunc(meanList_FHK);
                 meanAngleFunc(meanList_SHK);
                 ++i;
-
-          
 
                 readPulseData();
 
