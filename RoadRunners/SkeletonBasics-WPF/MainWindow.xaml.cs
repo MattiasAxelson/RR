@@ -1091,7 +1091,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
             if (comboBox.SelectedIndex == 3)
             {
-                k = 2;
+                k = 1;
             }
         }
 
@@ -1130,9 +1130,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private int counter; 
         private void startLoggingButton_Click(object sender, EventArgs e)
         {
-            //meanList_SHK.Clear();
-            //meanList_FHK.Clear();
-            //pulseList.Clear();
+            meanList_SHK.Clear();
+            meanList_FHK.Clear();
+            pulseList.Clear();
 
             if (comboBox1.SelectedIndex == 0)
             {

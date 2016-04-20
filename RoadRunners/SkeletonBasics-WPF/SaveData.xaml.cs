@@ -138,8 +138,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             ws.Range["H1"].Value = "Date and Time: " + time;
             ws.Range["A2"].Value = "Intervall [sec]";
             ws.Range["B2"].Value = "HeartBeat";
-            ws.Range["C2"].Value = "Angle Hip";
-            ws.Range["D2"].Value = "Angle Knee";
+            ws.Range["C2"].Value = "Angle Knee";
+            ws.Range["D2"].Value = "Angle Hip"; 
             ws.Range["E2"].Value = "Velocity";
 
             if (ExcelIntervall == 0)
@@ -183,7 +183,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
 
 
-            int duration = ((testLength / Intervall) + 1);
+            int duration = (testLength / Intervall);
 
 
 
@@ -202,24 +202,24 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 if (ExcelPulseList != null)
                 {
-                   // ws.Range["B0" + (i + 2)].Value = ((ExcelPulseList.Skip(i * Intervall).Take(Intervall).Sum())/Intervall); 
+                    ws.Range["B0" + (i + 3)].Value = ((ExcelPulseList.Skip(i * Intervall).Take(Intervall).Sum())/Intervall); 
                 }
 
                 if (ExcelMeanListFHK != null && ExcelMeanListFHK[i] >= 0 && ExcelMeanListFHK[i] < 200)
                 {
-                    ws.Range["C0" + (i + 2)].Value = ExcelMeanListFHK[i];
+                    ws.Range["C0" + (i + 3)].Value = ExcelMeanListFHK[i];
                 }
                 else
                 {
-                    ws.Range["C0" + (i + 2)].Value = "ERROR";
+                    ws.Range["C0" + (i + 3)].Value = "ERROR";
                 }
                  if (ExcelMeanListSHK != null && ExcelMeanListSHK[i] > 0 && ExcelMeanListSHK[i] < 200)
                 {
-                    ws.Range["D0" + (i + 2)].Value = ExcelMeanListSHK[i];
+                    ws.Range["D0" + (i + 3)].Value = ExcelMeanListSHK[i];
                 }
                 else
                 {
-                    ws.Range["D0" + (i + 2)].Value = "ERROR";
+                    ws.Range["D0" + (i + 3)].Value = "ERROR";
                 }
                 /* 
                  if (ExcelVelocityListHelp != null)
