@@ -834,6 +834,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
 
+
+
         // Skickar allting till matlab och plottas sedan
        public void printMatLab1(string funktionsnamn, string comport, int durationtime, string fileName)
         {
