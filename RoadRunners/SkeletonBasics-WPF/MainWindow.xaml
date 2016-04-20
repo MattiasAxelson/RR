@@ -156,6 +156,10 @@
         <TextBlock x:Name="pulseLabel" HorizontalAlignment="Left" Margin="179,61,0,0" TextWrapping="Wrap" Text="Puls" VerticalAlignment="Top" Height="31" Width="74" FontSize="20" FontWeight="Medium" Foreground="WhiteSmoke" />
         <TextBlock x:Name="kneeAngleLabel" HorizontalAlignment="Left" Margin="179,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="WhiteSmoke"><Run Text="Knävinkel"/><LineBreak/></TextBlock>
         <TextBlock x:Name="hipeAngleLabel" HorizontalAlignment="Left" Margin="179,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="WhiteSmoke"><Run Text="Höftvinkel"/><LineBreak/></TextBlock>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="382,218,0,0" VerticalAlignment="Top" Width="120" Text/>
+        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="237,218,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBlock x:Name="timer" HorizontalAlignment="Left" Margin="179,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="WhiteSmoke"><Run Text="Timer"/><LineBreak/></TextBlock>
+        <TextBlock x:Name="timerContent" HorizontalAlignment="Left" Margin="284,160,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Foreground="WhiteSmoke" FontSize="20" FontWeight="Medium"/>
 
     </Grid>
 </Window>

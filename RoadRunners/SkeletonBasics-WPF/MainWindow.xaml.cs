@@ -1158,7 +1158,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             timer1.Tick += new EventHandler(timer1_Tick);
             timer1.Interval = 1000; // 1 second
             timer1.Start();
-            timeBlock.Text = counter.ToString();
+            timerContent.Text = counter.ToString();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -1166,7 +1166,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             counter--;
             if (counter == 0)
                 timer1.Stop();
-            timeBlock.Text = counter.ToString();
+            timerContent.Text = counter.ToString();
         }
 
 
