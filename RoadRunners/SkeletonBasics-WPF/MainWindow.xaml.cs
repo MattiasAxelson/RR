@@ -638,7 +638,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 minimumlistahelp_SHK.Add(SHK_angle);
                 }
 
-               // contAngle_SHK.Text = Convert.ToString(k);
+                contAngle_SHK.Text = Convert.ToString(i);
+              //  contAngle_SHK.Text = Convert.ToString();
                 sampleToTime_SHK = vinklar_SHK.Count;
 
                 if (SHK_angle < 140)
@@ -681,7 +682,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 minimumlistahelp_FHK.Add(FHK_angle);
                 }
 
-                //contAngle_FHK.Text = Convert.ToString(i);
+                contAngle_FHK.Text = Convert.ToString(meanList_FHK.Count);
                 sampleToTime_FHK = vinklar_FHK.Count;
 
                 if (FHK_angle < 90)
@@ -1124,7 +1125,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             comboBox.SelectedIndex = 0;
 
        }
-
+        
         private System.Windows.Forms.Timer timer1;
         private int counter; 
         private void startLoggingButton_Click(object sender, EventArgs e)

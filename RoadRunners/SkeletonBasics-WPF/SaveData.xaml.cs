@@ -195,7 +195,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             ws.Range["F4"].Value = testLength;
             ws.Range["F5"].Value = Intervall;
 
-            for (int i = 1; i < duration; i++) 
+            for (int i = 0; i < duration; i++) 
             {
 
                 ws.Range["A0" + (i + 3)].Value = "'" + (i * Intervall) + "-" + (i + 1) * Intervall;
@@ -205,7 +205,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                    // ws.Range["B0" + (i + 2)].Value = ((ExcelPulseList.Skip(i * Intervall).Take(Intervall).Sum())/Intervall); 
                 }
 
-                if (ExcelMeanListFHK != null && ExcelMeanListFHK[i] > 0 && ExcelMeanListFHK[i] < 200)
+                if (ExcelMeanListFHK != null && ExcelMeanListFHK[i] >= 0 && ExcelMeanListFHK[i] < 200)
                 {
                     ws.Range["C0" + (i + 2)].Value = ExcelMeanListFHK[i];
                 }
