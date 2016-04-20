@@ -12,6 +12,7 @@ title('SuperGrafen');
 xlabel('Tid');
 ylabel('Vinkel');
 legend('Vinklar FHK', 'Vinklar SHK', 'location', 'southwest');
+%xlim([a(end - 10) a(end)]);
 
 saveas(h, 'Vinkelgraf.jpeg')
 close(h);

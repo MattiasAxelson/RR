@@ -1062,10 +1062,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void display_angle_Click(object sender, RoutedEventArgs e)
         {
-            CompositionTargetRendering();
-            plotAnglesThread = new Thread(() => printMatLab(tidsLista, minimumlista_FHK, minimumlista_SHK));
-            plotAnglesThread.Start();
-
+              CompositionTargetRendering();
+              plotAnglesThread = new Thread(() => printMatLab(tidsLista, minimumlista_FHK, minimumlista_SHK));
+              plotAnglesThread.Start();
+         //   plotAngles();
            //  printMatLab(tidsLista, vinklar_FHK, vinklar_SHK);               
         }
         
