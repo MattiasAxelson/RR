@@ -180,7 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\back.png" />
-    <Resource Include="Images\RoadRunners.png" />
+    <Resource Include="Images\RoadRunners4.png" />
     <Content Include="myfunc.m" />
     <Resource Include="Vinkelgraf.png" />
   </ItemGroup>
