@@ -448,7 +448,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                     velXList.RemoveAt(0);
                 }
-            //saveData.ExcelVelocityFunk(velocityListSave);
+            saveData.ExcelVelocityFunk(velocityListSave);
             }
 
 

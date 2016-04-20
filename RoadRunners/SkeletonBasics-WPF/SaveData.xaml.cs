@@ -221,11 +221,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
                     ws.Range["D0" + (i + 3)].Value = "ERROR";
                 }
-                /* 
-                 if (ExcelVelocityListHelp != null)
+                
+                 if (ExcelVelocityList != null)
                  {
-                     ws.Range["E0" + (i + 2)].Value = ExcelVelocityListHelp[i];
-                 }*/
+                     ws.Range["E0" + (i + 3)].Value = ExcelVelocityList[i];
+                 }
             }
 
 
