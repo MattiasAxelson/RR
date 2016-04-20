@@ -397,12 +397,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         double deltaT = 0;
         double deltaX = 0;
         double stepVelocity = 0;
+        double meanVelocity = 0;
 
         // Listor för hastighet
         List<double> velXList = new List<double>();
         List<double> velHelpList = new List<double>();
         List<double> velocityList = new List<double>();
         List<double> velocityListSave = new List<double>();
+        List<double> velocityListDatabase = new List<double>();
 
         // Beräknar hastigheten genom att ta skillnaden mellan fyra på varandra följande värden och dividerar sedan
         // det med tidsskillnaden. Hastigheten = deltaX / deltaT.
@@ -436,19 +438,24 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 velocityList.Clear();
             }
 
-            if (velHelpList.Count == 8)
-                    {
+            if (velHelpList.Count == 4)
+            {
                 double maxValueHelp = velHelpList.Average();
                 initVel.Text = Convert.ToString(Math.Floor(maxValueHelp * 3.6)) + " km/h"; //Här ska det läggas till round
                 velocityListSave.Add(maxValueHelp);
-                        velHelpList.Clear();
-                    }
+                velHelpList.Clear();
+             }
+
+          
+  
+                
+            
 
             if (velXList.Count > 600)
             {
                     velXList.RemoveAt(0);
                 }
-            saveData.ExcelVelocityFunk(velocityListSave);
+            saveData.ExcelVelocityFunk(velocityListDatabase);
             }
 
 
@@ -486,7 +493,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private List<double> TEST = new List<double>();
 
-        public List<List<double>> meanAngleFunchelp(List<double> minList1, List<double> minList2)
+        public void meanAngleFunchelp(List<double> minList1, List<double> minList2)
         {
 
         
@@ -506,15 +513,18 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 i = 0;
             }
-
-            List<List<double>> output2 = new List<List<double>>();
-            output2.Add(meanList_FHK);
-            output2.Add(meanList_SHK);
+// VAFAN KOLLA DET HÄR DFSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+            if (i == k)
+            {
+                meanVelocity = velocityListSave.Average();
+                velocityListDatabase.Add(meanVelocity * 3.6);
+                velocityListSave.Clear();
+            }
 
             saveData.ExcelFunkFHK(meanList_FHK);
             saveData.ExcelFunkSHK(meanList_SHK);
 
-            return output2;
+            
         }
 
         public List<List<double>> meanAngleFunchelpOnebox(List<double> minList1)
@@ -697,13 +707,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
 
             // Lägger till i tidslista beroende på vilken box som är vald
+            
 
             if (((bool)FHKbox.IsChecked) && (bool)SHKbox.IsChecked)
             {
                 tidsLista.Add(sampleToTime_FHK / 30);
-            
-                if (minimumlistahelp_FHK.Count > 60)
-            {
+               
+                if (counter2 == 2)
+               {
                 //Knävinkel
                 lagsta_varde_FHK = minimumlistahelp_FHK.Min();
                 minimumlista_FHK.Add(lagsta_varde_FHK);
@@ -718,10 +729,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 meanAngleFunc(meanList_FHK);
                 meanAngleFunc(meanList_SHK);
-                ++i;
-
+                    counter2 = 0;
+                    i++;
                 readPulseData();
                 }
+                
                 else
                 {
                     minimumlista_FHK.Add(lagsta_varde_FHK);
@@ -729,7 +741,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
             }
             
-             if ((bool)FHKbox.IsChecked)
+          /*   if ((bool)FHKbox.IsChecked)
             {
                 tidsLista.Add(sampleToTime_FHK / 30);
 
@@ -777,7 +789,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 minimumlista_SHK.Add(lagsta_varde_SHK);
             }
-        }
+        }*/
         }
 
 
@@ -1127,16 +1139,21 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
        }
         
         private System.Windows.Forms.Timer timer1;
-        private int counter; 
+        private System.Windows.Forms.Timer timer2;
+        private int counter;
+        public int counter2 = 0;
+
+
         private void startLoggingButton_Click(object sender, EventArgs e)
         {
             meanList_SHK.Clear();
             meanList_FHK.Clear();
+            velocityListDatabase.Clear();
             pulseList.Clear();
 
             if (comboBox1.SelectedIndex == 0)
             {
-                counter = 10;
+                counter = 10;  
             }
             if (comboBox1.SelectedIndex == 1)
             {
@@ -1154,20 +1171,42 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 counter = 600;
             }
-          
+
+            timer2 = new System.Windows.Forms.Timer();
+            timer2.Tick += new EventHandler(timer2_Tick);
+            timer2.Interval = 1000; // 1 second
+            timerContent2.Text = counter2.ToString();
+            timer2.Start();
+            counter2 = 0;
+
+
             timer1 = new System.Windows.Forms.Timer();
             timer1.Tick += new EventHandler(timer1_Tick);
             timer1.Interval = 1000; // 1 second
             timer1.Start();
             timerContent.Text = counter.ToString();
+
+           
+
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             counter--;
             if (counter == 0)
+            {
                 timer1.Stop();
+            }
             timerContent.Text = counter.ToString();
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+          
+            counter2++;
+              // timer2.Stop();
+            timerContent2.Text = counter2.ToString();
         }
 
 
@@ -1206,6 +1245,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         
         }
+
+
     }
 
 

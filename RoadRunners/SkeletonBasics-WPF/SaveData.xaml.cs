@@ -207,7 +207,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 if (ExcelMeanListFHK != null && ExcelMeanListFHK[i] >= 0 && ExcelMeanListFHK[i] < 200)
                 {
-                    ws.Range["C0" + (i + 3)].Value = ExcelMeanListFHK[i];
+                    ws.Range["C0" + (i + 3)].Value = Math.Ceiling(ExcelMeanListFHK[i]);
                 }
                 else
                 {
@@ -215,7 +215,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
                  if (ExcelMeanListSHK != null && ExcelMeanListSHK[i] > 0 && ExcelMeanListSHK[i] < 200)
                 {
-                    ws.Range["D0" + (i + 3)].Value = ExcelMeanListSHK[i];
+                    ws.Range["D0" + (i + 3)].Value = Math.Ceiling(ExcelMeanListSHK[i]);
                 }
                 else
                 {
@@ -224,7 +224,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 
                  if (ExcelVelocityList != null)
                  {
-                     ws.Range["E0" + (i + 3)].Value = ExcelVelocityList[i];
+                    ws.Range["E0" + (i + 3)].Value = ExcelVelocityList[i];
+
                  }
             }
 
