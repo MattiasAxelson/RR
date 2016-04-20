@@ -8,8 +8,6 @@
     Title="Skeleton Basics" Height="682.921" Width="1288.921" Loaded="WindowLoaded" Closing="WindowClosing" WindowState="Maximized">
 
 
-
-
     <Grid x:Name="layoutGrid" Margin="10 0 10 0">
         <Grid.OpacityMask>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

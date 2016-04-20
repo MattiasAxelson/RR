@@ -70,10 +70,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 errorText.Text = "Add a filename, \n" +
                     "only letters allowed";
             }
-
             else
             {
-           
                 durationtime = int.Parse(convdurationtime);
                 this.Close();
             }

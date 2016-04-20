@@ -20,7 +20,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Collections;
     using System.Threading;
     using System.Globalization;
-    
+    using System.Diagnostics;
+    using System.Timers;
     
    
 
@@ -147,8 +148,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         Thread heartrateThread;
         Thread plotAnglesThread;
-      
-       
+
+
 
 
         /// <summary>
@@ -262,7 +263,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                             //Console.WriteLine("Innan calcvelocity");
                             this.CalculateVelocity(skel, dc);
                             this.CalculateAngles(skel, dc);
-                            Console.WriteLine("HEJ");
                         }
                         else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
                         {
@@ -390,7 +390,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         /// 
 
-        //------------------------------- Hastighetsberäkning -----------------------------------//
+
+        //------------------------------- Hastighetsberäkning -----------------------------------// 
 
         // Variabler för hastighet
         double deltaT = 0;
@@ -429,26 +430,26 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             velocityList.Add(stepVelocity);
 
             if (velocityList.Count == 15)
-            {
+                {
                 double maxValue = velocityList.Max();
                 velHelpList.Add(maxValue);
                 velocityList.Clear();
             }
 
             if (velHelpList.Count == 8)
-            {
+                    {
                 double maxValueHelp = velHelpList.Average();
                 initVel.Text = Convert.ToString(Math.Floor(maxValueHelp * 3.6)) + " km/h"; //Här ska det läggas till round
                 velocityListSave.Add(maxValueHelp);
-                velHelpList.Clear();
-            }
+                        velHelpList.Clear();
+                    }
 
             if (velXList.Count > 600)
             {
-                velXList.RemoveAt(0);
-            }
+                    velXList.RemoveAt(0);
+                }
             //saveData.ExcelVelocityFunk(velocityListSave);
-        }
+            }
 
 
         // -------------------------------------------------------------------------------------//
@@ -480,8 +481,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         int i = 0;
         int k = 0;
         //Skapar vektorer
-
         
+
 
         private List<double> TEST = new List<double>();
 
@@ -556,18 +557,18 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 List<List<double>> output2 = new List<List<double>>();
                 output2.Add(meanList_SHK);
 
-                saveData.ExcelFunkSHK(meanList_SHK);
+            saveData.ExcelFunkSHK(meanList_SHK);
 
-                return output2;
-            }
-            
+            return output2;
+        }
+
         }
 
 
         // Beräknar vinklar beroende på checkboxar
         public void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
         {
-            // plotAngles();
+           // plotAngles();
 
             // Definerar jointar
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
@@ -633,7 +634,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
                 else
                 {
-                    vinklar_SHK.Add(SHK_angle);
+                vinklar_SHK.Add(SHK_angle);
                 minimumlistahelp_SHK.Add(SHK_angle);
                 }
 
@@ -676,8 +677,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
                 else
                 {
-                    vinklar_FHK.Add(FHK_angle);
-                    minimumlistahelp_FHK.Add(FHK_angle);
+                vinklar_FHK.Add(FHK_angle);
+                minimumlistahelp_FHK.Add(FHK_angle);
                 }
 
                 //contAngle_FHK.Text = Convert.ToString(i);
@@ -699,12 +700,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (((bool)FHKbox.IsChecked) && (bool)SHKbox.IsChecked)
             {
                 tidsLista.Add(sampleToTime_FHK / 30);
-              
+            
                 if (minimumlistahelp_FHK.Count > 60)
             {
                 //Knävinkel
                 lagsta_varde_FHK = minimumlistahelp_FHK.Min();
-                    minimumlista_FHK.Add(lagsta_varde_FHK);
+                minimumlista_FHK.Add(lagsta_varde_FHK);
                 smallestAngle_FHK.Text = Convert.ToString(lagsta_varde_FHK);
                 minimumlistahelp_FHK.Clear();
                 //Höftvinkel
@@ -739,11 +740,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     smallestAngle_FHK.Text = Convert.ToString(lagsta_varde_FHK);
                     minimumlistahelp_FHK.Clear();
                     meanAngleFunchelpOnebox(minimumlista_FHK);
-
+          
                     meanAngleFunc(meanList_FHK);
                     ++i;
 
-                    readPulseData();
+                readPulseData();
             }
             else
             {
@@ -769,9 +770,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     ++i;
 
                     readPulseData();
-                }
-                else
-                {
+            }
+            else
+            {
 
                 minimumlista_SHK.Add(lagsta_varde_SHK);
             }
@@ -838,9 +839,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             //MATLABPLOT
             //Skickar data till matlab i ett specifikt satt intervall
-           
-            // Change to the directory where the function is located 
-            var path = Path.Combine(Directory.GetCurrentDirectory());
+            
+                // Change to the directory where the function is located 
+                var path = Path.Combine(Directory.GetCurrentDirectory());
                 matlab.Execute(@"cd " + path + @"\..\..");
 
                 // Define the output 
@@ -850,20 +851,20 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             try
             {
                 matlab.Feval(funktionsnamn, 0, out result, comport.ToString(), durationtime, fileName);
-            }
+        }
         
             catch (System.Runtime.InteropServices.COMException)
             {
 
             }
-
+             
         }
 
         // Ritar ut skelettmodellen på bilden
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
-            
          
+
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
             this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderLeft);
@@ -1003,7 +1004,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
-            
+
 
             if (comport == "" || durationtime == 0 || filename == "")
             {
@@ -1011,14 +1012,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
             else
             {
-                
+              
                 heartrateThread = new Thread(() => printMatLab1("heartRateCalc", comport, durationtime, filename));
                 heartrateThread.Start();
           
             }
         }
-        
-              
+                
+
 
         private void display_angle_Click(object sender, RoutedEventArgs e)
         {
@@ -1047,15 +1048,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 pulseList.Add(Math.Ceiling(pulsTodec));
 
                 pulstest.Text = Convert.ToString(Math.Ceiling(pulsTodec));  
-
-                }
+  
+            }
 
                 catch (Exception e)
                 {
                    Console.WriteLine("Error: " + e.Message);
 
                 }
-                
+
             saveData.ExcelPulseFunk(pulseList);
 
         }
@@ -1064,7 +1065,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
            // SaveData win2 = new SaveData();
             saveData.Show();
-  
     }
 
         public void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1103,11 +1103,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 plotAnglesThread.Start();
                 updateMatlab = updateMatlab + 60;
             }
-
         }
-
-
-
 
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
@@ -1127,9 +1123,89 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             // ... Make the first item selected.
             comboBox.SelectedIndex = 0;
 
+       }
+
+        private System.Windows.Forms.Timer timer1;
+        private int counter; 
+        private void startLoggingButton_Click(object sender, EventArgs e)
+        {
+            //meanList_SHK.Clear();
+            //meanList_FHK.Clear();
+            //pulseList.Clear();
+
+            if (comboBox1.SelectedIndex == 0)
+            {
+                counter = 10;
+            }
+            if (comboBox1.SelectedIndex == 1)
+            {
+                counter = 30;
+            }
+            if (comboBox1.SelectedIndex == 2)
+            {
+                counter = 60;
+            }
+            if (comboBox1.SelectedIndex == 3)
+            {
+                counter = 300;
+            }
+            if (comboBox1.SelectedIndex == 4)
+            {
+                counter = 600;
+            }
+          
+            timer1 = new System.Windows.Forms.Timer();
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Interval = 1000; // 1 second
+            timer1.Start();
+            timeBlock.Text = counter.ToString();
         }
 
-    }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            counter--;
+            if (counter == 0)
+                timer1.Stop();
+            timeBlock.Text = counter.ToString();
+        }
+
+
+        private void comboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // ... Get the ComboBox.
+            var comboBox1 = sender as ComboBox;
+
+            // ... Set SelectedItem as Window Title.
+            string BoxValue = comboBox1.SelectedItem as string;
+            saveData.ExcelTestLength(comboBox1.SelectedIndex);
+        }
+
+        public int testLength;
+
+        public void ComboBox1_Loaded(object sender, RoutedEventArgs e)
+        {
+            // ... A List.
+            List<string> data = new List<string>();
+            data.Add("10 Seconds Test ");
+            data.Add("30 Seconds Test");
+            data.Add("60 Seconds Test");
+            data.Add("5 Minutes Test");
+            data.Add("10 Minutes Test");
+
+            // ... Get the ComboBox reference.
+            var comboBox1 = sender as ComboBox;
+
+            // ... Assign the ItemsSource to the List.
+            comboBox1.ItemsSource = data;
+
+            // ... Make the first item selected.
+            comboBox1.SelectedIndex = 0;
+
+
+
+        
+        }
+        }
 
 
     }
