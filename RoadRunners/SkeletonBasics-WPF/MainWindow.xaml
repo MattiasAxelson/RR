@@ -27,7 +27,7 @@
         <Viewbox Stretch="Uniform" Margin="729,17,27,362">
             <Image x:Name="Image" Width="436" Height="229"/>
         </Viewbox>
-        <Button x:Name="Kinect_angle" Content="Change kinect angle" HorizontalAlignment="Left" Margin="883,282,0,0" VerticalAlignment="Top" Width="142" Height="26" Click="Kinect_angle_Click">
+        <Button x:Name="Kinect_angle" Content="Change kinect angle" HorizontalAlignment="Left" Margin="815,584,0,0" VerticalAlignment="Top" Width="142" Height="26" Click="Kinect_angle_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -37,11 +37,11 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="1042,282,0,0" VerticalAlignment="Top" Height="27" Width="146" Maximum="26" Minimum="-26" ValueChanged="slider_ValueChanged"/>
-        <Label x:Name="Degree" Content="0" HorizontalAlignment="Left" Margin="1197,282,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.615"/>
+        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="974,584,0,0" VerticalAlignment="Top" Height="27" Width="146" Maximum="26" Minimum="-26" ValueChanged="slider_ValueChanged"/>
+        <Label x:Name="Degree" Content="0" HorizontalAlignment="Left" Margin="1129,584,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.615"/>
         <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="265" Margin="734,17,0,0" VerticalAlignment="Top" Width="501" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}" Opacity="0.6"/>
-        <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="697,33,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="stop_button" Content="Stop sensors" HorizontalAlignment="Left" Margin="305,240,0,0" VerticalAlignment="Top" Width="75" Click="stop_Button_Click">
+        <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="860,47,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="stop_button" Content="Stop sensors" HorizontalAlignment="Left" Margin="1160,549,0,0" VerticalAlignment="Top" Width="75" Click="stop_Button_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -51,7 +51,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="button1" Content="Start sensors" HorizontalAlignment="Left" Margin="305,209,0,0" VerticalAlignment="Top" Width="75" Click="start_button_Click">
+        <Button x:Name="button1" Content="Start sensors" HorizontalAlignment="Left" Margin="1160,524,0,0" VerticalAlignment="Top" Width="75" Click="start_button_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -61,23 +61,13 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="Show_mean_angle" Content="Show mean angle" HorizontalAlignment="Left" Margin="344,136,0,0" VerticalAlignment="Top" Width="111">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
-                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
-                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
-                    <GradientStop Color="#FFA4E2FF" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Image x:Name="vinkelImage" HorizontalAlignment="Left" Height="319" Margin="45,300,0,0" VerticalAlignment="Top" Width="1169" Source="Vinkelgraf.jpeg" />
-        <TextBlock x:Name="velocityText" HorizontalAlignment="Left" Margin="355,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="WhiteSmoke"><Run Text="Hastighet"/><LineBreak/></TextBlock>
+        <Image x:Name="vinkelImage" HorizontalAlignment="Left" Height="267" Margin="38,277,0,0" VerticalAlignment="Top" Width="637" Source="Vinkelgraf.jpeg" />
+        <TextBlock x:Name="velocityText" HorizontalAlignment="Left" Margin="179,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="WhiteSmoke"><Run Text="Hastighet"/><LineBreak/></TextBlock>
         <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="942,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text=""/><LineBreak/><Run/></TextBlock>
-        <CheckBox x:Name="FHKbox" Content="Knävinkel" HorizontalAlignment="Left" Margin="16,594,0,0" VerticalAlignment="Top" Checked="FKHbox_Checked" FontSize="14" FontWeight="Bold"/>
-        <CheckBox x:Name="SHKbox" Content="Höftvinkel" HorizontalAlignment="Left" Margin="16,622,0,0" VerticalAlignment="Top" Checked="SHKbox_Checked" FontSize="14" FontWeight="Bold"/>
+        <CheckBox x:Name="FHKbox" Content="Knävinkel" HorizontalAlignment="Left" Margin="28,584,0,0" VerticalAlignment="Top" Checked="FKHbox_Checked" FontSize="14" FontWeight="Medium" Foreground="WhiteSmoke"/>
+        <CheckBox x:Name="SHKbox" Content="Höftvinkel" HorizontalAlignment="Left" Margin="28,618,0,-9" VerticalAlignment="Top" Checked="SHKbox_Checked" FontSize="14" FontWeight="Medium" Foreground="WhiteSmoke" Height="35" Width="108"/>
         <TextBlock x:Name="felmeddelande" HorizontalAlignment="Left" Margin="1120,448,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
-        <Button x:Name="restartbutton" Content="Restart" HorizontalAlignment="Left" Margin="1160,568,0,0" VerticalAlignment="Top" Width="75" Click="restartbutton_Click">
+        <Button x:Name="restartbutton" Content="Restart" HorizontalAlignment="Left" Margin="1160,574,0,0" VerticalAlignment="Top" Width="75" Click="restartbutton_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -131,13 +121,13 @@
         </Button>
         <TextBlock x:Name="durationtimeCont" HorizontalAlignment="Left" Margin="135,220,0,0" TextWrapping="Wrap" Text="____" VerticalAlignment="Top"/>
         <TextBlock x:Name="filenameCont" HorizontalAlignment="Left" Margin="135,236,0,0" TextWrapping="Wrap" Text="____" VerticalAlignment="Top" RenderTransformOrigin="3.15,0.188"/>
-        <TextBlock x:Name="pulstest" HorizontalAlignment="Left" Margin="310,161,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-        <TextBlock x:Name="contAngle_FHK" HorizontalAlignment="Left" Margin="313,591,0,0" TextWrapping="Wrap" Text="Kont. vinkel" VerticalAlignment="Top" Width="91" FontSize="14" FontWeight="Medium" Foreground="#FFD1951D"/>
-        <TextBlock x:Name="smallestAngle_FHK" HorizontalAlignment="Left" Margin="214,591,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFD1951D" FontSize="14" FontWeight="Medium"><Run Text="Lägsta "/><Run Text="vinkel"/></TextBlock>
-        <TextBlock x:Name="meanAngleBlock_FHK" HorizontalAlignment="Left" Margin="116,591,0,0" TextWrapping="Wrap" Text="Medelvinkel" VerticalAlignment="Top" Foreground="#FFD1951D" FontSize="14" FontWeight="Medium"/>
-        <TextBlock x:Name="contAngle_SHK" HorizontalAlignment="Left" Margin="313,621,0,0" TextWrapping="Wrap" Text="Kont. vinkel" VerticalAlignment="Top" Width="91" FontSize="14" FontWeight="Medium" Foreground="#FFD1951D"/>
-        <TextBlock x:Name="smallestAngle_SHK" HorizontalAlignment="Left" Margin="214,621,0,0" TextWrapping="Wrap" Text="Lägsta vinkel" VerticalAlignment="Top" FontSize="14" FontWeight="Medium" Foreground="#FFD1951D"/>
-        <TextBlock x:Name="meanAngleBlock_SHK" HorizontalAlignment="Left" Margin="116,621,0,0" TextWrapping="Wrap" Text="Medelvinkel" VerticalAlignment="Top" FontSize="14" FontWeight="Medium" Foreground="#FFD1951D"/>
+        <TextBlock x:Name="pulstest" HorizontalAlignment="Left" Margin="284,60,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="29" Width="94" FontSize="20" Foreground="WhiteSmoke" FontWeight="Medium"/>
+        <TextBlock x:Name="contAngle_FHK" HorizontalAlignment="Left" Margin="382,594,0,0" TextWrapping="Wrap" Text="Kont. vinkel" VerticalAlignment="Top" Width="91" FontSize="14" FontWeight="Medium" Foreground="#FFD1951D"/>
+        <TextBlock x:Name="smallestAngle_FHK" HorizontalAlignment="Left" Margin="165,585,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFD1951D" FontSize="14" FontWeight="Medium"><Run Text="Lägsta "/><Run Text="vinkel"/></TextBlock>
+        <TextBlock x:Name="meanAngleBlock_FHK" HorizontalAlignment="Left" Margin="284,98,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Foreground="WhiteSmoke" FontSize="20" FontWeight="Medium"/>
+        <TextBlock x:Name="contAngle_SHK" HorizontalAlignment="Left" Margin="382,615,0,0" TextWrapping="Wrap" Text="Kont. vinkel" VerticalAlignment="Top" Width="91" FontSize="14" FontWeight="Medium" Foreground="#FFD1951D"/>
+        <TextBlock x:Name="smallestAngle_SHK" HorizontalAlignment="Left" Margin="165,615,0,0" TextWrapping="Wrap" Text="Lägsta vinkel" VerticalAlignment="Top" FontSize="14" FontWeight="Medium" Foreground="#FFD1951D"/>
+        <TextBlock x:Name="meanAngleBlock_SHK" HorizontalAlignment="Left" Margin="284,133,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="20" FontWeight="Medium" Foreground="WhiteSmoke"/>
         <Button x:Name="SaveButton" Content="Save Current Data" HorizontalAlignment="Left" Height="27" Margin="27,147,0,0" VerticalAlignment="Top" Width="109" Click="button_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -164,7 +154,10 @@
         <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Height="58" Margin="542,112,0,0" TextWrapping="Wrap" Text="RunningLab" VerticalAlignment="Top" Width="164" FontSize="21.333" FontWeight="Bold"/>
         <Image x:Name="image" HorizontalAlignment="Left" Height="61" Margin="568,61,0,0" VerticalAlignment="Top" Width="76" Source="Images/RoadRunners.png" RenderTransformOrigin="0.647,0.162"/>
         <TextBlock x:Name="comportCont" HorizontalAlignment="Left" Margin="135,204,0,0" TextWrapping="Wrap" Text="____" VerticalAlignment="Top"/>
-        <TextBlock x:Name="initVel" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="100" Margin="355,97,0,0" FontSize="20" FontWeight="Medium" Foreground="WhiteSmoke"><Run Text="0"/><LineBreak/></TextBlock>
+        <TextBlock x:Name="initVel" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="100" Margin="284,30,0,0" FontSize="20" FontWeight="Medium" Foreground="WhiteSmoke"><Run Text="0"/><LineBreak/></TextBlock>
+        <TextBlock x:Name="pulseLabel" HorizontalAlignment="Left" Margin="179,61,0,0" TextWrapping="Wrap" Text="Puls" VerticalAlignment="Top" Height="31" Width="74" FontSize="20" FontWeight="Medium" Foreground="WhiteSmoke" />
+        <TextBlock x:Name="kneeAngleLabel" HorizontalAlignment="Left" Margin="179,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="WhiteSmoke"><Run Text="Knävinkel"/><LineBreak/></TextBlock>
+        <TextBlock x:Name="hipeAngleLabel" HorizontalAlignment="Left" Margin="179,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="WhiteSmoke"><Run Text="Höftvinkel"/><LineBreak/></TextBlock>
 
     </Grid>
 </Window>
