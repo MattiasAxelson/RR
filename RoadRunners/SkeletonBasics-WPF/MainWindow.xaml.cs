@@ -996,9 +996,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private int counter; 
         private void startLoggingButton_Click(object sender, EventArgs e)
         {
-            meanList_SHK.Clear();
-            meanList_FHK.Clear();
-            pulseList.Clear();
+            //meanList_SHK.Clear();
+            //meanList_FHK.Clear();
+            //pulseList.Clear();
 
             if (comboBox1.SelectedIndex == 0)
             {
@@ -1044,7 +1044,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             // ... Set SelectedItem as Window Title.
             string BoxValue = comboBox1.SelectedItem as string;
-            
+            saveData.ExcelTestLength(comboBox1.SelectedIndex);
         }
 
         public int testLength;
@@ -1070,7 +1070,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
 
 
-            saveData.ExcelTestLength(comboBox1.SelectedIndex);
+        
         }
     }
 

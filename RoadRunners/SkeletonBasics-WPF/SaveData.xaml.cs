@@ -126,7 +126,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             Excel.Range aRange;
             DateTime currentDate = DateTime.Now;
 
-        
+
+
+
             // Set the range to fill.
             aRange = ws.get_Range("A1", "M100");
 
@@ -183,7 +185,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             int duration = ((testLength / Intervall) + 1);
 
-            testArray.Text = duration.ToString(); 
+
+
+            testArray.Text = duration.ToString();
+            testArray_Copy.Text = testLength.ToString();
+            testArray_Copy1.Text = testLength.ToString();
+
+            ws.Range["F3"].Value = duration;
+            ws.Range["F4"].Value = testLength;
+            ws.Range["F5"].Value = Intervall;
 
             for (int i = 1; i < duration; i++) 
             {

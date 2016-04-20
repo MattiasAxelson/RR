@@ -55,6 +55,18 @@
         <Button x:Name="startLoggingButton" Content="Start datalogging" HorizontalAlignment="Left" Margin="451,227,0,0" VerticalAlignment="Top" Width="100" Click="startLoggingButton_Click"/>
         <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="568,227,0,0" VerticalAlignment="Top" Width="120" Loaded="ComboBox1_Loaded" SelectionChanged="comboBox1_SelectionChanged"/>
         <TextBlock x:Name="timeBlock" HorizontalAlignment="Left" Margin="568,199,0,0" TextWrapping="Wrap" Text="Time" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="638,158,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="638,196,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" RenderTransformOrigin="0.72,-3.688"/>
+        <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Margin="638,174,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.45"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>
+        </TextBlock>
 
     </Grid>
 </Window>
