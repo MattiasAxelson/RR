@@ -1205,7 +1205,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         
         }
-        }
+    }
 
 
     }
