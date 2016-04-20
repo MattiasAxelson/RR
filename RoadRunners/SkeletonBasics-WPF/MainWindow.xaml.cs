@@ -887,7 +887,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void display_angle_Click(object sender, RoutedEventArgs e)
         {
-            // printMatLab(tidsLista, vinklar_FHK, minimumlista);
+             printMatLab(tidsLista, vinklar_FHK, minimumlista_FHK);
 
             // printMatLab1("testfunc", "1",2,"3" );
             readPulseData();
