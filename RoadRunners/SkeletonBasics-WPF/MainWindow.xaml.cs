@@ -493,13 +493,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             meanAngle_FHK = minList1.Sum() / (minList1.Count);
             meanList_FHK.Add(meanAngle_FHK);
             meanAngleFunc(minList1);
-            meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault()));
+            meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault()) + (char)176);
 
             if (i == k)
             meanAngle_SHK = minList2.Sum() / (minList2.Count);
             meanList_SHK.Add(meanAngle_SHK);
             meanAngleFunc(minList2);
-            meanAngleBlock_SHK.Text = Convert.ToString(Math.Ceiling(meanList_SHK.LastOrDefault()));
+            meanAngleBlock_SHK.Text = Convert.ToString(Math.Ceiling(meanList_SHK.LastOrDefault()) + (char)176);
 
             if (i == k)
             {
@@ -705,13 +705,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 //Knävinkel
                 lagsta_varde_FHK = minimumlistahelp_FHK.Min();
                     minimumlista_FHK.Add(lagsta_varde_FHK);
-                smallestAngle_FHK.Text = Convert.ToString(lagsta_varde_FHK);
+                smallestAngle_FHK.Text = Convert.ToString(lagsta_varde_FHK) + (char)176;
                 minimumlistahelp_FHK.Clear();
                 //Höftvinkel
                 lagsta_varde_SHK = minimumlistahelp_SHK.Min();
                 minimumlista_SHK.Add(lagsta_varde_SHK);
                 minimumlistahelp_SHK.Clear();
-                smallestAngle_SHK.Text = Convert.ToString(lagsta_varde_SHK);
+                smallestAngle_SHK.Text = Convert.ToString(lagsta_varde_SHK) + (char)176;
                 meanAngleFunchelp(minimumlista_FHK, minimumlista_SHK);
 
                 meanAngleFunc(meanList_FHK);
@@ -1046,7 +1046,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 pulseList.Add(Math.Ceiling(pulsTodec));
 
-                pulstest.Text = Convert.ToString(Math.Ceiling(pulsTodec));  
+                pulstest.Text = Convert.ToString(Math.Ceiling(pulsTodec)) + " BPM";  
 
                 }
 
