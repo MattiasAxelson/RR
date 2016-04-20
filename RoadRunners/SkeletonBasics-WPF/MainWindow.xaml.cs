@@ -814,6 +814,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 // Change to the directory where the function is located 
                 var path = Path.Combine(Directory.GetCurrentDirectory());
                 matlab.Execute(@"cd " + path + @"\..\..");
+     
 
                 // Define the output 
                 object result = null;
@@ -821,12 +822,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
                 try
                 {
-                    
-                    matlab.Feval("myfunc", 1, out result, list1.ToArray(), list2.ToArray(), list3.ToArray());
+                CompositionTargetRendering();
+                matlab.Feval("myfunc", 1, out result, list1.ToArray(), list2.ToArray(), list3.ToArray());
                 }
                 catch (System.Runtime.InteropServices.COMException)
                 {
-
+                MessageBox.Show("nått gick fel som fan");
                 }
 
             
@@ -1022,11 +1023,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void display_angle_Click(object sender, RoutedEventArgs e)
         {
-            CompositionTargetRendering();
-            plotAnglesThread = new Thread(() => printMatLab(tidsLista, minimumlista_FHK, minimumlista_SHK));
-            plotAnglesThread.Start();
-
-           //  printMatLab(tidsLista, vinklar_FHK, vinklar_SHK);               
+             // CompositionTargetRendering();
+             // plotAnglesThread = new Thread(() => printMatLab(tidsLista, minimumlista_FHK, minimumlista_SHK));
+            //  plotAnglesThread.Start();
+           
+             printMatLab(tidsLista, minimumlista_FHK, minimumlista_SHK);               
         }
         
         private void setting_Click(object sender, RoutedEventArgs e)
