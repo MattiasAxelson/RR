@@ -314,7 +314,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
-        
+
+
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
 
@@ -566,11 +567,22 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
             
         }
+      /*  public void timerhelp()
+        {
+            if(minimumlistahelp_FHK.Count < 0)
+            {
+
+            }
+        }*/
 
 
         // Beräknar vinklar beroende på checkboxar
         public void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
         {
+
+
+
+
             // plotAngles();
 
             // Definerar jointar
@@ -1049,7 +1061,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 }
                 
-            //saveData.ExcelPulseFunk(pulseList);
+            saveData.ExcelPulseFunk(pulseList);
 
         }
 
@@ -1155,11 +1167,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 counter = 600;
             }
 
-            timer2 = new System.Windows.Forms.Timer();
-            timer2.Tick += new EventHandler(timer2_Tick);
-            timer2.Interval = 1000; // 1 second
-            timerContent2.Text = counter2.ToString();
-            timer2.Start();
+
             counter2 = 0;
 
 
@@ -1169,7 +1177,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             timer1.Start();
             timerContent.Text = counter.ToString();
 
-           
+            timer2 = new System.Windows.Forms.Timer();
+            timer2.Tick += new EventHandler(timer2_Tick);
+            timer2.Interval = 1000; // 1 second
+            timer2.Start();
 
 
         }
@@ -1228,7 +1239,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         
         }
-
 
     }
 }
