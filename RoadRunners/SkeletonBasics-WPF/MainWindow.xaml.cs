@@ -501,13 +501,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             meanAngle_FHK = minList1.Sum() / (minList1.Count);
             meanList_FHK.Add(meanAngle_FHK);
             meanAngleFunc(minList1);
-            meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault()) + (char)176);
+            meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault())) + (char)176;
 
             if (i == k)
             meanAngle_SHK = minList2.Sum() / (minList2.Count);
             meanList_SHK.Add(meanAngle_SHK);
             meanAngleFunc(minList2);
-            meanAngleBlock_SHK.Text = Convert.ToString(Math.Ceiling(meanList_SHK.LastOrDefault()) + (char)176);
+            meanAngleBlock_SHK.Text = Convert.ToString(Math.Ceiling(meanList_SHK.LastOrDefault())) + (char)176;
 
             if (i == k)
             {
