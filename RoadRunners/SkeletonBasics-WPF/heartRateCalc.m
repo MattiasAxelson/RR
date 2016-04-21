@@ -197,7 +197,6 @@ if (shimmer.connect)                                                       % TRU
                 
 
                 if length(heartRate) > valuelength
-                    
                 value = [value ; heartRate(end)];
                 fid=fopen('C:\Users\Per\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\pulsdata1.txt','w');
 

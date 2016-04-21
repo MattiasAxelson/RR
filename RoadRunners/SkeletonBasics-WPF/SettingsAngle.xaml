@@ -5,6 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Microsoft.Samples.Kinect.SkeletonBasics"
         mc:Ignorable="d"
+        MaxHeight="341.764"
+        MinHeight="341.764"
+        MaxWidth="398.143"
+        MinWidth="398.143"
         Title="SettingsAngle" Height="341.764" Width="398.143">
     <Grid>
         <Grid.Background>
