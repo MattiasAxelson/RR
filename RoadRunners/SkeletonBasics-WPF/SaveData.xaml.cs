@@ -224,7 +224,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 
                  if (ExcelVelocityList != null)
                  {
-                    ws.Range["E0" + (i + 3)].Value = ExcelVelocityList[i];
+                   // ws.Range["E0" + (i + 3)].Value = ExcelVelocityList[i];
 
                  }
             }
