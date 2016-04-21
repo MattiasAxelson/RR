@@ -23,9 +23,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Windows.Threading;
     using System.Diagnostics;
     using System.Timers;
-    
-    
-   
+
+
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -103,7 +103,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// 
 
         private SaveData saveData;
-      
+
         public MainWindow()
         {
             InitializeComponent();
@@ -134,14 +134,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 FHKbox = childwindow2.checkHip;
                 SHKbox = childwindow2.checkKnee;
-                
+
             });
-        
-           
+
+
 
             this.saveData = new SaveData();
 
-            
+
         }
         public string comport = null;
         public int durationtime = 0;
@@ -149,10 +149,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         Thread heartrateThread;
         Thread plotAnglesThread;
-      
+
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-       
+
         }
 
 
@@ -215,7 +215,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             vinkelImage.Source = null;
-          
+
 
         }
 
@@ -285,19 +285,19 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-        
+
         // Create the MATLAB instance 
         MLApp.MLApp matlab = new MLApp.MLApp();
 
 
         private void stop_Button_Click(object sender, RoutedEventArgs e)
         {
-            
+
             if (this.sensor == null)
             {
                 return;
             }
-                  
+
             if (this.sensor.SkeletonStream.IsEnabled)
             {
                 this.sensor.SkeletonStream.Disable();
@@ -314,7 +314,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
-        
+
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
 
@@ -336,27 +336,28 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     break;
                 }
             }
+
             if (null != this.sensor)
             {
                 // Turn on the skeleton stream to receive skeleton frames
 
                 if ((bool)FHKbox.IsChecked || (bool)SHKbox.IsChecked)
                 {
-                this.sensor.ColorStream.Enable();
-                this.sensor.SkeletonStream.Enable();
+                    this.sensor.ColorStream.Enable();
+                    this.sensor.SkeletonStream.Enable();
 
-                // Add an event handler to be called whenever there is new color frame data
-                this.sensor.SkeletonFrameReady += this.SensorSkeletonFrameReady;
+                    // Add an event handler to be called whenever there is new color frame data
+                    this.sensor.SkeletonFrameReady += this.SensorSkeletonFrameReady;
 
-                // Start the sensor!
-                try
-                {
-                    this.sensor.Start();
-                }
-                catch (IOException)
-                {
-                    this.sensor = null;
-                }
+                    // Start the sensor!
+                    try
+                    {
+                        this.sensor.Start();
+                    }
+                    catch (IOException)
+                    {
+                        this.sensor = null;
+                    }
                 }
                 else
                 {
@@ -364,26 +365,26 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
 
             }
-            
-   
+
+
 
         }
-      
+
         //Hämtar bild som ritas i matlab
         private void CompositionTargetRendering() //object sender, EventArgs e
-        {     
+        {
             BitmapImage _image = new BitmapImage();
             string pathImage = Path.Combine(Directory.GetCurrentDirectory());
-        
+
             _image.BeginInit();
             _image.CacheOption = BitmapCacheOption.None;
             _image.UriCachePolicy = new System.Net.Cache.RequestCachePolicy();
             _image.CacheOption = BitmapCacheOption.OnLoad;
             _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-            _image.UriSource = new Uri( pathImage + @"\..\..\Vinkelgraf.jpeg", UriKind.RelativeOrAbsolute);          
+            _image.UriSource = new Uri(pathImage + @"\..\..\Vinkelgraf.jpeg", UriKind.RelativeOrAbsolute);
             _image.EndInit();
-        
-             vinkelImage.Source = _image;
+
+            vinkelImage.Source = _image;
         }
 
 
@@ -450,10 +451,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 velHelpList.Clear();
             }
 
-          
-  
-                
-            
+
+
+
+
 
             if (velXList.Count > 600)
             {
@@ -495,25 +496,25 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         int k = 5;
         //Skapar vektorer
 
-        
+
         public void meanAngleFunchelp(List<double> minList1, List<double> minList2)
         {
 
             if (i == k)
             {
-            meanAngle_FHK = minList1.Sum() / (minList1.Count);
-            meanList_FHK.Add(meanAngle_FHK);
-            meanAngleFunc(minList1);
+                meanAngle_FHK = minList1.Sum() / (minList1.Count);
+                meanList_FHK.Add(meanAngle_FHK);
+                meanAngleFunc(minList1);
                 meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault())) + (char)176;
 
-            meanAngle_SHK = minList2.Sum() / (minList2.Count);
-            meanList_SHK.Add(meanAngle_SHK);
-            meanAngleFunc(minList2);
+                meanAngle_SHK = minList2.Sum() / (minList2.Count);
+                meanList_SHK.Add(meanAngle_SHK);
+                meanAngleFunc(minList2);
                 meanAngleBlock_SHK.Text = Convert.ToString(Math.Ceiling(meanList_SHK.LastOrDefault())) + (char)176;
 
                 i = 0;
             }
-// VAFAN KOLLA DET HÄR DFSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+            // VAFAN KOLLA DET HÄR DFSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
             if (i == k)
             {
                 meanVelocity = velocityListSave.Average();
@@ -523,10 +524,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             saveData.ExcelFunkFHK(meanList_FHK);
             saveData.ExcelFunkSHK(meanList_SHK);
-            }
-
-            
         }
+
+
+
 
         
         public void meanAngleFunchelpOnebox(List<double> minList1)
@@ -536,14 +537,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 if (i == k)
                 {
-                meanAngle_FHK = minList1.Sum() / (minList1.Count);
-                meanList_FHK.Add(meanAngle_FHK);
-                meanAngleFunc(minList1);
-                meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault()));
+                    meanAngle_FHK = minList1.Sum() / (minList1.Count);
+                    meanList_FHK.Add(meanAngle_FHK);
+                    meanAngleFunc(minList1);
+                    meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault()));
 
                     i = 0;
 
-                saveData.ExcelFunkFHK(meanList_FHK);
+                    saveData.ExcelFunkFHK(meanList_FHK);
                 }
 
             }
@@ -552,20 +553,20 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 if (i == k)
                 {
-                meanAngle_SHK = minList1.Sum() / (minList1.Count);
-                meanList_SHK.Add(meanAngle_SHK);
-                meanAngleFunc(minList1);
-                meanAngleBlock_SHK.Text = Convert.ToString(Math.Ceiling(meanList_SHK.LastOrDefault()));
+                    meanAngle_SHK = minList1.Sum() / (minList1.Count);
+                    meanList_SHK.Add(meanAngle_SHK);
+                    meanAngleFunc(minList1);
+                    meanAngleBlock_SHK.Text = Convert.ToString(Math.Ceiling(meanList_SHK.LastOrDefault()));
 
                     i = 0;
 
-                saveData.ExcelFunkSHK(meanList_SHK);
+                    saveData.ExcelFunkSHK(meanList_SHK);
                 }
 
             }
-            
-        }
 
+        }
+        
 
         // Beräknar vinklar beroende på checkboxar
         public void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
@@ -597,72 +598,72 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             XShoulderleft = shoulderLeft.Position.X;
             YShoulderleft = shoulderLeft.Position.Y;
 
-                double HipKnee_Length = Math.Sqrt(Math.Pow(XHipleft - XKneeleft, 2) + Math.Pow(YHipleft - YKneeleft, 2));
-                double HipShoulder_Length = Math.Sqrt(Math.Pow(XHipleft - XShoulderleft, 2) + Math.Pow(YHipleft - YShoulderleft, 2));
-                double KneeShoulder_Length = Math.Sqrt(Math.Pow(XKneeleft - XShoulderleft, 2) + Math.Pow(YKneeleft - YShoulderleft, 2));
+            double HipKnee_Length = Math.Sqrt(Math.Pow(XHipleft - XKneeleft, 2) + Math.Pow(YHipleft - YKneeleft, 2));
+            double HipShoulder_Length = Math.Sqrt(Math.Pow(XHipleft - XShoulderleft, 2) + Math.Pow(YHipleft - YShoulderleft, 2));
+            double KneeShoulder_Length = Math.Sqrt(Math.Pow(XKneeleft - XShoulderleft, 2) + Math.Pow(YKneeleft - YShoulderleft, 2));
             double HipFoot_Length = Math.Sqrt(Math.Pow(XHipleft - XFootleft, 2) + Math.Pow(YHipleft - YFootleft, 2));
             double KneeFoot_Length = Math.Sqrt(Math.Pow(XKneeleft - XFootleft, 2) + Math.Pow(YKneeleft - YFootleft, 2));
 
             //SHK - Cosinussatsen för vinkel Spine-hip-knee, avrundar till heltal
-                double SHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(HipShoulder_Length, 2)
-                    - Math.Pow(KneeShoulder_Length, 2)) / (2 * HipKnee_Length * HipShoulder_Length))) * (180 / Math.PI));
+            double SHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(HipShoulder_Length, 2)
+                - Math.Pow(KneeShoulder_Length, 2)) / (2 * HipKnee_Length * HipShoulder_Length))) * (180 / Math.PI));
 
             //FHK - Cosinussatsen för vinkel höft-knä-fot, avrundar till heltal
             double FHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2)
                     - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
 
 
-     
+
             //Kollar så SHK vinkeln inte är NaN
-                if (Double.IsNaN(SHK_angle))
-                {
-                    double prevValSHKlist = vinklar_SHK[vinklar_SHK.Count - 1];
-                    minimumlistahelp_SHK.Add(prevValSHKlist);
-                    vinklar_SHK.Add(prevValSHKlist);
-                    contAngle_SHK.Text = "HEJ MY LITTLE PONY!!! SAILOR MOON";
+            if (Double.IsNaN(SHK_angle))
+            {
+                double prevValSHKlist = vinklar_SHK[vinklar_SHK.Count - 1];
+                minimumlistahelp_SHK.Add(prevValSHKlist);
+                vinklar_SHK.Add(prevValSHKlist);
+                contAngle_SHK.Text = "HEJ MY LITTLE PONY!!! SAILOR MOON";
 
-                }
-                else
-                {
-                    vinklar_SHK.Add(SHK_angle);
+            }
+            else
+            {
+                vinklar_SHK.Add(SHK_angle);
                 minimumlistahelp_SHK.Add(SHK_angle);
-                }
+            }
 
-               // contAngle_SHK.Text = Convert.ToString(k);
-                sampleToTime_SHK = vinklar_SHK.Count;
+            // contAngle_SHK.Text = Convert.ToString(k);
+            sampleToTime_SHK = vinklar_SHK.Count;
 
-                if (SHK_angle < 140)
-                {
-                    textTestdirektiv.Text = "Stand up straight!";
-                    SystemSounds.Asterisk.Play();
-                }
-                else
-                {
-                    textTestdirektiv.Text = "";
-                }
+            if (SHK_angle < 140)
+            {
+                textTestdirektiv.Text = "Stand up straight!";
+                SystemSounds.Asterisk.Play();
+            }
+            else
+            {
+                textTestdirektiv.Text = "";
+            }
 
             //Kollar så FHK vinkeln inte är NaN
-                if (Double.IsNaN(FHK_angle))
-                {
-                    double prevValFHKlist = vinklar_FHK[vinklar_FHK.Count - 1];
-                    minimumlistahelp_FHK.Add(prevValFHKlist);
-                    vinklar_FHK.Add(prevValFHKlist);
+            if (Double.IsNaN(FHK_angle))
+            {
+                double prevValFHKlist = vinklar_FHK[vinklar_FHK.Count - 1];
+                minimumlistahelp_FHK.Add(prevValFHKlist);
+                vinklar_FHK.Add(prevValFHKlist);
 
-                }
-                else
-                {
-                    vinklar_FHK.Add(FHK_angle);
-                    minimumlistahelp_FHK.Add(FHK_angle);
-                }
-                if (FHK_angle < 90)
-                {
-                    textTestdirektiv.Text = "pull out your knees!";
-                    SystemSounds.Asterisk.Play();
-                }
-                else
-                { 
-                    textTestdirektiv.Text = "";
-                }
+            }
+            else
+            {
+                vinklar_FHK.Add(FHK_angle);
+                minimumlistahelp_FHK.Add(FHK_angle);
+            }
+            if (FHK_angle < 90)
+            {
+                textTestdirektiv.Text = "pull out your knees!";
+                SystemSounds.Asterisk.Play();
+            }
+            else
+            {
+                textTestdirektiv.Text = "";
+            }
 
 
 
@@ -675,47 +676,47 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             if (((bool)FHKbox.IsChecked) && (bool)SHKbox.IsChecked)
             {
-              
-                if (counter2 == 2)
-            {
-                //Knävinkel
-                lagsta_varde_FHK = minimumlistahelp_FHK.Min();
-                    minimumlista_FHK.Add(lagsta_varde_FHK);
-                smallestAngle_FHK.Text = Convert.ToString(lagsta_varde_FHK) + (char)176;
-                minimumlistahelp_FHK.Clear();
-                //Höftvinkel
-                lagsta_varde_SHK = minimumlistahelp_SHK.Min();
-                minimumlista_SHK.Add(lagsta_varde_SHK);
-                minimumlistahelp_SHK.Clear();
-                smallestAngle_SHK.Text = Convert.ToString(lagsta_varde_SHK) + (char)176;
-                meanAngleFunchelp(minimumlista_FHK, minimumlista_SHK);
 
-                meanAngleFunc(meanList_FHK);
-                meanAngleFunc(meanList_SHK);
+                if (counter2 == 2)
+                {
+                    //Knävinkel
+                    lagsta_varde_FHK = minimumlistahelp_FHK.Min();
+                    minimumlista_FHK.Add(lagsta_varde_FHK);
+                    smallestAngle_FHK.Text = Convert.ToString(lagsta_varde_FHK) + (char)176;
+                    minimumlistahelp_FHK.Clear();
+                    //Höftvinkel
+                    lagsta_varde_SHK = minimumlistahelp_SHK.Min();
+                    minimumlista_SHK.Add(lagsta_varde_SHK);
+                    minimumlistahelp_SHK.Clear();
+                    smallestAngle_SHK.Text = Convert.ToString(lagsta_varde_SHK) + (char)176;
+                    meanAngleFunchelp(minimumlista_FHK, minimumlista_SHK);
+
+                    meanAngleFunc(meanList_FHK);
+                    meanAngleFunc(meanList_SHK);
                     counter2 = 0;
                     i++;
-                readPulseData();
+                    readPulseData();
 
-                    ++i;
-                    contAngle_FHK.Text = i.ToString();
+                   // ++i;
+                  //  contAngle_FHK.Text = i.ToString();
                 }
-                
+
                 else
                 {
-                 //   minimumlista_FHK.Add(lagsta_varde_FHK);
-                  //  minimumlista_SHK.Add(lagsta_varde_SHK);
-                 //   tidsLista_FHK.Add(sampleToTime_FHK / 30);
-                //    tidsLista_SHK.Add(sampleToTime_SHK / 30);
+                    //   minimumlista_FHK.Add(lagsta_varde_FHK);
+                    //  minimumlista_SHK.Add(lagsta_varde_SHK);
+                    //   tidsLista_FHK.Add(sampleToTime_FHK / 30);
+                    //    tidsLista_SHK.Add(sampleToTime_SHK / 30);
 
                 }
             }
-            
-            
+
+
             else if ((bool)FHKbox.IsChecked)
             {
-             
 
-                if (minimumlistahelp_FHK.Count > 60)
+
+                if (counter2 == 2)
                 {
                     //Knävinkel
                     lagsta_varde_FHK = minimumlistahelp_FHK.Min();
@@ -724,26 +725,25 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     minimumlistahelp_FHK.Clear();
                     meanAngleFunchelpOnebox(minimumlista_FHK);
 
-                 //   meanAngleFunc(meanList_FHK);
-                 
-                    tidsLista_FHK.Add(sampleToTime_FHK / 30);
+                    //   meanAngleFunc(meanList_FHK);
 
+                    tidsLista_FHK.Add(sampleToTime_FHK / 30);
+                    counter2 = 0;
                     readPulseData();
                     ++i;
-            }
-            else
-            {
-                  //  minimumlista_FHK.Add(lagsta_varde_FHK);
-                //    tidsLista_FHK.Add(sampleToTime_FHK / 30);
+                }
+                else
+                {
+                    //  minimumlista_FHK.Add(lagsta_varde_FHK);
+                    //    tidsLista_FHK.Add(sampleToTime_FHK / 30);
 
 
                 }
             }
             else if ((bool)SHKbox.IsChecked)
             {
-              
 
-                if (minimumlistahelp_SHK.Count > 60)
+                if (counter2 == 2)
                 {
                     //Höftvinkel
                     lagsta_varde_SHK = minimumlistahelp_SHK.Min();
@@ -753,20 +753,20 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     meanAngleFunchelpOnebox(minimumlista_SHK);
                     tidsLista_SHK.Add(sampleToTime_SHK / 30);
 
-                //    meanAngleFunc(meanList_SHK);                  
-
+                    //    meanAngleFunc(meanList_SHK);                  
+                    counter2 = 0;
                     readPulseData();
                     ++i;
                 }
                 else
                 {
 
-                 //   minimumlista_SHK.Add(lagsta_varde_SHK);
+                    //   minimumlista_SHK.Add(lagsta_varde_SHK);
 
-                //    tidsLista_SHK.Add(sampleToTime_SHK / 30);
+                    //    tidsLista_SHK.Add(sampleToTime_SHK / 30);
+                }
             }
-        }
-            
+
         }
 
 
@@ -787,65 +787,65 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
             }
         }
-        
 
 
-        
-    // -------------------------------------------------------------------------------------//
-    // -------------------------- Saker som ritar ------------------------------------------//
-    // -------------------------------------------------------------------------------------//
 
-    // Skickar allting till matlab och plottas sedan
-   public void printMatLab(List<double> list1, List<double> list2, List<double> list3, List<double> list4)
+
+        // -------------------------------------------------------------------------------------//
+        // -------------------------- Saker som ritar ------------------------------------------//
+        // -------------------------------------------------------------------------------------//
+
+        // Skickar allting till matlab och plottas sedan
+        public void printMatLab(List<double> list1, List<double> list2, List<double> list3, List<double> list4)
         {
             //MATLABPLOT
             //Skickar data till matlab i ett specifikt satt intervall
-          
-            
-                // Change to the directory where the function is located 
-                var path = Path.Combine(Directory.GetCurrentDirectory());
-                matlab.Execute(@"cd " + path + @"\..\..");
-     
 
-                // Define the output 
-                object result = null;
 
-                // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
-                try
-                {
-              
+            // Change to the directory where the function is located 
+            var path = Path.Combine(Directory.GetCurrentDirectory());
+            matlab.Execute(@"cd " + path + @"\..\..");
+
+
+            // Define the output 
+            object result = null;
+
+            // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
+            try
+            {
+
                 matlab.Feval("myfunc", 1, out result, list1.ToArray(), list2.ToArray(), list3.ToArray(), list4.ToArray());
-                }
-                catch (System.Runtime.InteropServices.COMException)
-                {
+            }
+            catch (System.Runtime.InteropServices.COMException)
+            {
                 MessageBox.Show("nått gick fel som fan");
-                }
+            }
 
-            
+
         }
 
 
 
 
         // Skickar allting till matlab och plottas sedan
-       public void printMatLab1(string funktionsnamn, string comport, int durationtime, string fileName)
+        public void printMatLab1(string funktionsnamn, string comport, int durationtime, string fileName)
         {
             //MATLABPLOT
             //Skickar data till matlab i ett specifikt satt intervall
-           
+
             // Change to the directory where the function is located 
             var path = Path.Combine(Directory.GetCurrentDirectory());
-                matlab.Execute(@"cd " + path + @"\..\..");
+            matlab.Execute(@"cd " + path + @"\..\..");
 
-                // Define the output 
-                object result = null;
+            // Define the output 
+            object result = null;
 
             // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
             try
             {
                 matlab.Feval(funktionsnamn, 0, out result, comport.ToString(), durationtime, fileName);
             }
-        
+
             catch (System.Runtime.InteropServices.COMException)
             {
 
@@ -856,8 +856,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // Ritar ut skelettmodellen på bilden
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
-            
-         
+
+
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
             this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderLeft);
@@ -886,7 +886,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             this.DrawBone(skeleton, drawingContext, JointType.HipRight, JointType.KneeRight);
             this.DrawBone(skeleton, drawingContext, JointType.KneeRight, JointType.AnkleRight);
             this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight);
- 
+
             // Render Joints
             foreach (Joint joint in skeleton.Joints)
             {
@@ -894,11 +894,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 if (joint.TrackingState == JointTrackingState.Tracked)
                 {
-                    drawBrush = this.trackedJointBrush;                    
+                    drawBrush = this.trackedJointBrush;
                 }
                 else if (joint.TrackingState == JointTrackingState.Inferred)
                 {
-                    drawBrush = this.inferredJointBrush;                    
+                    drawBrush = this.inferredJointBrush;
                 }
 
                 if (drawBrush != null)
@@ -907,7 +907,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
             }
         }
-       
+
         /// <summary>
         /// Maps a SkeletonPoint to lie within our render space and converts to Point
         /// </summary>
@@ -997,7 +997,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
-            
+
 
             if (comport == "" || durationtime == 0 || filename == "")
             {
@@ -1005,23 +1005,23 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
             else
             {
-                
+
                 heartrateThread = new Thread(() => printMatLab1("heartRateCalc", comport, durationtime, filename));
                 heartrateThread.Start();
-          
+
             }
         }
-        
-              
+
+
 
         private void display_angle_Click(object sender, RoutedEventArgs e)
         {
-             CompositionTargetRendering();
-             plotAnglesThread = new Thread(() => printMatLab(tidsLista_FHK, tidsLista_SHK, minimumlista_FHK, minimumlista_SHK));
-             plotAnglesThread.Start();
-           
+            CompositionTargetRendering();
+            plotAnglesThread = new Thread(() => printMatLab(tidsLista_FHK, tidsLista_SHK, minimumlista_FHK, minimumlista_SHK));
+            plotAnglesThread.Start();
+
         }
-        
+
         private void setting_Click(object sender, RoutedEventArgs e)
         {
 
@@ -1029,35 +1029,35 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
 
 
-        private  void readPulseData()
+        private void readPulseData()
         {
-                try
-                {
+            try
+            {
                 var currentpath = Path.Combine(Directory.GetCurrentDirectory());
                 String line = File.ReadLines(currentpath + @"\..\..\pulsdata1.txt").Last();
-                double pulsTodec = Double.Parse(line, NumberStyles.Float,CultureInfo.InvariantCulture);
+                double pulsTodec = Double.Parse(line, NumberStyles.Float, CultureInfo.InvariantCulture);
 
                 pulseList.Add(Math.Ceiling(pulsTodec));
 
-                pulstest.Text = Convert.ToString(Math.Ceiling(pulsTodec)) + " BPM";  
+                pulstest.Text = Convert.ToString(Math.Ceiling(pulsTodec)) + " BPM";
 
-                }
+            }
 
-                catch (Exception e)
-                {
-                   Console.WriteLine("Error: " + e.Message);
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
 
-                }
-                
+            }
+
             saveData.ExcelPulseFunk(pulseList);
 
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-           // SaveData win2 = new SaveData();
+            // SaveData win2 = new SaveData();
             saveData.Show();
-    }
+        }
 
         public void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1115,8 +1115,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             // ... Make the first item selected.
             comboBox.SelectedIndex = 0;
 
-       }
-        
+        }
+
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
         private int counter;
@@ -1132,7 +1132,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             if (comboBox1.SelectedIndex == 0)
             {
-                counter = 10;  
+                counter = 10;
             }
             if (comboBox1.SelectedIndex == 1)
             {
@@ -1165,7 +1165,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             timer1.Start();
             timerContent.Text = counter.ToString();
 
-           
+
 
 
         }
@@ -1182,9 +1182,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-          
+
             counter2++;
-              // timer2.Stop();
+            // timer2.Stop();
             timerContent2.Text = counter2.ToString();
         }
 
@@ -1222,15 +1222,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
 
 
-        
+
         }
 
 
     }
+}
 
 
 
 
-    }
+    
 
     
