@@ -64,7 +64,6 @@
         <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="942,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text=""/><LineBreak/><Run/></TextBlock>
         <CheckBox x:Name="FHKbox" Content="Knävinkel" HorizontalAlignment="Left" Margin="28,584,0,0" VerticalAlignment="Top" Checked="FKHbox_Checked" FontSize="14" FontWeight="Medium" Foreground="#FFBCF5FF"/>
         <CheckBox x:Name="SHKbox" Content="Höftvinkel" HorizontalAlignment="Left" Margin="28,618,0,-9" VerticalAlignment="Top" Checked="SHKbox_Checked" FontSize="14" FontWeight="Medium" Foreground="#FFBCF5FF" Height="35" Width="108"/>
-        <TextBlock x:Name="felmeddelande" HorizontalAlignment="Left" Margin="1120,448,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
         <Button x:Name="restartbutton" Content="Restart" HorizontalAlignment="Left" Margin="1160,574,0,0" VerticalAlignment="Top" Width="75" Click="restartbutton_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
