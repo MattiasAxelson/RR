@@ -17,9 +17,6 @@
         <TextBlock x:Name="Comments_text" HorizontalAlignment="Left" Margin="10,83,0,157.667" TextWrapping="Wrap" Text="Comments of test:" Width="108"/>
         <TextBox x:Name="CommentsInput" HorizontalAlignment="Left" Height="133" Margin="131,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" TextChanged="textBox_TextChanged_1"/>
         <Button x:Name="button1" Content="Close Window" HorizontalAlignment="Left" Height="20" Margin="73,241,0,0" VerticalAlignment="Top" Width="86" Click="button1_Click"/>
-        <TextBlock x:Name="testArray" HorizontalAlignment="Left" Margin="10,145,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="24" Width="52"/>
-        <TextBlock x:Name="testArray_Copy" HorizontalAlignment="Left" Margin="10,169,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="24" Width="52"/>
-        <TextBlock x:Name="testArray_Copy1" HorizontalAlignment="Left" Margin="10,192,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="24" Width="52"/>
 
     </Grid>
 </Window>
