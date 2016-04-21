@@ -1072,8 +1072,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                    Console.WriteLine("Error: " + e.Message);
 
                 }
-                
-            saveData.ExcelPulseFunk(pulseList);
+
+            //saveData.ExcelPulseFunk(pulseList);
 
         }
 
@@ -1081,7 +1081,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
            // SaveData win2 = new SaveData();
             saveData.Show();
-    }
+            saveData.ExcelPulseFunk(pulseList);
+        }
 
         public void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1094,19 +1095,19 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             if (comboBox.SelectedIndex == 0)
             {
-                k = 5;
+                k = 1;
             }
             if (comboBox.SelectedIndex == 1)
             {
-                k = 10;
+                k = 5;
             }
             if (comboBox.SelectedIndex == 2)
             {
-                k = 30;
+                k = 10;
             }
             if (comboBox.SelectedIndex == 3)
             {
-                k = 1;
+                k = 30;
             }
         }
 
@@ -1125,10 +1126,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             // ... A List.
             List<string> data = new List<string>();
+            data.Add("2 Sekunders Intervall");
             data.Add("10 Sekunders Intervall");
-            data.Add("20 Sekunders intervall");
-            data.Add("60 Sekunders intervall");
-            data.Add("2 Sekunders intervall");
+            data.Add("20 Sekunders Intervall");
+            data.Add("60 Sekunders Intervall");
 
             // ... Get the ComboBox reference.
             var comboBox = sender as ComboBox;
@@ -1153,6 +1154,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             meanList_FHK.Clear();
             velocityListDatabase.Clear();
             pulseList.Clear();
+
+          //  var currentpath = Path.Combine(Directory.GetCurrentDirectory());
+           // File.WriteAllText(currentpath + @"\..\..\pulsdata1.txt", String.Empty);
 
             if (comboBox1.SelectedIndex == 0)
             {

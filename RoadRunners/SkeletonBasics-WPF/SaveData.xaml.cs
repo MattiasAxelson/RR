@@ -108,7 +108,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
 
 
-            testArray.Text = Convert.ToString(Intervall);
+
 
             List<double> ExcelMeanListFHK = ExcelMeanListFHKhelp;
             List<double> ExcelMeanListSHK = ExcelMeanListSHKhelp;
@@ -144,19 +144,19 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             if (ExcelIntervall == 0)
             {
-                Intervall = 10;
+                Intervall = 2;
             }
             if (ExcelIntervall == 1)
             {
-                Intervall = 20;
+                Intervall = 10;
             }
             if (ExcelIntervall == 2)
             {
-                Intervall = 60;
+                Intervall = 20;
             }
             if (ExcelIntervall == 3)
             {
-                Intervall = 2;
+                Intervall = 60;
             }
 
 
@@ -187,9 +187,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
 
 
-            testArray.Text = duration.ToString();
-            testArray_Copy.Text = testLength.ToString();
-            testArray_Copy1.Text = testLength.ToString();
+
 
             ws.Range["F3"].Value = duration;
             ws.Range["F4"].Value = testLength;
@@ -205,17 +203,17 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     ws.Range["B0" + (i + 3)].Value = ((ExcelPulseList.Skip(i * Intervall).Take(Intervall).Sum())/Intervall); 
                 }
 
-                if (ExcelMeanListFHK != null && ExcelMeanListFHK[i] >= 0 && ExcelMeanListFHK[i] < 200)
+                if (ExcelMeanListFHK != null && ExcelMeanListFHK.Count < i)
                 {
-                    ws.Range["C0" + (i + 3)].Value = Math.Ceiling(ExcelMeanListFHK[i]);
+                   // ws.Range["C0" + (i + 3)].Value = Math.Ceiling(ExcelMeanListFHK[i]);
                 }
                 else
                 {
                     ws.Range["C0" + (i + 3)].Value = "ERROR";
                 }
-                 if (ExcelMeanListSHK != null && ExcelMeanListSHK[i] > 0 && ExcelMeanListSHK[i] < 200)
+                 if (ExcelMeanListSHK != null && ExcelMeanListSHK.Count < i)
                 {
-                    ws.Range["D0" + (i + 3)].Value = Math.Ceiling(ExcelMeanListSHK[i]);
+                    //ws.Range["D0" + (i + 3)].Value = Math.Ceiling(ExcelMeanListSHK[i]);
                 }
                 else
                 {
