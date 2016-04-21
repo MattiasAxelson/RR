@@ -650,7 +650,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     textTestdirektiv.Text = "";
                 }
             }
-
+            sampleToTime_FHK = vinklar_FHK.Count;
+            sampleToTime_SHK = vinklar_SHK.Count;
             // Kollar om FHKcheckbox är ifylld
             if ((bool)FHKbox.IsChecked)
             {
@@ -665,7 +666,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 double FHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2)
                     - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
 
-      
+                tidsLista.Add(sampleToTime_FHK / 30);
 
                 if (Double.IsNaN(FHK_angle))
                 {
@@ -681,7 +682,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
 
                 //contAngle_FHK.Text = Convert.ToString(i);
-                sampleToTime_FHK = vinklar_FHK.Count;
+                // sampleToTime_FHK = vinklar_FHK.Count;
 
                 if (FHK_angle < 90)
                 {
@@ -704,7 +705,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 //Knävinkel
                 lagsta_varde_FHK = minimumlistahelp_FHK.Min();
-                    minimumlista_FHK.Add(lagsta_varde_FHK);
+                minimumlista_FHK.Add(lagsta_varde_FHK);
                 smallestAngle_FHK.Text = Convert.ToString(lagsta_varde_FHK) + (char)176;
                 minimumlistahelp_FHK.Clear();
                 //Höftvinkel
