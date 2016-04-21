@@ -17,7 +17,7 @@ xlabel('Tid');
 ylabel('Vinkel');
 % legend('Vinklar FHK', 'Vinklar SHK', 'location', 'southwest');
 
-saveas(h, 'Vinkelgraf.png')
+saveas(h, 'Vinkelgraf.jpeg')
 close(h);
 end
 

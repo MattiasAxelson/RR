@@ -203,17 +203,17 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     ws.Range["B0" + (i + 3)].Value = ((ExcelPulseList.Skip(i * Intervall).Take(Intervall).Sum())/Intervall); 
                 }
 
-                if (ExcelMeanListFHK != null && ExcelMeanListFHK.Count < i)
+                if (ExcelMeanListFHK != null && ExcelMeanListFHK.Count > i)
                 {
-                   // ws.Range["C0" + (i + 3)].Value = Math.Ceiling(ExcelMeanListFHK[i]);
+                    ws.Range["C0" + (i + 3)].Value = Math.Ceiling(ExcelMeanListFHK[i]);
                 }
                 else
                 {
                     ws.Range["C0" + (i + 3)].Value = "ERROR";
                 }
-                 if (ExcelMeanListSHK != null && ExcelMeanListSHK.Count < i)
+                 if (ExcelMeanListSHK != null && ExcelMeanListSHK.Count > i)
                 {
-                    //ws.Range["D0" + (i + 3)].Value = Math.Ceiling(ExcelMeanListSHK[i]);
+                    ws.Range["D0" + (i + 3)].Value = Math.Ceiling(ExcelMeanListSHK[i]);
                 }
                 else
                 {
