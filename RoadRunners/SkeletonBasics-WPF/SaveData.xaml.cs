@@ -39,7 +39,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 //mWindow.ShowInTaskbar = false;
                 //mWindow.Owner = Application.Current.SaveData;
                 //mWindow.ShowDialog();
-                // int [] PulseTRY = mWindow.HB10secTRY;
+                //int [] PulseTRY = mWindow.HB10secTRY;
 
             });
         }
@@ -193,14 +193,22 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             ws.Range["F4"].Value = testLength;
             ws.Range["F5"].Value = Intervall;
 
+            
+
             for (int i = 0; i < duration; i++) 
             {
 
                 ws.Range["A0" + (i + 3)].Value = "'" + (i * Intervall) + "-" + (i + 1) * Intervall;
 
-                if (ExcelPulseList != null)
+                if (ExcelPulseList != null && ExcelPulseList.Count > i)
                 {
-                    ws.Range["B0" + (i + 3)].Value = ((ExcelPulseList.Skip(i * Intervall).Take(Intervall).Sum())/Intervall); 
+                    ws.Range["B0" + (i + 3)].Value = (ExcelPulseList[i]);
+
+                   // (ExcelPulseList.Skip(i * Intervall).Take(Intervall).Sum()) / Intervall
+                }
+                else
+                {
+                    ws.Range["B0" + (i + 3)].Value = "ERROR";
                 }
 
                 if (ExcelMeanListFHK != null && ExcelMeanListFHK.Count > i)
@@ -222,7 +230,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 
                  if (ExcelVelocityList != null)
                  {
-                   // ws.Range["E0" + (i + 3)].Value = ExcelVelocityList[i];
+                   ws.Range["E0" + (i + 3)].Value = ExcelVelocityList[i];
 
                  }
             }
