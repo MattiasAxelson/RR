@@ -9,14 +9,14 @@
         MinHeight="341.764"
         MaxWidth="398.143"
         MinWidth="398.143"
-        Title="SettingsAngle" Height="341.764" Width="398.143">
+        Title="SettingsAngle" Height="295.002" Width="344.416">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="Images/back.png" Stretch="UniformToFill"/>
         </Grid.Background>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="32" Margin="92,29,0,0" TextWrapping="Wrap" Text="Select angle" VerticalAlignment="Top" Width="148"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Height="29" Margin="66,124,0,0" TextWrapping="Wrap" Text="Hip angle" VerticalAlignment="Top" Width="112" FontSize="10.667"/>
-        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Height="14" Margin="66,99,0,0" TextWrapping="Wrap" Text="Knee angle" VerticalAlignment="Top" Width="85" FontSize="10.667"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="32" Margin="92,29,0,0" TextWrapping="Wrap" Text="Select angle" VerticalAlignment="Top" Width="148" Foreground="#FFBCF5FF" FontSize="14"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Height="29" Margin="66,124,0,0" TextWrapping="Wrap" Text="Hip angle" VerticalAlignment="Top" Width="112" Foreground="#FFBCF5FF"/>
+        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Height="14" Margin="66,99,0,0" TextWrapping="Wrap" Text="Knee angle" VerticalAlignment="Top" Width="85" Foreground="#FFBCF5FF"/>
         <Button x:Name="AngleDone" Content="Done" HorizontalAlignment="Left" Height="22" Margin="81,172,0,0" VerticalAlignment="Top" Width="70" Click="AngleDone_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">

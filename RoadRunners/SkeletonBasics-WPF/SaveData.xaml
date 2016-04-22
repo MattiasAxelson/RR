@@ -11,12 +11,30 @@
         MinWidth="325.333"
         Title="SaveData" Height="326.667" Width="325.333">
     <Grid>
-        <Button x:Name="SaveButtonExcel" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Width="102" Margin="186,241,0,0" Click="Save_Click"/>
-        <TextBox x:Name="NameInput" HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Margin="131,41,0,0" TextChanged="textBox_TextChanged"/>
-        <TextBlock x:Name="Name_textBlock" HorizontalAlignment="Left" Margin="10,41,0,202.667" TextWrapping="Wrap" Width="108"><Run Text="Name of"/><Run Text=" "/><Run Text="t"/><Run Text="estperson: "/></TextBlock>
-        <TextBlock x:Name="Comments_text" HorizontalAlignment="Left" Margin="10,83,0,157.667" TextWrapping="Wrap" Text="Comments of test:" Width="108"/>
-        <TextBox x:Name="CommentsInput" HorizontalAlignment="Left" Height="133" Margin="131,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" TextChanged="textBox_TextChanged_1"/>
-        <Button x:Name="button1" Content="Close Window" HorizontalAlignment="Left" Height="20" Margin="73,241,0,0" VerticalAlignment="Top" Width="86" Click="button1_Click"/>
+        <Grid.Background>
+            <ImageBrush ImageSource="Images/back.png" Stretch="None"/>
+        </Grid.Background>
+        <Button x:Name="SaveButtonExcel" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Width="102" Margin="51,244,0,0" Click="Save_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFBCF5FF" Offset="1"/>
+                    <GradientStop Color="#FFBCF5FF" Offset="1"/>
+                
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <TextBox x:Name="NameInput" HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Margin="131,76,0,0" TextChanged="textBox_TextChanged"/>
+        <TextBlock x:Name="Name_textBlock" HorizontalAlignment="Left" Margin="10,76,0,204.333" TextWrapping="Wrap" Width="108" Foreground="#FFBCF5FF"><Run Text="Name of"/><Run Text=" "/><Run Text="t"/><Run Text="estperson: "/></TextBlock>
+        <TextBlock x:Name="Comments_text" HorizontalAlignment="Left" Margin="10,109,0,163.333" TextWrapping="Wrap" Text="Comments of test:" Width="108" Foreground="#FFBCF5FF" RenderTransformOrigin="0.519,2.506"/>
+        <TextBox x:Name="CommentsInput" HorizontalAlignment="Left" Height="114" Margin="131,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" TextChanged="textBox_TextChanged_1"/>
+        <Button x:Name="button1" Content="Exit" HorizontalAlignment="Left" Height="20" Margin="194,244,0,0" VerticalAlignment="Top" Width="86" Click="button1_Click" ForceCursor="True">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFBCF5FF" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="29" Margin="118,23,0,0" TextWrapping="Wrap" Text="Save data" VerticalAlignment="Top" Width="117" FontSize="14" Foreground="#FFBCF5FF"/>
 
     </Grid>
 </Window>
