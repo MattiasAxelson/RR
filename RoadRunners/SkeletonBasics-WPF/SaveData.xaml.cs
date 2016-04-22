@@ -91,7 +91,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
 
 
-            testArray.Text = Convert.ToString(Intervall);
+           // testArray.Text = Convert.ToString(Intervall);
 
             List<double> ExcelMeanListFHK = ExcelMeanListFHKhelp;
             List<double> ExcelMeanListSHK = ExcelMeanListSHKhelp;

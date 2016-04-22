@@ -20,8 +20,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Collections;
     using System.Threading;
     using System.Globalization;
-    
+
    
+
+
 
 
     /// <summary>
@@ -1024,8 +1026,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
       
         }
-
-
 
 
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
