@@ -176,7 +176,7 @@ if (shimmer.connect)                                                       % TRU
                         plotData = plotData(numPlotSamples-NO_SAMPLES_IN_PLOT+1:end,:);
                         filteredplotData = filteredplotData(numPlotSamples-NO_SAMPLES_IN_PLOT+1:end,:);
                         heartRate = heartRate(numPlotSamples-NO_SAMPLES_IN_PLOT+1:end,:);
-                        
+                        valuelength = 2891;
                  end
                  sampleNumber = max(numSamples-NO_SAMPLES_IN_PLOT+1,1):numSamples;
            
