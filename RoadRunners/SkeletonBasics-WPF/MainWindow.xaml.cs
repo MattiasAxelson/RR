@@ -1046,12 +1046,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 try
                 {
                 var currentpath = Path.Combine(Directory.GetCurrentDirectory());
-                String line = File.ReadLines(currentpath + @"\..\..\pulsdata1.txt").Last();
+                String line = File.ReadAllLines(currentpath + @"\..\..\pulsdata1.txt").LastOrDefault();
                 double pulsTodec = Double.Parse(line, NumberStyles.Float, CultureInfo.InvariantCulture);
 
                 pulseList.Add(Math.Ceiling(pulsTodec));
 
-                pulstest.Text = Convert.ToString(Math.Ceiling(pulsTodec)) + " BPM";  
+                pulstest.Text = Convert.ToString(Math.Ceiling(pulseList.LastOrDefault())) + " BPM";  
 
                 }
 
@@ -1069,7 +1069,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
            // SaveData win2 = new SaveData();
             saveData.Show();
-            saveData.ExcelPulseFunk(pulseList);
+            //saveData.ExcelPulseFunk(pulseList);
     }
 
         public void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
