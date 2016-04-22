@@ -125,10 +125,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             });
 
- 
+
+                
         
            
-
             this.saveData = new SaveData();
 
             
@@ -349,13 +349,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     this.sensor = null;
                 }
                 }
-       
+
 
             }
             
    
 
-        
+      
       
         //Hämtar bild som ritas i matlab
         private void CompositionTargetRendering() //object sender, EventArgs e
@@ -488,20 +488,20 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         int k = 5;
         //Skapar vektorer
 
-
+        
         public void meanAngleFunc(List<double> minList1, List<double> minList2, List<double> minList3)
         {
 
             if (i == k)
             {
                 meanAngle_FHK = minList1.Average();
-                meanList_FHK.Add(meanAngle_FHK);
+            meanList_FHK.Add(meanAngle_FHK);
                 meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault())) + (char)176;
                 miniLengthFHK.Text = Convert.ToString(minimumlista_FHK.Count);
                 minimumlista_FHK.Clear();
 
                 meanAngle_SHK = minList2.Average();
-                meanList_SHK.Add(meanAngle_SHK);
+            meanList_SHK.Add(meanAngle_SHK);
                 meanAngleBlock_SHK.Text = Convert.ToString(Math.Ceiling(meanList_SHK.LastOrDefault())) + (char)176;
                 miniLengthSHK.Text = Convert.ToString(minimumlista_SHK.Count);
                 minimumlista_SHK.Clear();
@@ -518,19 +518,19 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 velocityListDatabase.Add(meanVelocity * 3.6);
                 velocityListSave.Clear();
                 */
-                saveData.ExcelFunkFHK(meanList_FHK);
-                saveData.ExcelFunkSHK(meanList_SHK);
+            saveData.ExcelFunkFHK(meanList_FHK);
+            saveData.ExcelFunkSHK(meanList_SHK);
                 saveData.ExcelPulseFunk(meanList_pulse);
 
-
-                i = 0;
-            }
-        }
             
+                    i = 0;
+                }
+            }
 
 
 
 
+            
         // Beräknar vinklar beroende på checkboxar
         public void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
         {
@@ -561,14 +561,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             XShoulderleft = shoulderLeft.Position.X;
             YShoulderleft = shoulderLeft.Position.Y;
 
-            double HipKnee_Length = Math.Sqrt(Math.Pow(XHipleft - XKneeleft, 2) + Math.Pow(YHipleft - YKneeleft, 2));
-            double HipShoulder_Length = Math.Sqrt(Math.Pow(XHipleft - XShoulderleft, 2) + Math.Pow(YHipleft - YShoulderleft, 2));
-            double KneeShoulder_Length = Math.Sqrt(Math.Pow(XKneeleft - XShoulderleft, 2) + Math.Pow(YKneeleft - YShoulderleft, 2));
+                double HipKnee_Length = Math.Sqrt(Math.Pow(XHipleft - XKneeleft, 2) + Math.Pow(YHipleft - YKneeleft, 2));
+                double HipShoulder_Length = Math.Sqrt(Math.Pow(XHipleft - XShoulderleft, 2) + Math.Pow(YHipleft - YShoulderleft, 2));
+                double KneeShoulder_Length = Math.Sqrt(Math.Pow(XKneeleft - XShoulderleft, 2) + Math.Pow(YKneeleft - YShoulderleft, 2));
             double HipFoot_Length = Math.Sqrt(Math.Pow(XHipleft - XFootleft, 2) + Math.Pow(YHipleft - YFootleft, 2));
             double KneeFoot_Length = Math.Sqrt(Math.Pow(XKneeleft - XFootleft, 2) + Math.Pow(YKneeleft - YFootleft, 2));
 
             //SHK - Cosinussatsen för vinkel Spine-hip-knee, avrundar till heltal
-            double SHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(HipShoulder_Length, 2)
+                double SHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(HipShoulder_Length, 2)
                     - Math.Pow(KneeShoulder_Length, 2)) / (2 * HipKnee_Length * HipShoulder_Length))) * (180 / Math.PI));
 
             //FHK - Cosinussatsen för vinkel höft-knä-fot, avrundar till heltal
@@ -587,13 +587,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 }
                 else
-            {
+                {
                 angles_SHK.Add(SHK_angle);
                 anglesHelp_SHK.Add(SHK_angle);
-            }
+                }
 
             contAngle_SHK.Text = Convert.ToString(anglesHelp_FHK);
- 
+
 
                 if (SHK_angle < 140)
                 {
@@ -632,10 +632,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (counter2 >= 2)
             {
                 readPulseData();
-
+              
                 //Knävinkel
                 lagsta_varde_FHK = anglesHelp_FHK.Min();
-                minimumlista_FHK.Add(lagsta_varde_FHK);          
+                    minimumlista_FHK.Add(lagsta_varde_FHK);
                 anglesHelp_FHK.Clear();
                 smallestAngle_FHK.Text = Convert.ToString(lagsta_varde_FHK) + (char)176;
 
@@ -645,25 +645,25 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 anglesHelp_SHK.Clear();
                 smallestAngle_SHK.Text = Convert.ToString(lagsta_varde_SHK) + (char)176;
 
-                
 
+                 
                 //pulsen
                 lagsta_varde_Puls = pulseListHelp.Min();
                 minimumList_pulse.Add(lagsta_varde_Puls);
                 pulseListHelp.Clear();
 
 
-
+              
                 meanAngleFunc(minimumlista_FHK, minimumlista_SHK, minimumList_pulse);
 
-                counter2 = 0;
+                    counter2 = 0;
                 i++;
 
-            } 
+        }
         }
 
-
         
+
 
         
     // -------------------------------------------------------------------------------------//
@@ -909,7 +909,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 try
                 {
                 var currentpath = Path.Combine(Directory.GetCurrentDirectory());
-                String line = File.ReadLines(currentpath + @"\..\..\pulsdata1.txt").Last();
+                String line = File.ReadAllLines(currentpath + @"\..\..\pulsdata1.txt").LastOrDefault();
                 double pulsTodec = Double.Parse(line, NumberStyles.Float, CultureInfo.InvariantCulture);
 
 

@@ -39,7 +39,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 //mWindow.ShowInTaskbar = false;
                 //mWindow.Owner = Application.Current.SaveData;
                 //mWindow.ShowDialog();
-                // int [] PulseTRY = mWindow.HB10secTRY;
+                //int [] PulseTRY = mWindow.HB10secTRY;
 
             });
         }
@@ -202,11 +202,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 if (ExcelPulseList != null && ExcelPulseList.Count > i)
                 {
-                    ws.Range["B0" + (i + 3)].Value = ExcelPulseList[i];
-                    //ws.Range["B0" + (i + 3)].Value = ((ExcelPulseList.Skip(i * Intervall).Take(Intervall).Sum()) / Intervall);
+                    ws.Range["B0" + (i + 3)].Value = (ExcelPulseList[i]);
+
+                   // (ExcelPulseList.Skip(i * Intervall).Take(Intervall).Sum()) / Intervall
                 }
                 else
-                { 
+                {
                     ws.Range["B0" + (i + 3)].Value = "ERROR";
                 }
 
