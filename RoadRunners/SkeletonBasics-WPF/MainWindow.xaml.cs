@@ -199,6 +199,52 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             vinkelImage.Source = null;
+
+            //Starta sensorerna
+            // Create the drawing group we'll use for drawing
+            this.drawingGroup = new DrawingGroup();
+
+            // Create an image source that we can use in our image control
+            this.imageSource = new DrawingImage(this.drawingGroup);
+
+            // Display the drawing using our image control
+            Image.Source = this.imageSource;
+
+            // Look through all sensors and start the first connected one.
+            // This requires that a Kinect is connected at the time of app startup.
+            // To make your app robust against plug/unplug, 
+            // it is recommended to use KinectSensorChooser provided in Microsoft.Kinect.Toolkit (See components in Toolkit Browser).
+            foreach (var potentialSensor in KinectSensor.KinectSensors)
+            {
+                if (potentialSensor.Status == KinectStatus.Connected)
+                {
+                    this.sensor = potentialSensor;
+                    break;
+                }
+            }
+
+            if (null != this.sensor)
+            {
+                // Turn on the skeleton stream to receive skeleton frames
+
+
+                this.sensor.ColorStream.Enable();
+                this.sensor.SkeletonStream.Enable();
+
+                // Add an event handler to be called whenever there is new color frame data
+                this.sensor.SkeletonFrameReady += this.SensorSkeletonFrameReady;
+
+                // Start the sensor!
+                try
+                {
+                    this.sensor.Start();
+                }
+                catch (IOException)
+                {
+                    this.sensor = null;
+                }
+            }
+
         }
 
         /// <summary>
@@ -294,56 +340,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             this.sensor.Stop();
         }
 
-        private void start_button_Click(object sender, RoutedEventArgs e)
-        {
-
-
-            // Create the drawing group we'll use for drawing
-            this.drawingGroup = new DrawingGroup();
-
-            // Create an image source that we can use in our image control
-            this.imageSource = new DrawingImage(this.drawingGroup);
-
-            // Display the drawing using our image control
-            Image.Source = this.imageSource;
-
-            // Look through all sensors and start the first connected one.
-            // This requires that a Kinect is connected at the time of app startup.
-            // To make your app robust against plug/unplug, 
-            // it is recommended to use KinectSensorChooser provided in Microsoft.Kinect.Toolkit (See components in Toolkit Browser).
-            foreach (var potentialSensor in KinectSensor.KinectSensors)
-            {
-                if (potentialSensor.Status == KinectStatus.Connected)
-                {
-                    this.sensor = potentialSensor;
-                    break;
-                }
-            }
-
-            if (null != this.sensor)
-            {
-                // Turn on the skeleton stream to receive skeleton frames
-
-
-                this.sensor.ColorStream.Enable();
-                this.sensor.SkeletonStream.Enable();
-
-                // Add an event handler to be called whenever there is new color frame data
-                this.sensor.SkeletonFrameReady += this.SensorSkeletonFrameReady;
-
-                // Start the sensor!
-                try
-                {
-                    this.sensor.Start();
-                }
-                catch (IOException)
-                {
-                    this.sensor = null;
-                }
-            }
-
-
-        }
+        
 
 
         //Hämtar bild som ritas i matlab
@@ -432,7 +429,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 velXList.RemoveAt(0);
             }
-            saveData.ExcelVelocityFunk(velocityListDatabase);
+           
         }
 
 
@@ -513,6 +510,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 saveData.ExcelFunkFHK(meanList_FHK);
                 saveData.ExcelFunkSHK(meanList_SHK);
                 saveData.ExcelPulseFunk(meanList_pulse);
+                saveData.ExcelVelocityFunk(velocityListDatabase);
+
+
+
+
+
+
 
 
                 i = 0;
@@ -526,8 +530,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // Beräknar vinklar beroende på checkboxar
         public void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
         {
-            // plotAngles();
-
+            plotAngles();
             // Definerar jointar
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
             Joint hipLeft = skeleton.Joints[JointType.HipLeft];
@@ -575,17 +578,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 double prevValSHKlist = angles_SHK[angles_SHK.Count - 1];
                 anglesHelp_SHK.Add(prevValSHKlist);
                 angles_SHK.Add(prevValSHKlist);
-                contAngle_SHK.Text = "HEJ MY LITTLE PONY!!! SAILOR MOON";
-
             }
             else
             {
                 angles_SHK.Add(SHK_angle);
                 anglesHelp_SHK.Add(SHK_angle);
             }
-
-            contAngle_SHK.Text = Convert.ToString(anglesHelp_FHK);
-
 
             if (SHK_angle < 140)
             {
@@ -603,7 +601,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 double prevValFHKlist = angles_FHK[angles_FHK.Count - 1];
                 anglesHelp_FHK.Add(prevValFHKlist);
                 angles_FHK.Add(prevValFHKlist);
-
             }
             else
             {
@@ -637,15 +634,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 anglesHelp_SHK.Clear();
                 smallestAngle_SHK.Text = Convert.ToString(lagsta_varde_SHK) + (char)176;
 
-
-
                 //pulsen
                 lagsta_varde_Puls = pulseListHelp.Min();
                 minimumList_pulse.Add(lagsta_varde_Puls);
                 pulseListHelp.Clear();
 
-
-
+                //Tar ut medelvinklar
                 meanAngleFunc(minimumlista_FHK, minimumlista_SHK, minimumList_pulse);
 
                 counter2 = 0;
@@ -665,14 +659,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // Skickar allting till matlab och plottas sedan
         public void printMatLab(List<double> list1, List<double> list2, List<double> list3, List<double> list4)
         {
-            //MATLABPLOT
-            //Skickar data till matlab i ett specifikt satt intervall
-
-
             // Change to the directory where the function is located 
             var path = Path.Combine(Directory.GetCurrentDirectory());
             matlab.Execute(@"cd " + path + @"\..\..");
-
 
             // Define the output 
             object result = null;
@@ -685,21 +674,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
             catch (System.Runtime.InteropServices.COMException)
             {
-                MessageBox.Show("nått gick fel som fan");
+                MessageBox.Show("Listorna har ej samma längd :(");
             }
-
-
         }
-
-
 
 
         // Skickar allting till matlab och plottas sedan
         public void printMatLab1(string funktionsnamn, string comport, int durationtime, string fileName)
         {
-            //MATLABPLOT
-            //Skickar data till matlab i ett specifikt satt intervall
-
             // Change to the directory where the function is located 
             var path = Path.Combine(Directory.GetCurrentDirectory());
             matlab.Execute(@"cd " + path + @"\..\..");
@@ -851,16 +833,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-        private void FKHbox_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SHKbox_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
 
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
@@ -878,8 +850,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             }
         }
-
-
 
         private void display_angle_Click(object sender, RoutedEventArgs e)
         {
@@ -914,10 +884,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             catch (Exception e)
             {
                 Console.WriteLine("Error: " + e.Message);
-
             }
-
-
 
         }
 
@@ -948,18 +915,19 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 k = 30;
             }
         }
-        /*
+        public int plotCounter = 0;
         public void plotAngles()
         {
-            if (angles_SHK.Count() > updateMatlab || angles_FHK.Count() > updateMatlab)
+            if (timeList.Count > plotCounter)
             {
                 CompositionTargetRendering();
-                plotAnglesThread = new Thread(() => printMatLab(tidsLista_FHK, tidsLista_SHK, angles_FHK, angles_SHK));
+                plotAnglesThread = new Thread(() => printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK));
                 plotAnglesThread.Start();
-                updateMatlab = updateMatlab + 60;
-            }
+
+                plotCounter = plotCounter + 2;
+            }       
         }
-        */
+
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             // ... A List.
@@ -1039,7 +1007,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             counter--;
             timeTick++;
-
 
             if (counter == 0)
             {
