@@ -492,9 +492,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public double meanPulse;
         public double lagsta_varde_Puls;
         int i = 0;
-        int k = 5;
+        int k = 0;
         //Skapar vektorer
-
         
         public void meanAngleFunc(List<double> minList1, List<double> minList2, List<double> minList3)
         {
@@ -502,13 +501,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (i == k)
             {
                 meanAngle_FHK = minList1.Average();
-            meanList_FHK.Add(meanAngle_FHK);
+                meanList_FHK.Add(meanAngle_FHK);
                 meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault())) + (char)176;
                 miniLengthFHK.Text = Convert.ToString(meanList_FHK.Count);
                 minimumlista_FHK.Clear();
 
                 meanAngle_SHK = minList2.Average();
-            meanList_SHK.Add(meanAngle_SHK);
+                meanList_SHK.Add(meanAngle_SHK);
                 meanAngleBlock_SHK.Text = Convert.ToString(Math.Ceiling(meanList_SHK.LastOrDefault())) + (char)176;
                 miniLengthSHK.Text = Convert.ToString(meanList_SHK.Count);
                 minimumlista_SHK.Clear();
@@ -522,16 +521,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 timeList.Add(timeTick);
                 timeTickLength.Text = Convert.ToString(timeList.Count);
 
-                /*
-                //KOLLA PÅ DETTA
-                meanVelocity = velocityListSave.Average();
-                velocityListDatabase.Add(meanVelocity * 3.6);
-                velocityListSave.Clear();
-                */
+                plotAngles();
+
             saveData.ExcelFunkFHK(meanList_FHK);
             saveData.ExcelFunkSHK(meanList_SHK);
                 saveData.ExcelPulseFunk(meanList_pulse);
-
             
                     i = 0;
                 }
@@ -544,7 +538,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // Beräknar vinklar beroende på checkboxar
         public void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
         {
-            // plotAngles();
+            
 
             // Definerar jointar
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
@@ -602,7 +596,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 anglesHelp_SHK.Add(SHK_angle);
                 }
 
-            contAngle_SHK.Text = Convert.ToString(anglesHelp_FHK);
+         //   contAngle_SHK.Text = Convert.ToString(anglesHelp_FHK);
 
 
                 if (SHK_angle < 140)
@@ -646,7 +640,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
               
                 //Knävinkel
                 lagsta_varde_FHK = anglesHelp_FHK.Min();
-                    minimumlista_FHK.Add(lagsta_varde_FHK);
+                minimumlista_FHK.Add(lagsta_varde_FHK);
                 anglesHelp_FHK.Clear();
                 smallestAngle_FHK.Text = Convert.ToString(lagsta_varde_FHK) + (char)176;
 
@@ -655,16 +649,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 minimumlista_SHK.Add(lagsta_varde_SHK);
                 anglesHelp_SHK.Clear();
                 smallestAngle_SHK.Text = Convert.ToString(lagsta_varde_SHK) + (char)176;
-
-
                  
                 //pulsen
                 lagsta_varde_Puls = pulseListHelp.Min();
                 minimumList_pulse.Add(lagsta_varde_Puls);
                 pulseListHelp.Clear();
 
-
-              
                 meanAngleFunc(minimumlista_FHK, minimumlista_SHK, minimumList_pulse);
 
                     counter2 = 0;
@@ -900,7 +890,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         
               
 
-        private void display_angle_Click(object sender, RoutedEventArgs e)
+       private void display_angle_Click(object sender, RoutedEventArgs e)
         {
              CompositionTargetRendering();
             plotAnglesThread = new Thread(() => printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK));
@@ -967,18 +957,19 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 k = 30;
             }
         }
-        /*
+        
         public void plotAngles()
         {
-            if (angles_SHK.Count() > updateMatlab || angles_FHK.Count() > updateMatlab)
-            {
+           
+                //Grafritning
                 CompositionTargetRendering();
-                plotAnglesThread = new Thread(() => printMatLab(tidsLista_FHK, tidsLista_SHK, angles_FHK, angles_SHK));
+                plotAnglesThread = new Thread(() => printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK));
                 plotAnglesThread.Start();
-                updateMatlab = updateMatlab + 60;
-            }
+            // updateMatlab = updateMatlab + 60;
+            contAngle_FHK.Text = Convert.ToString("Fungerar detta endevor");
+
         }
-        */
+        
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             // ... A List.
@@ -1068,8 +1059,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
         private void timer2_Tick(object sender, EventArgs e)
-        {
-          
+        { 
             counter2++;
               // timer2.Stop();
             timerContent2.Text = counter2.ToString();

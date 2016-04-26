@@ -25,7 +25,7 @@ x = plot (a,b,a,c,a,d);
 title('SuperGrafen');
 xlabel('Tid');
 ylabel('Vinkel');
- legend('Puls', 'Vinklar FHK','Vinklar SHK' , 'location', 'southwest');
+ legend('Puls','Vinklar FHK','Vinklar SHK' , 'location', 'southwest');
 
 saveas(h, 'Vinkelgraf.jpeg')
 close(h);
