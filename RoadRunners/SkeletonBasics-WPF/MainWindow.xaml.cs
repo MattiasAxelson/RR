@@ -116,23 +116,19 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 chldWindow.ShowDialog();
 
                 comport = chldWindow.comport;
-                durationtime = chldWindow.durationtime;
-                filename = chldWindow.fileName + ".dat";
-                
-                comportCont.Text = Convert.ToString(comport);
-                durationtimeCont.Text = Convert.ToString(durationtime);
-                filenameCont.Text = Convert.ToString(filename);
-
-          
+                          
+                comportCont.Text = Convert.ToString(comport);      
 
             });
 
             this.saveData = new SaveData();
 
         }
+
         public string comport = null;
-        public int durationtime = 0;
-        public string filename = null;
+        public int durationtime;
+        public string bufferFile = "buffer.dat";
+
         
         Thread heartrateThread;
         Thread plotAnglesThread;
@@ -189,8 +185,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void restartbutton_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
-            Application.Current.Shutdown();
+            System.Windows.Forms.Application.Restart();
+            System.Windows.Application.Current.Shutdown();
         }
 
         /// <summary>
@@ -661,14 +657,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
         }
 
+
+
+
+
+        // -------------------------------------------------------------------------------------//
+        // -------------------------- Saker som ritar ------------------------------------------//
+        // -------------------------------------------------------------------------------------//
         
-
-
-        
-    // -------------------------------------------------------------------------------------//
-    // -------------------------- Saker som ritar ------------------------------------------//
-    // -------------------------------------------------------------------------------------//
-
     // Skickar allting till matlab och plottas sedan
    public void printMatLab(List<double> list1, List<double> list2, List<double> list3, List<double> list4)
         {
@@ -678,6 +674,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
      
                 // Define the output 
                 object result = null;
+
 
                 // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
                 try
@@ -691,9 +688,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
         }
 
-
+       
         // Skickar allting till matlab och plottas sedan
-       public void printMatLab1(string funktionsnamn, string comport, int durationtime, string fileName)
+        public void printMatLab1(string funktionsnamn, string comport, int durationtime, string filename)
         {
             // Change to the directory where the function is located 
             var path = Path.Combine(Directory.GetCurrentDirectory());
@@ -701,11 +698,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 // Define the output 
                 object result = null;
-
+             
             // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
             try
             {
-                matlab.Feval(funktionsnamn, 0, out result, comport.ToString(), durationtime, fileName);
+                matlab.Feval(funktionsnamn, 0, out result, comport.ToString(), durationtime, filename);
             }
         
             catch (System.Runtime.InteropServices.COMException)
@@ -846,19 +843,23 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-
+       
+       
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
-            
+ 
+            durationtime = saveData.ReturnTestLength() + 20;
 
-            if (comport == "" || durationtime == 0 || filename == "")
+            durationtimeCont.Text = Convert.ToString(durationtime);
+
+            if (comport == "")
             {
                 MessageBox.Show("Add heartrate settings");
             }
             else
             {
                 
-                heartrateThread = new Thread(() => printMatLab1("heartRateCalc", comport, durationtime, filename));
+                heartrateThread = new Thread(() => printMatLab1("heartRateCalc", comport, durationtime, bufferFile));
                 heartrateThread.Start();
           
             }
@@ -970,35 +971,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             meanList_SHK.Clear();
             meanList_FHK.Clear();
             velocityListDatabase.Clear();
-            //  pulseList.Clear();
 
-          //  var currentpath = Path.Combine(Directory.GetCurrentDirectory());
-           // File.WriteAllText(currentpath + @"\..\..\pulsdata1.txt", String.Empty);
-
-            if (comboBox1.SelectedIndex == 0)
-            {
-                counter = 10;  
-            }
-            if (comboBox1.SelectedIndex == 1)
-            {
-                counter = 30;
-            }
-            if (comboBox1.SelectedIndex == 2)
-            {
-                counter = 60;
-            }
-            if (comboBox1.SelectedIndex == 3)
-            {
-                counter = 300;
-            }
-            if (comboBox1.SelectedIndex == 4)
-            {
-                counter = 600;
-            }
-
+            counter = saveData.ReturnTestLength();
 
             counter2 = 0;
-
 
             timer1 = new System.Windows.Forms.Timer();
             timer1.Tick += new EventHandler(timer1_Tick);
@@ -1010,8 +986,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             timer2.Tick += new EventHandler(timer2_Tick);
             timer2.Interval = 1000; // 1 second
             timer2.Start();
-
-
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -1044,7 +1018,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             saveData.ExcelTestLength(comboBox1.SelectedIndex);
         }
 
-        public int testLength;
+        //public int testLength;
 
         public void ComboBox1_Loaded(object sender, RoutedEventArgs e)
         {
@@ -1058,7 +1032,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             // ... Get the ComboBox reference.
             var comboBox1 = sender as ComboBox;
-
+            
             // ... Assign the ItemsSource to the List.
             comboBox1.ItemsSource = data;
 

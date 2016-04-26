@@ -105,7 +105,6 @@
             </Button.Background>
         </Button>
         <TextBlock x:Name="durationtimeCont" HorizontalAlignment="Left" Margin="135,220,0,0" TextWrapping="Wrap" Text="____" VerticalAlignment="Top" Foreground="#FFBCF5FF"/>
-        <TextBlock x:Name="filenameCont" HorizontalAlignment="Left" Margin="135,236,0,0" TextWrapping="Wrap" Text="____" VerticalAlignment="Top" RenderTransformOrigin="3.15,0.188" Foreground="#FFBCF5FF"/>
         <TextBlock x:Name="pulstest" HorizontalAlignment="Left" Margin="295,63,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="29" Width="94" FontSize="20" Foreground="#FFBCF5FF" FontWeight="Medium"/>
         <TextBlock x:Name="contAngle_FHK" HorizontalAlignment="Left" Margin="564,599,0,0" TextWrapping="Wrap" Text="Kont. vinkel" VerticalAlignment="Top" Width="91" FontSize="14" FontWeight="Medium" Foreground="#FFD1951D"/>
         <TextBlock x:Name="smallestAngle_FHK" HorizontalAlignment="Left" Margin="247,587,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFBCF5FF" FontWeight="Medium" Text="FHK vinkel" Width="76"/>
@@ -125,7 +124,6 @@
         </Button>
         <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Height="20" Margin="38,202,0,0" TextWrapping="Wrap" Text="ComPort" VerticalAlignment="Top" Width="81" Foreground="#FFBCF5FF" FontSize="14" FontWeight="Medium"/>
         <TextBlock x:Name="textBlock3_Copy" HorizontalAlignment="Left" Height="20" Margin="38,220,0,0" TextWrapping="Wrap" Text="Durationtime" VerticalAlignment="Top" Width="97" Foreground="#FFBCF5FF" FontSize="14" FontWeight="Medium"/>
-        <TextBlock x:Name="textBlock3_Copy1" HorizontalAlignment="Left" Height="20" Margin="38,236,0,0" TextWrapping="Wrap" Text="Filename:" VerticalAlignment="Top" Width="59" RenderTransformOrigin="0.695,-1.75" Foreground="#FFBCF5FF" FontSize="14" FontWeight="Medium"/>
         <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Height="58" Margin="542,112,0,0" TextWrapping="Wrap" Text="RunningLab" VerticalAlignment="Top" Width="164" FontSize="21.333" FontWeight="Bold" Foreground="#FFBCF5FF"/>
         <Image x:Name="image" HorizontalAlignment="Left" Height="61" Margin="568,61,0,0" VerticalAlignment="Top" Width="76" Source="Images/RoadRunners4.png" RenderTransformOrigin="0.647,0.162"/>
         <TextBlock x:Name="comportCont" HorizontalAlignment="Left" Margin="135,204,0,0" TextWrapping="Wrap" Text="____" VerticalAlignment="Top" Foreground="#FFBCF5FF"/>
