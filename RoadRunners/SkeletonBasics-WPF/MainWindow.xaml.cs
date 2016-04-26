@@ -242,7 +242,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 catch (IOException)
                 {
                     this.sensor = null;
-                }
+        }
             }
 
         }
@@ -340,7 +340,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             this.sensor.Stop();
         }
 
-        
+
 
 
         //Hämtar bild som ritas i matlab
@@ -369,17 +369,22 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// 
 
 
+
+        //---------------------------------------------------------------------------------------//
         //------------------------------- Hastighetsberäkning -----------------------------------//
+        //---------------------------------------------------------------------------------------//
 
         // Variabler för hastighet
         double deltaT = 0;
         double deltaX = 0;
         double stepVelocity = 0;
-        double meanVelocity = 0;
+        double maxValuePlotHelp = 0;
+        int velocitycount = 0;
 
         // Listor för hastighet
         List<double> velXList = new List<double>();
-        List<double> velHelpList = new List<double>();
+        List<double> velHelpListPlot = new List<double>();
+        List<double> velHelpListSave = new List<double>();
         List<double> velocityList = new List<double>();
         List<double> velocityListSave = new List<double>();
         List<double> velocityListDatabase = new List<double>();
@@ -403,33 +408,46 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 deltaX = Math.Abs(velXList[velXList.Count - 1]) - Math.Abs(velXList[velXList.Count - 4]);
                 deltaX = Math.Abs(deltaX);
             }
-
             // Skillnaden i tid mellan sampelvärdena
             deltaT = 0.1;
             stepVelocity = deltaX / deltaT;
             velocityList.Add(stepVelocity);
 
+            // Det som plottas i fönstret
             if (velocityList.Count == 15)
             {
-                double maxValue = velocityList.Max();
-                velHelpList.Add(maxValue);
+                double maxValuePlot = velocityList.Max();
+                velHelpListPlot.Add(maxValuePlot);
                 velocityList.Clear();
             }
 
-            if (velHelpList.Count == 4)
+            if (velHelpListPlot.Count == 4)
             {
-                double maxValueHelp = velHelpList.Average();
-                initVel.Text = Convert.ToString(Math.Floor(maxValueHelp * 3.6)) + " km/h"; //Här ska det läggas till round
-                velocityListSave.Add(maxValueHelp);
-                velHelpList.Clear();
+                maxValuePlotHelp = velHelpListPlot.Average();
+                initVel.Text = Convert.ToString(Math.Floor(maxValuePlotHelp * 3.6)) + " km/h"; //Här ska det läggas till round
+                velHelpListPlot.Clear();
             }
-
 
             if (velXList.Count > 600)
             {
                 velXList.RemoveAt(0);
             }
-           
+        }
+
+        // Det som sparas ner till databasen
+        public void CalculateVelocitySave()
+        {
+            velocityListSave.Add(Math.Round(maxValuePlotHelp * 3.6, 2));
+            ++velocitycount;
+
+            if (velocitycount == k)
+            {
+                double meanVelocity = velocityListSave.Average();
+                velocityListDatabase.Add(meanVelocity);
+                velocityListSave.Clear();
+                velocitycount = 0;
+            }
+            saveData.ExcelVelocityFunk(velocityListDatabase);
         }
 
 
@@ -510,7 +528,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 saveData.ExcelFunkFHK(meanList_FHK);
                 saveData.ExcelFunkSHK(meanList_SHK);
                 saveData.ExcelPulseFunk(meanList_pulse);
-                saveData.ExcelVelocityFunk(velocityListDatabase);
 
 
 
@@ -621,6 +638,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (counter2 >= 2)
             {
                 readPulseData();
+                CalculateVelocitySave();
 
                 //Knävinkel
                 lagsta_varde_FHK = anglesHelp_FHK.Min();
@@ -925,7 +943,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 plotAnglesThread.Start();
 
                 plotCounter = plotCounter + 2;
-            }       
+            }
         }
 
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
