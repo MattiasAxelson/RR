@@ -94,7 +94,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="setting" Content="Heartrate settings" HorizontalAlignment="Left" Margin="27,30,0,0" VerticalAlignment="Top" Width="109" Click="setting_Click">
+        <Button x:Name="setting" Content="Heartrate settings" HorizontalAlignment="Left" Margin="27,30,0,0" VerticalAlignment="Top" Width="109">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>

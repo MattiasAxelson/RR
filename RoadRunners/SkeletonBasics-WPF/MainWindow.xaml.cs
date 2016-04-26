@@ -118,10 +118,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 comport = chldWindow.comport;
                 durationtime = chldWindow.durationtime;
                 filename = chldWindow.fileName + ".dat";
-
+                
                 comportCont.Text = Convert.ToString(comport);
                 durationtimeCont.Text = Convert.ToString(durationtime);
                 filenameCont.Text = Convert.ToString(filename);
+
+          
 
             });
 
@@ -131,7 +133,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public string comport = null;
         public int durationtime = 0;
         public string filename = null;
-
+        
         Thread heartrateThread;
         Thread plotAnglesThread;
       
@@ -870,10 +872,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
            
         }
         
-        private void setting_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+    
 
 
 
@@ -926,10 +925,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 k = 30;
             }
         }
-        public int plotCounter = 0;
+        public int plotCounter = 2;
         public void plotAngles()
         {
-            if (timeList.Count > plotCounter)
+
+            if(timeList.Count > plotCounter)
             {
                 CompositionTargetRendering();
                 plotAnglesThread = new Thread(() => printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK));
