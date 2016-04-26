@@ -6,7 +6,8 @@ function [x] = myfunc(a,b,c,d)
 h = figure(1); set(gcf,'visible','off')
 
 h.PaperUnits = 'inches';
-h.PaperPosition = [0 0 14 4];
+h.PaperPosition = [0 0 16 3];
+
 
 
 x = plot (a,b,a,c,a,d);

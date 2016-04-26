@@ -49,17 +49,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="button1" Content="Start sensors" HorizontalAlignment="Left" Margin="1160,524,0,0" VerticalAlignment="Top" Width="75" Click="start_button_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
-                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
-                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
-                    <GradientStop Color="#FFBCF5FF" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Image x:Name="vinkelImage" HorizontalAlignment="Left" Height="267" Margin="38,277,0,0" VerticalAlignment="Top" Width="637" Source="Vinkelgraf.jpeg" />
+        <Image x:Name="vinkelImage" HorizontalAlignment="Left" Height="207" Margin="27,314,0,0" VerticalAlignment="Top" Width="1208" Source="Vinkelgraf.jpeg" />
         <TextBlock x:Name="velocityText" HorizontalAlignment="Left" Margin="179,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF" Text="Velocity"/>
         <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="942,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text=""/><LineBreak/><Run/></TextBlock>
         <Button x:Name="restartbutton" Content="Restart" HorizontalAlignment="Left" Margin="1160,574,0,0" VerticalAlignment="Top" Width="75" Click="restartbutton_Click">
@@ -84,7 +74,7 @@
         </Button>
         <TextBlock x:Name="RoadRunners" FontSize="32" FontWeight="Bold" HorizontalAlignment="Left" Margin="507,17,0,0" TextWrapping="Wrap" Text="RoadRunners" VerticalAlignment="Top" Width="222" Height="44" Foreground="#FFBCF5FF"/>
         <TextBlock x:Name="textTestdirektiv" FontSize="18" TextAlignment="Center" FontWeight="Bold" Foreground="#FFBCF5FF" HorizontalAlignment="Left" Margin="-39,526,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="68"><Run Text="....................."/><Run Text=".."/><LineBreak/><Run/></TextBlock>
-        <Button x:Name="display_heartrate" Content="Display Heartrate" HorizontalAlignment="Left" Margin="27,90,0,0" VerticalAlignment="Top" Width="109" Click="display_heartrate_Click">
+        <Button x:Name="display_heartrate" Content="Display Heartrate" HorizontalAlignment="Left" Margin="26,83,0,0" VerticalAlignment="Top" Width="109" Click="display_heartrate_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>

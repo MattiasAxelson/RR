@@ -21,47 +21,33 @@ using Excel = Microsoft.Office.Interop.Excel;
 namespace Microsoft.Samples.Kinect.SkeletonBasics
 {
     /// <summary>
-    /// Interaction logic for SaveData.xaml
+    /// Den här klassen skapar exceldokmumentet
     /// </summary>
     public partial class SaveData : System.Windows.Window
     {
         
-
         public SaveData()
         {
-
             InitializeComponent();
-
             // Skapar objektet mWindow med samma egenskaper som MainWindow men bara under den tiden som Save knappen trycks. 
-            SaveButtonExcel.Click += new RoutedEventHandler(delegate (object sender, RoutedEventArgs e)
-            {
-                MainWindow mWindow = new MainWindow();
-                //mWindow.ShowInTaskbar = false;
-                //mWindow.Owner = Application.Current.SaveData;
-                //mWindow.ShowDialog();
-                //int [] PulseTRY = mWindow.HB10secTRY;
-
-            });
+            /* SaveButtonExcel.Click += new RoutedEventHandler(delegate (object sender, RoutedEventArgs e)
+             {
+                 MainWindow mWindow = new MainWindow();
+             }
+             );*/
         }
 
-        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void textBox_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
+        // Definirerar de listor som behövs till funktionerna
         List<double> ExcelMeanListFHKhelp = new List<double>();
         List<double> ExcelMeanListSHKhelp = new List<double>();
-        int Intervallhelp;
-        int TestLengthHelp;
-
         List<double> ExcelPulseListhelp = new List<double>();
         List<double> ExcelVelocityListHelp = new List<double>();
 
+        // Definerar hjälpvariabler som behövs för vissa funktioner
+        int Intervallhelp;
+        int TestLengthHelp;
+
+        // Definerar funktioner som används för att hämta variabler i MainWindow
         public void ExcelFunkFHK(List<double> templistFHK)
         {
             ExcelMeanListFHKhelp = templistFHK;
@@ -90,48 +76,30 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             TestLengthHelp = tempTestLength;
         }
 
-
-
-
-
         public void Save_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mWindow = new MainWindow();
-           // double[] MeanAngleFHK = mWindow.meanArray_FHK;
+            //MainWindow mWindow = new MainWindow();
 
-            int Intervall = 666;
+            // Skapar variabler för som sätts om beroende på vilket intervall och testlängd användaren väljer
+            int Intervall = 0;
             int testLength = 0;
 
+            // Hämtar aktuell tid samt namn och kommentar som användaren fört in
             string time = DateTime.Now.ToString(@"MM\/dd\/yyyy HH:mm tt");
             string Namn = NameInput.Text;
             string Comments = CommentsInput.Text;
 
-
-
-
-
-            List<double> ExcelMeanListFHK = ExcelMeanListFHKhelp;
-            List<double> ExcelMeanListSHK = ExcelMeanListSHKhelp;
-            List<double> ExcelPulseList = ExcelPulseListhelp;
-            List<double> ExcelVelocityList = ExcelVelocityListHelp; 
-
-            int ExcelIntervall = Intervallhelp;
-            int DurationTime = TestLengthHelp;
-
+            // Skapar Exceldokumentet
             Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
             app.Visible = true;
             app.WindowState = XlWindowState.xlMaximized;
             Workbook wb = app.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
             Worksheet ws = wb.Worksheets[1];
-            Excel.Range aRange;
             DateTime currentDate = DateTime.Now;
-
-
-
-
-            // Set the range to fill.
+            Excel.Range aRange;
             aRange = ws.get_Range("A1", "M100");
 
+            //Lägger in Rubriker, första intervallet, tid, namn och kommentarer i dokumentet
             ws.Range["A3"].Value = "'" + 0 + "-" + (Intervall);
             ws.Range["F1"].Value = "Namn: " + Namn;
             ws.Range["G1"].Value = "Comments: " + Comments;
@@ -142,113 +110,106 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             ws.Range["D2"].Value = "Angle Hip"; 
             ws.Range["E2"].Value = "Velocity";
 
-            if (ExcelIntervall == 0)
+            // Kontrollerar vilket intervall som valts av användaren
+            if (Intervallhelp == 0)
             {
                 Intervall = 2;
             }
-            if (ExcelIntervall == 1)
+            if (Intervallhelp == 1)
             {
                 Intervall = 10;
             }
-            if (ExcelIntervall == 2)
+            if (Intervallhelp == 2)
             {
                 Intervall = 20;
             }
-            if (ExcelIntervall == 3)
+            if (Intervallhelp == 3)
             {
                 Intervall = 60;
             }
 
-
-            // Kollar vilken testlängd som valts i combobox1 
-            if (DurationTime == 0)
+            // Kontrollerar vilken testlängd som valts av användaren 
+            if (TestLengthHelp == 0)
             {
                 testLength = 10;
             }
-            if (DurationTime == 1)
+            if (TestLengthHelp == 1)
             {
                 testLength = 30;
             }
-            if (DurationTime == 2)
+            if (TestLengthHelp == 2)
             {
                 testLength = 60;
             }
-            if (DurationTime == 3)
+            if (TestLengthHelp == 3)
             {
                 testLength = 300;
             }
-            if (DurationTime == 4)
+            if (TestLengthHelp == 4)
             {
                 testLength = 600;
             }
 
-
+            // Sätter duration som anger hur många rader som ska skrivas ut i excel
             int duration = (testLength / Intervall);
 
-
-
-
-
-            ws.Range["F3"].Value = duration;
-            ws.Range["F4"].Value = testLength;
-            ws.Range["F5"].Value = Intervall;
-
-            
-
+            //Skriver ut insamlade data i excel beroende på hur länge testet körs samt dess intervall
             for (int i = 0; i < duration; i++) 
             {
-
                 ws.Range["A0" + (i + 3)].Value = "'" + (i * Intervall) + "-" + (i + 1) * Intervall;
 
-                if (ExcelPulseList != null && ExcelPulseList.Count > i)
+                if (ExcelPulseListhelp != null && ExcelPulseListhelp.Count > i)
                 {
-                    ws.Range["B0" + (i + 3)].Value = (ExcelPulseList[i]);
-
-                   // (ExcelPulseList.Skip(i * Intervall).Take(Intervall).Sum()) / Intervall
+                    ws.Range["B0" + (i + 3)].Value = (ExcelPulseListhelp[i]);
                 }
                 else
                 {
                     ws.Range["B0" + (i + 3)].Value = "ERROR";
                 }
 
-                if (ExcelMeanListFHK != null && ExcelMeanListFHK.Count > i)
+                if (ExcelMeanListFHKhelp != null && ExcelMeanListFHKhelp.Count > i)
                 {
-                    ws.Range["C0" + (i + 3)].Value = Math.Ceiling(ExcelMeanListFHK[i]);
+                    ws.Range["C0" + (i + 3)].Value = Math.Ceiling(ExcelMeanListFHKhelp[i]);
                 }
                 else
                 {
                     ws.Range["C0" + (i + 3)].Value = "ERROR";
                 }
-                 if (ExcelMeanListSHK != null && ExcelMeanListSHK.Count > i)
+                if (ExcelMeanListSHKhelp != null && ExcelMeanListSHKhelp.Count > i)
                 {
-                    ws.Range["D0" + (i + 3)].Value = Math.Ceiling(ExcelMeanListSHK[i]);
+                    ws.Range["D0" + (i + 3)].Value = Math.Ceiling(ExcelMeanListSHKhelp[i]);
                 }
                 else
                 {
                     ws.Range["D0" + (i + 3)].Value = "ERROR";
                 }
-                
-                 if (ExcelVelocityList != null)
-                 {
-                   ws.Range["E0" + (i + 3)].Value = ExcelVelocityList[i];
-
-                 }
+                if (ExcelVelocityListHelp != null && ExcelVelocityListHelp.Count > i)
+                {
+                  ws.Range["E0" + (i + 3)].Value = ExcelVelocityListHelp[i];
+                }
             }
 
-
-
+            // Gör så att cellerna anpassas till längden som matas in i dem
             aRange.Columns.AutoFit();
             aRange.EntireColumn.AutoFit();
 
+            // Gör så att användaren får välja var testet ska sparas samt stänger fönstret
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == true)
+            {
                 wb.SaveAs(saveFileDialog.FileName);
+                this.Hide();
+            }
+        }
 
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
             this.Hide();
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            e.Cancel = true;
             this.Hide();
         }
     }

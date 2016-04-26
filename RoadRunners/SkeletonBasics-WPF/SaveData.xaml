@@ -9,8 +9,11 @@
         MinHeight="326.667"
         MaxWidth="325.333"
         MinWidth="325.333"
-        Title="SaveData" Height="326.667" Width="325.333">
+        Title="SaveData" Height="326.667" Width="325.333" Closing="Window_Closing">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="Images/back.png" Stretch="None"/>
         </Grid.Background>
@@ -19,15 +22,15 @@
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFBCF5FF" Offset="1"/>
                     <GradientStop Color="#FFBCF5FF" Offset="1"/>
-                
+
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBox x:Name="NameInput" HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Margin="131,76,0,0" TextChanged="textBox_TextChanged"/>
-        <TextBlock x:Name="Name_textBlock" HorizontalAlignment="Left" Margin="10,76,0,204.333" TextWrapping="Wrap" Width="108" Foreground="#FFBCF5FF"><Run Text="Name of"/><Run Text=" "/><Run Text="t"/><Run Text="estperson: "/></TextBlock>
-        <TextBlock x:Name="Comments_text" HorizontalAlignment="Left" Margin="10,109,0,163.333" TextWrapping="Wrap" Text="Comments of test:" Width="108" Foreground="#FFBCF5FF" RenderTransformOrigin="0.519,2.506"/>
-        <TextBox x:Name="CommentsInput" HorizontalAlignment="Left" Height="114" Margin="131,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" TextChanged="textBox_TextChanged_1"/>
-        <Button x:Name="button1" Content="Exit" HorizontalAlignment="Left" Height="20" Margin="194,244,0,0" VerticalAlignment="Top" Width="86" Click="button1_Click" ForceCursor="True">
+        <TextBox x:Name="NameInput" HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Margin="131,76,0,0"/>
+        <TextBlock x:Name="Name_textBlock" HorizontalAlignment="Left" Margin="10,76,0,193.333" TextWrapping="Wrap" Width="108" Foreground="#FFBCF5FF"><Run Text="Name of"/><Run Text=" "/><Run Text="t"/><Run Text="estperson: "/></TextBlock>
+        <TextBlock x:Name="Comments_text" HorizontalAlignment="Left" Margin="10,109,0,162.333" TextWrapping="Wrap" Text="Comments of test:" Width="108" Foreground="#FFBCF5FF" RenderTransformOrigin="0.519,2.506"/>
+        <TextBox x:Name="CommentsInput" HorizontalAlignment="Left" Height="114" Margin="131,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
+        <Button x:Name="button1" Content="Exit" HorizontalAlignment="Left" Height="20" Margin="194,244,0,0" VerticalAlignment="Top" Width="86" Click="Exit_Click" ForceCursor="True">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFBCF5FF" Offset="1"/>
