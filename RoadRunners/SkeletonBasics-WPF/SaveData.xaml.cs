@@ -99,6 +99,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 testLength = 600;
             }
+            if (TestLengthHelp == 5)
+            {
+                testLength = 1800;
+            }
+            if (TestLengthHelp == 6)
+            {
+                testLength = 3600;
+            }
             return testLength;
         }
 
@@ -173,7 +181,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
                 else
                 {
-                    ws.Range["B0" + (i + 3)].Value = "ERROR";
+                    ws.Range["B0" + (i + 3)].Value = "No Data";
                 }
 
                 if (ExcelMeanListFHKhelp != null && ExcelMeanListFHKhelp.Count > i)
@@ -182,7 +190,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
                 else
                 {
-                    ws.Range["C0" + (i + 3)].Value = "ERROR";
+                    ws.Range["C0" + (i + 3)].Value = "No Data";
                 }
                 if (ExcelMeanListSHKhelp != null && ExcelMeanListSHKhelp.Count > i)
                 {
@@ -190,7 +198,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
                 else
                 {
-                    ws.Range["D0" + (i + 3)].Value = "ERROR";
+                    ws.Range["D0" + (i + 3)].Value = "No Data";
                 }
                 if (ExcelVelocityListHelp != null && ExcelVelocityListHelp.Count > i)
                 {
