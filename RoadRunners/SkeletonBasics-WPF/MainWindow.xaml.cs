@@ -185,9 +185,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void restartbutton_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.Application.Restart();
-            System.Windows.Application.Current.Shutdown();
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
         }
+
+
 
         /// <summary>
         /// Execute startup tasks
