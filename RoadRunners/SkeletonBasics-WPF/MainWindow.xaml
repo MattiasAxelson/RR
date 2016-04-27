@@ -39,16 +39,6 @@
         <Label x:Name="Degree" Content="0" HorizontalAlignment="Left" Margin="1129,584,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.615" Foreground="#FFBCF5FF"/>
         <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="265" Margin="734,17,0,0" VerticalAlignment="Top" Width="501" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}" Opacity="0.6"/>
         <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="860,47,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="stop_button" Content="Stop sensors" HorizontalAlignment="Left" Margin="1160,549,0,0" VerticalAlignment="Top" Width="75" Click="stop_Button_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
-                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
-                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
-                    <GradientStop Color="#FFBCF5FF" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
         <Image x:Name="vinkelImage" HorizontalAlignment="Left" Height="207" Margin="27,314,0,0" VerticalAlignment="Top" Width="1208" Source="Vinkelgraf.jpeg" />
         <TextBlock x:Name="velocityText" HorizontalAlignment="Left" Margin="179,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF" Text="Velocity"/>
         <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="942,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text=""/><LineBreak/><Run/></TextBlock>
@@ -72,7 +62,6 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBlock x:Name="RoadRunners" FontSize="32" FontWeight="Bold" HorizontalAlignment="Left" Margin="507,17,0,0" TextWrapping="Wrap" Text="RoadRunners" VerticalAlignment="Top" Width="222" Height="44" Foreground="#FFBCF5FF"/>
         <TextBlock x:Name="textTestdirektiv" FontSize="18" TextAlignment="Center" FontWeight="Bold" Foreground="#FFBCF5FF" HorizontalAlignment="Left" Margin="-39,526,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="68"><Run Text="....................."/><Run Text=".."/><LineBreak/><Run/></TextBlock>
         <Button x:Name="display_heartrate" Content="Display Heartrate" HorizontalAlignment="Left" Margin="26,83,0,0" VerticalAlignment="Top" Width="109" Click="display_heartrate_Click">
             <Button.Background>
@@ -118,8 +107,6 @@
             </Button.Background>
         </Button>
         <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Height="20" Margin="38,202,0,0" TextWrapping="Wrap" Text="ComPort" VerticalAlignment="Top" Width="81" Foreground="#FFBCF5FF" FontSize="14" FontWeight="Medium"/>
-        <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Height="58" Margin="542,112,0,0" TextWrapping="Wrap" Text="RunningLab" VerticalAlignment="Top" Width="164" FontSize="21.333" FontWeight="Bold" Foreground="#FFBCF5FF"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="61" Margin="568,61,0,0" VerticalAlignment="Top" Width="76" Source="Images/RoadRunners4.png" RenderTransformOrigin="0.647,0.162"/>
         <TextBlock x:Name="comportCont" HorizontalAlignment="Left" Margin="135,204,0,0" TextWrapping="Wrap" Text="____" VerticalAlignment="Top" Foreground="#FFBCF5FF"/>
         <TextBlock x:Name="initVel" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="100" Margin="295,30,0,0" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF"><Run Text="0"/><LineBreak/></TextBlock>
         <TextBlock x:Name="pulseLabel" HorizontalAlignment="Left" Margin="179,61,0,0" TextWrapping="Wrap" Text="BPM" VerticalAlignment="Top" Height="31" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF" />
@@ -153,7 +140,6 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBlock x:Name="timerContent2" HorizontalAlignment="Left" Height="27" Margin="374,161,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"  Foreground="WhiteSmoke" FontSize="20" FontWeight="Medium"/>
         <Button x:Name="button" Content="Reset Test" HorizontalAlignment="Left" Height="23" Margin="1160,521,0,0" VerticalAlignment="Top" Width="75" Click="ResetTest_button_Click"/>
     </Grid>
 </Window>

@@ -4,6 +4,18 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
+
+
+//------------------------------------------------------------------------------
+//
+// Kommentarer på svenska följs av kod som är implementerad av RoadRunners
+// Kommentarer på engelska följs av baskod från SDK
+//
+//------------------------------------------------------------------------------
+
+
+
+
 namespace Microsoft.Samples.Kinect.SkeletonBasics
 {
     using System.IO;
@@ -23,6 +35,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Windows.Threading;
     using System.Diagnostics;
     using System.Timers;
+
+
 
 
 
@@ -102,12 +116,21 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary>
         /// 
 
+        // Variabeldefinitioner
         private SaveData saveData;
+        public string comport = null;
+        public int durationtime;
+        public string bufferFile = "buffer.dat";
+
+        //Definitioner av olika trådar
+        Thread heartrateThread;
+        Thread plotAnglesThread;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            // Skapar ett extra fönster
             setting.Click += new RoutedEventHandler(delegate (object sender, RoutedEventArgs e)
             {
                 ChildWindow chldWindow = new ChildWindow();
@@ -124,19 +147,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             this.saveData = new SaveData();
 
         }
-
-        public string comport = null;
-        public int durationtime;
-        public string bufferFile = "buffer.dat";
-
-
-        Thread heartrateThread;
-        Thread plotAnglesThread;
-
+        /*
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
 
         }
+        */
 
         /// <summary>
         /// Draws indicators to show which edges are clipping skeleton data
@@ -178,17 +194,18 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+        // Stänger programmet
         private void quitbutton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
+        // Startar om programmet
         private void restartbutton_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
             Application.Current.Shutdown();
         }
-
 
 
         /// <summary>
@@ -200,7 +217,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             vinkelImage.Source = null;
 
-            //Starta sensorerna
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
 
@@ -226,8 +242,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (null != this.sensor)
             {
                 // Turn on the skeleton stream to receive skeleton frames
-
-
                 this.sensor.ColorStream.Enable();
                 this.sensor.SkeletonStream.Enable();
 
@@ -244,7 +258,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     this.sensor = null;
                 }
             }
-
         }
 
         /// <summary>
@@ -318,36 +331,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-
-        // Create the MATLAB instance 
-        MLApp.MLApp matlab = new MLApp.MLApp();
-
-
-        private void stop_Button_Click(object sender, RoutedEventArgs e)
-        {
-
-            if (this.sensor == null)
-            {
-                return;
-            }
-
-            if (this.sensor.SkeletonStream.IsEnabled)
-            {
-                this.sensor.SkeletonStream.Disable();
-            }
-
-            if (this.sensor.ColorStream.IsEnabled)
-            {
-                this.sensor.ColorStream.Disable();
-            }
-            this.sensor.SkeletonFrameReady -= this.SensorSkeletonFrameReady;
-
-            this.sensor.Stop();
-        }
-
-
-
-
         //Hämtar bild som ritas i matlab
         private void CompositionTargetRendering() //object sender, EventArgs e
         {
@@ -365,23 +348,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             vinkelImage.Source = _image;
         }
 
-
-        /// <summary>
-        /// Draws a skeleton's bones and joints
-        /// </summary>
-        /// <param name="skeleton">skeleton to draw</param>
-        /// <param name="drawingContext">drawing context to draw to</param>
-        /// 
-
-
-        // ------------------------------------------------------------------------//
-        // -------------- Start logging data through buttonclick ----------------- //
-        // ------------------------------------------------------------------------//
-
         int changeButton = 0;
 
-        void ClickStartButtonGesture(Skeleton skeleton)
-
+       private void ClickStartButtonGesture(Skeleton skeleton)
         {
             //Koordinater för höger hand
             Joint handRight = skeleton.Joints[JointType.HandRight];
@@ -519,7 +488,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public double timeTick = 0;
 
         // Skapar variablerna som behövs
-
         public double lagsta_varde_FHK = 0;
         public double lagsta_varde_SHK = 0;
         public int updateMatlab = 0;
@@ -529,8 +497,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public double lagsta_varde_Puls;
         int i = 0;
         int k = 0;
-        //Skapar vektorer
 
+            // Plockar ut medelvärden utifrån valt intervall
         public void meanAngleFunc(List<double> minList1, List<double> minList2, List<double> minList3)
         {
 
@@ -557,20 +525,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 saveData.ExcelFunkSHK(meanList_SHK);
                 saveData.ExcelPulseFunk(meanList_pulse);
 
-
                 i = 0;
             }
         }
 
-
-
-
-
-        // Beräknar vinklar beroende på checkboxar
+        // Beräknar vinklar 
         public void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
         {
             plotAngles();
-            // Definerar jointar
+
+            // Definerar leder
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
             Joint hipLeft = skeleton.Joints[JointType.HipLeft];
             Joint shoulderLeft = skeleton.Joints[JointType.ShoulderLeft];
@@ -611,7 +575,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
 
 
-            //Kollar så SHK vinkeln inte är NaN
+            //Kollar så SHK vinkeln inte är NaN (not a number)
             if (Double.IsNaN(SHK_angle))
             {
                 double prevValSHKlist = angles_SHK[angles_SHK.Count - 1];
@@ -694,6 +658,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // -------------------------- Saker som ritar ------------------------------------------//
         // -------------------------------------------------------------------------------------//
 
+        // Startar en matlabinstans
+        MLApp.MLApp matlab = new MLApp.MLApp();
+
         // Skickar allting till matlab och plottas sedan
         public void printMatLab(List<double> list1, List<double> list2, List<double> list3, List<double> list4)
         {
@@ -738,10 +705,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
 
             }
-
         }
 
-        // Ritar ut skelettmodellen på bilden
+
+        /// <summary>
+        /// Draws a skeleton's bones and joints
+        /// </summary>
+        /// <param name="skeleton">skeleton to draw</param>
+        /// <param name="drawingContext">drawing context to draw to</param>
+ 
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
 
@@ -1029,7 +1001,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             counter2++;
             // timer2.Stop();
-            timerContent2.Text = counter2.ToString();
         }
 
 
