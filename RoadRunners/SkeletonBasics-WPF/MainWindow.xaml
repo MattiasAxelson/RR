@@ -123,7 +123,7 @@
         <TextBlock x:Name="comportCont" HorizontalAlignment="Left" Margin="135,204,0,0" TextWrapping="Wrap" Text="____" VerticalAlignment="Top" Foreground="#FFBCF5FF"/>
         <TextBlock x:Name="initVel" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="100" Margin="295,30,0,0" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF"><Run Text="0"/><LineBreak/></TextBlock>
         <TextBlock x:Name="pulseLabel" HorizontalAlignment="Left" Margin="179,61,0,0" TextWrapping="Wrap" Text="BPM" VerticalAlignment="Top" Height="31" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF" />
-        <TextBlock x:Name="kneeAngleLabel" HorizontalAlignment="Left" Margin="179,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF"><Run Text="Knee Angle"/><LineBreak/></TextBlock>
+        <TextBlock x:Name="kneeAngleLabel" HorizontalAlignment="Left" Margin="179,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="111" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF"><Run Text="Knee"/><Run Text=" Angle"/><Run Text=" Angle"/><LineBreak/></TextBlock>
         <TextBlock x:Name="hipeAngleLabel" HorizontalAlignment="Left" Margin="179,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF"><Run Text="Hip Angle"/><LineBreak/></TextBlock>
         <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="382,218,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="comboBox_SelectionChanged" Loaded="ComboBox_Loaded">
             <ComboBox.Background>
