@@ -46,6 +46,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // Definerar hjälpvariabler som behövs för vissa funktioner
         int Intervallhelp;
         int TestLengthHelp;
+        public int testLength = 0;
 
         // Definerar funktioner som används för att hämta variabler i MainWindow
         public void ExcelFunkFHK(List<double> templistFHK)
@@ -76,13 +77,48 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             TestLengthHelp = tempTestLength;
         }
 
+        public int ReturnTestLength()
+        {
+            if (TestLengthHelp == 0)
+            {
+                testLength = 10;
+            }
+            if (TestLengthHelp == 1)
+            {
+                testLength = 30;
+            }
+            if (TestLengthHelp == 2)
+            {
+                testLength = 60;
+            }
+            if (TestLengthHelp == 3)
+            {
+                testLength = 300;
+            }
+            if (TestLengthHelp == 4)
+            {
+                testLength = 600;
+            }
+            if (TestLengthHelp == 5)
+            {
+                testLength = 1800;
+            }
+            if (TestLengthHelp == 6)
+            {
+                testLength = 3600;
+            }
+            return testLength;
+        }
+
+
+
         public void Save_Click(object sender, RoutedEventArgs e)
         {
             //MainWindow mWindow = new MainWindow();
 
             // Skapar variabler för som sätts om beroende på vilket intervall och testlängd användaren väljer
             int Intervall = 0;
-            int testLength = 0;
+           
 
             // Hämtar aktuell tid samt namn och kommentar som användaren fört in
             string time = DateTime.Now.ToString(@"MM\/dd\/yyyy HH:mm tt");
@@ -129,26 +165,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
 
             // Kontrollerar vilken testlängd som valts av användaren 
-            if (TestLengthHelp == 0)
-            {
-                testLength = 10;
-            }
-            if (TestLengthHelp == 1)
-            {
-                testLength = 30;
-            }
-            if (TestLengthHelp == 2)
-            {
-                testLength = 60;
-            }
-            if (TestLengthHelp == 3)
-            {
-                testLength = 300;
-            }
-            if (TestLengthHelp == 4)
-            {
-                testLength = 600;
-            }
+            testLength = ReturnTestLength();
 
             // Sätter duration som anger hur många rader som ska skrivas ut i excel
             int duration = (testLength / Intervall);
@@ -164,7 +181,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
                 else
                 {
-                    ws.Range["B0" + (i + 3)].Value = "ERROR";
+                    ws.Range["B0" + (i + 3)].Value = "No Data";
                 }
 
                 if (ExcelMeanListFHKhelp != null && ExcelMeanListFHKhelp.Count > i)
@@ -173,7 +190,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
                 else
                 {
-                    ws.Range["C0" + (i + 3)].Value = "ERROR";
+                    ws.Range["C0" + (i + 3)].Value = "No Data";
                 }
                 if (ExcelMeanListSHKhelp != null && ExcelMeanListSHKhelp.Count > i)
                 {
@@ -181,7 +198,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
                 else
                 {
-                    ws.Range["D0" + (i + 3)].Value = "ERROR";
+                    ws.Range["D0" + (i + 3)].Value = "No Data";
                 }
                 if (ExcelVelocityListHelp != null && ExcelVelocityListHelp.Count > i)
                 {

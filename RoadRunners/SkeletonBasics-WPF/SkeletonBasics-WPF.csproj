@@ -70,9 +70,6 @@
     <Compile Include="SaveData.xaml.cs">
       <DependentUpon>SaveData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SettingsAngle.xaml.cs">
-      <DependentUpon>SettingsAngle.xaml</DependentUpon>
-    </Compile>
     <Page Include="ChildWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -93,10 +90,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SaveData.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SettingsAngle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -182,6 +175,7 @@
     <Resource Include="Vinkelgraf.jpeg" />
     <Resource Include="Images\back.png" />
     <Resource Include="Images\RoadRunners4.png" />
+    <Resource Include="Images\bakgrundsbilden.jpg" />
     <Content Include="myfunc.m" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

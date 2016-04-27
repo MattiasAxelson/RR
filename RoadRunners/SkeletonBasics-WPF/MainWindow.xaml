@@ -16,7 +16,7 @@
             </LinearGradientBrush>
         </Grid.OpacityMask>
         <Grid.Background>
-            <ImageBrush ImageSource="Images/back.png"/>
+            <ImageBrush ImageSource="Images/bakgrundsbilden.jpg"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="642.666666666667"/>
@@ -39,17 +39,7 @@
         <Label x:Name="Degree" Content="0" HorizontalAlignment="Left" Margin="1129,584,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.615" Foreground="#FFBCF5FF"/>
         <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="265" Margin="734,17,0,0" VerticalAlignment="Top" Width="501" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}" Opacity="0.6"/>
         <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="860,47,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="stop_button" Content="Stop sensors" HorizontalAlignment="Left" Margin="1160,549,0,0" VerticalAlignment="Top" Width="75" Click="stop_Button_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
-                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
-                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
-                    <GradientStop Color="#FFBCF5FF" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Image x:Name="vinkelImage" HorizontalAlignment="Left" Height="308" Margin="26,274,0,0" VerticalAlignment="Top" Width="1208" Source="Vinkelgraf.jpeg" />
+        <Image x:Name="vinkelImage" HorizontalAlignment="Left" Height="207" Margin="27,314,0,0" VerticalAlignment="Top" Width="1208" Source="Vinkelgraf.jpeg" />
         <TextBlock x:Name="velocityText" HorizontalAlignment="Left" Margin="179,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF" Text="Velocity"/>
         <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="942,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text=""/><LineBreak/><Run/></TextBlock>
         <Button x:Name="restartbutton" Content="Restart" HorizontalAlignment="Left" Margin="1160,574,0,0" VerticalAlignment="Top" Width="75" Click="restartbutton_Click">
@@ -72,7 +62,6 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBlock x:Name="RoadRunners" FontSize="32" FontWeight="Bold" HorizontalAlignment="Left" Margin="507,17,0,0" TextWrapping="Wrap" Text="RoadRunners" VerticalAlignment="Top" Width="222" Height="44" Foreground="#FFBCF5FF"/>
         <TextBlock x:Name="textTestdirektiv" FontSize="18" TextAlignment="Center" FontWeight="Bold" Foreground="#FFBCF5FF" HorizontalAlignment="Left" Margin="-39,526,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="68"><Run Text="....................."/><Run Text=".."/><LineBreak/><Run/></TextBlock>
         <Button x:Name="display_heartrate" Content="Display Heartrate" HorizontalAlignment="Left" Margin="26,83,0,0" VerticalAlignment="Top" Width="109" Click="display_heartrate_Click">
             <Button.Background>
@@ -94,7 +83,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="setting" Content="Heartrate settings" HorizontalAlignment="Left" Margin="27,30,0,0" VerticalAlignment="Top" Width="109" Click="setting_Click">
+        <Button x:Name="setting" Content="Heartrate settings" HorizontalAlignment="Left" Margin="27,30,0,0" VerticalAlignment="Top" Width="109">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -104,14 +93,8 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBlock x:Name="durationtimeCont" HorizontalAlignment="Left" Margin="135,220,0,0" TextWrapping="Wrap" Text="____" VerticalAlignment="Top" Foreground="#FFBCF5FF"/>
-        <TextBlock x:Name="filenameCont" HorizontalAlignment="Left" Margin="135,236,0,0" TextWrapping="Wrap" Text="____" VerticalAlignment="Top" RenderTransformOrigin="3.15,0.188" Foreground="#FFBCF5FF"/>
         <TextBlock x:Name="pulstest" HorizontalAlignment="Left" Margin="295,63,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="29" Width="94" FontSize="20" Foreground="#FFBCF5FF" FontWeight="Medium"/>
-        <TextBlock x:Name="contAngle_FHK" HorizontalAlignment="Left" Margin="564,599,0,0" TextWrapping="Wrap" Text="Kont. vinkel" VerticalAlignment="Top" Width="91" FontSize="14" FontWeight="Medium" Foreground="#FFD1951D"/>
-        <TextBlock x:Name="smallestAngle_FHK" HorizontalAlignment="Left" Margin="247,587,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFBCF5FF" FontWeight="Medium" Text="FHK vinkel" Width="76"/>
         <TextBlock x:Name="meanAngleBlock_FHK" HorizontalAlignment="Left" Margin="295,97,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Foreground="#FFBCF5FF" FontSize="20" FontWeight="Medium" Width="61"/>
-        <TextBlock x:Name="contAngle_SHK" HorizontalAlignment="Left" Margin="564,625,0,0" TextWrapping="Wrap" Text="Kont. vinkel" VerticalAlignment="Top" Width="91" FontSize="14" FontWeight="Medium" Foreground="#FFD1951D"/>
-        <TextBlock x:Name="smallestAngle_SHK" HorizontalAlignment="Left" Margin="247,620,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontWeight="Medium" Foreground="#FFBCF5FF" Width="32"/>
         <TextBlock x:Name="meanAngleBlock_SHK" HorizontalAlignment="Left" Margin="295,133,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF" Width="61"/>
         <Button x:Name="SaveButton" Content="Save Current Data" HorizontalAlignment="Left" Height="27" Margin="27,147,0,0" VerticalAlignment="Top" Width="109" Click="Save_button_click">
             <Button.Background>
@@ -124,15 +107,11 @@
             </Button.Background>
         </Button>
         <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Height="20" Margin="38,202,0,0" TextWrapping="Wrap" Text="ComPort" VerticalAlignment="Top" Width="81" Foreground="#FFBCF5FF" FontSize="14" FontWeight="Medium"/>
-        <TextBlock x:Name="textBlock3_Copy" HorizontalAlignment="Left" Height="20" Margin="38,220,0,0" TextWrapping="Wrap" Text="Durationtime" VerticalAlignment="Top" Width="97" Foreground="#FFBCF5FF" FontSize="14" FontWeight="Medium"/>
-        <TextBlock x:Name="textBlock3_Copy1" HorizontalAlignment="Left" Height="20" Margin="38,236,0,0" TextWrapping="Wrap" Text="Filename:" VerticalAlignment="Top" Width="59" RenderTransformOrigin="0.695,-1.75" Foreground="#FFBCF5FF" FontSize="14" FontWeight="Medium"/>
-        <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Height="58" Margin="542,112,0,0" TextWrapping="Wrap" Text="RunningLab" VerticalAlignment="Top" Width="164" FontSize="21.333" FontWeight="Bold" Foreground="#FFBCF5FF"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="61" Margin="568,61,0,0" VerticalAlignment="Top" Width="76" Source="Images/RoadRunners4.png" RenderTransformOrigin="0.647,0.162"/>
         <TextBlock x:Name="comportCont" HorizontalAlignment="Left" Margin="135,204,0,0" TextWrapping="Wrap" Text="____" VerticalAlignment="Top" Foreground="#FFBCF5FF"/>
         <TextBlock x:Name="initVel" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="100" Margin="295,30,0,0" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF"><Run Text="0"/><LineBreak/></TextBlock>
-        <TextBlock x:Name="pulseLabel" HorizontalAlignment="Left" Margin="179,61,0,0" TextWrapping="Wrap" Text="Heart rate" VerticalAlignment="Top" Height="31" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF" />
-        <TextBlock x:Name="kneeAngleLabel" HorizontalAlignment="Left" Margin="179,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF"><Run Text="Knävinkel"/><LineBreak/></TextBlock>
-        <TextBlock x:Name="hipeAngleLabel" HorizontalAlignment="Left" Margin="179,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF"><Run Text="Höftvinkel"/><LineBreak/></TextBlock>
+        <TextBlock x:Name="pulseLabel" HorizontalAlignment="Left" Margin="179,61,0,0" TextWrapping="Wrap" Text="BPM" VerticalAlignment="Top" Height="31" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF" />
+        <TextBlock x:Name="kneeAngleLabel" HorizontalAlignment="Left" Margin="179,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="111" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF"><Run Text="Knee"/><Run Text=" Angle"/><Run Text=" Angle"/><LineBreak/></TextBlock>
+        <TextBlock x:Name="hipeAngleLabel" HorizontalAlignment="Left" Margin="179,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF"><Run Text="Hip Angle"/><LineBreak/></TextBlock>
         <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="382,218,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="comboBox_SelectionChanged" Loaded="ComboBox_Loaded">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -161,12 +140,6 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBlock x:Name="timerContent2" HorizontalAlignment="Left" Height="27" Margin="374,161,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"  Foreground="WhiteSmoke" FontSize="20" FontWeight="Medium"/>
-        <TextBlock x:Name="pulseBlock" HorizontalAlignment="Left" Margin="247,631,0,-3" TextWrapping="Wrap" Text="puls" VerticalAlignment="Top" FontWeight="Medium" Foreground="#FFBCF5FF" Width="32"/>
-        <TextBlock x:Name="miniLengthFHK" HorizontalAlignment="Left" Margin="343,587,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFBCF5FF" FontWeight="Medium" Text="FHK längd" Width="76"/>
-        <TextBlock x:Name="miniLengthSHK" HorizontalAlignment="Left" Margin="343,612,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFBCF5FF" FontWeight="Medium" Text="SHK längd" Width="76"/>
-        <TextBlock x:Name="miniLengthPulse" HorizontalAlignment="Left" Margin="343,634,0,-6" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFBCF5FF" FontWeight="Medium" Text="puls längd" Width="76"/>
-        <TextBlock x:Name="timeTickLength" HorizontalAlignment="Left" Margin="343,561,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFBCF5FF" FontWeight="Medium" Text="tid längd" Width="76"/>
-
+        <Button x:Name="button" Content="Reset Test" HorizontalAlignment="Left" Height="23" Margin="1160,521,0,0" VerticalAlignment="Top" Width="75" Click="ResetTest_button_Click"/>
     </Grid>
 </Window>

@@ -22,7 +22,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         public string comport;
         public string convdurationtime;
-        public string fileName;
+
         public int durationtime;
 
         //kollar om det INTE bara är siffror
@@ -51,28 +51,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         void startHeartRateCalc_Click(object sender, RoutedEventArgs e)
         {
-            comport = comportContent.Text;
-            convdurationtime = durationContent.Text;
-            fileName = filenameContent.Text;
+            comport = comportContent.Text;   
 
             if(onlyDigits(comport) || comport == "")
             {
                 errorText.Text = "Add your comport, \n" +
                     "only digits allowed";
             }
-            else if(onlyDigits(convdurationtime) || convdurationtime == "")
-            {
-                errorText.Text = "Add your durationtime, \n" +
-                    "only digits allowed";
-            }
-            else if (onlyLetters(fileName) || fileName == "")
-            {
-                errorText.Text = "Add a filename, \n" +
-                    "only letters allowed";
-            }
+
             else
             {
-                durationtime = int.Parse(convdurationtime);
                 this.Close();
             }
             
@@ -82,9 +70,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void helpButton_Click(object sender, RoutedEventArgs e)
         {
-            string error_message = "1. Add the number of your comport \n" +
-                                   "2. Add the durationtime in seconds \n" +
-                                   "3. Add a filename \n";
+            string error_message = "1. Add the number of your comport \n";
             System.Windows.MessageBox.Show(error_message);
         }
     }

@@ -14,13 +14,9 @@
         <Grid.Background>
             <ImageBrush ImageSource="Images/back.png" Stretch="UniformToFill"/>
         </Grid.Background>
-        <TextBlock x:Name="comportText" HorizontalAlignment="Left" Margin="13,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFBCF5FF"><Run Text="Comport"/><LineBreak/><Run/></TextBlock>
-        <TextBlock x:Name="durationtimeText" HorizontalAlignment="Left" Margin="108,59,0,0" TextWrapping="Wrap" Text="Durationtime" VerticalAlignment="Top" Foreground="#FFBCF5FF"/>
-        <TextBlock x:Name="filenameText" HorizontalAlignment="Left" Margin="204,59,0,0" TextWrapping="Wrap" Text="Filename" VerticalAlignment="Top" Foreground="#FFBCF5FF"/>
-        <TextBox x:Name="comportContent" HorizontalAlignment="Left" TextAlignment="Center" Height="23" Margin="13,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+        <TextBlock x:Name="comportText" HorizontalAlignment="Left" Margin="47,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFBCF5FF"><Run Text="Comport"/><LineBreak/><Run/></TextBlock>
+        <TextBox x:Name="comportContent" HorizontalAlignment="Left" TextAlignment="Center" Height="23" Margin="108,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
         <TextBlock x:Name="titel" HorizontalAlignment="Left" Margin="108,20,0,0" TextWrapping="Wrap" Text="Set values" VerticalAlignment="Top" Foreground="#FFBCF5FF" FontSize="14"/>
-        <TextBox x:Name="durationContent" HorizontalAlignment="Left" TextAlignment="Center" Margin="108,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="23"/>
-        <TextBox x:Name="filenameContent" HorizontalAlignment="Left" TextAlignment="Center" Height="23" Margin="204,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="72"/>
         <Button x:Name="startHeartRateCalc" Content="Done" HorizontalAlignment="Left" Margin="108,210,0,0" VerticalAlignment="Top" Width="75" Click="startHeartRateCalc_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
