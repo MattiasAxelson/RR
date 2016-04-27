@@ -16,7 +16,7 @@
             </LinearGradientBrush>
         </Grid.OpacityMask>
         <Grid.Background>
-            <ImageBrush ImageSource="Images/back.png"/>
+            <ImageBrush ImageSource="Images/bakgrundsbilden.jpg"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="642.666666666667"/>
