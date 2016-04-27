@@ -16,7 +16,7 @@
             </LinearGradientBrush>
         </Grid.OpacityMask>
         <Grid.Background>
-            <ImageBrush ImageSource="Images/back.png"/>
+            <ImageBrush ImageSource="Images/bakgrundsbilden.jpg"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="642.666666666667"/>
@@ -72,7 +72,6 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBlock x:Name="RoadRunners" FontSize="32" FontWeight="Bold" HorizontalAlignment="Left" Margin="507,17,0,0" TextWrapping="Wrap" Text="RoadRunners" VerticalAlignment="Top" Width="222" Height="44" Foreground="#FFBCF5FF"/>
         <TextBlock x:Name="textTestdirektiv" FontSize="18" TextAlignment="Center" FontWeight="Bold" Foreground="#FFBCF5FF" HorizontalAlignment="Left" Margin="-39,526,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="68"><Run Text="....................."/><Run Text=".."/><LineBreak/><Run/></TextBlock>
         <Button x:Name="display_heartrate" Content="Display Heartrate" HorizontalAlignment="Left" Margin="26,83,0,0" VerticalAlignment="Top" Width="109" Click="display_heartrate_Click">
             <Button.Background>
@@ -118,8 +117,6 @@
             </Button.Background>
         </Button>
         <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Height="20" Margin="38,202,0,0" TextWrapping="Wrap" Text="ComPort" VerticalAlignment="Top" Width="81" Foreground="#FFBCF5FF" FontSize="14" FontWeight="Medium"/>
-        <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Height="58" Margin="542,112,0,0" TextWrapping="Wrap" Text="RunningLab" VerticalAlignment="Top" Width="164" FontSize="21.333" FontWeight="Bold" Foreground="#FFBCF5FF"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="61" Margin="568,61,0,0" VerticalAlignment="Top" Width="76" Source="Images/RoadRunners4.png" RenderTransformOrigin="0.647,0.162"/>
         <TextBlock x:Name="comportCont" HorizontalAlignment="Left" Margin="135,204,0,0" TextWrapping="Wrap" Text="____" VerticalAlignment="Top" Foreground="#FFBCF5FF"/>
         <TextBlock x:Name="initVel" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="100" Margin="295,30,0,0" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF"><Run Text="0"/><LineBreak/></TextBlock>
         <TextBlock x:Name="pulseLabel" HorizontalAlignment="Left" Margin="179,61,0,0" TextWrapping="Wrap" Text="BPM" VerticalAlignment="Top" Height="31" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF" />
