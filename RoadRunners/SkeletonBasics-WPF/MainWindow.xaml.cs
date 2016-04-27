@@ -968,10 +968,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             // ... A List.
             List<string> data = new List<string>();
-            data.Add("2 Sekunders Intervall");
-            data.Add("10 Sekunders Intervall");
-            data.Add("20 Sekunders Intervall");
-            data.Add("60 Sekunders Intervall");
+            data.Add("2 Seconds Interval");
+            data.Add("10 Seconds Interval");
+            data.Add("20 Seconds Interval");
+            data.Add("60 Seconds Interval");
 
             // ... Get the ComboBox reference.
             var comboBox = sender as ComboBox;
@@ -1049,11 +1049,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             // ... A List.
             List<string> data = new List<string>();
-            data.Add("10 Seconds Test ");
+            data.Add("10 Seconds Test");
             data.Add("30 Seconds Test");
             data.Add("60 Seconds Test");
             data.Add("5 Minutes Test");
             data.Add("10 Minutes Test");
+            data.Add("30 Minutes Test");
+            data.Add("60 Minutes Test");
 
             // ... Get the ComboBox reference.
             var comboBox1 = sender as ComboBox;
@@ -1069,6 +1071,22 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void Save_button_click(object sender, RoutedEventArgs e)
         {
             saveData.Show();
+        }
+
+        private void ResetTest_button_Click(object sender, RoutedEventArgs e)
+        {
+            timer2.Stop();
+            timer1.Stop();
+            timerContent.Text = "0";
+            meanAngleBlock_FHK.Text = "0";
+            meanAngleBlock_SHK.Text = "0";
+            initVel.Text = "0";
+            pulstest.Text = "0";
+            timeList.Clear();
+            meanList_pulse.Clear();
+            meanList_FHK.Clear();
+            meanList_SHK.Clear();
+            velocityListDatabase.Clear();
         }
     }
 }
