@@ -49,7 +49,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Image x:Name="vinkelImage" HorizontalAlignment="Left" Height="207" Margin="27,314,0,0" VerticalAlignment="Top" Width="1208" Source="Vinkelgraf.jpeg" />
+        <Image x:Name="vinkelImage" HorizontalAlignment="Left" Height="308" Margin="26,274,0,0" VerticalAlignment="Top" Width="1208" Source="Vinkelgraf.jpeg" />
         <TextBlock x:Name="velocityText" HorizontalAlignment="Left" Margin="179,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF" Text="Velocity"/>
         <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="942,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text=""/><LineBreak/><Run/></TextBlock>
         <Button x:Name="restartbutton" Content="Restart" HorizontalAlignment="Left" Margin="1160,574,0,0" VerticalAlignment="Top" Width="75" Click="restartbutton_Click">
