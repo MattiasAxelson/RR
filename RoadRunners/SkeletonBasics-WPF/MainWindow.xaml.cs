@@ -293,6 +293,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                             //Console.WriteLine("Innan calcvelocity");
                             this.CalculateVelocity(skel, dc);
                             this.CalculateAngles(skel, dc);
+                            if (changeButton == 0)
+                            {
+                                this.ClickStartButtonGesture(skel);
+                            }
+
                         }
                         else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
                         {
@@ -365,6 +370,42 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="skeleton">skeleton to draw</param>
         /// <param name="drawingContext">drawing context to draw to</param>
         /// 
+
+
+        // ------------------------------------------------------------------------//
+        // -------------- Start logging data through buttonclick ----------------- //
+        // ------------------------------------------------------------------------//
+
+        int changeButton = 0;
+
+        void ClickStartButtonGesture(Skeleton skeleton)
+
+        {
+            //Koordinater för höger hand
+            Joint handRight = skeleton.Joints[JointType.HandRight];
+            Joint handLeft = skeleton.Joints[JointType.HandLeft];
+
+            float XHandRight;
+            float YHandRight;
+            float YHandLeft;
+            float XHandLeft;
+
+            XHandRight = handRight.Position.X;
+            YHandRight = handRight.Position.Y;
+            XHandLeft = handLeft.Position.X;        
+            YHandLeft = handLeft.Position.Y;
+
+            if (XHandRight > 0.8 && YHandRight > 0.55)
+            {
+                startLoggingButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                changeButton = 1;
+            }
+
+            //if (XHandLeft < -0.65 && YHandLeft > 0.55)
+            //{
+            //    restartbutton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            //}
+        }
 
 
 
@@ -452,8 +493,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // -------------------------------------------------------------------------------------//
         //------------------------------- Vinkelberäkning --------------------------------------//
         // -------------------------------------------------------------------------------------//
-
-
 
         // Skapar listorna som behövs för FHK
         public List<double> angles_FHK = new List<double>();
@@ -969,11 +1008,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             timer2.Tick += new EventHandler(timer2_Tick);
             timer2.Interval = 1000; // 1 second
             timer2.Start();
-
-
-
-
-
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -984,6 +1018,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (counter == 0)
             {
                 timer1.Stop();
+                changeButton = 0;
             }
             timerContent.Text = counter.ToString();
         }
