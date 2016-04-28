@@ -661,7 +661,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // Startar en matlabinstans
         MLApp.MLApp matlab = new MLApp.MLApp();
 
-        // Skickar allting till matlab och plottas sedan
+        // Skickar vinklar och puls till matlab och plottas sedan
         public void printMatLab(List<double> list1, List<double> list2, List<double> list3, List<double> list4)
         {
             // Change to the directory where the function is located 
@@ -675,17 +675,17 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             // Call the MATLAB function myfunc! Kastar även eventuella runtimefel
             try
             {
-
+                //Matlabfunktionen sparar pulsen till en textfil
                 matlab.Feval("myfunc", 1, out result, list1.ToArray(), list2.ToArray(), list3.ToArray(), list4.ToArray());
             }
             catch (System.Runtime.InteropServices.COMException)
             {
-                MessageBox.Show("Listorna har ej samma längd :(");
+                MessageBox.Show("Nått gick fel i myfinc :(");
             }
         }
 
 
-        // Skickar allting till matlab och plottas sedan
+        // startar pulsen till matlab och plottas sedan
         public void printMatLab1(string funktionsnamn, string comport, int durationtime, string filename)
         {
             // Change to the directory where the function is located 
@@ -713,11 +713,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary>
         /// <param name="skeleton">skeleton to draw</param>
         /// <param name="drawingContext">drawing context to draw to</param>
- 
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
-
-
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
             this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderLeft);
@@ -817,12 +814,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             drawingContext.DrawLine(drawPen, this.SkeletonPointToScreen(joint0.Position), this.SkeletonPointToScreen(joint1.Position));
         }
-
-        /// <summary>
-        /// Handles the checking or unchecking of the seated mode combo box
-        /// </summary>
-        /// <param name="sender">object sending the event</param>
-        /// <param name="e">event arguments</param>
+ 
 
 
         // -------------------------------------------------------------------------------------//
@@ -845,10 +837,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
 
-
+        //Startar pulsmätningen
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
-
+            //Körs 30 sek längre för att det tar lite tid innan den startar
             durationtime = saveData.ReturnTestLength() + 30;
 
             if (comport == "")
@@ -862,18 +854,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-        private void display_angle_Click(object sender, RoutedEventArgs e)
-        {
-            CompositionTargetRendering();
-            plotAnglesThread = new Thread(() => printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK));
-            plotAnglesThread.Start();
-
-        }
-
-
-
-
-
+        //Läser in pulsvärdena från en textfil
         private void readPulseData()
         {
             try
@@ -882,10 +863,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 String line = File.ReadAllLines(currentpath + @"\..\..\pulsdata1.txt").LastOrDefault();
                 double pulsTodec = Double.Parse(line, NumberStyles.Float, CultureInfo.InvariantCulture);
 
-
                 pulseList.Add(Math.Ceiling(pulsTodec));
                 pulseListHelp.Add(Math.Ceiling(pulsTodec));
-
             }
 
             catch (Exception e)
@@ -895,13 +874,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
-
+        //Combobox för att välja intervall
         public void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // ... Get the ComboBox.
+        {          
             var comboBox = sender as ComboBox;
 
-            // ... Set SelectedItem as Window Title.
             string BoxValue = comboBox.SelectedItem as string;
             saveData.ExcelFunkIntervall(comboBox.SelectedIndex);
 

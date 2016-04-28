@@ -73,16 +73,6 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="display_angle" Content="Display Angle" HorizontalAlignment="Left" Margin="27,119,0,0" VerticalAlignment="Top" Width="109" Click="display_angle_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
-                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
-                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
-                    <GradientStop Color="#FFBCF5FF" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
         <Button x:Name="setting" Content="Heartrate settings" HorizontalAlignment="Left" Margin="27,30,0,0" VerticalAlignment="Top" Width="109">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
