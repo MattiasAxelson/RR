@@ -3,7 +3,7 @@ function [x] = myfunc(a,b,c,d)
 % b = puls
 % c = vinklar_FHK
 % d = vinklar_SHK
-% 
+
 %  a = 1:5;
 %  b = [1,8,5,2,3];
 %  c = [3,8,9,6,3];

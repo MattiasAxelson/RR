@@ -1,23 +1,16 @@
-﻿<Window x:Class="Microsoft.Samples.Kinect.SkeletonBasics.ChildWindow"
+﻿<Window x:Class="Microsoft.Samples.Kinect.SkeletonBasics.ComportWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Microsoft.Samples.Kinect.SkeletonBasics"
         mc:Ignorable="d"
-        MinWidth="300"
-        MaxWidth="300"
-        MaxHeight="300"
-        MinHeight="300"
-        Title="ChildWindow" Height="300" Width="300">
-    <Grid Margin="0,0,2,0">
+        Title="No comport chosen" Height="300" Width="300" >
+    <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="Images/bakgrundsbilden.jpg" Stretch="Fill"/>
         </Grid.Background>
-        <TextBlock x:Name="comportText" HorizontalAlignment="Left" Margin="47,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFBCF5FF"><Run Text="Comport"/><LineBreak/><Run/></TextBlock>
-        <TextBox x:Name="comportContent" HorizontalAlignment="Left" TextAlignment="Center" Height="23" Margin="108,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-        <TextBlock x:Name="titel" HorizontalAlignment="Left" Margin="107,67,0,0" TextWrapping="Wrap" Text="Set comport" VerticalAlignment="Top" Foreground="#FFBCF5FF" FontSize="14"/>
-        <Button x:Name="startHeartRateCalc" Content="Done" HorizontalAlignment="Left" Margin="108,210,0,0" VerticalAlignment="Top" Width="75" Click="startHeartRateCalc_Click">
+        <Button x:Name="comportYesButton" Content="Yes" HorizontalAlignment="Left" Margin="36,154,0,0" VerticalAlignment="Top" Width="75" Click="comportYesButton_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -27,7 +20,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="helpButton" Content="Help" HorizontalAlignment="Left" Margin="108,174,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.04,0.45" Click="helpButton_Click">
+        <Button x:Name="comportNoButton" Content="No" HorizontalAlignment="Left" Margin="36,179,0,0" VerticalAlignment="Top" Width="75" Click="comportNoButton_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -37,7 +30,6 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBlock x:Name="errorText" HorizontalAlignment="Left" TextAlignment="Center" Margin="47,129,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="191"/>
-
+        <TextBox x:Name="textBox" Background="AntiqueWhite" HorizontalAlignment="Left" Height="63" Margin="36,75,0,0" TextWrapping="Wrap" Text="No comport chosen, do you want to continue without pulseregistration?" VerticalAlignment="Top" Width="232" FontStyle="Oblique" FontSize="14" FontWeight="Bold" />
     </Grid>
 </Window>
