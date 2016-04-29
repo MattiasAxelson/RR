@@ -173,7 +173,7 @@ if (shimmer.connect)                                                       % TRU
                 
 
                 % plotting the data
-                subplot(3,1,3)
+          
                 plot((sampleNumber/fs), heartRate);                             % plot the Heart Rate data
                 legend('Heart Rate (BPM', 'Location', 'West');   
                 xlim([sampleNumber(1)/fs sampleNumber(end)/fs]);

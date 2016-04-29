@@ -70,6 +70,9 @@
     <Compile Include="SaveData.xaml.cs">
       <DependentUpon>SaveData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ComportWindow.xaml.cs">
+      <DependentUpon>ComportWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="ChildWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -90,6 +93,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SaveData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ComportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
