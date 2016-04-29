@@ -118,6 +118,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         // Variabeldefinitioner
         private SaveData saveData;
+       // private ChildWindow childWindow;
         public string comport = null;
         public int durationtime;
         public string bufferFile = "buffer.dat";
@@ -168,7 +169,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     null,
                     new Rect(0, RenderHeight - ClipBoundsThickness, RenderWidth, ClipBoundsThickness));
             }
-
+            
             if (skeleton.ClippedEdges.HasFlag(FrameEdges.Top))
             {
                 drawingContext.DrawRectangle(
@@ -330,22 +331,25 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 this.drawingGroup.ClipGeometry = new RectangleGeometry(new Rect(0.0, 0.0, RenderWidth, RenderHeight));
             }
         }
-
         //Hämtar bild som ritas i matlab
         private void CompositionTargetRendering() //object sender, EventArgs e
         {
-            BitmapImage _image = new BitmapImage();
-            string pathImage = Path.Combine(Directory.GetCurrentDirectory());
+            {
+                BitmapImage _image = new BitmapImage();
+                string pathImage = Path.Combine(Directory.GetCurrentDirectory());
 
-            _image.BeginInit();
-            _image.CacheOption = BitmapCacheOption.None;
-            _image.UriCachePolicy = new System.Net.Cache.RequestCachePolicy();
-            _image.CacheOption = BitmapCacheOption.OnLoad;
-            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-            _image.UriSource = new Uri(pathImage + @"\..\..\Vinkelgraf.jpeg", UriKind.RelativeOrAbsolute);
-            _image.EndInit();
+                _image.BeginInit();
+                _image.CacheOption = BitmapCacheOption.None;
+                _image.UriCachePolicy = new System.Net.Cache.RequestCachePolicy();
+                _image.CacheOption = BitmapCacheOption.OnLoad;
+                _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                _image.UriSource = new Uri(pathImage + @"\..\..\Vinkelgraf.jpeg", UriKind.RelativeOrAbsolute);
+                _image.EndInit();
 
-            vinkelImage.Source = _image;
+                vinkelImage.Source = _image;
+
+            }
+
         }
 
         int changeButton = 0;
@@ -477,6 +481,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public List<double> anglesHelp_SHK = new List<double>();
         public List<double> meanList_SHK = new List<double>();
 
+        public List<double> ChosenMinFHKAngleList = new List<double>();
+        public List<double> ChosenMaxFHKAngleList = new List<double>();
+        public List<double> nullList = new List<double>();
+
         // Skapar listorna som behövs för puls
         public List<double> pulseList = new List<double>();
         public List<double> minimumList_pulse = new List<double>();
@@ -497,16 +505,22 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public double lagsta_varde_Puls;
         int i = 0;
         int k = 0;
+        int ChosenMinFHKAngle = 0;
+        int ChosenMaxFHKAngle = 180;
 
-            // Plockar ut medelvärden utifrån valt intervall
+        // Plockar ut medelvärden utifrån valt intervall
         public void meanAngleFunc(List<double> minList1, List<double> minList2, List<double> minList3)
         {
 
             if (i == k)
             {
+                SetDesiredAnglesInaList();
+                
+
                 meanAngle_FHK = minList1.Average();
                 meanList_FHK.Add(meanAngle_FHK);
-                meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault())) + (char)176;
+                meanAngleBlock_FHK.Text = Convert.ToString(meanList_FHK.Count);
+                //meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault())) + (char)176;
                 minimumlista_FHK.Clear();
 
                 meanAngle_SHK = minList2.Average();
@@ -516,7 +530,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 meanPulse = minList3.Average();
                 meanList_pulse.Add(meanPulse);
-                pulstest.Text = Convert.ToString(Math.Ceiling(meanList_pulse.LastOrDefault())) + " BPM";
+
+                pulstest.Text = Convert.ToString(ChosenMinFHKAngleList.Count) + " BPM";
+
+                //pulstest.Text = Convert.ToString(Math.Ceiling(meanList_pulse.LastOrDefault())) + " BPM";
                 minimumList_pulse.Clear();
 
                 timeList.Add(timeTick);
@@ -528,6 +545,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 i = 0;
             }
         }
+
 
         // Beräknar vinklar 
         public void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
@@ -573,7 +591,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             double FHK_angle = Math.Ceiling((Math.Acos((Math.Pow(HipKnee_Length, 2) + Math.Pow(KneeFoot_Length, 2)
                     - Math.Pow(HipFoot_Length, 2)) / (2 * HipKnee_Length * KneeFoot_Length))) * (180 / Math.PI));
 
+            //
 
+           
+           
 
             //Kollar så SHK vinkeln inte är NaN (not a number)
             if (Double.IsNaN(SHK_angle))
@@ -588,15 +609,26 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 anglesHelp_SHK.Add(SHK_angle);
             }
 
-            if (SHK_angle < 140)
+            //Ger direktiv angående vinklarna
+            if (ChosenMinFHKAngle > FHK_angle && false == Double.IsNaN(ChosenMinFHKAngle)) 
             {
-                textTestdirektiv.Text = "Stand up straight!";
+                textTestdirektiv.Foreground = new SolidColorBrush(Colors.Red);
+                textTestdirektiv.Text = "The Knee Angle is to small";
+                SystemSounds.Beep.Play();
+            }
+            else if (FHK_angle > ChosenMaxFHKAngle && false == Double.IsNaN(ChosenMinFHKAngle))
+            {
+                textTestdirektiv.Foreground = new SolidColorBrush(Colors.Red);
+                textTestdirektiv.Text = "The Knee Angle is to big";
                 SystemSounds.Asterisk.Play();
             }
             else
             {
-                textTestdirektiv.Text = "";
+                textTestdirektiv.Foreground = new SolidColorBrush(Colors.Green);
+                textTestdirektiv.Text = "The Knee Angle is in the chosen intervall";
             }
+
+
 
             //Kollar så FHK vinkeln inte är NaN
             if (Double.IsNaN(FHK_angle))
@@ -610,7 +642,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 angles_FHK.Add(FHK_angle);
                 anglesHelp_FHK.Add(FHK_angle);
             }
-            if (FHK_angle < 90)
+           /* if (FHK_angle < 90)
             {
                 textTestdirektiv.Text = "pull out your knees!";
                 SystemSounds.Asterisk.Play();
@@ -619,7 +651,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 textTestdirektiv.Text = "";
             }
-
+            */
 
             if (counter2 >= 2)
             {
@@ -662,7 +694,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         MLApp.MLApp matlab = new MLApp.MLApp();
 
         // Skickar vinklar och puls till matlab och plottas sedan
-        public void printMatLab(List<double> list1, List<double> list2, List<double> list3, List<double> list4)
+        public void printMatLab(List<double> list1, List<double> list2, List<double> list3, List<double> list4, List<double> list5, List<double> list6)
         {
             // Change to the directory where the function is located 
             var path = Path.Combine(Directory.GetCurrentDirectory());
@@ -676,11 +708,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             try
             {
                 //Matlabfunktionen sparar pulsen till en textfil
-                matlab.Feval("myfunc", 1, out result, list1.ToArray(), list2.ToArray(), list3.ToArray(), list4.ToArray());
+                matlab.Feval("myfunc", 0, out result, list1.ToArray(), list2.ToArray(), list3.ToArray(), list4.ToArray(), list5.ToArray(), list6.ToArray());
             }
             catch (System.Runtime.InteropServices.COMException)
             {
-                MessageBox.Show("Nått gick fel i myfinc :(");
+              //  MessageBox.Show("Nått gick fel i myfinc :(");
             }
         }
 
@@ -899,17 +931,17 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 k = 30;
             }
         }
-        public int plotCounter = 2;
+        public int plotCounter = 0;
         public void plotAngles()
         {
 
             if (timeList.Count > plotCounter)
             {
                 CompositionTargetRendering();
-                plotAnglesThread = new Thread(() => printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK));
+                plotAnglesThread = new Thread(() => printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK, ChosenMinFHKAngleList, ChosenMaxFHKAngleList));
                 plotAnglesThread.Start();
 
-                plotCounter = plotCounter + 2;
+                plotCounter = plotCounter + 1;
             }
         }
 
@@ -944,6 +976,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             meanList_SHK.Clear();
             meanList_FHK.Clear();
             velocityListDatabase.Clear();
+
+         //   plotAnglesThread = new Thread(() => printMatLab(timeList, nullList, nullList, nullList, nullList, nullList));
+         //   plotAnglesThread.Start();
 
             counter = saveData.ReturnTestLength();
 
@@ -1035,6 +1070,60 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             meanList_FHK.Clear();
             meanList_SHK.Clear();
             velocityListDatabase.Clear();
+            ChosenMinFHKAngleList.Clear();
+            ChosenMaxFHKAngleList.Clear();
+        }
+
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+
+        public bool onlyDigits(string s)
+        {
+            foreach (char c in s)
+            {
+                if (!char.IsDigit(c))
+                    return false;
+
+            }
+            return true;
+        }
+        //Sätter om vilka vinklar det ska varna för
+
+        public void SetDesiredAnglesInaList()
+        {
+            ChosenMinFHKAngleList.Add(ChosenMinFHKAngle);
+            ChosenMaxFHKAngleList.Add(ChosenMaxFHKAngle);
+
+        }
+
+        private void UpdDesiredAngles_Click(object sender, RoutedEventArgs e)
+        {
+            if (EnterMinAngle.Text.Length >= 1 && onlyDigits(EnterMinAngle.Text))
+            {
+                ChosenMinFHKAngle = int.Parse(EnterMinAngle.Text);
+            }
+            else
+            {
+                EnterMinAngle.Text = "0";
+                string error_message = "Write a minimum angle in numbers \n";
+                MessageBox.Show(error_message);
+
+            }
+            if (EnterMaxAngle.Text.Length >= 1 && onlyDigits(EnterMaxAngle.Text))
+            {
+                ChosenMaxFHKAngle = int.Parse(EnterMaxAngle.Text);
+            }
+            else
+            {
+                EnterMaxAngle.Text = "180";
+                string error_message = "Write a maximum angle in numbers \n";
+                MessageBox.Show(error_message);
+
+            }
+
         }
     }
 }

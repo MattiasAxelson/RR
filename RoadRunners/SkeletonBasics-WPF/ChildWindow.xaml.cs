@@ -13,7 +13,7 @@ using System.Windows.Shapes;
 
 namespace Microsoft.Samples.Kinect.SkeletonBasics
 {
-     public partial class ChildWindow : Window
+     public partial class ChildWindow : System.Windows.Window
     {
         public ChildWindow()
         {
@@ -22,11 +22,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         public string comport;
         public string convdurationtime;
-
         public int durationtime;
 
         //kollar om det INTE bara är siffror
-        bool onlyDigits(string s)
+         bool onlyDigits(string s)
         {
             foreach (char c in s)
             {
@@ -48,7 +47,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             return false;
         }
 
-
+       
         void startHeartRateCalc_Click(object sender, RoutedEventArgs e)
         {
             comport = comportContent.Text;   
