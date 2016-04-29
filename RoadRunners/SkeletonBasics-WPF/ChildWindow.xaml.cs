@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Microsoft.Samples.Kinect.SkeletonBasics
 {
-     public partial class ChildWindow : System.Windows.Window
+     public partial class ChildWindow : Window
     {
         public ChildWindow()
         {
@@ -25,7 +15,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public int durationtime;
 
         //kollar om det INTE bara är siffror
-         bool onlyDigits(string s)
+        bool onlyDigits(string s)
         {
             foreach (char c in s)
             {
@@ -47,7 +37,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             return false;
         }
 
-       
+        //Kollar så comport är ifylld
         void startHeartRateCalc_Click(object sender, RoutedEventArgs e)
         {
             comport = comportContent.Text;   
@@ -62,15 +52,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 this.Close();
             }
-            
-
-
         }
 
         private void helpButton_Click(object sender, RoutedEventArgs e)
         {
             string error_message = "1. Add the number of your comport \n";
-            System.Windows.MessageBox.Show(error_message);
+            MessageBox.Show(error_message);
         }
     }
 }

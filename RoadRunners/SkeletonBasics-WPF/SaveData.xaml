@@ -15,7 +15,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.Background>
-            <ImageBrush ImageSource="Images/back.png" Stretch="None"/>
+            <ImageBrush ImageSource="Images/bakgrundsbilden.jpg" Stretch="Fill"/>
         </Grid.Background>
         <Button x:Name="SaveButtonExcel" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Width="102" Margin="51,244,0,0" Click="Save_Click">
             <Button.Background>
@@ -37,7 +37,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="29" Margin="118,23,0,0" TextWrapping="Wrap" Text="Save data" VerticalAlignment="Top" Width="117" FontSize="14" Foreground="#FFBCF5FF"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="29" Margin="10,10,0,0" TextWrapping="Wrap" Text="Save data" VerticalAlignment="Top" Width="117" FontSize="14" Foreground="#FFBCF5FF"/>
 
     </Grid>
 </Window>

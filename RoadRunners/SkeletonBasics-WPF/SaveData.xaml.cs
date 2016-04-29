@@ -1,21 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Office.Interop.Excel;
 using Microsoft.Win32;
-using System.IO;
-using System.Reflection;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Microsoft.Samples.Kinect.SkeletonBasics
@@ -126,7 +113,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             string Comments = CommentsInput.Text;
 
             // Skapar Exceldokumentet
-            Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
+            Excel.Application app = new Excel.Application();
             app.Visible = true;
             app.WindowState = XlWindowState.xlMaximized;
             Workbook wb = app.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
