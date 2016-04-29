@@ -372,10 +372,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 changeButton = 1;
             }
 
-            //if (XHandLeft < -0.65 && YHandLeft > 0.55)
-            //{
-            //    restartbutton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            //}
+            if (XHandLeft < -0.65 && YHandLeft > 0.55)
+            {
+                restartbutton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            }
         }
 
 
@@ -676,11 +676,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             try
             {
 
-                matlab.Feval("myfunc", 1, out result, list1.ToArray(), list2.ToArray(), list3.ToArray(), list4.ToArray());
+                matlab.Feval("myfunc", 0, out result, list1.ToArray(), list2.ToArray(), list3.ToArray(), list4.ToArray());
             }
             catch (System.Runtime.InteropServices.COMException)
             {
-                MessageBox.Show("Listorna har ej samma längd :(");
+            //    MessageBox.Show("Listorna har ej samma längd :(");
             }
         }
 
