@@ -21,6 +21,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="642.666666666667"/>
         </Grid.RowDefinitions>
+        <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="265" Margin="734,17,0,0" VerticalAlignment="Top" Width="501" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}"/>
         <DockPanel Grid.Row="0" Margin="0,0,0.333,642.667"/>
         <Viewbox Stretch="Uniform" Margin="729,17,27,362">
             <Image x:Name="Image" Width="436" Height="229"/>
@@ -37,7 +38,6 @@
         </Button>
         <Slider x:Name="slider" HorizontalAlignment="Left" Margin="961,608,0,0" VerticalAlignment="Top" Height="27" Width="146" Maximum="26" Minimum="-26" ValueChanged="slider_ValueChanged"/>
         <Label x:Name="Degree" Content="0" HorizontalAlignment="Left" Margin="1112,608,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.615" Foreground="Black" Width="30"/>
-        <WpfViewers:KinectColorViewer HorizontalAlignment="Left" Height="265" Margin="734,17,0,0" VerticalAlignment="Top" Width="501" Kinect="{Binding Kinect, ElementName=kinectSensorChooser}" Opacity="0.6"/>
         <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="860,47,0,0" VerticalAlignment="Top"/>
         <Image x:Name="vinkelImage" HorizontalAlignment="Left" Height="207" Margin="27,314,0,0" VerticalAlignment="Top" Width="1208"  />
         <TextBlock x:Name="velocityText" HorizontalAlignment="Left" Margin="179,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF" Text="Velocity"/>
@@ -62,7 +62,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBlock x:Name="textTestdirektiv" FontSize="18" TextAlignment="Center" FontWeight="Bold" Foreground="#FFBCF5FF" HorizontalAlignment="Left" Margin="-39,526,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="68"><Run Text="....................."/><Run Text=".."/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="textTestdirektiv" FontSize="18" TextAlignment="Center" FontWeight="Bold" Foreground="#FFBCF5FF" HorizontalAlignment="Left" Margin="259,554,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="68"><Run Text="....................."/><Run Text=".."/><LineBreak/><Run/></TextBlock>
         <Button x:Name="display_heartrate" Content="Display Heartrate" HorizontalAlignment="Left" Margin="16,49,0,0" VerticalAlignment="Top" Width="120" Click="display_heartrate_Click" Height="27">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">

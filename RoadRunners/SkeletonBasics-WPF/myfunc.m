@@ -52,7 +52,7 @@ legend1 = legend(axes1,'show');
 set(legend1,'Location','southwest','FontSize',9);
 
 figure1.PaperUnits = 'inches';
-figure1.PaperPosition = [0 0 17.5 3.75];
+figure1.PaperPosition = [0 0 14.5 4.5];
 
 saveas(figure1, 'Vinkelgraf.jpeg');
 close(figure1);
@@ -89,7 +89,7 @@ legend1 = legend(axes1,'show');
 set(legend1,'Location','southwest','FontSize',9);
 
 figure1.PaperUnits = 'inches';
-figure1.PaperPosition = [0 0 17.5 3.75];
+figure1.PaperPosition = [0 0 14.5 4.5];
 
 saveas(figure1, 'Vinkelgraf.jpeg');
 close(figure1);

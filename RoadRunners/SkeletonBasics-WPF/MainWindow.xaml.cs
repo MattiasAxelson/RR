@@ -778,7 +778,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
         // Skickar vinklar och puls till matlab och plottas sedan
-        private void printMatLab(List<double> list1, List<double> list2, List<double> list3, List<double> list4)
+        private void printMatLab(List<double> list1, List<double> list2, List<double> list3, List<double> list4, List<double> list5, List<double> list6)
         {
             // Change to the directory where the function is located 
             var path = Path.Combine(Directory.GetCurrentDirectory());
@@ -792,7 +792,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             try
             {
                 //Matlabfunktionen sparar pulsen till en textfil
-                matlab.Feval("myfunc", 0, out result, list1.ToArray(), list2.ToArray(), list3.ToArray(), list4.ToArray());
+                matlab.Feval("myfunc", 0, out result, list1.ToArray(), list2.ToArray(), list3.ToArray(), list4.ToArray(), list5.ToArray(), list6.ToArray());
             }
             catch (System.Runtime.InteropServices.COMException)
             {
@@ -806,7 +806,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (timeList.Count > plotCounter)
             {
 
-                plotAnglesThread = new Thread(() => printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK));
+                plotAnglesThread = new Thread(() => printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK, ChosenMinFHKAngleList, ChosenMaxFHKAngleList));
                 plotAnglesThread.Start();
 
                 CompositionTargetRendering();
@@ -990,8 +990,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             meanList_FHK.Clear();
             velocityListDatabase.Clear();
 
-         //   plotAnglesThread = new Thread(() => printMatLab(timeList, nullList, nullList, nullList, nullList, nullList));
-         //   plotAnglesThread.Start();
+            plotAnglesThread = new Thread(() => printMatLab(timeList, nullList, nullList, nullList, nullList, nullList));
+            plotAnglesThread.Start();
+                    CompositionTargetRendering();
 
             counter = saveData.ReturnTestLength();
 
