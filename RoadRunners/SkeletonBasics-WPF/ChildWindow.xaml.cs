@@ -12,7 +12,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         public string comport;
         public string convdurationtime;
-
         public int durationtime;
 
         //kollar om det INTE bara är siffror

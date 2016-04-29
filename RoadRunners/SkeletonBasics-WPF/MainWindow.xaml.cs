@@ -205,12 +205,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 joint1.TrackingState == JointTrackingState.NotTracked)
             {
                 return;
-            }
+        }
 
             // Don't draw if both points are inferred
             if (joint0.TrackingState == JointTrackingState.Inferred &&
                 joint1.TrackingState == JointTrackingState.Inferred)
-            {
+        {
                 return;
             }
 
@@ -219,7 +219,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (joint0.TrackingState == JointTrackingState.Tracked && joint1.TrackingState == JointTrackingState.Tracked)
             {
                 drawPen = this.trackedBonePen;
-            }
+        }
 
             drawingContext.DrawLine(drawPen, this.SkeletonPointToScreen(joint0.Position), this.SkeletonPointToScreen(joint1.Position));
         }
@@ -520,6 +520,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public List<double> anglesHelp_SHK = new List<double>();
         public List<double> meanList_SHK = new List<double>();
 
+        public List<double> ChosenMinFHKAngleList = new List<double>();
+        public List<double> ChosenMaxFHKAngleList = new List<double>();
+        public List<double> nullList = new List<double>();
+
         // Skapar listorna som behövs för puls
         public List<double> pulseList = new List<double>();
         public List<double> minimumList_pulse = new List<double>();
@@ -540,13 +544,18 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         public double lagsta_varde_Puls;
         int i = 0;
         int k = 0;
+        int ChosenMinFHKAngle = 0;
+        int ChosenMaxFHKAngle = 180;
 
-        // Plockar ut medelvärden utifrån valt intervall
+            // Plockar ut medelvärden utifrån valt intervall
         public void meanAngleFunc(List<double> minList1, List<double> minList2, List<double> minList3)
         {
 
             if (i == k)
             {
+                SetDesiredAnglesInaList();
+                
+
                 meanAngle_FHK = minList1.Average();
                 meanList_FHK.Add(meanAngle_FHK);
                 meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault())) + (char)176;
@@ -571,6 +580,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 i = 0;
             }
         }
+
 
         // Beräknar vinklar 
         public void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
@@ -632,15 +642,26 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 anglesHelp_SHK.Add(SHK_angle);
             }
 
-            if (SHK_angle < 140)
+            //Ger direktiv angående vinklarna
+            if (ChosenMinFHKAngle > FHK_angle && false == Double.IsNaN(ChosenMinFHKAngle)) 
             {
-                textTestdirektiv.Text = "Stand up straight!";
-                SystemSounds.Exclamation.Play();
+                textTestdirektiv.Foreground = new SolidColorBrush(Colors.Red);
+                textTestdirektiv.Text = "The Knee Angle is to small";
+                SystemSounds.Beep.Play();
+            }
+            else if (FHK_angle > ChosenMaxFHKAngle && false == Double.IsNaN(ChosenMinFHKAngle))
+            {
+                textTestdirektiv.Foreground = new SolidColorBrush(Colors.Red);
+                textTestdirektiv.Text = "The Knee Angle is to big";
+                SystemSounds.Asterisk.Play();
             }
             else
             {
-                textTestdirektiv.Text = "";
+                textTestdirektiv.Foreground = new SolidColorBrush(Colors.Green);
+                textTestdirektiv.Text = "The Knee Angle is in the chosen intervall";
             }
+
+
 
             //Kollar så FHK vinkeln inte är NaN
             if (Double.IsNaN(FHK_angle))
@@ -654,7 +675,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 angles_FHK.Add(FHK_angle);
                 anglesHelp_FHK.Add(FHK_angle);
             }
-            if (FHK_angle < 90)
+           /* if (FHK_angle < 90)
             {
                 textTestdirektiv.Text = "pull out your knees!";
                 SystemSounds.Asterisk.Play();
@@ -663,7 +684,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 textTestdirektiv.Text = "";
             }
-
+            */
 
             if (counter2 >= 2)
             {
@@ -739,11 +760,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         //Hämtar bild som ritas i matlab
         private void CompositionTargetRendering()
-        {
-                     
+            {
+
                 BitmapImage _image = new BitmapImage();
                 string pathImage = Path.Combine(Directory.GetCurrentDirectory());
- 
+
                     _image.BeginInit();
                     _image.CacheOption = BitmapCacheOption.None;
                     _image.UriCachePolicy = new System.Net.Cache.RequestCachePolicy();
@@ -775,7 +796,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
             catch (System.Runtime.InteropServices.COMException)
             {
-             
+
             }
         }
 
@@ -814,7 +835,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             }
         }
-
+ 
 
 
         // ---------------------------------------------------------------------------------------------------------------------------------//
@@ -844,7 +865,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         //Combobox för att välja intervall
         public void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        {          
             var comboBox = sender as ComboBox;
 
             string BoxValue = comboBox.SelectedItem as string;
@@ -965,25 +986,28 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 if (comportWindow.comportYesWasclicked == true)
                 {
-                    meanList_SHK.Clear();
-                    meanList_FHK.Clear();
-                    velocityListDatabase.Clear();
+            meanList_SHK.Clear();
+            meanList_FHK.Clear();
+            velocityListDatabase.Clear();
 
-                    counter = saveData.ReturnTestLength();
+         //   plotAnglesThread = new Thread(() => printMatLab(timeList, nullList, nullList, nullList, nullList, nullList));
+         //   plotAnglesThread.Start();
 
-                    counter2 = 0;
+            counter = saveData.ReturnTestLength();
 
-                    timer1 = new System.Windows.Forms.Timer();
-                    timer1.Tick += new EventHandler(timer1_Tick);
-                    timer1.Interval = 1000; // 1 second
-                    timer1.Start();
-                    timerContent.Text = counter.ToString();
+            counter2 = 0;
 
-                    timer2 = new System.Windows.Forms.Timer();
-                    timer2.Tick += new EventHandler(timer2_Tick);
-                    timer2.Interval = 1000; // 1 second
-                    timer2.Start();
-                }
+            timer1 = new System.Windows.Forms.Timer();
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Interval = 1000; // 1 second
+            timer1.Start();
+            timerContent.Text = counter.ToString();
+
+            timer2 = new System.Windows.Forms.Timer();
+            timer2.Tick += new EventHandler(timer2_Tick);
+            timer2.Interval = 1000; // 1 second
+            timer2.Start();
+        }
             } 
             else
             {
@@ -999,14 +1023,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 timer1.Tick += new EventHandler(timer1_Tick);
                 timer1.Interval = 1000; // 1 second
                 timer1.Start();
-                timerContent.Text = counter.ToString();
+            timerContent.Text = counter.ToString();
 
                 timer2 = new System.Windows.Forms.Timer();
                 timer2.Tick += new EventHandler(timer2_Tick);
                 timer2.Interval = 1000; // 1 second
                 timer2.Start();
 
-            }
+        }
 
         }
 
@@ -1019,9 +1043,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (comport == "")
             {
                 MessageBox.Show("Add heartrate settings");
-            }
+        }
             else
-            {
+        {
                 heartrateThread = new Thread(() => printMatLab1("heartRateCalc", comport, durationtime, bufferFile));
                 heartrateThread.Start();
             }
@@ -1047,6 +1071,60 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             meanList_FHK.Clear();
             meanList_SHK.Clear();
             velocityListDatabase.Clear();
+            ChosenMinFHKAngleList.Clear();
+            ChosenMaxFHKAngleList.Clear();
+        }
+
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+
+        public bool onlyDigits(string s)
+        {
+            foreach (char c in s)
+            {
+                if (!char.IsDigit(c))
+                    return false;
+
+            }
+            return true;
+        }
+        //Sätter om vilka vinklar det ska varna för
+
+        public void SetDesiredAnglesInaList()
+        {
+            ChosenMinFHKAngleList.Add(ChosenMinFHKAngle);
+            ChosenMaxFHKAngleList.Add(ChosenMaxFHKAngle);
+
+        }
+
+        private void UpdDesiredAngles_Click(object sender, RoutedEventArgs e)
+        {
+            if (EnterMinAngle.Text.Length >= 1 && onlyDigits(EnterMinAngle.Text))
+            {
+                ChosenMinFHKAngle = int.Parse(EnterMinAngle.Text);
+            }
+            else
+            {
+                EnterMinAngle.Text = "0";
+                string error_message = "Write a minimum angle in numbers \n";
+                MessageBox.Show(error_message);
+
+            }
+            if (EnterMaxAngle.Text.Length >= 1 && onlyDigits(EnterMaxAngle.Text))
+            {
+                ChosenMaxFHKAngle = int.Parse(EnterMaxAngle.Text);
+            }
+            else
+            {
+                EnterMaxAngle.Text = "180";
+                string error_message = "Write a maximum angle in numbers \n";
+                MessageBox.Show(error_message);
+
+            }
+
         }
 
         // Stänger programmet

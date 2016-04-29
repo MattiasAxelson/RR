@@ -29,7 +29,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         List<double> ExcelMeanListSHKhelp = new List<double>();
         List<double> ExcelPulseListhelp = new List<double>();
         List<double> ExcelVelocityListHelp = new List<double>();
-
+        
         // Definerar hjälpvariabler som behövs för vissa funktioner
         int Intervallhelp;
         int TestLengthHelp;
