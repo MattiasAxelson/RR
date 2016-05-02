@@ -182,7 +182,7 @@
     <Resource Include="Images\back.png" />
     <Resource Include="Images\RoadRunners4.png" />
     <Resource Include="Images\bakgrundsbilden.jpg" />
-    <Content Include="myfunc.m" />
+    <Content Include="matlabPlot.m" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

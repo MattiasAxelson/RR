@@ -813,7 +813,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             try
             {
                 //Matlabfunktionen sparar pulsen till en textfil
-                matlab.Feval("myfunc", 0, out result, list1.ToArray(), list2.ToArray(), list3.ToArray(), list4.ToArray(), list5.ToArray(), list6.ToArray());
+                matlab.Feval("matlabPlot", 0, out result, list1.ToArray(), list2.ToArray(), list3.ToArray(), list4.ToArray(), list5.ToArray(), list6.ToArray());
             }
             catch (System.Runtime.InteropServices.COMException)
             {
