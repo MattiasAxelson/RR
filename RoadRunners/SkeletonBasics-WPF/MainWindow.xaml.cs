@@ -758,7 +758,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         MLApp.MLApp matlab = new MLApp.MLApp();
 
         //ljud
-        SoundPlayer player = new System.Media.SoundPlayer();
+        SoundPlayer player = new SoundPlayer();
 
         // Variabeldefinitioner
         private SaveData saveData;
@@ -833,7 +833,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
                     CompositionTargetRendering();
                 }
-                catch(System.IO.IOException)
+                catch(IOException)
                 {
                     
                 }
