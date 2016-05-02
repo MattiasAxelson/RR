@@ -315,6 +315,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     this.sensor = null;
                 }
             }
+
+            printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK, ChosenMinFHKAngleList, ChosenMaxFHKAngleList);
+            
+            CompositionTargetRendering();
         }
 
 
@@ -757,7 +761,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         //Definitioner av olika trådar för anrop på matlab
         Thread heartrateThread;
         Thread plotAnglesThread;
-        Thread compositionThread;
+     
 
         //Hämtar bild som ritas i matlab
         private void CompositionTargetRendering()
@@ -811,7 +815,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 plotAnglesThread.Start();
                 CompositionTargetRendering();
              
-                plotCounter = plotCounter + 2;   
+                plotCounter = plotCounter + 1;   
                 }
             }
 
@@ -955,12 +959,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (counter == 0)
             {
                 timer1.Stop();
-                var path = Path.Combine(Directory.GetCurrentDirectory());
-                File.Delete(path + @"\..\..");
-                sensor.ColorStream.Disable();
-                sensor.SkeletonStream.Disable();
-                this.sensor.Stop();
-          
+
+                //    sensor.ColorStream.Disable();
+                //   sensor.SkeletonStream.Disable();
+                //  this.sensor.Stop();
+                SystemSounds.Beep.Play();
       
                 changeButton = 0;
             }
@@ -1077,6 +1080,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             velocityListDatabase.Clear();
             ChosenMinFHKAngleList.Clear();
             ChosenMaxFHKAngleList.Clear();
+
+
+            printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK, ChosenMinFHKAngleList, ChosenMaxFHKAngleList);
+
+            CompositionTargetRendering();
+
+          
         }
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -1142,6 +1152,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             plotAngles();
             Thread.Sleep(3000);
             */
+            var path = Path.Combine(Directory.GetCurrentDirectory());
+            File.Delete(path + @"\..\..\Vinkelgraf.jpeg");
             Environment.Exit(-1);
         }
 

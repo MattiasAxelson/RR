@@ -179,7 +179,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Vinkelgraf.jpeg" />
     <Resource Include="Images\back.png" />
     <Resource Include="Images\RoadRunners4.png" />
     <Resource Include="Images\bakgrundsbilden.jpg" />

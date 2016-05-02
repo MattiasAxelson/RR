@@ -1,20 +1,8 @@
 function [x] = myfunc(a,b,c,d,e,f) 
-% a = Tid 
-% b = puls
-% c = vinklar_FHK
-% d = vinklar_SHK
 
-%  a = 1:5;
-%  b = [0,0,0,0,0];
-%  c = [0,0,0,0,0];
-%  d = [0,0,0,0,0];
-%  e = [0,0,0,0,0];
-%  f = [180,180,180,180,180];
-% 
-% YMatrix1 =[b;c;d;e;f];
 length(a)
 
-if length(a) < 2
+if length(a) < 1
     
  a = 1:5;
  b = [0,0,0,0,0];
