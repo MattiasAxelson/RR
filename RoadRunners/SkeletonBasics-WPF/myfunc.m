@@ -14,7 +14,7 @@ function [x] = myfunc(a,b,c,d,e,f)
 % YMatrix1 =[b;c;d;e;f];
 length(a)
 
-if length(a) < 2
+if length(a) < 3
     
  a = 1:5;
  b = [0,0,0,0,0];
@@ -23,7 +23,8 @@ if length(a) < 2
  e = [0,0,0,0,0];
  f = [180,180,180,180,180];       
     % Create figure
- figure1 = figure('PaperUnits','inches');
+
+figure1 = figure('PaperUnits','inches');
 set(gcf, 'visible', 'off');
 % Create axes
 axes1 = axes('Parent',figure1,'YGrid','on','XGrid','on',...
@@ -59,14 +60,10 @@ close(figure1);
  
 else
  
-% Create figure
- h = figure(1);  set(gcf, 'visible', 'on');
- 
-h.PaperUnits = 'inches';
-h.PaperPosition = [0 0 14.5 4.5];
-% figure('PaperUnits','inches','Color',[0.0 0.5 0.5]);
+ figure1 = figure('PaperUnits','inches');
+set(gcf, 'visible', 'off');
 % Create axes
-axes1 = axes('Parent',h,'YGrid','on','XGrid','on',...
+axes1 = axes('Parent',figure1,'YGrid','on','XGrid','on',...
     'YColor',[0 0 0],...
     'XColor',[0 0 0],...
     'Position',[0.0660377358490566 0.16 0.905433735622415 0.799569600283172]);
@@ -94,6 +91,8 @@ set(legend1,'Location','southwest','FontSize',9);
 figure1.PaperUnits = 'inches';
 figure1.PaperPosition = [0 0 14.5 4.5];
 
+saveas(figure1, 'Vinkelgraf.jpeg');
+close(figure1);
 % %plotstyle = {'-r','-b','-ys'}
 % % aa=[a;a];
 % % bb=[b;b];
