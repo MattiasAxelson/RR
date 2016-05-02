@@ -1,20 +1,8 @@
 function [x] = myfunc(a,b,c,d,e,f) 
-% a = Tid 
-% b = puls
-% c = vinklar_FHK
-% d = vinklar_SHK
 
-%  a = 1:5;
-%  b = [0,0,0,0,0];
-%  c = [0,0,0,0,0];
-%  d = [0,0,0,0,0];
-%  e = [0,0,0,0,0];
-%  f = [180,180,180,180,180];
-% 
-% YMatrix1 =[b;c;d;e;f];
 length(a)
 
-if length(a) < 3
+if length(a) < 1
     
  a = 1:5;
  b = [0,0,0,0,0];
@@ -62,7 +50,7 @@ if length(a) > 2
  
 else
  
- figure1 = figure('PaperUnits','inches');
+figure1 = figure('PaperUnits','inches');
 set(gcf, 'visible', 'off');
 % Create axes
 axes1 = axes('Parent',figure1,'YGrid','on','XGrid','on',...
@@ -85,6 +73,8 @@ set(plot1(2),'DisplayName','Knee angle','Color',[0 0 1]);
 set(plot1(3),'DisplayName','Hip angle','Color',[1 0.843137264251709 0]);
 set(plot1(4),'DisplayName','ChosenMinFHKAngle','Color',[0 0 0]);
 set(plot1(5),'DisplayName','ChosenMaxFHKAngle','Color',[0 0 0]);
+
+xlim([a(1) a(end)]); 
 
 % Create legend
 legend1 = legend(axes1,'show');

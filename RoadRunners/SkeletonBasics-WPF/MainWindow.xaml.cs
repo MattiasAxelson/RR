@@ -315,6 +315,17 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     this.sensor = null;
                 }
             }
+            //Skapar en tom graf direkt
+            printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK, ChosenMinFHKAngleList, ChosenMaxFHKAngleList);           
+            CompositionTargetRendering();
+
+            
+
+            //Öppningsljud
+            
+            var path = Path.Combine(Directory.GetCurrentDirectory());
+            player.SoundLocation = path + @"\..\..\WeAreRoadRunners.wav";
+            player.Play();
         }
 
 
@@ -553,6 +564,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             if (i == k)
             {
+
                 SetDesiredAnglesInaList();
                 
 
@@ -576,6 +588,17 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 saveData.ExcelFunkFHK(meanList_FHK);
                 saveData.ExcelFunkSHK(meanList_SHK);
                 saveData.ExcelPulseFunk(meanList_pulse);
+
+                if(timeList.Count >= 14)
+                {
+                    meanList_FHK.RemoveAt(0);
+                    meanList_SHK.RemoveAt(0);
+                    meanList_pulse.RemoveAt(0);
+                    ChosenMaxFHKAngleList.RemoveAt(0);
+                    ChosenMinFHKAngleList.RemoveAt(0);
+                    timeList.RemoveAt(0);
+                    plotCounter = plotCounter - 3;
+                }
 
                 i = 0;
             }
@@ -675,16 +698,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 angles_FHK.Add(FHK_angle);
                 anglesHelp_FHK.Add(FHK_angle);
             }
-           /* if (FHK_angle < 90)
-            {
-                textTestdirektiv.Text = "pull out your knees!";
-                SystemSounds.Asterisk.Play();
-            }
-            else
-            {
-                textTestdirektiv.Text = "";
-            }
-            */
+
 
             if (counter2 >= 2)
             {
@@ -743,9 +757,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // Startar en matlabinstans
         MLApp.MLApp matlab = new MLApp.MLApp();
 
+        //ljud
+        SoundPlayer player = new SoundPlayer();
 
         // Variabeldefinitioner
         private SaveData saveData;
+        private ComportWindow comportWindow;
+
         private string comport = "";
         private int durationtime;
         private string bufferFile = "buffer.dat";
@@ -757,7 +775,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         //Definitioner av olika trådar för anrop på matlab
         Thread heartrateThread;
         Thread plotAnglesThread;
-        Thread compositionThread;
+
 
         //Hämtar bild som ritas i matlab
         private void CompositionTargetRendering()
@@ -772,10 +790,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     _image.CacheOption = BitmapCacheOption.OnLoad;
                     _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                     _image.UriSource = new Uri(pathImage + @"\..\..\Vinkelgraf.jpeg", UriKind.RelativeOrAbsolute);
+          
                     _image.EndInit();
          
                     vinkelImage.Source = _image;
                          
+
         }
 
         // Skickar vinklar och puls till matlab och plottas sedan
@@ -809,9 +829,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 plotAnglesThread = new Thread(() => printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK, ChosenMinFHKAngleList, ChosenMaxFHKAngleList));
                 plotAnglesThread.Start();
+                try
+                {
                 CompositionTargetRendering();
+                }
+                catch(IOException)
+                {
              
-                plotCounter = plotCounter + 2;   
+                }
+                plotCounter = plotCounter + 3;   
                 }
             }
 
@@ -955,12 +981,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (counter == 0)
             {
                 timer1.Stop();
+
                 var path = Path.Combine(Directory.GetCurrentDirectory());
-                File.Delete(path + @"\..\..\Vinkelgraf.jpeg");
-                sensor.ColorStream.Disable();
-                sensor.SkeletonStream.Disable();
-                this.sensor.Stop();
-          
+                player.SoundLocation = path + @"\..\..\TestIsFinished.wav";
+                player.Play();
       
                 changeButton = 0;
             }
@@ -976,8 +1000,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // --------------------------------- Knappar ---------------------------------------------------------------------------------------// 
         // ---------------------------------------------------------------------------------------------------------------------------------//
 
-        private ComportWindow comportWindow;
-        // public bool comportYesWasclicked = false;
+        
+
         //Startar loggning av data
         private void startLoggingButton_Click(object sender, EventArgs e)
         {
@@ -992,11 +1016,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             meanList_FHK.Clear();
             velocityListDatabase.Clear();
 
-                    /*
-            plotAnglesThread = new Thread(() => printMatLab(timeList, nullList, nullList, nullList, nullList, nullList));
-            plotAnglesThread.Start();
-                    CompositionTargetRendering();
-                    */
             counter = saveData.ReturnTestLength();
 
             counter2 = 0;
@@ -1012,7 +1031,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             timer2.Interval = 1000; // 1 second
             timer2.Start();
                        
-                }
+        }
             } 
             else
             {
@@ -1034,8 +1053,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 timer2.Tick += new EventHandler(timer2_Tick);
                 timer2.Interval = 1000; // 1 second
                 timer2.Start();
-            }
-             
+        }
+
         }
 
         //Startar pulsmätningen
@@ -1078,7 +1097,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             ChosenMinFHKAngleList.Clear();
             ChosenMaxFHKAngleList.Clear();
 
-            SystemSounds.Asterisk.Play();
+
+            printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK, ChosenMinFHKAngleList, ChosenMaxFHKAngleList);
+
+            CompositionTargetRendering();
+
+          
         }
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -1097,8 +1121,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
             return true;
         }
-        //Sätter om vilka vinklar det ska varna för
 
+        //Sätter om vilka vinklar det ska varna för
         public void SetDesiredAnglesInaList()
         {
             ChosenMinFHKAngleList.Add(ChosenMinFHKAngle);
@@ -1106,6 +1130,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
+        //ställer in önskat vinkelintervall
         private void UpdDesiredAngles_Click(object sender, RoutedEventArgs e)
         {
             if (EnterMinAngle.Text.Length >= 1 && onlyDigits(EnterMinAngle.Text))
@@ -1136,14 +1161,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         // Stänger programmet
         private void quitbutton_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            timeList.Clear();
-            meanList_FHK.Clear();
-            meanList_SHK.Clear();
-            meanList_pulse.Clear();
-            plotAngles();
-            Thread.Sleep(3000);
-            */
+   
+            var path = Path.Combine(Directory.GetCurrentDirectory());
+            File.Delete(path + @"\..\..\Vinkelgraf.jpeg");
             Environment.Exit(-1);
         }
 
@@ -1179,11 +1199,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 startLoggingButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 changeButton = 1;
             }
-
-            //if (XHandLeft < -0.65 && YHandLeft > 0.55)
-            //{
-            //    restartbutton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            //}
+            /*
+            if (XHandLeft < -0.65 && YHandLeft > 0.55)
+            {
+                restartbutton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            }*/
         }
     }
 }
