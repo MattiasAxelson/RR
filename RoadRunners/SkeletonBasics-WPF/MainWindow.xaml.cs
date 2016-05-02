@@ -1035,7 +1035,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 timer2.Interval = 1000; // 1 second
                 timer2.Start();
             }
-
+             
         }
 
         //Startar pulsmätningen
