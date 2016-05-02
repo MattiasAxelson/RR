@@ -24,7 +24,7 @@ if length(a) < 3
  f = [180,180,180,180,180];       
     % Create figure
 
-figure1 = figure('PaperUnits','inches');
+ figure1 = figure('PaperUnits','inches');
 set(gcf, 'visible', 'off');
 % Create axes
 axes1 = axes('Parent',figure1,'YGrid','on','XGrid','on',...
@@ -57,6 +57,8 @@ figure1.PaperPosition = [0 0 14.5 4.5];
 
 saveas(figure1, 'Vinkelgraf.jpeg');
 close(figure1);
+end
+if length(a) > 2
  
 else
  
@@ -93,20 +95,6 @@ figure1.PaperPosition = [0 0 14.5 4.5];
 
 saveas(figure1, 'Vinkelgraf.jpeg');
 close(figure1);
-% %plotstyle = {'-r','-b','-ys'}
-% % aa=[a;a];
-% % bb=[b;b];
-% % zz=zeros(size(aa));
-% % 
-% % hs=surf(aa,bb,zz,bb, 'EdgeColor', 'interp')
-% % colormap(flipud(autumn))
-% % view(2)
-% % 
-% % HANDLE = gca;
-% % get(HANDLE);
-% % set(HANDLE, 'Color', [0,0.1,0.3]);
-% % hs.LineWidth=2
-% % title('SuperGrafen');
 
 end
 

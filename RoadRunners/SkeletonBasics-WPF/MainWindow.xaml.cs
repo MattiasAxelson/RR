@@ -751,12 +751,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private string bufferFile = "buffer.dat";
 
 
-        private int plotCounter = 1;
+        private int plotCounter = 0;
 
 
         //Definitioner av olika trådar för anrop på matlab
         Thread heartrateThread;
         Thread plotAnglesThread;
+        Thread compositionThread;
 
         //Hämtar bild som ritas i matlab
         private void CompositionTargetRendering()
@@ -808,9 +809,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 plotAnglesThread = new Thread(() => printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK, ChosenMinFHKAngleList, ChosenMaxFHKAngleList));
                 plotAnglesThread.Start();
-
                 CompositionTargetRendering();
-                plotCounter = plotCounter + 1;   
+             
+                plotCounter = plotCounter + 2;   
                 }
             }
 
@@ -954,7 +955,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (counter == 0)
             {
                 timer1.Stop();
-
+                var path = Path.Combine(Directory.GetCurrentDirectory());
+                File.Delete(path + @"\..\..\Vinkelgraf.jpeg");
                 sensor.ColorStream.Disable();
                 sensor.SkeletonStream.Disable();
                 this.sensor.Stop();
@@ -990,10 +992,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             meanList_FHK.Clear();
             velocityListDatabase.Clear();
 
+                    /*
             plotAnglesThread = new Thread(() => printMatLab(timeList, nullList, nullList, nullList, nullList, nullList));
             plotAnglesThread.Start();
                     CompositionTargetRendering();
-
+                    */
             counter = saveData.ReturnTestLength();
 
             counter2 = 0;
@@ -1008,7 +1011,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             timer2.Tick += new EventHandler(timer2_Tick);
             timer2.Interval = 1000; // 1 second
             timer2.Start();
-        }
+                       
+                }
             } 
             else
             {
@@ -1030,8 +1034,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 timer2.Tick += new EventHandler(timer2_Tick);
                 timer2.Interval = 1000; // 1 second
                 timer2.Start();
-
-        }
+            }
 
         }
 
@@ -1074,6 +1077,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             velocityListDatabase.Clear();
             ChosenMinFHKAngleList.Clear();
             ChosenMaxFHKAngleList.Clear();
+
+            SystemSounds.Asterisk.Play();
         }
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)

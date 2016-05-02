@@ -39,7 +39,7 @@
         <Slider x:Name="slider" HorizontalAlignment="Left" Margin="961,608,0,0" VerticalAlignment="Top" Height="27" Width="146" Maximum="26" Minimum="-26" ValueChanged="slider_ValueChanged"/>
         <Label x:Name="Degree" Content="0" HorizontalAlignment="Left" Margin="1112,608,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.615" Foreground="Black" Width="30"/>
         <WpfViewers:KinectSensorChooser x:Name="kinectSensorChooser" HorizontalAlignment="Left" Margin="860,47,0,0" VerticalAlignment="Top"/>
-        <Image x:Name="vinkelImage" HorizontalAlignment="Left" Height="207" Margin="27,273,0,0" VerticalAlignment="Top" Width="1208" Source="Vinkelgraf.jpeg" />
+        <Image x:Name="vinkelImage" HorizontalAlignment="Left" Height="207" Margin="27,314,0,0" VerticalAlignment="Top" Width="1208"   />
         <TextBlock x:Name="velocityText" HorizontalAlignment="Left" Margin="179,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF" Text="Velocity"/>
         <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="942,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text=""/><LineBreak/><Run/></TextBlock>
         <Button x:Name="restartbutton" Content="Restart" HorizontalAlignment="Left" Margin="1160,590,0,0" VerticalAlignment="Top" Width="75" Click="restartbutton_Click">
