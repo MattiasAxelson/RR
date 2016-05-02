@@ -71,6 +71,8 @@ set(plot1(3),'DisplayName','Hip angle','Color',[1 0.843137264251709 0]);
 set(plot1(4),'DisplayName','ChosenMinFHKAngle','Color',[0 0 0]);
 set(plot1(5),'DisplayName','ChosenMaxFHKAngle','Color',[0 0 0]);
 
+xlim([a(1) a(end)]); 
+
 % Create legend
 legend1 = legend(axes1,'show');
 set(legend1,'Location','southwest','FontSize',9);

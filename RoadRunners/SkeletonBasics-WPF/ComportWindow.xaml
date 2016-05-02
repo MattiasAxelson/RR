@@ -30,6 +30,6 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBox x:Name="textBox" Background="AntiqueWhite" HorizontalAlignment="Left" Height="63" Margin="36,75,0,0" TextWrapping="Wrap" Text="No comport chosen, do you want to continue without pulseregistration?" VerticalAlignment="Top" Width="232" FontStyle="Oblique" FontSize="14" FontWeight="Bold" />
+        <TextBox x:Name="textBox" Background="AntiqueWhite" HorizontalAlignment="Left" Height="42" Margin="36,75,0,0" TextWrapping="Wrap" Text="No comport chosen, do you want to continue without pulseregistration?" VerticalAlignment="Top" Width="232" FontStyle="Normal" FontSize="14" FontWeight="Normal" />
     </Grid>
 </Window>
