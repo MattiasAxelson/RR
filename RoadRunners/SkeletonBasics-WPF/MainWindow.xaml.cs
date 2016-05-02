@@ -698,16 +698,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 angles_FHK.Add(FHK_angle);
                 anglesHelp_FHK.Add(FHK_angle);
             }
-           /* if (FHK_angle < 90)
-            {
-                textTestdirektiv.Text = "pull out your knees!";
-                SystemSounds.Asterisk.Play();
-            }
-            else
-            {
-                textTestdirektiv.Text = "";
-            }
-            */
+
 
             if (counter2 >= 2)
             {

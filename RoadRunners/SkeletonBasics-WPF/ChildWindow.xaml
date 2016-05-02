@@ -9,7 +9,7 @@
         MaxWidth="300"
         MaxHeight="300"
         MinHeight="300"
-        Title="ChildWindow" Height="300" Width="300">
+        Title="Comport Window" Height="300" Width="300">
     <Grid Margin="0,0,2,0">
         <Grid.Background>
             <ImageBrush ImageSource="Images/bakgrundsbilden.jpg" Stretch="Fill"/>
