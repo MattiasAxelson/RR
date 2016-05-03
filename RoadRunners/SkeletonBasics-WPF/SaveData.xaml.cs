@@ -93,7 +93,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
 
 
-
+          
         public void Save_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mWindow = new MainWindow();

@@ -452,10 +452,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 velHelpList.Clear();
             }
 
-          
-  
-                
-            
+            if (i == k)
+            {
+                meanVelocity = velocityListSave.Average();
+                velocityListDatabase.Add(meanVelocity * 3.6);
+                velocityListSave.Clear();
+            }
+
+
+
 
             if (velXList.Count > 600)
             {
@@ -516,12 +521,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 i = 0;
             }
 // VAFAN KOLLA DET HÄR DFSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
-            if (i == k)
-            {
-                meanVelocity = velocityListSave.Average();
-                velocityListDatabase.Add(meanVelocity * 3.6);
-                velocityListSave.Clear();
-            }
+         
 
             saveData.ExcelFunkFHK(meanList_FHK);
             saveData.ExcelFunkSHK(meanList_SHK);
