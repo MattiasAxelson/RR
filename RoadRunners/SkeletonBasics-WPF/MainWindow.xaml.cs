@@ -492,6 +492,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 velHelpListPlot.Clear();
             }
 
+          
+  
+                
+            
+
             if (velXList.Count > 600)
             {
                 velXList.RemoveAt(0);
@@ -578,10 +583,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 meanAngleBlock_SHK.Text = Convert.ToString(Math.Ceiling(meanList_SHK.LastOrDefault())) + (char)176;
                 minimumlista_SHK.Clear();
 
-                meanPulse = minList3.Average();
-                meanList_pulse.Add(meanPulse);
-                pulstest.Text = Convert.ToString(Math.Ceiling(meanList_pulse.LastOrDefault())) + " BPM";
-                minimumList_pulse.Clear();
+                i = 0;
+            }
+// VAFAN KOLLA DET HÄR DFSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+            if (i == k)
+            {
+                meanVelocity = velocityListSave.Average();
+                velocityListDatabase.Add(meanVelocity * 3.6);
+                velocityListSave.Clear();
+            }
 
                 timeList.Add(timeTick);
 
