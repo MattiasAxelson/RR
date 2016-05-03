@@ -67,11 +67,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
     <Compile Include="SaveData.xaml.cs">
       <DependentUpon>SaveData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SettingsAngle.xaml.cs">
-      <DependentUpon>SettingsAngle.xaml</DependentUpon>
+    <Compile Include="ComportWindow.xaml.cs">
+      <DependentUpon>ComportWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="ChildWindow.xaml">
       <SubType>Designer</SubType>
@@ -96,7 +101,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SettingsAngle.xaml">
+    <Page Include="ComportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -118,6 +123,10 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -181,8 +190,9 @@
   <ItemGroup>
     <Resource Include="Images\back.png" />
     <Resource Include="Images\RoadRunners4.png" />
+    <Resource Include="Images\bakgrundsbilden.jpg" />
+    <Resource Include="Icon1.ico" />
     <Content Include="myfunc.m" />
-    <Resource Include="Vinkelgraf.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

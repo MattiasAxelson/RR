@@ -31,7 +31,8 @@ function void = ecgtoheartrate(comPort, captureDuration, fileName)
 % add the location of the ShimmerBiophysicalProcessingLibrary_Rev_X_Y.jar file
 % to the JAVA dynamic class path:
 %
-javaclasspath('C:\Users\Mattias\Source\Repos\RR\RoadRunners\SkeletonBasics-WPF\ShimmerBiophysicalProcessingLibrary_Rev_0_10.jar')
+ pathjava = fullfile(pwd, 'ShimmerBiophysicalProcessingLibrary_Rev_0_10.jar');
+ javaclasspath(pathjava)
 %
 % NOTE: In this example the ECG data is pre-filtered using a second order
 % Chebyshev HPF with corner freq 0.5Hz by using FilterClass.m
@@ -172,7 +173,7 @@ if (shimmer.connect)                                                       % TRU
                 
 
                 % plotting the data
-                subplot(3,1,3)
+          
                 plot((sampleNumber/fs), heartRate);                             % plot the Heart Rate data
                 legend('Heart Rate (BPM', 'Location', 'West');   
                 xlim([sampleNumber(1)/fs sampleNumber(end)/fs]);
