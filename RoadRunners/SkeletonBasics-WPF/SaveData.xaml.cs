@@ -143,10 +143,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             ws.Range["G1"].Value = "Comments: " + Comments;
             ws.Range["H1"].Value = "Date and Time: " + time;
             ws.Range["A2"].Value = "Intervall [sec]";
-            ws.Range["B2"].Value = "HeartBeat";
-            ws.Range["C2"].Value = "Angle Knee";
-            ws.Range["D2"].Value = "Angle Hip"; 
-            ws.Range["E2"].Value = "Velocity";
+            ws.Range["B2"].Value = "HeartBeat (BPM)";
+            ws.Range["C2"].Value = "Angle Knee (Degrees)";
+            ws.Range["D2"].Value = "Angle Hip (Degrees)"; 
+            ws.Range["E2"].Value = "Velocity (m/s)";
 
             // Kontrollerar vilket intervall som valts av användaren
             if (Intervallhelp == 0)
