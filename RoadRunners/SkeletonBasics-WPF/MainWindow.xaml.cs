@@ -381,7 +381,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         if (skel.TrackingState == SkeletonTrackingState.Tracked)
                         {
                             this.DrawBonesAndJoints(skel, dc);
-                            //Console.WriteLine("Innan calcvelocity");
                             this.CalculateVelocity(skel, dc);
                             this.CalculateAngles(skel, dc);
                             if (changeButton == 0)
