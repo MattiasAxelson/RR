@@ -182,6 +182,7 @@
     <Resource Include="Images\back.png" />
     <Resource Include="Images\RoadRunners4.png" />
     <Resource Include="Images\bakgrundsbilden.jpg" />
+    <Resource Include="Images\bakgrundsbildchild.jpg" />
     <Content Include="matlabPlot.m" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

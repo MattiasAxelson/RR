@@ -5,7 +5,7 @@
    
     x:Class="Microsoft.Samples.Kinect.SkeletonBasics.MainWindow"
     
-    Title="Skeleton Basics" Height="682.921" Width="1288.921" Loaded="WindowLoaded" Closing="WindowClosing" WindowState="Maximized">
+    Title="Running Lab" Height="682.921" Width="1288.921" Loaded="WindowLoaded" Closing="WindowClosing" WindowState="Maximized">
 
 
     <Grid x:Name="layoutGrid" Margin="10 0 10 0">
@@ -97,7 +97,7 @@
             </Button.Background>
         </Button>
         <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Height="20" Margin="16,200,0,0" TextWrapping="Wrap" Text="ComPort" VerticalAlignment="Top" Width="62" Foreground="#FFBCF5FF" FontSize="14" FontWeight="Medium"/>
-        <TextBlock x:Name="comportCont" HorizontalAlignment="Left" Margin="83,202,0,0" TextWrapping="Wrap" Text="____" VerticalAlignment="Top" Foreground="#FFBCF5FF"/>
+        <TextBlock x:Name="comportCont" HorizontalAlignment="Left" Margin="83,202,0,0" TextWrapping="Wrap" Text="____" VerticalAlignment="Top" Foreground="#FFBCF5FF" FontWeight="Bold"/>
         <TextBlock x:Name="initVel" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="100" Margin="295,30,0,0" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF"><Run Text="0"/><LineBreak/></TextBlock>
         <TextBlock x:Name="pulseLabel" HorizontalAlignment="Left" Margin="179,62,0,0" TextWrapping="Wrap" Text="BPM" VerticalAlignment="Top" Height="31" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF" />
         <TextBlock x:Name="kneeAngleLabel" HorizontalAlignment="Left" Margin="179,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="111" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF"><Run Text="Knee"/><Run Text=" Angle"/><Run Text=" Angle"/><LineBreak/></TextBlock>

@@ -9,14 +9,14 @@
         MaxWidth="300"
         MaxHeight="300"
         MinHeight="300"
-        Title="Comport Window" Height="300" Width="300">
+        Title="Heartrate settings" Height="300" Width="300">
     <Grid Margin="0,0,2,0">
         <Grid.Background>
-            <ImageBrush ImageSource="Images/bakgrundsbilden.jpg" Stretch="Fill"/>
+            <ImageBrush ImageSource="Images/bakgrundsbildchild.jpg" Stretch="Fill"/>
         </Grid.Background>
-        <TextBlock x:Name="comportText" HorizontalAlignment="Left" Margin="47,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFBCF5FF"><Run Text="Comport"/><LineBreak/><Run/></TextBlock>
-        <TextBox x:Name="comportContent" HorizontalAlignment="Left" TextAlignment="Center" Height="23" Margin="108,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-        <TextBlock x:Name="titel" HorizontalAlignment="Left" Margin="107,67,0,0" TextWrapping="Wrap" Text="Set comport" VerticalAlignment="Top" Foreground="#FFBCF5FF" FontSize="14"/>
+        <TextBlock x:Name="comportText" HorizontalAlignment="Left" Margin="47,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFBCF5FF"><Run Text="Comport"/><LineBreak/><Run/></TextBlock>
+        <TextBox x:Name="comportContent" HorizontalAlignment="Left" TextAlignment="Center" Height="23" Margin="108,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+        <TextBlock x:Name="titel" HorizontalAlignment="Left" Margin="107,64,0,0" TextWrapping="Wrap" Text="Set comport" VerticalAlignment="Top" Foreground="#FFBCF5FF" FontSize="14"/>
         <Button x:Name="startHeartRateCalc" Content="Done" HorizontalAlignment="Left" Margin="108,210,0,0" VerticalAlignment="Top" Width="75" Click="startHeartRateCalc_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -27,7 +27,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="helpButton" Content="Help" HorizontalAlignment="Left" Margin="108,174,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.04,0.45" Click="helpButton_Click">
+        <Button x:Name="helpButton" Content="Help" HorizontalAlignment="Left" Margin="108,176,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.04,0.45" Click="helpButton_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>

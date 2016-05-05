@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:Microsoft.Samples.Kinect.SkeletonBasics"
         mc:Ignorable="d"
         Title="No comport chosen" Height="300" Width="300" >
-    <Grid>
+    <Grid Margin="0,0,2,0">
         <Grid.Background>
-            <ImageBrush ImageSource="Images/bakgrundsbilden.jpg" Stretch="Fill"/>
+            <ImageBrush ImageSource="Images/bakgrundsbildchild.jpg" Stretch="Fill"/>
         </Grid.Background>
-        <Button x:Name="comportYesButton" Content="Yes" HorizontalAlignment="Left" Margin="36,154,0,0" VerticalAlignment="Top" Width="75" Click="comportYesButton_Click">
+        <Button x:Name="comportYesButton" Content="Yes" HorizontalAlignment="Left" Margin="36,139,0,0" VerticalAlignment="Top" Width="75" Click="comportYesButton_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -20,7 +20,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="comportNoButton" Content="No" HorizontalAlignment="Left" Margin="36,179,0,0" VerticalAlignment="Top" Width="75" Click="comportNoButton_Click">
+        <Button x:Name="comportNoButton" Content="No" HorizontalAlignment="Left" Margin="36,166,0,0" VerticalAlignment="Top" Width="75" Click="comportNoButton_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -30,6 +30,6 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBox x:Name="textBox" Background="AntiqueWhite" HorizontalAlignment="Left" Height="42" Margin="36,75,0,0" TextWrapping="Wrap" Text="No comport chosen, do you want to continue without pulseregistration?" VerticalAlignment="Top" Width="232" FontStyle="Normal" FontSize="14" FontWeight="Normal" />
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="51" Margin="23,66,0,0" TextWrapping="Wrap" Text="Start the test without calculating the heartrate?" VerticalAlignment="Top" Width="257" Foreground="#FFDAF9FF"/>
     </Grid>
 </Window>

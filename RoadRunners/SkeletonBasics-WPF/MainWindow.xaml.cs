@@ -1133,6 +1133,34 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         //ställer in önskat vinkelintervall
         private void UpdDesiredAngles_Click(object sender, RoutedEventArgs e)
         {
+            if (int.Parse(EnterMinAngle.Text) >= 1 && int.Parse(EnterMinAngle.Text) < 180 && onlyDigits(EnterMinAngle.Text))
+            {
+                ChosenMinFHKAngle = int.Parse(EnterMinAngle.Text);
+            }
+            else
+            {
+                EnterMinAngle.Text = "0";
+                string error_message = "Write the minimum angle in digits and \n" + "make sure that it is smaller than 180" + (char)176;
+                MessageBox.Show(error_message);
+
+            }
+            if (int.Parse(EnterMaxAngle.Text) > int.Parse(EnterMinAngle.Text) && onlyDigits(EnterMaxAngle.Text))
+            {
+                ChosenMaxFHKAngle = int.Parse(EnterMaxAngle.Text);
+            }
+            else
+            {
+                EnterMaxAngle.Text = "180";
+                string error_message = "Write the maximum angle in digits and make sure\n" + "that the value is larger than the minimum-angle. \n";
+                MessageBox.Show(error_message);
+
+            }
+
+        }
+
+
+       /* private void UpdDesiredAngles_Click(object sender, RoutedEventArgs e)
+        {
             if (EnterMinAngle.Text.Length >= 1 && onlyDigits(EnterMinAngle.Text))
             {
                 ChosenMinFHKAngle = int.Parse(EnterMinAngle.Text);
@@ -1156,8 +1184,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             }
 
-        }
-
+        }*/
         // Stänger programmet
         private void quitbutton_Click(object sender, RoutedEventArgs e)
         {
