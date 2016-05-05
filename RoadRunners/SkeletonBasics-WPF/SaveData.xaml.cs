@@ -97,12 +97,27 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             return testLength;
         }
 
+        bool onlyLetters(string s)
+        {
+            foreach (char c in s)
+            {
+                if (!char.IsLetter(c))
+                    return true;
+            }
+            return false;
+        }
 
 
         public void Save_Click(object sender, RoutedEventArgs e)
         {
             //MainWindow mWindow = new MainWindow();
 
+            if (NameInput.Text == "" || onlyLetters(NameInput.Text))
+            {
+                error_messsage_name.Text = "Write your name";
+            }
+            else
+            { 
             // Skapar variabler för som sätts om beroende på vilket intervall och testlängd användaren väljer
             int Intervall = 0;
            
@@ -216,6 +231,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (saveFileDialog.ShowDialog() == true)
             {
                 wb.SaveAs(saveFileDialog.FileName);
+                this.Hide();
+            }
                 this.Hide();
             }
         }
