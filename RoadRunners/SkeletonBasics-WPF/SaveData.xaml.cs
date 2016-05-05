@@ -193,6 +193,20 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
             }
 
+            // Ritar ut en graf med värdena från Excel
+            object misValue = System.Reflection.Missing.Value;
+
+            Excel.Range chartRange;
+            Excel.ChartObjects xlCharts = (Excel.ChartObjects)ws.ChartObjects(Type.Missing);
+            Excel.ChartObject myChart = (Excel.ChartObject)xlCharts.Add(280, 60, 300, 250);
+            Excel.Chart chartPage = myChart.Chart;
+
+            int ExcelLengt = ExcelMeanListFHKhelp.Count + 1;
+
+            chartRange = ws.get_Range("A2", "E" + ExcelLengt.ToString());
+            chartPage.SetSourceData(chartRange, misValue);
+            chartPage.ChartType = Excel.XlChartType.xlLine;
+
             // Gör så att cellerna anpassas till längden som matas in i dem
             aRange.Columns.AutoFit();
             aRange.EntireColumn.AutoFit();

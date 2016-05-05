@@ -40,6 +40,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
+        <TextBlock x:Name="error_messsage_name" HorizontalAlignment="Left" Margin="89,80,0,0" Foreground="#FFF3F3F3" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
