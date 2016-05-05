@@ -567,7 +567,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 SetDesiredAnglesInaList();
                 
-
                 meanAngle_FHK = minList1.Average();
                 meanList_FHK.Add(meanAngle_FHK);
                 meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault())) + (char)176;
@@ -949,9 +948,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             // ... A List.
             List<string> data = new List<string>();
-            data.Add("10 Seconds Test");
-            data.Add("30 Seconds Test");
-            data.Add("60 Seconds Test");
+            data.Add("1 Minute Test");
             data.Add("5 Minutes Test");
             data.Add("10 Minutes Test");
             data.Add("30 Minutes Test");
