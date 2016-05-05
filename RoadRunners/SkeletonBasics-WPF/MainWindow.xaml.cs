@@ -444,6 +444,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         double stepVelocity = 0;
         double maxValuePlotHelp = 0;
         int velocitycount = 0;
+      
 
         // Listor för hastighet
         List<double> velXList = new List<double>();
@@ -585,13 +586,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 i = 0;
             }
-// VAFAN KOLLA DET HÄR DFSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
-            if (i == k)
-            {
-                meanVelocity = velocityListSave.Average();
-                velocityListDatabase.Add(meanVelocity * 3.6);
-                velocityListSave.Clear();
-            }
+
 
                 timeList.Add(timeTick);
 
@@ -612,7 +607,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 i = 0;
             }
-        }
+        
 
 
         // Beräknar vinklar 
