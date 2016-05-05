@@ -38,6 +38,7 @@
             </Button.Background>
         </Button>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="29" Margin="10,10,0,0" TextWrapping="Wrap" Text="Save data" VerticalAlignment="Top" Width="117" FontSize="14" Foreground="#FFBCF5FF"/>
+        <TextBlock x:Name="error_message_name" HorizontalAlignment="Left" Margin="131,90,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="#FFBCF5FF"/>
 
     </Grid>
 </Window>
