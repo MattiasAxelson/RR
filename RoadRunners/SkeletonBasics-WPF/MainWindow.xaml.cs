@@ -1229,6 +1229,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 restartbutton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }*/
         }
+
+        private void help_button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
 
