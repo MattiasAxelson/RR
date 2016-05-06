@@ -1245,8 +1245,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             // ... Make the first item selected.
             comboBox2.SelectedIndex = 0;
         }
+
+        private void help_button_Click(object sender, RoutedEventArgs e)
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory());
+            System.Diagnostics.Process.Start(path + @"\..\..\usermanual.pdf");
+        }
     }
 }
+
 
 
 
