@@ -457,8 +457,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void CalculateVelocity(Skeleton skeleton, DrawingContext drawingContext)
         {
             //Koordinater för fot
-            Joint footLeft = skeleton.Joints[JointType.FootLeft];
-            Joint footRight = skeleton.Joints[JointType.FootRight];
+            Joint footLeft = skeleton.Joints[JointType.AnkleLeft];
+            Joint footRight = skeleton.Joints[JointType.AnkleRight];
             float XFootleft;
             float YFootleft;
             float XFootright;
