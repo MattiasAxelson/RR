@@ -62,7 +62,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBlock x:Name="textTestdirektiv" FontSize="18" TextAlignment="Center" FontWeight="Bold" Foreground="#FFBCF5FF" HorizontalAlignment="Left" Margin="259,554,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="68"><Run Text="....................."/><Run Text=".."/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="textTestdirektiv" FontSize="18" TextAlignment="Center" FontWeight="Bold" Foreground="#FFBCF5FF" HorizontalAlignment="Left" Margin="259,554,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="68"><Run Text="....................."/><Run Text=".."/><LineBreak/></TextBlock>
         <Button x:Name="display_heartrate" Content="Display Heartrate" HorizontalAlignment="Left" Margin="16,49,0,0" VerticalAlignment="Top" Width="120" Click="display_heartrate_Click" Height="27">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -154,5 +154,6 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
+        <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" Margin="364,30,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="comboBox2_SelectionChanged" Loaded="ComboBox2_Loaded"/>
     </Grid>
 </Window>

@@ -458,11 +458,26 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             //Koordinater för fot
             Joint footLeft = skeleton.Joints[JointType.FootLeft];
+            Joint footRight = skeleton.Joints[JointType.FootRight];
             float XFootleft;
             float YFootleft;
+            float XFootright;
+            float YFootright;
+
             XFootleft = footLeft.Position.X;
             YFootleft = footLeft.Position.Y;
-            velXList.Add(XFootleft);
+            XFootright = footRight.Position.X;
+            YFootright = footLeft.Position.Y;
+
+            if (comboBox2.SelectedIndex == 0)
+            {
+                velXList.Add(XFootright);
+            }
+
+            if (comboBox2.SelectedIndex == 0)
+            {
+                velXList.Add(XFootleft);
+            }
 
             //Lägger till x-koordinater i listan
             if (velXList.Count > 30)
@@ -1203,6 +1218,32 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 restartbutton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }*/
+        }
+
+        private void comboBox2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // ... Get the ComboBox.
+            var comboBox2 = sender as ComboBox;
+
+            // ... Set SelectedItem as Window Title.
+            string BoxValue = comboBox2.SelectedItem as string;
+        }
+
+        public void ComboBox2_Loaded(object sender, RoutedEventArgs e)
+        {
+            // ... A List.
+            List<string> data = new List<string>();
+            data.Add("Right foot");
+            data.Add("Left foot");
+
+            // ... Get the ComboBox reference.
+            var comboBox2 = sender as ComboBox;
+
+            // ... Assign the ItemsSource to the List.
+            comboBox2.ItemsSource = data;
+
+            // ... Make the first item selected.
+            comboBox2.SelectedIndex = 0;
         }
     }
 }
