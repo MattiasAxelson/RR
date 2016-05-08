@@ -1195,6 +1195,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 startLoggingButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 changeButton = 1;
+
             }
             /*
             if (XHandLeft < -0.65 && YHandLeft > 0.55)
