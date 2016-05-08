@@ -1221,8 +1221,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             if (XHandRight > 0.8 && YHandRight > 0.55)
             {
-                startLoggingButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-                changeButton = 1;
+              
+                
+                    startLoggingButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                    changeButton = 1;              
+
             }
             /*
             if (XHandLeft < -0.65 && YHandLeft > 0.55)
