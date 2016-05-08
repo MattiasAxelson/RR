@@ -1007,8 +1007,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 comportWindow.ShowDialog();
 
-                if (comportWindow.comportYesWasclicked == true)
+                if (comportWindow.comportYesWasclicked == true && counter == 0)
                 {
+                    
             meanList_SHK.Clear();
             meanList_FHK.Clear();
             velocityListDatabase.Clear();
@@ -1237,7 +1238,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
     }
     }
-}
+
 
 
 
