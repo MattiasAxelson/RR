@@ -1236,8 +1236,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             System.Diagnostics.Process.Start(path + @"\..\..\usermanual.pdf");
         }
     }
-    }
 }
+
 
 
 
