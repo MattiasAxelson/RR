@@ -380,7 +380,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                         if (skel.TrackingState == SkeletonTrackingState.Tracked)
                         {
-                            this.DrawBonesAndJoints(skel, dc);
+                            //this.DrawBonesAndJoints(skel, dc);
                             this.CalculateVelocity(skel, dc);
                             this.CalculateAngles(skel, dc);
                             if (changeButton == 0)
@@ -474,7 +474,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 velXList.Add(XFootright);
             }
 
-            if (comboBox2.SelectedIndex == 0)
+            if (comboBox2.SelectedIndex == 1)
             {
                 velXList.Add(XFootleft);
             }
