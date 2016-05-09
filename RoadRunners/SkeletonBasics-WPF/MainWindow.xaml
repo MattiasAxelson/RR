@@ -154,15 +154,5 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="help_button" Content="Help" HorizontalAlignment="Left" Height="23" Margin="1160,554,0,0" VerticalAlignment="Top" Width="75" Click="help_button_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
-                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
-                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
-                    <GradientStop Color="#FFA4E2FF" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
     </Grid>
 </Window>

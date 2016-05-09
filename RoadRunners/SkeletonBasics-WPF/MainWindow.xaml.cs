@@ -1234,11 +1234,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }*/
         }
 
-        private void help_button_Click(object sender, RoutedEventArgs e)
+    /*    private void help_button_Click(object sender, RoutedEventArgs e)
         {
             var path = Path.Combine(Directory.GetCurrentDirectory());
             System.Diagnostics.Process.Start(path + @"\..\..\usermanual.pdf");
-        }
+        }*/
     }
     }
 
