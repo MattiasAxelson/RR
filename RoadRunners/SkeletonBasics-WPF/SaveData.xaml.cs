@@ -68,32 +68,25 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             if (TestLengthHelp == 0)
             {
-                testLength = 10;
+                testLength = 60;
             }
             if (TestLengthHelp == 1)
             {
-                testLength = 30;
+                testLength = 300;
             }
             if (TestLengthHelp == 2)
             {
-                testLength = 60;
+                testLength = 600;
             }
             if (TestLengthHelp == 3)
             {
-                testLength = 300;
+                testLength = 1800;
             }
             if (TestLengthHelp == 4)
             {
-                testLength = 600;
-            }
-            if (TestLengthHelp == 5)
-            {
-                testLength = 1800;
-            }
-            if (TestLengthHelp == 6)
-            {
                 testLength = 3600;
             }
+
             return testLength;
         }
 

@@ -477,7 +477,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
             if (comboBox2.SelectedIndex == 1)
             {
-                velXList.Add(XFootleft);
+            velXList.Add(XFootleft);
             }
 
 
@@ -621,7 +621,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
 
 
-        // Beräknar vinklar
+        // Beräknar vinklar 
         public void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
         {
             plotAngles();
@@ -658,14 +658,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (comboBox2.SelectedIndex == 1)
             {
                 //Koordinater för vänster knä, höft, axel
-                XFootleft = footLeft.Position.X;
-                YFootleft = footLeft.Position.Y;
-                XKneeleft = kneeLeft.Position.X;
-                YKneeleft = kneeLeft.Position.Y;
-                XHipleft = hipLeft.Position.X;
-                YHipleft = hipLeft.Position.Y;
-                XShoulderleft = shoulderLeft.Position.X;
-                YShoulderleft = shoulderLeft.Position.Y;
+            XFootleft = footLeft.Position.X;
+            YFootleft = footLeft.Position.Y;
+            XKneeleft = kneeLeft.Position.X;
+            YKneeleft = kneeLeft.Position.Y;
+            XHipleft = hipLeft.Position.X;
+            YHipleft = hipLeft.Position.Y;
+            XShoulderleft = shoulderLeft.Position.X;
+            YShoulderleft = shoulderLeft.Position.Y;
             }
 
 
@@ -1042,8 +1042,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 comportWindow.ShowDialog();
 
-                if (comportWindow.comportYesWasclicked == true)
+                if (comportWindow.comportYesWasclicked == true && counter == 0)
                 {
+                    
             meanList_SHK.Clear();
             meanList_FHK.Clear();
             velocityListDatabase.Clear();
@@ -1255,8 +1256,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             if (XHandRight > 0.8 && YHandRight > 0.55)
             {
+              
+                
                 startLoggingButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 changeButton = 1;
+
             }
             /*
             if (XHandLeft < -0.65 && YHandLeft > 0.55)
@@ -1299,7 +1303,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             System.Diagnostics.Process.Start(path + @"\..\..\usermanual.pdf");
         }
     }
-}
+    }
 
 
 
