@@ -56,7 +56,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void helpButton_Click(object sender, RoutedEventArgs e)
         {
-            string error_message = "1. Add the number of your comport \n";
+            string error_message = "Add the number of your comport \n";
             MessageBox.Show(error_message);
         }
     }

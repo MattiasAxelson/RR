@@ -567,7 +567,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 SetDesiredAnglesInaList();
                 
-
                 meanAngle_FHK = minList1.Average();
                 meanList_FHK.Add(meanAngle_FHK);
                 meanAngleBlock_FHK.Text = Convert.ToString(Math.Ceiling(meanList_FHK.LastOrDefault())) + (char)176;
@@ -949,9 +948,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             // ... A List.
             List<string> data = new List<string>();
-            data.Add("10 Seconds Test");
-            data.Add("30 Seconds Test");
-            data.Add("60 Seconds Test");
+            data.Add("1 Minute Test");
             data.Add("5 Minutes Test");
             data.Add("10 Minutes Test");
             data.Add("30 Minutes Test");
@@ -1010,8 +1007,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 comportWindow.ShowDialog();
 
-                if (comportWindow.comportYesWasclicked == true)
+                if (comportWindow.comportYesWasclicked == true && counter == 0)
                 {
+                    
             meanList_SHK.Clear();
             meanList_FHK.Clear();
             velocityListDatabase.Clear();
@@ -1133,6 +1131,34 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         //ställer in önskat vinkelintervall
         private void UpdDesiredAngles_Click(object sender, RoutedEventArgs e)
         {
+            if (int.Parse(EnterMinAngle.Text) >= 1 && int.Parse(EnterMinAngle.Text) < 180 && onlyDigits(EnterMinAngle.Text))
+            {
+                ChosenMinFHKAngle = int.Parse(EnterMinAngle.Text);
+            }
+            else
+            {
+                EnterMinAngle.Text = "0";
+                string error_message = "Write the minimum angle in digits and \n" + "make sure that it is smaller than 180" + (char)176;
+                MessageBox.Show(error_message);
+
+            }
+            if (int.Parse(EnterMaxAngle.Text) > int.Parse(EnterMinAngle.Text) && onlyDigits(EnterMaxAngle.Text))
+            {
+                ChosenMaxFHKAngle = int.Parse(EnterMaxAngle.Text);
+            }
+            else
+            {
+                EnterMaxAngle.Text = "180";
+                string error_message = "Write the maximum angle in digits and make sure\n" + "that the value is larger than the minimum-angle. \n";
+                MessageBox.Show(error_message);
+
+            }
+
+        }
+
+
+       /* private void UpdDesiredAngles_Click(object sender, RoutedEventArgs e)
+        {
             if (EnterMinAngle.Text.Length >= 1 && onlyDigits(EnterMinAngle.Text))
             {
                 ChosenMinFHKAngle = int.Parse(EnterMinAngle.Text);
@@ -1156,8 +1182,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             }
 
-        }
-
+        }*/
         // Stänger programmet
         private void quitbutton_Click(object sender, RoutedEventArgs e)
         {
@@ -1196,8 +1221,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             if (XHandRight > 0.8 && YHandRight > 0.55)
             {
-                startLoggingButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-                changeButton = 1;
+              
+                
+                    startLoggingButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                    changeButton = 1;              
+
             }
             /*
             if (XHandLeft < -0.65 && YHandLeft > 0.55)
@@ -1205,8 +1233,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 restartbutton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }*/
         }
+
+        private void help_button_Click(object sender, RoutedEventArgs e)
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory());
+            System.Diagnostics.Process.Start(path + @"\..\..\usermanual.pdf");
+        }
     }
-}
+    }
+
 
 
 

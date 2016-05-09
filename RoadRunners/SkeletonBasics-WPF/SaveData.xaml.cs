@@ -68,41 +68,49 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             if (TestLengthHelp == 0)
             {
-                testLength = 10;
+                testLength = 60;
             }
             if (TestLengthHelp == 1)
             {
-                testLength = 30;
+                testLength = 300;
             }
             if (TestLengthHelp == 2)
             {
-                testLength = 60;
+                testLength = 600;
             }
             if (TestLengthHelp == 3)
             {
-                testLength = 300;
+                testLength = 1800;
             }
             if (TestLengthHelp == 4)
             {
-                testLength = 600;
-            }
-            if (TestLengthHelp == 5)
-            {
-                testLength = 1800;
-            }
-            if (TestLengthHelp == 6)
-            {
                 testLength = 3600;
             }
+
             return testLength;
         }
 
+        bool onlyLetters(string s)
+        {
+            foreach (char c in s)
+            {
+                if (!char.IsLetter(c))
+                    return true;
+            }
+            return false;
+        }
 
 
         public void Save_Click(object sender, RoutedEventArgs e)
         {
             //MainWindow mWindow = new MainWindow();
 
+            if (NameInput.Text == "" || onlyLetters(NameInput.Text))
+            {
+                error_messsage_name.Text = "Write your name";
+            }
+            else
+            { 
             // Skapar variabler för som sätts om beroende på vilket intervall och testlängd användaren väljer
             int Intervall = 0;
            
@@ -128,10 +136,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             ws.Range["G1"].Value = "Comments: " + Comments;
             ws.Range["H1"].Value = "Date and Time: " + time;
             ws.Range["A2"].Value = "Intervall [sec]";
-            ws.Range["B2"].Value = "HeartBeat";
-            ws.Range["C2"].Value = "Angle Knee";
-            ws.Range["D2"].Value = "Angle Hip"; 
-            ws.Range["E2"].Value = "Velocity";
+            ws.Range["B2"].Value = "HeartBeat (BPM)";
+            ws.Range["C2"].Value = "Angle Knee (Degrees)";
+            ws.Range["D2"].Value = "Angle Hip (Degrees)"; 
+            ws.Range["E2"].Value = "Velocity (m/s)";
 
             // Kontrollerar vilket intervall som valts av användaren
             if (Intervallhelp == 0)
@@ -193,6 +201,20 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
             }
 
+            // Ritar ut en graf med värdena från Excel
+            object misValue = System.Reflection.Missing.Value;
+
+            Excel.Range chartRange;
+            Excel.ChartObjects xlCharts = (Excel.ChartObjects)ws.ChartObjects(Type.Missing);
+            Excel.ChartObject myChart = (Excel.ChartObject)xlCharts.Add(280, 60, 300, 250);
+            Excel.Chart chartPage = myChart.Chart;
+
+            int ExcelLengt = ExcelMeanListFHKhelp.Count + 1;
+
+            chartRange = ws.get_Range("A2", "E" + ExcelLengt.ToString());
+            chartPage.SetSourceData(chartRange, misValue);
+            chartPage.ChartType = Excel.XlChartType.xlLine;
+
             // Gör så att cellerna anpassas till längden som matas in i dem
             aRange.Columns.AutoFit();
             aRange.EntireColumn.AutoFit();
@@ -202,6 +224,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (saveFileDialog.ShowDialog() == true)
             {
                 wb.SaveAs(saveFileDialog.FileName);
+                this.Hide();
+            }
                 this.Hide();
             }
         }

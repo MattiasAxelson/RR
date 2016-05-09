@@ -5,7 +5,7 @@
    
     x:Class="Microsoft.Samples.Kinect.SkeletonBasics.MainWindow"
     
-    Title="Skeleton Basics" Height="682.921" Width="1288.921" Loaded="WindowLoaded" Closing="WindowClosing" WindowState="Maximized">
+    Title="Running Lab" Height="682.921" Width="1288.921" Loaded="WindowLoaded" Closing="WindowClosing" WindowState="Maximized">
 
 
     <Grid x:Name="layoutGrid" Margin="10 0 10 0">
@@ -97,7 +97,7 @@
             </Button.Background>
         </Button>
         <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Height="20" Margin="16,200,0,0" TextWrapping="Wrap" Text="ComPort" VerticalAlignment="Top" Width="62" Foreground="#FFBCF5FF" FontSize="14" FontWeight="Medium"/>
-        <TextBlock x:Name="comportCont" HorizontalAlignment="Left" Margin="83,202,0,0" TextWrapping="Wrap" Text="____" VerticalAlignment="Top" Foreground="#FFBCF5FF"/>
+        <TextBlock x:Name="comportCont" HorizontalAlignment="Left" Margin="83,202,0,0" TextWrapping="Wrap" Text="____" VerticalAlignment="Top" Foreground="#FFBCF5FF" FontWeight="Bold"/>
         <TextBlock x:Name="initVel" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="100" Margin="295,30,0,0" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF"><Run Text="0"/><LineBreak/></TextBlock>
         <TextBlock x:Name="pulseLabel" HorizontalAlignment="Left" Margin="179,62,0,0" TextWrapping="Wrap" Text="BPM" VerticalAlignment="Top" Height="31" Width="100" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF" />
         <TextBlock x:Name="kneeAngleLabel" HorizontalAlignment="Left" Margin="179,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="111" FontSize="20" FontWeight="Medium" Foreground="#FFBCF5FF"><Run Text="Knee"/><Run Text=" Angle"/><Run Text=" Angle"/><LineBreak/></TextBlock>
@@ -145,6 +145,16 @@
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="26" Margin="38,560,0,0" TextWrapping="Wrap" Text="Desired minimum angle:" VerticalAlignment="Top" Width="136"/>
         <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Height="26" Margin="38,586,0,0" TextWrapping="Wrap" Text="Desired maximum angle:" VerticalAlignment="Top" Width="136"/>
         <Button x:Name="UpdDesiredAngles" Content="Update desired angles" HorizontalAlignment="Left" Height="26" Margin="38,617,0,0" VerticalAlignment="Top" Width="181" Click="UpdDesiredAngles_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFA4E2FF" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="help_button" Content="Help" HorizontalAlignment="Left" Height="23" Margin="1160,554,0,0" VerticalAlignment="Top" Width="75" Click="help_button_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
