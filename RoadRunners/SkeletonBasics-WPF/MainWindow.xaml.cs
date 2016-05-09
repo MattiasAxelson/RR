@@ -630,6 +630,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             Joint shoulderLeft = skeleton.Joints[JointType.ShoulderLeft];
             Joint footLeft = skeleton.Joints[JointType.FootLeft];
 
+            Joint kneeRight = skeleton.Joints[JointType.KneeRight];
+            Joint hipRight = skeleton.Joints[JointType.HipRight];
+            Joint shoulderRight = skeleton.Joints[JointType.ShoulderRight];
+            Joint footRight = skeleton.Joints[JointType.FootRight];
+
             float XFootleft;
             float YFootleft;
             float XKneeleft;
@@ -639,15 +644,29 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             float XShoulderleft;
             float YShoulderleft;
 
-            //Koordinater för knä, höft, axel
-            XFootleft = footLeft.Position.X;
-            YFootleft = footLeft.Position.Y;
-            XKneeleft = kneeLeft.Position.X;
-            YKneeleft = kneeLeft.Position.Y;
-            XHipleft = hipLeft.Position.X;
-            YHipleft = hipLeft.Position.Y;
-            XShoulderleft = shoulderLeft.Position.X;
-            YShoulderleft = shoulderLeft.Position.Y;
+            //Koordinater för höger knä, höft, axel
+            XFootleft = footRight.Position.X;
+            YFootleft = footRight.Position.Y;
+            XKneeleft = kneeRight.Position.X;
+            YKneeleft = kneeRight.Position.Y;
+            XHipleft = hipRight.Position.X;
+            YHipleft = hipRight.Position.Y;
+            XShoulderleft = shoulderRight.Position.X;
+            YShoulderleft = shoulderRight.Position.Y;
+            
+
+            if (comboBox2.SelectedIndex == 1)
+            {
+                //Koordinater för vänster knä, höft, axel
+                XFootleft = footLeft.Position.X;
+                YFootleft = footLeft.Position.Y;
+                XKneeleft = kneeLeft.Position.X;
+                YKneeleft = kneeLeft.Position.Y;
+                XHipleft = hipLeft.Position.X;
+                YHipleft = hipLeft.Position.Y;
+                XShoulderleft = shoulderLeft.Position.X;
+                YShoulderleft = shoulderLeft.Position.Y;
+            }
 
             //Vektorlängder
             double HipKnee_Length = Math.Sqrt(Math.Pow(XHipleft - XKneeleft, 2) + Math.Pow(YHipleft - YKneeleft, 2));
