@@ -458,12 +458,28 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void CalculateVelocity(Skeleton skeleton, DrawingContext drawingContext)
         {
             //Koordinater för fot
-            Joint footLeft = skeleton.Joints[JointType.FootLeft];
+            Joint footLeft = skeleton.Joints[JointType.AnkleLeft];     
+            Joint footRight = skeleton.Joints[JointType.AnkleRight];
+
             float XFootleft;
             float YFootleft;
+            float XFootright;
+            float YFootright;
+
             XFootleft = footLeft.Position.X;
             YFootleft = footLeft.Position.Y;
-            velXList.Add(XFootleft);
+            XFootright = footRight.Position.X;
+            YFootright = footLeft.Position.Y;
+
+            if (comboBox2.SelectedIndex == 0)
+            {
+                velXList.Add(XFootright);
+            }
+            if (comboBox2.SelectedIndex == 1)
+            {
+                velXList.Add(XFootleft);
+            }
+
 
             //Lägger till x-koordinater i listan
             if (velXList.Count > 30)
@@ -604,7 +620,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
 
-        // Beräknar vinklar 
+
+        // Beräknar vinklar
         public void CalculateAngles(Skeleton skeleton, DrawingContext drawingcontext)
         {
             plotAngles();
@@ -614,6 +631,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             Joint hipLeft = skeleton.Joints[JointType.HipLeft];
             Joint shoulderLeft = skeleton.Joints[JointType.ShoulderLeft];
             Joint footLeft = skeleton.Joints[JointType.FootLeft];
+            Joint kneeRight = skeleton.Joints[JointType.KneeRight];
+            Joint hipRight = skeleton.Joints[JointType.HipRight];
+            Joint shoulderRight = skeleton.Joints[JointType.ShoulderRight];
+            Joint footRight = skeleton.Joints[JointType.FootRight];
 
             float XFootleft;
             float YFootleft;
@@ -624,15 +645,29 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             float XShoulderleft;
             float YShoulderleft;
 
-            //Koordinater för knä, höft, axel
-            XFootleft = footLeft.Position.X;
-            YFootleft = footLeft.Position.Y;
-            XKneeleft = kneeLeft.Position.X;
-            YKneeleft = kneeLeft.Position.Y;
-            XHipleft = hipLeft.Position.X;
-            YHipleft = hipLeft.Position.Y;
-            XShoulderleft = shoulderLeft.Position.X;
-            YShoulderleft = shoulderLeft.Position.Y;
+            //Koordinater för höger knä, höft, axel
+            XFootleft = footRight.Position.X;
+            YFootleft = footRight.Position.Y;
+            XKneeleft = kneeRight.Position.X;
+            YKneeleft = kneeRight.Position.Y;
+            XHipleft = hipRight.Position.X;
+            YHipleft = hipRight.Position.Y;
+            XShoulderleft = shoulderRight.Position.X;
+            YShoulderleft = shoulderRight.Position.Y;
+
+            if (comboBox2.SelectedIndex == 1)
+            {
+                //Koordinater för vänster knä, höft, axel
+                XFootleft = footLeft.Position.X;
+                YFootleft = footLeft.Position.Y;
+                XKneeleft = kneeLeft.Position.X;
+                YKneeleft = kneeLeft.Position.Y;
+                XHipleft = hipLeft.Position.X;
+                YHipleft = hipLeft.Position.Y;
+                XShoulderleft = shoulderLeft.Position.X;
+                YShoulderleft = shoulderLeft.Position.Y;
+            }
+
 
             //Vektorlängder
             double HipKnee_Length = Math.Sqrt(Math.Pow(XHipleft - XKneeleft, 2) + Math.Pow(YHipleft - YKneeleft, 2));
@@ -1229,6 +1264,34 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 restartbutton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }*/
         }
+
+
+        private void comboBox2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // ... Get the ComboBox.
+            var comboBox2 = sender as ComboBox;
+
+            // ... Set SelectedItem as Window Title.
+            string BoxValue = comboBox2.SelectedItem as string;
+        }
+
+        public void ComboBox2_Loaded(object sender, RoutedEventArgs e)
+        {
+            // ... A List.
+            List<string> data = new List<string>();
+            data.Add("Right side");
+            data.Add("Left side");
+
+            // ... Get the ComboBox reference.
+            var comboBox2 = sender as ComboBox;
+
+            // ... Assign the ItemsSource to the List.
+            comboBox2.ItemsSource = data;
+
+            // ... Make the first item selected.
+            comboBox2.SelectedIndex = 0;
+        }
+
 
         private void help_button_Click(object sender, RoutedEventArgs e)
         {
