@@ -346,6 +346,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             var currentpath = Path.Combine(Directory.GetCurrentDirectory());
             File.WriteAllBytes(currentpath + @"\..\..\pulsdata2.txt", new byte[0]);
             File.WriteAllLines(currentpath + @"\..\..\pulsdata2.txt", resetFile);
+            Environment.Exit(-1);
 
         }
 
@@ -1215,6 +1216,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
    
             var path = Path.Combine(Directory.GetCurrentDirectory());
             File.Delete(path + @"\..\..\Vinkelgraf.jpeg");
+            string[] resetFile = { "0" };         
+            File.WriteAllBytes(path + @"\..\..\pulsdata2.txt", new byte[0]);
+            File.WriteAllLines(path + @"\..\..\pulsdata2.txt", resetFile);
             Environment.Exit(-1);
         }
 
