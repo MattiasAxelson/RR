@@ -448,6 +448,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         // Listor för hastighet
         List<double> velXList = new List<double>();
+        List<double> velYList = new List<double>();
+        List<double> velZList = new List<double>();
         List<double> velHelpListPlot = new List<double>();
         List<double> velHelpListSave = new List<double>();
         List<double> velocityList = new List<double>();
@@ -464,40 +466,47 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             float XFootleft;
             float YFootleft;
+            float ZFootleft;
             float XFootright;
             float YFootright;
+            float ZFootright;
 
             XFootleft = footLeft.Position.X;
             YFootleft = footLeft.Position.Y;
+            ZFootleft = footLeft.Position.Z;
             XFootright = footRight.Position.X;
             YFootright = footRight.Position.Y;
+            ZFootright = footRight.Position.Z;
 
             if (comboBox2.SelectedIndex == 0)
             {
-                velXList.Add(XFootright);
-            }
-            if (comboBox2.SelectedIndex == 1)
-            {
-            velXList.Add(XFootleft);
+                velXList.Add(XFootleft);
+                velYList.Add(YFootleft);
+                velZList.Add(ZFootleft);
             }
 
+            if (comboBox2.SelectedIndex == 1)
+            {
+                velXList.Add(XFootright);
+                velYList.Add(YFootright);
+                velZList.Add(ZFootright);
+            }
 
             //Lägger till x-koordinater i listan
             if (velXList.Count > 30)
             {
-                // Räknar ut avståndsskillnaden mellan 4 sampelvärden
-                deltaX = Math.Abs(velXList[velXList.Count - 1]) - Math.Abs(velXList[velXList.Count - 4]);
-                deltaX = Math.Abs(deltaX);
+                // Räknar ut avståndskillnaden mellan 2 punkter i x-, y- och z-planet. 
+                deltaX = Math.Sqrt(Math.Pow((velXList[velXList.Count - 1] - velXList[velXList.Count - 2]), 2) + Math.Pow((velYList[velYList.Count - 1] - velYList[velYList.Count - 2]), 2) + Math.Pow((velZList[velZList.Count - 1] - velZList[velZList.Count - 2]), 2));
             }
             // Skillnaden i tid mellan sampelvärdena
-            deltaT = 0.1;
+            deltaT = 0.03333;
             stepVelocity = deltaX / deltaT;
             velocityList.Add(stepVelocity);
 
             // Det som plottas i fönstret
             if (velocityList.Count == 15)
             {
-                double maxValuePlot = velocityList.Max();
+                double maxValuePlot = velocityList.Average();
                 velHelpListPlot.Add(maxValuePlot);
                 velocityList.Clear();
             }
@@ -512,6 +521,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (velXList.Count > 600)
             {
                 velXList.RemoveAt(0);
+                velYList.RemoveAt(0);
+                velZList.RemoveAt(0);
             }
         }
 
@@ -649,19 +660,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             float XShoulderleft;
             float YShoulderleft;
 
-            //Koordinater för höger knä, höft, axel
-            XFootleft = footRight.Position.X;
-            YFootleft = footRight.Position.Y;
-            XKneeleft = kneeRight.Position.X;
-            YKneeleft = kneeRight.Position.Y;
-            XHipleft = hipRight.Position.X;
-            YHipleft = hipRight.Position.Y;
-            XShoulderleft = shoulderRight.Position.X;
-            YShoulderleft = shoulderRight.Position.Y;
-
-            if (comboBox2.SelectedIndex == 1)
-            {
-                //Koordinater för vänster knä, höft, axel
+            //Koordinater för vänster knä, höft, axel
             XFootleft = footLeft.Position.X;
             YFootleft = footLeft.Position.Y;
             XKneeleft = kneeLeft.Position.X;
@@ -670,6 +669,18 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             YHipleft = hipLeft.Position.Y;
             XShoulderleft = shoulderLeft.Position.X;
             YShoulderleft = shoulderLeft.Position.Y;
+
+            if (comboBox2.SelectedIndex == 1)
+            {
+                //Koordinater för höger knä, höft, axel
+                XFootleft = footRight.Position.X;
+                YFootleft = footRight.Position.Y;
+                XKneeleft = kneeRight.Position.X;
+                YKneeleft = kneeRight.Position.Y;
+                XHipleft = hipRight.Position.X;
+                YHipleft = hipRight.Position.Y;
+                XShoulderleft = shoulderRight.Position.X;
+                YShoulderleft = shoulderRight.Position.Y;
             }
 
 
@@ -1248,7 +1259,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             YHandRight = handRight.Position.Y;
             XHandLeft = handLeft.Position.X;
             YHandLeft = handLeft.Position.Y;
-
+            /*
             if (XHandRight > 0.8 && YHandRight > 0.55)
             {
               
@@ -1257,7 +1268,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     changeButton = 1;              
 
             }
-            /*
+            
             if (XHandLeft < -0.65 && YHandLeft > 0.55)
             {
                 restartbutton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
@@ -1278,8 +1289,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             // ... A List.
             List<string> data = new List<string>();
-            data.Add("Right side");
             data.Add("Left side");
+            data.Add("Right side");
 
             // ... Get the ComboBox reference.
             var comboBox2 = sender as ComboBox;
