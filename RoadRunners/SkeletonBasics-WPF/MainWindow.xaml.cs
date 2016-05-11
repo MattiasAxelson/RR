@@ -318,7 +318,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //Skapar en tom graf direkt
             printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK, ChosenMinFHKAngleList, ChosenMaxFHKAngleList);           
             CompositionTargetRendering();
-
+            readPulseData();
             
 
             //Öppningsljud
@@ -344,8 +344,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //Skriver över textfilen och lägger till endast en nolla när fönstret stängs
             string[] resetFile = { "0" };
             var currentpath = Path.Combine(Directory.GetCurrentDirectory());
-            File.WriteAllBytes(currentpath + @"\..\..\pulsdata1.txt", new byte[0]);
-            File.WriteAllLines(currentpath + @"\..\..\pulsdata1.txt", resetFile);
+            File.WriteAllBytes(currentpath + @"\..\..\pulsdata2.txt", new byte[0]);
+            File.WriteAllLines(currentpath + @"\..\..\pulsdata2.txt", resetFile);
 
         }
 
@@ -603,18 +603,21 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 saveData.ExcelFunkFHK(meanList_FHK);
                 saveData.ExcelFunkSHK(meanList_SHK);
                 saveData.ExcelPulseFunk(meanList_pulse);
-
+                
+                //Detta fuckar upp allt! 
+                /*
                 if(timeList.Count >= 14)
                 {
-                    meanList_FHK.RemoveAt(0);
-                    meanList_SHK.RemoveAt(0);
-                    meanList_pulse.RemoveAt(0);
-                    ChosenMaxFHKAngleList.RemoveAt(0);
-                    ChosenMinFHKAngleList.RemoveAt(0);
+              //      meanList_FHK.RemoveAt(0);
+                 //   meanList_SHK.RemoveAt(0);
+                 //   meanList_pulse.RemoveAt(0);
+                 //   ChosenMaxFHKAngleList.RemoveAt(0);
+                 //   ChosenMinFHKAngleList.RemoveAt(0);
                     timeList.RemoveAt(0);
+              
                     plotCounter = plotCounter - 3;
                 }
-
+                */
                 i = 0;
             }
         }
@@ -732,11 +735,21 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 angles_FHK.Add(FHK_angle);
                 anglesHelp_FHK.Add(FHK_angle);
             }
+            //rensar listor test
+        //    if(angles_FHK.Count > 600)
+          //  {
+            //    angles_FHK.RemoveAt(0);          
+             //   angles_SHK.RemoveAt(0);
+                
+          //  }
 
 
             if (counter2 >= 2)
             {
+
+           
                 readPulseData();
+
                 CalculateVelocitySave();
 
                 //Knävinkel
@@ -766,14 +779,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         //Läser in pulsvärdena från en textfil
         private void readPulseData()
         {
+           
             try
             {
                 var currentpath = Path.Combine(Directory.GetCurrentDirectory());
-                String line = File.ReadAllLines(currentpath + @"\..\..\pulsdata1.txt").LastOrDefault();
+                String line = File.ReadLines(currentpath + @"\..\..\pulsdata2.txt").LastOrDefault();
                 double pulsTodec = Double.Parse(line, NumberStyles.Float, CultureInfo.InvariantCulture);
 
                 pulseList.Add(Math.Ceiling(pulsTodec));
                 pulseListHelp.Add(Math.Ceiling(pulsTodec));
+
             }
 
             catch (Exception e)
@@ -809,7 +824,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         //Definitioner av olika trådar för anrop på matlab
         Thread heartrateThread;
         Thread plotAnglesThread;
-     
 
         //Hämtar bild som ritas i matlab
         private void CompositionTargetRendering()
@@ -863,6 +877,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                 plotAnglesThread = new Thread(() => printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK, ChosenMinFHKAngleList, ChosenMaxFHKAngleList));
                 plotAnglesThread.Start();
+          
                 try
                 {
                     CompositionTargetRendering();
@@ -1103,7 +1118,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             else
         {
                 heartrateThread = new Thread(() => printMatLab1("heartRateCalc", comport, durationtime, bufferFile));
+              
                 heartrateThread.Start();
+
             }
         }
 
@@ -1192,32 +1209,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
 
-       /* private void UpdDesiredAngles_Click(object sender, RoutedEventArgs e)
-        {
-            if (EnterMinAngle.Text.Length >= 1 && onlyDigits(EnterMinAngle.Text))
-            {
-                ChosenMinFHKAngle = int.Parse(EnterMinAngle.Text);
-            }
-            else
-            {
-                EnterMinAngle.Text = "0";
-                string error_message = "Write a minimum angle in numbers \n";
-                MessageBox.Show(error_message);
-
-            }
-            if (EnterMaxAngle.Text.Length >= 1 && onlyDigits(EnterMaxAngle.Text))
-            {
-                ChosenMaxFHKAngle = int.Parse(EnterMaxAngle.Text);
-            }
-            else
-            {
-                EnterMaxAngle.Text = "180";
-                string error_message = "Write a maximum angle in numbers \n";
-                MessageBox.Show(error_message);
-
-            }
-
-        }*/
         // Stänger programmet
         private void quitbutton_Click(object sender, RoutedEventArgs e)
         {

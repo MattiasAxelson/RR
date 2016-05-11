@@ -53,7 +53,7 @@ firsttime = true;
 % Note: these constants are only relevant to this examplescript and are not used
 % by the ShimmerHandle Class
 NO_SAMPLES_IN_PLOT = 3000;                                                 % Number of samples that will be displayed in the plot at any one time
-DELAY_PERIOD = 0.2;                                                        % A delay period of time in seconds between data read operations
+DELAY_PERIOD = 1.0;                                                        % A delay period of time in seconds between data read operations
 numSamples = 0;
 
 valuelength = 0;
@@ -72,24 +72,24 @@ valuelength = 0;
     % highpass filters for ExG channels
     if (HPF)
         hpfexg1ch1 = FilterClass(FilterClass.HPF,fs,fchp,nPoles,pbRipple);
-        hpfexg1ch2 = FilterClass(FilterClass.HPF,fs,fchp,nPoles,pbRipple);
-        hpfexg2ch1 = FilterClass(FilterClass.HPF,fs,fchp,nPoles,pbRipple);
-        hpfexg2ch2 = FilterClass(FilterClass.HPF,fs,fchp,nPoles,pbRipple);
+%         hpfexg1ch2 = FilterClass(FilterClass.HPF,fs,fchp,nPoles,pbRipple);
+%         hpfexg2ch1 = FilterClass(FilterClass.HPF,fs,fchp,nPoles,pbRipple);
+%         hpfexg2ch2 = FilterClass(FilterClass.HPF,fs,fchp,nPoles,pbRipple);
     end
     % lowpass filters for ExG channels
     if (LPF)
         lpfexg1ch1 = FilterClass(FilterClass.LPF,fs,fs/2-1,nPoles,pbRipple);
-        lpfexg1ch2 = FilterClass(FilterClass.LPF,fs,fs/2-1,nPoles,pbRipple);
-        lpfexg2ch1 = FilterClass(FilterClass.LPF,fs,fs/2-1,nPoles,pbRipple);
-        lpfexg2ch2 = FilterClass(FilterClass.LPF,fs,fs/2-1,nPoles,pbRipple);
+%         lpfexg1ch2 = FilterClass(FilterClass.LPF,fs,fs/2-1,nPoles,pbRipple);
+%         lpfexg2ch1 = FilterClass(FilterClass.LPF,fs,fs/2-1,nPoles,pbRipple);
+%         lpfexg2ch2 = FilterClass(FilterClass.LPF,fs,fs/2-1,nPoles,pbRipple);
     end
     % bandstop filters for ExG channels;
     % cornerfrequencies at +1Hz and -1Hz from mains frequency
     if (BSF)
         bsfexg1ch1 = FilterClass(FilterClass.LPF,fs,[fm-1,fm+1],nPoles,pbRipple);
-        bsfexg1ch2 = FilterClass(FilterClass.LPF,fs,[fm-1,fm+1],nPoles,pbRipple);
-        bsfexg2ch1 = FilterClass(FilterClass.LPF,fs,[fm-1,fm+1],nPoles,pbRipple);
-        bsfexg2ch2 = FilterClass(FilterClass.LPF,fs,[fm-1,fm+1],nPoles,pbRipple);
+%         bsfexg1ch2 = FilterClass(FilterClass.LPF,fs,[fm-1,fm+1],nPoles,pbRipple);
+%         bsfexg2ch1 = FilterClass(FilterClass.LPF,fs,[fm-1,fm+1],nPoles,pbRipple);
+%         bsfexg2ch2 = FilterClass(FilterClass.LPF,fs,[fm-1,fm+1],nPoles,pbRipple);
     end
 
 
@@ -114,10 +114,10 @@ if (shimmer.connect)                                                       % TRU
         heartRate = [];
         storeData = [];
         
-        value = [];
+      %  value = [];
        
                
-        h.figure1=figure('Name','Shimmer ECG and Heart Rate signals');     % create a handle to figure for plotting data from shimmer
+     %   h.figure1=figure('Name','Shimmer ECG and Heart Rate signals');     % create a handle to figure for plotting data from shimmer
       
          % set(gcf, 'visible', 'off')
         
@@ -177,16 +177,16 @@ if (shimmer.connect)                                                       % TRU
                         plotData = plotData(numPlotSamples-NO_SAMPLES_IN_PLOT+1:end,:);
                         filteredplotData = filteredplotData(numPlotSamples-NO_SAMPLES_IN_PLOT+1:end,:);
                         heartRate = heartRate(numPlotSamples-NO_SAMPLES_IN_PLOT+1:end,:);
-                        valuelength = 2891;
+                        valuelength = 2950;
                  end
-                 sampleNumber = max(numSamples-NO_SAMPLES_IN_PLOT+1,1):numSamples;
+%                  sampleNumber = max(numSamples-NO_SAMPLES_IN_PLOT+1,1):numSamples;
            
                 % plotting the data
   
-                plot(sampleNumber/fs, heartRate);                             % plot the Heart Rate data
-                legend('Heart Rate (BPM', 'Location', 'West');   
-                xlim([sampleNumber(1)/fs sampleNumber(end)/fs]);  
-                ylim([1 220]);   
+%                 plot(sampleNumber/fs, heartRate);                             % plot the Heart Rate data
+%                 legend('Heart Rate (BPM', 'Location', 'West');   
+%                 xlim([sampleNumber(1)/fs sampleNumber(end)/fs]);  
+%                 ylim([1 220]);   
                 
                 
                 %test
@@ -194,19 +194,22 @@ if (shimmer.connect)                                                       % TRU
                 
              %   heartRatevector = [];
               %  heartRatevector = [value, heartRatevector];
-          
-            
-                
 
+               
+              
                 if length(heartRate) > valuelength
-                value = [value ; heartRate(end)];
-                path = fullfile(pwd,'pulsdata1.txt');
+              %  value = [value ; heartRate(end)];
+                 value = heartRate(end);
+                path = fullfile(pwd,'pulsdata2.txt');
                 fid=fopen(path,'w');
 
                 fprintf(fid, '%d \n', value');
                 fclose(fid);
-
+% valuelength
                 valuelength = valuelength + fs;
+  %              length(heartRate)
+     %           valuelength
+     value
                 end
 
                 
@@ -218,8 +221,8 @@ if (shimmer.connect)                                                       % TRU
             
         end  
         
-        elapsedTime = elapsedTime + toc;                                   % stop timer
-        fprintf('The percentage of received packets: %d \n',shimmer.getpercentageofpacketsreceived(timeStamp)); % Detect loss packets
+    %    elapsedTime = elapsedTime + toc;                                   % stop timer
+      %  fprintf('The percentage of received packets: %d \n',shimmer.getpercentageofpacketsreceived(timeStamp)); % Detect loss packets
         shimmer.stop;                                                      % stop data streaming                                                    
        
     end 

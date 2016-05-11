@@ -200,7 +200,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                   ws.Range["E0" + (i + 3)].Value = ExcelVelocityListHelp[i];
                 }
             }
-
+            
             // Ritar ut en graf med värdena från Excel
             object misValue = System.Reflection.Missing.Value;
 
@@ -214,7 +214,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             chartRange = ws.get_Range("A2", "E" + ExcelLengt.ToString());
             chartPage.SetSourceData(chartRange, misValue);
             chartPage.ChartType = Excel.XlChartType.xlLine;
-
+            
             // Gör så att cellerna anpassas till längden som matas in i dem
             aRange.Columns.AutoFit();
             aRange.EntireColumn.AutoFit();
@@ -228,6 +228,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
                 this.Hide();
             }
+            
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)

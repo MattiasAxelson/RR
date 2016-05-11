@@ -1,6 +1,5 @@
 function [x] = myfunc(a,b,c,d,e,f) 
 
-length(a)
 
 if length(a) < 1
     
