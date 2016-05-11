@@ -207,9 +207,7 @@ if (shimmer.connect)                                                       % TRU
                 fclose(fid);
 
                 valuelength = valuelength + fs;
-                end
-
-                
+                end                
                 
             end
             
