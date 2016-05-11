@@ -469,7 +469,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             XFootleft = footLeft.Position.X;
             YFootleft = footLeft.Position.Y;
             XFootright = footRight.Position.X;
-            YFootright = footLeft.Position.Y;
+            YFootright = footRight.Position.Y;
 
             if (comboBox2.SelectedIndex == 0)
             {
@@ -628,13 +628,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             // Definerar leder
             Joint kneeLeft = skeleton.Joints[JointType.KneeLeft];
-            Joint hipLeft = skeleton.Joints[JointType.HipLeft];
-            Joint shoulderLeft = skeleton.Joints[JointType.ShoulderLeft];
-            Joint footLeft = skeleton.Joints[JointType.FootLeft];
+            Joint hipLeft = skeleton.Joints[JointType.HipCenter];
+            Joint shoulderLeft = skeleton.Joints[JointType.ShoulderCenter];
+            Joint footLeft = skeleton.Joints[JointType.AnkleLeft];
             Joint kneeRight = skeleton.Joints[JointType.KneeRight];
-            Joint hipRight = skeleton.Joints[JointType.HipRight];
-            Joint shoulderRight = skeleton.Joints[JointType.ShoulderRight];
-            Joint footRight = skeleton.Joints[JointType.FootRight];
+            Joint hipRight = skeleton.Joints[JointType.HipCenter];
+            Joint shoulderRight = skeleton.Joints[JointType.ShoulderCenter];
+            Joint footRight = skeleton.Joints[JointType.AnkleRight];
 
             float XFootleft;
             float YFootleft;
@@ -1258,8 +1258,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
               
                 
-                startLoggingButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-                changeButton = 1;
+                    startLoggingButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                    changeButton = 1;              
 
             }
             /*
