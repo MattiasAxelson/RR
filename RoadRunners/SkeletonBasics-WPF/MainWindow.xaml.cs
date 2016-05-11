@@ -1249,8 +1249,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
               
                 
-                startLoggingButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-                changeButton = 1;
+                    startLoggingButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                    changeButton = 1;              
 
             }
             /*
