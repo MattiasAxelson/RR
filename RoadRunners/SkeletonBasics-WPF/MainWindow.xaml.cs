@@ -346,6 +346,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             var currentpath = Path.Combine(Directory.GetCurrentDirectory());
             File.WriteAllBytes(currentpath + @"\..\..\pulsdata2.txt", new byte[0]);
             File.WriteAllLines(currentpath + @"\..\..\pulsdata2.txt", resetFile);
+            Environment.Exit(-1);
 
         }
 
@@ -584,6 +585,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         int k = 0;
         int ChosenMinFHKAngle = 0;
         int ChosenMaxFHKAngle = 180;
+        int ChosenMinPulse = 0;
+        int ChosenMaxPulse = 230;
 
             // Plockar ut medelvärden utifrån valt intervall
         public void meanAngleFunc(List<double> minList1, List<double> minList2, List<double> minList3)
@@ -732,6 +735,26 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 textTestdirektiv.Text = "The Knee Angle is in the chosen intervall";
             }
 
+            //Testdirektiv för pulsen
+            if (ChosenMinPulse > meanPulse && false == Double.IsNaN(ChosenMinPulse))
+            {
+                textTestdirektivpuls.Foreground = new SolidColorBrush(Colors.Red);
+                textTestdirektivpuls.Text = "The pulse is higher than chosen maxvalue";
+                SystemSounds.Beep.Play();
+            }
+            else if (meanPulse > ChosenMaxPulse && false == Double.IsNaN(ChosenMaxPulse))
+            {
+                textTestdirektivpuls.Foreground = new SolidColorBrush(Colors.Red);
+                textTestdirektivpuls.Text = "The pulse is lower than chosen minvalue";
+                SystemSounds.Asterisk.Play();
+            }
+            else
+            {
+                textTestdirektivpuls.Foreground = new SolidColorBrush(Colors.Green);
+                textTestdirektivpuls.Text = "The pulse is in the chosen intervall";
+            }
+
+
 
 
             //Kollar så FHK vinkeln inte är NaN
@@ -850,7 +873,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                 _image.UriSource = new Uri(pathImage + @"\..\..\Vinkelgraf.jpeg", UriKind.RelativeOrAbsolute);
           
-                _image.EndInit();
+                //_image.EndInit();
      
                 vinkelImage.Source = _image;
     
@@ -1122,7 +1145,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //Körs 30 sek längre för att det tar lite tid innan den startar
             durationtime = saveData.ReturnTestLength() + 30;
 
-            if (comport == "")
+            if (comport == "" || comport == null)
             {
                 MessageBox.Show("Add heartrate settings");
         }
@@ -1141,30 +1164,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
         //Nollställer listor och timers
-        private void ResetTest_button_Click(object sender, RoutedEventArgs e)
-        {
-            timer2.Stop();
-            timer1.Stop();
-            timerContent.Text = "0";
-            meanAngleBlock_FHK.Text = "0";
-            meanAngleBlock_SHK.Text = "0";
-            initVel.Text = "0";
-            pulstest.Text = "0";
-            timeList.Clear();
-            meanList_pulse.Clear();
-            meanList_FHK.Clear();
-            meanList_SHK.Clear();
-            velocityListDatabase.Clear();
-            ChosenMinFHKAngleList.Clear();
-            ChosenMaxFHKAngleList.Clear();
 
-
-            printMatLab(timeList, meanList_pulse, meanList_FHK, meanList_SHK, ChosenMinFHKAngleList, ChosenMaxFHKAngleList);
-
-            CompositionTargetRendering();
-
-          
-        }
         
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -1194,7 +1194,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         //ställer in önskat vinkelintervall
         private void UpdDesiredAngles_Click(object sender, RoutedEventArgs e)
         {
-            if (int.Parse(EnterMinAngle.Text) >= 1 && int.Parse(EnterMinAngle.Text) < 180 && onlyDigits(EnterMinAngle.Text))
+            if (int.Parse(EnterMinAngle.Text) >= 0 && int.Parse(EnterMinAngle.Text) < 180 && onlyDigits(EnterMinAngle.Text))
             {
                 ChosenMinFHKAngle = int.Parse(EnterMinAngle.Text);
             }
@@ -1219,6 +1219,33 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
+        private void UpdDesiredPulse_Click(object sender, RoutedEventArgs e)
+        {
+            if (int.Parse(EnterMinPulse.Text) >= 0 && int.Parse(EnterMinPulse.Text) < 230 && onlyDigits(EnterMinPulse.Text))
+            {
+                ChosenMinPulse = int.Parse(EnterMinPulse.Text);
+            }
+            else
+            {
+                EnterMinPulse.Text = "0";
+                string error_message = "Write the minimum pulse in digits and \n" + "make sure that it is smaller than 230" + (char)176;
+                MessageBox.Show(error_message);
+
+            }
+            if (int.Parse(EnterMaxPulse.Text) > int.Parse(EnterMinPulse.Text) && onlyDigits(EnterMaxPulse.Text))
+            {
+                ChosenMaxPulse = int.Parse(EnterMaxPulse.Text);
+            }
+            else
+            {
+                EnterMaxPulse.Text = "230";
+                string error_message = "Write the maximum pulse in digits and make sure\n" + "that the value is larger than the minimum-pulse. \n";
+                MessageBox.Show(error_message);
+
+            }
+
+        }
+
 
         // Stänger programmet
         private void quitbutton_Click(object sender, RoutedEventArgs e)
@@ -1226,6 +1253,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
    
             var path = Path.Combine(Directory.GetCurrentDirectory());
             File.Delete(path + @"\..\..\Vinkelgraf.jpeg");
+            string[] resetFile = { "0" };         
+            File.WriteAllBytes(path + @"\..\..\pulsdata2.txt", new byte[0]);
+            File.WriteAllLines(path + @"\..\..\pulsdata2.txt", resetFile);
             Environment.Exit(-1);
         }
 
@@ -1302,8 +1332,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void help_button_Click(object sender, RoutedEventArgs e)
         {
             var path = Path.Combine(Directory.GetCurrentDirectory());
-            System.Diagnostics.Process.Start(path + @"\..\..\usermanual.pdf");
+            System.Diagnostics.Process.Start(path + @"\..\..\usermanual1.pdf");
         }
+
+    
     }
     }
 
