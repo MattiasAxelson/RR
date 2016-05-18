@@ -873,7 +873,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                 _image.UriSource = new Uri(pathImage + @"\..\..\Vinkelgraf.jpeg", UriKind.RelativeOrAbsolute);
           
-                _image.EndInit();
+                //_image.EndInit();
      
                 vinkelImage.Source = _image;
     
@@ -1333,7 +1333,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void help_button_Click(object sender, RoutedEventArgs e)
         {
             var path = Path.Combine(Directory.GetCurrentDirectory());
-            System.Diagnostics.Process.Start(path + @"\..\..\usermanual.pdf");
+            System.Diagnostics.Process.Start(path + @"\..\..\usermanual1.pdf");
         }
   
 
