@@ -929,6 +929,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             // Change to the directory where the function is located 
             var path = Path.Combine(Directory.GetCurrentDirectory());
+            
             matlab.Execute(@"cd " + path + @"\..\..");
 
             // Define the output 
@@ -1143,7 +1144,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void display_heartrate_Click(object sender, RoutedEventArgs e)
         {
             //Körs 30 sek längre för att det tar lite tid innan den startar
-            durationtime = saveData.ReturnTestLength() + 30;
+            durationtime = saveData.ReturnTestLength() + 60;
 
             if (comport == "" || comport == null)
             {
