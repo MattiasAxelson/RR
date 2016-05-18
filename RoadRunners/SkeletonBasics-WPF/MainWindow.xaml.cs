@@ -873,7 +873,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                 _image.UriSource = new Uri(pathImage + @"\..\..\Vinkelgraf.jpeg", UriKind.RelativeOrAbsolute);
           
-                //_image.EndInit();
+                _image.EndInit();
      
                 vinkelImage.Source = _image;
     
