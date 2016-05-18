@@ -1335,8 +1335,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             var path = Path.Combine(Directory.GetCurrentDirectory());
             System.Diagnostics.Process.Start(path + @"\..\..\usermanual.pdf");
         }
-
-    
+  
     }
     }
 
