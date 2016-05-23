@@ -62,7 +62,8 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBlock x:Name="textTestdirektiv" FontSize="18" TextAlignment="Center" FontWeight="Bold" Foreground="#FFBCF5FF" HorizontalAlignment="Left" Margin="259,554,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="68"><Run Text="....................."/><Run Text=".."/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="textTestdirektiv" FontSize="18" TextAlignment="Center" FontWeight="Bold" Foreground="#FFBCF5FF" HorizontalAlignment="Left" Margin="1054,287,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="193" Height="68"><Run Text="....................."/><Run Text=".."/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="textTestdirektivpuls" FontSize="18" TextAlignment="Center" FontWeight="Bold" Foreground="#FFBCF5FF" HorizontalAlignment="Left" Margin="1054,355,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="193" Height="68"><Run Text="....................."/><Run Text=".."/><LineBreak/><Run/></TextBlock>
         <Button x:Name="display_heartrate" Content="Display Heartrate" HorizontalAlignment="Left" Margin="16,49,0,0" VerticalAlignment="Top" Width="120" Click="display_heartrate_Click" Height="27">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -130,16 +131,6 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="button" Content="Reset Test" HorizontalAlignment="Left" Height="23" Margin="1160,521,0,0" VerticalAlignment="Top" Width="75" Click="ResetTest_button_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
-                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
-                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
-                    <GradientStop Color="#FFA4E2FF" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
         <TextBox x:Name="EnterMinAngle" HorizontalAlignment="Left" Height="27" Margin="179,560,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="40" TextChanged="textBox_TextChanged" RenderTransformOrigin="-0.983,0.432"/>
         <TextBox x:Name="EnterMaxAngle" HorizontalAlignment="Left" Height="21" Margin="179,591,0,0" TextWrapping="Wrap" Text="180" VerticalAlignment="Top" Width="40"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="26" Margin="38,560,0,0" TextWrapping="Wrap" Text="Desired minimum angle:" VerticalAlignment="Top" Width="136"/>
@@ -173,5 +164,19 @@
             </ComboBox.Background>
         </ComboBox>
         <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Height="26" Margin="673,590,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136"><Run Text="Camerav"/><Run Text="iew"/><Run Text=":"/><Run Text=" "/></TextBlock>
+        <TextBlock x:Name="desiredPulsTextblock1" HorizontalAlignment="Left" Height="26" Margin="253,560,0,0" TextWrapping="Wrap" Text="Desired minimum pulse:" VerticalAlignment="Top" Width="136"/>
+        <TextBlock x:Name="desiredPulsTextblock2" HorizontalAlignment="Left" Height="26" Margin="253,586,0,0" TextWrapping="Wrap" Text="Desired maximum pulse:" VerticalAlignment="Top" Width="136"/>
+        <TextBox x:Name="EnterMinPulse" HorizontalAlignment="Left" Height="27" Margin="394,560,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="40" TextChanged="textBox_TextChanged" RenderTransformOrigin="-0.983,0.432"/>
+        <TextBox x:Name="EnterMaxPulse" HorizontalAlignment="Left" Height="21" Margin="394,591,0,0" TextWrapping="Wrap" Text="230" VerticalAlignment="Top" Width="40"/>
+        <Button x:Name="UpdDesiredPulse" Content="Update desired pulse" HorizontalAlignment="Left" Height="26" Margin="253,617,0,0" VerticalAlignment="Top" Width="181" Click="UpdDesiredPulse_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFA4E2FF" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>
